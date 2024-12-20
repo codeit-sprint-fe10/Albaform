@@ -42,17 +42,17 @@ const Albatalk = () => {
   return (
     <div className="w-full">
       <div className="flex justify-center border-b-2">
-        <div className="flex max-w-7xl w-full h-28 items-center justify-between">
-          <div className="flex w-full">
-            <div className="hidden md:inline relative w-[120px] h-[20px] lg:w-[212px] lg:h-[36px]">
-              <SearchIcon />
+        <div className="flex max-w-7xl w-full h-28 items-center justify-between gap-">
+          <div className="flex w-full max-w-6xl bg-background-200 border-none rounded-3xl px-6 py-4 justify-center items-center">
+            <div className="flex items-center justify-center w-8 h-8">
+              <SearchIcon className=" text-gray-500" />
             </div>
             <input
               type="text"
               placeholder="검색어를 입력하세요"
               value={searchTerm}
               onChange={handleSearch}
-              className="w-4/5 h-16 bg-background-200 border-none rounded-3xl px-6 py-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full pl-2 bg-background-200 focus:outline-none"
             />
           </div>
           <button
