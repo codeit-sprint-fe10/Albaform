@@ -10,7 +10,7 @@ const MainHeader = () => {
   const pathname = usePathname();
 
   return (
-    <header className="flex justify-between items-center gap-8 bg-background-100 py-[10px] md:py-[19px] lg:py-[24px]">
+    <header className="flex justify-between items-center gap-8 bg-gray-50 py-[10px] md:py-[19px] lg:py-[24px]">
       <div>
         <Link href="/" className="flex items-center gap-2">
           <div className="relative w-[45px] h-[30px] lg:w-[60px] lg:h-[40px]">
