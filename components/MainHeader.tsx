@@ -1,39 +1,25 @@
 import React from 'react';
 import Link from 'next/link';
 import IconMenu from '/public/icons/menu.svg';
-import IconLogo from '/public/icons/logo.svg';
-import IconAlbaform from '/public/icons/albaform.svg';
+import Image from 'next/image';
 
 const MainHeader = () => {
   return (
-    <header className="flex justify-between items-center gap-8 bg-background-100 py-[10px] md:py-[19px] lg:py-[26px]">
+    <header className="flex justify-between items-center gap-8 bg-background-100 py-[10px] md:py-[19px] lg:py-[24px]">
       <div>
         <Link href="/" className="flex items-center gap-2">
-          <IconLogo />
-          <span className="hidden md:inline">
-            <IconAlbaform />
-          </span>
+          <div className="relative w-[45px] h-[30px] lg:w-[60px] lg:h-[40px]">
+            <Image src="/icons/logo.svg" alt="albaform logo" fill />
+          </div>
+          <div className="hidden md:inline relative w-[120px] h-[20px] lg:w-[212px] lg:h-[36px]">
+            <Image src="/icons/albaform.svg" alt="albaform text logo" fill />
+          </div>
         </Link>
       </div>
-      <nav className="flex-1 flex gap-6">
-        <Link
-          href="/albalist"
-          className="text-white hover:text-gray-200 transition-colors"
-        >
-          알바목록
-        </Link>
-        <Link
-          href="/albatalk"
-          className="text-white hover:text-gray-200 transition-colors"
-        >
-          알바토크
-        </Link>
-        <Link
-          href="/myalbaform"
-          className="text-white hover:text-gray-200 transition-colors"
-        >
-          내알바폼
-        </Link>
+      <nav className="flex-1 flex gap-[16px] md:gap-[16px] lg:gap-[24px] flex-nowrap text-gray-300 text-md md:text-lg lg:text-xl">
+        <Link href="/albalist">알바목록</Link>
+        <Link href="/albatalk">알바토크</Link>
+        <Link href="/myalbaform">내알바폼</Link>
       </nav>
       <div>
         <IconMenu />
