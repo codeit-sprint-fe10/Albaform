@@ -55,8 +55,6 @@ const DateRangePicker = ({ onChange }: DateRangePickerProps) => {
   const handleDayMouseLeave = () => setHoverDate(null);
   const handlePrevMonth = () => setCurrentDate(addMonths(currentDate, -1));
   const handleNextMonth = () => setCurrentDate(addMonths(currentDate, 1));
-  const isRowStart = (dayIndex: number) => dayIndex % 7 === 0;
-  const isRowEnd = (dayIndex: number) => (dayIndex + 1) % 7 === 0;
 
   const renderDays = () => {
     const daysInCurrentMonth = getDaysInMonth(currentDate);
@@ -93,55 +91,65 @@ const DateRangePicker = ({ onChange }: DateRangePickerProps) => {
 
     const allDays = [...prevMonthDays, ...currentMonthDays, ...nextMonthDays];
 
+    const weeks = [];
+    for (let i = 0; i < allDays.length; i += 7) {
+      weeks.push(allDays.slice(i, i + 7));
+    }
+
     return (
       <>
-        {allDays.map((day, index) => {
-          const isSelected =
-            isSameDay(day, startDate) || isSameDay(day, endDate);
-          const isInRange =
-            startDate &&
-            ((endDate &&
-              isWithinInterval(day, { start: startDate, end: endDate })) ||
-              (!endDate &&
-                hoverDate &&
-                isWithinInterval(day, { start: startDate, end: hoverDate })));
+        {weeks.map((week, weekIndex) => (
+          <div key={weekIndex} className="flex overflow-hidden rounded-full">
+            {week.map((day) => {
+              const isSelected =
+                isSameDay(day, startDate) || isSameDay(day, endDate);
+              const isInRange =
+                startDate &&
+                ((endDate &&
+                  isWithinInterval(day, { start: startDate, end: endDate })) ||
+                  (!endDate &&
+                    hoverDate &&
+                    isWithinInterval(day, {
+                      start: startDate,
+                      end: hoverDate,
+                    })));
 
-          const isCurrentMonth = day.getMonth() === currentDate.getMonth();
-          const isRangeStart = isSameDay(day, startDate);
-          const isRangeEnd = isSameDay(day, endDate || hoverDate);
-          const isStartOfRow = isRowStart(index);
-          const isEndOfRow = isRowEnd(index);
+              const isCurrentMonth = day.getMonth() === currentDate.getMonth();
+              const isRangeStart = isSameDay(day, startDate);
+              const isRangeEnd = isSameDay(day, endDate || hoverDate);
 
-          return (
-            <button
-              key={day.toISOString()}
-              onClick={() => handleDayClick(day)}
-              onMouseEnter={() => handleDayMouseEnter(day)}
-              onMouseLeave={handleDayMouseLeave}
-              className={`relative w-11 h-11 lg:w-16 lg:h-16 flex items-center justify-center text-sm font-medium lg:text-xl
-                ${isCurrentMonth && !isSelected && 'text-black-400'}
-                ${!isCurrentMonth && !isSelected && 'text-gray-100'}
-                ${
-                  isInRange &&
-                  `before:absolute before:h-7 lg:before:h-10 before:top-2/4 before:-translate-y-1/2 before:inset-0 before:bg-orange-50 before:-z-10
-                  ${(isRangeStart || isStartOfRow) && 'before:rounded-l-full'}
-                  ${(isRangeEnd || isEndOfRow) && 'before:rounded-r-full'}
-                `
-                }
-                group
-              `}
-            >
-              <div
-                className={`w-7 h-7 lg:w-10 lg:h-10 rounded-full flex items-center justify-center
-                ${isSelected && 'bg-orange-300 text-gray-50'}
-                ${!isSelected && 'group-hover:bg-gray-100 group-hover:text-black-400 group-hover:rounded-full'}
-              `}
-              >
-                {day.getDate()}
-              </div>
-            </button>
-          );
-        })}
+              return (
+                <button
+                  key={day.toISOString()}
+                  onClick={() => handleDayClick(day)}
+                  onMouseEnter={() => handleDayMouseEnter(day)}
+                  onMouseLeave={handleDayMouseLeave}
+                  className={`relative w-11 lg:w-16 flex items-center justify-center text-sm font-medium lg:text-xl
+                    ${isCurrentMonth && !isSelected && 'text-black-400'}
+                    ${!isCurrentMonth && !isSelected && 'text-gray-100'}
+                    ${
+                      isInRange &&
+                      `before:absolute before:h-7 lg:before:h-10 before:top-2/4 before:-translate-y-1/2 before:inset-0 before:bg-orange-50 before:-z-10
+                      ${isRangeStart && 'before:rounded-l-full'}
+                      ${isRangeEnd && 'before:rounded-r-full'}
+                    `
+                    }
+                    group
+                  `}
+                >
+                  <div
+                    className={`w-7 h-7 lg:w-10 lg:h-10 rounded-full flex items-center justify-center
+                    ${isSelected && 'bg-orange-300 text-gray-50'}
+                    ${!isSelected && 'group-hover:bg-gray-100 group-hover:text-black-400 group-hover:rounded-full'}
+                  `}
+                  >
+                    {day.getDate()}
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        ))}
       </>
     );
   };
@@ -168,15 +176,17 @@ const DateRangePicker = ({ onChange }: DateRangePickerProps) => {
             </h3>
             <button onClick={handleNextMonth}>&gt;</button>
           </div>
-          <div className="grid grid-cols-7">
+          <div className="flex">
             {['일', '월', '화', '수', '목', '금', '토'].map((day) => (
               <div
                 key={day}
-                className="text-center font-medium text-sm lg:text-xl text-gray-500"
+                className="w-11 h-11 lg:w-16 lg:h-16 flex items-center justify-center text-center font-medium text-sm lg:text-xl text-gray-500"
               >
                 {day}
               </div>
             ))}
+          </div>
+          <div className="flex flex-col gap-[14px] lg:gap-6 pt-[7px] lg:pt-3">
             {renderDays()}
           </div>
         </div>
