@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import AlbatalkCard from './_components/AlbatalkCard';
 import SearchIcon from '@/public/icons/search.svg';
-import Image from 'next/image';
 
 const Albatalk = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -10,10 +9,6 @@ const Albatalk = () => {
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
-  };
-
-  const handleSortChange = (order) => {
-    setSortOrder(order);
   };
 
   // Mock data
@@ -25,19 +20,6 @@ const Albatalk = () => {
     { id: 5, title: '알바 팁 공유합니다', likes: 25, date: '2024-12-02' },
     { id: 6, title: '알바 면접 후기', likes: 15, date: '2024-12-03' },
   ];
-
-  // Filtered and sorted posts
-  const filteredPosts = posts
-    .filter((post) =>
-      post.title.toLowerCase().includes(searchTerm.toLowerCase()),
-    )
-    .sort((a, b) => {
-      if (sortOrder === 'recent') {
-        return new Date(b.date) - new Date(a.date);
-      } else {
-        return b.likes - a.likes;
-      }
-    });
 
   return (
     <div className="w-full">
@@ -55,23 +37,14 @@ const Albatalk = () => {
               className="w-full pl-2 bg-background-200 focus:outline-none"
             />
           </div>
-          <button
-            onClick={() => handleSortChange('recent')}
-            className={`px-4 py-2 rounded-lg ${
-              sortOrder === 'recent'
-                ? 'bg-blue-500 text-white'
-                : 'bg-gray-200 text-gray-700'
-            }`}
-          >
-            최신순
-          </button>
+          <button>최신순</button>
         </div>
       </div>
 
       <div className="w-full flex items-center justify-center mt-10">
         <div className="flex w-full max-w-7xl">
           <ul className="w-full grid grid-cols-3 gap-6 gap-y-12">
-            {filteredPosts.map((post) => (
+            {posts.map((post) => (
               <AlbatalkCard key={post.id} />
             ))}
           </ul>
