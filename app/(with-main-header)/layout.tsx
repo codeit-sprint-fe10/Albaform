@@ -1,7 +1,7 @@
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import MainHeader from '@/components/MainHeader';
 
-export default function Layout({ children }: { children: ReactNode }) {
+const Layout = ({ children }: { children: ReactNode }) => {
   return (
     <>
       <div className="fixed top-0 w-full border-b border-solid border-lin-100 bg-white z-50">
@@ -14,4 +14,6 @@ export default function Layout({ children }: { children: ReactNode }) {
       </main>
     </>
   );
-}
+};
+
+export default Layout;
