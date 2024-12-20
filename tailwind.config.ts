@@ -26,6 +26,9 @@ const tailwindConfig = {
       medium: '500',
       regular: '400',
     },
+    maxWidth: {
+      container: '1600px',
+    },
     colors: {
       black: {
         100: '#6B6B6B',
