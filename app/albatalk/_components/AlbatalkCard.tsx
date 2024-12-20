@@ -7,7 +7,8 @@ import Image from 'next/image';
 
 const AlbatalkCard = () => {
   return (
-    <div className="w-full h-72 p-6 border rounded-2xl">
+    <div className="relative w-full h-72 p-6 border rounded-2xl">
+      <KebabIcon className="absolute right-5" />
       <div className="flex flex-col gap-6">
         <div className="flex h-44 flex-col gap-2">
           <div className="max-w-80 text-black-400 font-semibold text-lg">
