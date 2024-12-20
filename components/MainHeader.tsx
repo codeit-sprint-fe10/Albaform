@@ -1,9 +1,14 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
 import IconMenu from '/public/icons/menu.svg';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 
 const MainHeader = () => {
+  const pathname = usePathname();
+
   return (
     <header className="flex justify-between items-center gap-8 bg-background-100 py-[10px] md:py-[19px] lg:py-[24px]">
       <div>
@@ -16,10 +21,25 @@ const MainHeader = () => {
           </div>
         </Link>
       </div>
-      <nav className="flex-1 flex gap-[16px] md:gap-[16px] lg:gap-[24px] flex-nowrap text-gray-300 text-md md:text-lg lg:text-xl">
-        <Link href="/albalist">알바목록</Link>
-        <Link href="/albatalk">알바토크</Link>
-        <Link href="/myalbaform">내알바폼</Link>
+      <nav className="flex-1 flex gap-[16px] md:gap-[16px] lg:gap-[24px] flex-nowrap font-medium text-gray-300 text-md md:text-lg lg:text-xl lg:mt-[12px]">
+        <Link
+          href="/albalist"
+          className={`link ${pathname === '/albalist' ? 'font-bold text-orange-200' : ''}`}
+        >
+          알바목록
+        </Link>
+        <Link
+          href="/albatalk"
+          className={`link ${pathname === '/albatalk' ? 'font-bold text-orange-200' : ''}`}
+        >
+          알바토크
+        </Link>
+        <Link
+          href="/myalbaform"
+          className={`link ${pathname === '/myalbaform' ? 'font-bold text-orange-200' : ''}`}
+        >
+          내알바폼
+        </Link>
       </nav>
       <div>
         <IconMenu />
