@@ -2,6 +2,7 @@ import Chip from '@/components/Chip';
 import { formatDate, formatFullDateTime } from '@/utils/dateFormatter';
 import Image from 'next/image';
 import TermsDetail from '@/app/(with-main-header)/alba/_components/TermsDetail';
+import ApplicantsAlert from '@/app/(with-main-header)/alba/_components/ApplicantsAlert';
 
 const mock = {
   isPublic: true,
@@ -27,6 +28,9 @@ const Page = async ({ params }: { params: Promise<{ formId: number }> }) => {
 
   return (
     <div className="mt-[50px]">
+      <div className="fixed top-[60px] md:top-[80px] lg:top-[110px] left-1/2 transform -translate-x-1/2 z-50 w-[300px] lg:w-[1085px]">
+        <ApplicantsAlert count={mock.applyCount} />
+      </div>
       <div className="flex items-center justify-between">
         <div className="flex gap-[8px]">
           <Chip value={mock.isPublic ? '공개' : '비공개'} />
