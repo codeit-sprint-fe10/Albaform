@@ -1,9 +1,5 @@
-<svg width="22" height="16" viewBox="0 0 22 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g id="ico">
-<g id="Group 3516">
-<path id="Vector 615" d="M1 1H21" stroke="#1F1F1F" stroke-width="2" stroke-linecap="round"/>
-<path id="Vector 617" d="M1 8H21" stroke="#1F1F1F" stroke-width="2" stroke-linecap="round"/>
-<path id="Vector 616" d="M1 15H21" stroke="#1F1F1F" stroke-width="2" stroke-linecap="round"/>
-</g>
-</g>
+<svg xmlns="http://www.w3.org/2000/svg" width="22" height="16" viewBox="0 0 22 16" fill="none">
+    <path d="M1 1H21" stroke="#1F1F1F" stroke-width="2" stroke-linecap="round"/>
+    <path d="M1 8H21" stroke="#1F1F1F" stroke-width="2" stroke-linecap="round"/>
+    <path d="M1 15H21" stroke="#1F1F1F" stroke-width="2" stroke-linecap="round"/>
 </svg>
