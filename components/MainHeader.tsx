@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import Link from 'next/link';
 import IconMenu from '/public/icons/menu.svg';
 import Image from 'next/image';
