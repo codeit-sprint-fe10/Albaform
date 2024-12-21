@@ -1,8 +1,6 @@
-import React from 'react';
 import KebabIcon from '@/public/icons/kebab.svg';
 import CommentIcon from '@/public/icons/comment.svg';
 import LikeIcon from '@/public/icons/like.svg';
-import Profile from '@/public/icons/profile.svg';
 import Image from 'next/image';
 
 const AlbatalkCard = () => {
