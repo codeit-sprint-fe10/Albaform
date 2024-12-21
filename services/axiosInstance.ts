@@ -11,26 +11,24 @@ export const instance = axios.create({
 instance.interceptors.request.use(async (config) => {
   if (config.url === 'auth/refresh') return config;
 
-  const response =
-    await axios.get<Record<string, string | null>>('/api/cookies');
-  const cookies = response.data;
-
   try {
-    if (Object.values(cookies).some((cookie) => cookie === null))
+    const auths = await axios
+      .get<Record<string, string | null>>('/api/auth')
+      .then((res) => res.data);
+
+    if (Object.values(auths).some((auth) => !auth))
       throw new AxiosError('저장된 유저 정보가 없습니다.', '401');
 
     const { accessToken } = await postRefresh({
-      refreshToken: cookies.refreshToken!,
+      refreshToken: auths.refreshToken!,
     });
-    await axios.patch('/api/cookies', { accessToken });
-    cookies.accessToken = accessToken;
+
+    await axios.patch('/api/auth', { accessToken });
+    config.headers['Authorization'] = `Bearer ${accessToken}`;
   } catch {
-    await axios.delete('/api/cookies');
-    cookies.accessToken = null;
+    await axios.delete('/api/auth');
   }
 
-  if (cookies.accessToken)
-    config.headers['Authorization'] = `Bearer ${cookies.accessToken}`;
   return config;
 });
 

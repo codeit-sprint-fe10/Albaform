@@ -28,8 +28,10 @@ export const POST = async (request: NextRequest) => {
 
 export const PATCH = async (request: NextRequest) => {
   const cookieStore = await cookies();
-  const reqBody: { accessToken: string } = await request.json();
-  cookieStore.set(names.accessToken, reqBody.accessToken, options);
+  const reqBody: Record<string, string> = await request.json();
+  Object.entries(reqBody).forEach(([varName, value]) => {
+    cookieStore.set(names[varName as keyof typeof names], value, options);
+  });
 
   return NextResponse.json({ message: 'Cookies modified' }, { status: 200 });
 };
