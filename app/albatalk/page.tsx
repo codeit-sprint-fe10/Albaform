@@ -2,6 +2,7 @@
 import React, { useState, ChangeEvent } from 'react';
 import AlbatalkCard from './_components/AlbatalkCard';
 import SearchIcon from '@/public/icons/search.svg';
+import Pagination from './_components/Pagination';
 
 interface Post {
   id: number;
@@ -48,11 +49,6 @@ const Albatalk: React.FC = () => {
     startIndex + postsPerPage,
   );
 
-  const handlePageChange = (page: number) => {
-    if (page < 1 || page > totalPages) return;
-    setCurrentPage(page);
-  };
-
   return (
     <div className="w-full">
       <div className="flex justify-center border-b-2">
@@ -82,43 +78,11 @@ const Albatalk: React.FC = () => {
           </ul>
         </div>
       </div>
-      <div className="flex justify-center mt-6">
-        <div className="flex space-x-2">
-          <button
-            onClick={() => handlePageChange(currentPage - 1)}
-            disabled={currentPage === 1}
-            className={`px-4 py-2 rounded-md ${
-              currentPage === 1
-                ? 'text-gray-500 cursor-not-allowed'
-                : 'bg-blue-500 text-white'
-            }`}
-          >
-            &lt;
-          </button>
-          {Array.from({ length: totalPages }, (_, index) => (
-            <button
-              key={index + 1}
-              onClick={() => handlePageChange(index + 1)}
-              className={`px-4 py-2 rounded-md ${
-                currentPage === index + 1 ? 'text-black-400' : 'text-gray-200'
-              }`}
-            >
-              {index + 1}
-            </button>
-          ))}
-          <button
-            onClick={() => handlePageChange(currentPage + 1)}
-            disabled={currentPage === totalPages}
-            className={`px-4 py-2 rounded-md ${
-              currentPage === totalPages
-                ? 'text-gray-500 cursor-not-allowed'
-                : 'bg-blue-500 text-white'
-            }`}
-          >
-            &gt;
-          </button>
-        </div>
-      </div>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
+      />
     </div>
   );
 };
