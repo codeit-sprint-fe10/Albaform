@@ -4,7 +4,7 @@ import MainHeader from '@/components/MainHeader';
 const Layout = ({ children }: { children: ReactNode }) => {
   return (
     <>
-      <div className="fixed top-0 w-full border-b border-solid border-lin-100 bg-white z-50">
+      <div className="fixed top-0 w-full border-b border-solid border-line-100 bg-gray-50 z-50">
         <div className="px-[24px] md:px-[72px] lg:max-w-container m-auto">
           <MainHeader />
         </div>

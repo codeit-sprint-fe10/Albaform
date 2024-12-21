@@ -1,6 +1,7 @@
 import Chip from '@/components/Chip';
-import { formatFullDateTime } from '@/utils/dateFormatter';
+import { formatDate, formatFullDateTime } from '@/utils/dateFormatter';
 import Image from 'next/image';
+import TermsDetail from '@/app/(with-main-header)/alba/_components/TermsDetail';
 
 const mock = {
   isPublic: true,
@@ -11,6 +12,13 @@ const mock = {
   applyCount: 5,
   title:
     '코드잇 스터디카페 관리 (주말 오전) 모집합니다 서울 종로구 용산구 서대문',
+  workEndTime: '21:00',
+  workStartTime: '06:00',
+  workEndDate: '2024-12-21T15:31:08.301Z',
+  workStartDate: '2024-11-03T15:31:08.301Z',
+  hourlyWage: 10000,
+  workDays: ['월', '화', '수'],
+  isNegotiableWorkDays: false,
 };
 
 const Page = async ({ params }: { params: Promise<{ formId: number }> }) => {
@@ -67,6 +75,31 @@ const Page = async ({ params }: { params: Promise<{ formId: number }> }) => {
             현재까지 <strong>{mock.applyCount}명</strong>이 알바폼에 지원했어요!
           </span>
         </div>
+      </div>
+
+      <div className="grid grid-rows-2 grid-cols-2 gap-2">
+        <TermsDetail
+          title="시급"
+          value={mock.hourlyWage.toLocaleString() + '원'}
+          iconUrl={'/icons/money.svg'}
+        />
+        <TermsDetail
+          title="기간"
+          value={`${formatDate(mock.workStartDate).slice(2)}~${formatDate(mock.workEndDate).slice(2)}`}
+          iconUrl={'/icons/calendar-clock.svg'}
+        />
+        <TermsDetail
+          title="요일"
+          value={
+            mock.isNegotiableWorkDays ? '협의가능' : mock.workDays.join(', ')
+          }
+          iconUrl={'/icons/calendar.svg'}
+        />
+        <TermsDetail
+          title="시간"
+          value={`${mock.workStartTime}~${mock.workEndTime}`}
+          iconUrl={'/icons/clock.svg'}
+        />
       </div>
     </div>
   );
