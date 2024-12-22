@@ -5,6 +5,7 @@ import SectionTerms from '@/app/(with-main-header)/alba/_components/SectionTerms
 import SectionContact from '@/app/(with-main-header)/alba/_components/SectionContact';
 import SectionAlert from '@/app/(with-main-header)/alba/_components/SectionAlert';
 import SectionDescription from '@/app/(with-main-header)/alba/_components/SectionDescription';
+import FixedActions from '@/app/(with-main-header)/alba/_components/FixedActions';
 
 const mock = {
   isPublic: true,
@@ -34,6 +35,7 @@ const mock = {
   education: '학력무관',
   age: '연령무관',
   preferred: '업무 관련 자격증 소지, 유사업무 경험 우대, 인근 거주 우대',
+  isScrapped: false,
 };
 
 const Page = async ({ params }: { params: Promise<{ formId: number }> }) => {
@@ -61,6 +63,7 @@ const Page = async ({ params }: { params: Promise<{ formId: number }> }) => {
       <div className="mt-[32px]">
         <Location location={mock.location} />
       </div>
+      <FixedActions isScrapped={mock.isScrapped} />
     </div>
   );
 };
