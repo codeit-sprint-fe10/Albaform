@@ -1,8 +1,13 @@
 import Chip from '@/components/Chip';
-import { formatDate, formatFullDateTime } from '@/utils/dateFormatter';
+import {
+  formatDate,
+  formatDateWithSpace,
+  formatFullDateTime,
+} from '@/utils/dateFormatter';
 import Image from 'next/image';
 import TermsDetail from '@/app/(with-main-header)/alba/_components/TermsDetail';
 import ApplicantsAlert from '@/app/(with-main-header)/alba/_components/ApplicantsAlert';
+import { calculateDDay } from '@/utils/dDayCalculator';
 
 const mock = {
   isPublic: true,
@@ -20,6 +25,10 @@ const mock = {
   hourlyWage: 10000,
   workDays: ['월', '화', '수'],
   isNegotiableWorkDays: false,
+  storePhoneNumber: '02-1234-5678',
+  phoneNumber: '010-1234-5678',
+  recruitmentEndDate: '2024-12-31T15:31:08.301Z',
+  recruitmentStartDate: '2024-11-03T15:31:08.301Z',
 };
 
 const Page = async ({ params }: { params: Promise<{ formId: number }> }) => {
@@ -104,6 +113,24 @@ const Page = async ({ params }: { params: Promise<{ formId: number }> }) => {
           value={`${mock.workStartTime}~${mock.workEndTime}`}
           iconUrl={'/icons/clock.svg'}
         />
+      </div>
+
+      <div>
+        <div className="border-b border-line-100 flex items-center justify-between py-[14px] font-regular text-xs lg:text-xl">
+          <span className="text-black-100 ">
+            모집기간
+            <span className="ml-1.5 text-orange-300 font-semibold">{`D-${calculateDDay(mock.recruitmentEndDate)}`}</span>
+          </span>
+          <span className="text-black-400 ">{`${formatDateWithSpace(mock.recruitmentStartDate)} ~ ${formatDateWithSpace(mock.recruitmentStartDate)}`}</span>
+        </div>
+        <div className="border-b border-line-100 flex items-center justify-between py-[14px] font-regular text-xs lg:text-xl">
+          <span className="text-black-100 ">가게 전화번호</span>
+          <span className="text-black-400 ">{mock.storePhoneNumber}</span>
+        </div>
+        <div className="border-b border-line-100 flex items-center justify-between py-[14px] font-regular text-xs lg:text-xl">
+          <span className="text-black-100 ">모집기간</span>
+          <span className="text-black-400 ">{mock.phoneNumber}</span>
+        </div>
       </div>
     </div>
   );
