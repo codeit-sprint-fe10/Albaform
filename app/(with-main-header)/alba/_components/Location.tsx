@@ -17,7 +17,7 @@ const Location = ({ location }: LocationProps) => {
   };
 
   return (
-    <div>
+    <section>
       <h3 className="py-[16px] font-semibold text-2lg lg:text-3xl">
         근무 지역
       </h3>
@@ -31,7 +31,7 @@ const Location = ({ location }: LocationProps) => {
         </button>
       </div>
       <div className="mt-[16px] lg:mt-[48px]">지도영역</div>
-    </div>
+    </section>
   );
 };
 

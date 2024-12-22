@@ -13,7 +13,7 @@ const Requirements = ({
   preferred,
 }: RequirementsProps) => {
   return (
-    <div>
+    <section>
       <h3 className="py-[16px] font-semibold text-2lg lg:text-3xl">
         모집 조건
       </h3>
@@ -53,7 +53,7 @@ const Requirements = ({
           </tbody>
         </table>
       </div>
-    </div>
+    </section>
   );
 };
 
