@@ -8,6 +8,7 @@ import Image from 'next/image';
 import TermsDetail from '@/app/(with-main-header)/alba/_components/TermsDetail';
 import ApplicantsAlert from '@/app/(with-main-header)/alba/_components/ApplicantsAlert';
 import { calculateDDay } from '@/utils/dDayCalculator';
+import Requirements from '@/app/(with-main-header)/alba/_components/Requirements';
 
 const mock = {
   isPublic: true,
@@ -31,6 +32,11 @@ const mock = {
   recruitmentStartDate: '2024-11-03T15:31:08.301Z',
   description:
     '코드잇 스터디 카페입니다. \n주말 토, 일 오픈업무 하실 분 구합니다.\n\n성실하게 일하실 분들만 지원 바랍니다.\n작성한 이력서(사진 부착)를 알바폼에 첨부해주시고, 아래와 같이 문자 보내주세요. \n근무 중 전화통화 불가합니다.\n\n 예) OOO입니다. __에 거주합니다. 알바폼 지원. \n\n이력서 검토 후 면접진행자에 한해 면접일정 개별 연락드리겠습니다. \n많은 지원 바랍니다.',
+  numberOfPositions: 0,
+  gender: '성별무관',
+  education: '학력무관',
+  age: '연령무관',
+  preferred: '업무 관련 자격증 소지, 유사업무 경험 우대, 인근 거주 우대',
 };
 
 const Page = async ({ params }: { params: Promise<{ formId: number }> }) => {
@@ -140,6 +146,8 @@ const Page = async ({ params }: { params: Promise<{ formId: number }> }) => {
           {mock.description}
         </p>
       </div>
+
+      <Requirements {...mock} />
     </div>
   );
 };
