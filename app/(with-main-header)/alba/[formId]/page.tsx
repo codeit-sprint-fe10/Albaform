@@ -9,12 +9,14 @@ import TermsDetail from '@/app/(with-main-header)/alba/_components/TermsDetail';
 import ApplicantsAlert from '@/app/(with-main-header)/alba/_components/ApplicantsAlert';
 import { calculateDDay } from '@/utils/dDayCalculator';
 import Requirements from '@/app/(with-main-header)/alba/_components/Requirements';
+import Location from '@/app/(with-main-header)/alba/_components/Location';
 
 const mock = {
   isPublic: true,
   createdAt: '2024-12-21T06:37:44.900Z',
   storeName: '코드잇',
-  location: '서울시 종로구',
+  location:
+    '서울특별시 중구 청계천로 100 시그니쳐타워 동관 1층 코드잇 스터디카페',
   scrapCount: 8,
   applyCount: 5,
   title:
@@ -148,6 +150,7 @@ const Page = async ({ params }: { params: Promise<{ formId: number }> }) => {
       </div>
 
       <Requirements {...mock} />
+      <Location location={mock.location} />
     </div>
   );
 };
