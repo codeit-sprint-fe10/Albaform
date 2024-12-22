@@ -45,12 +45,22 @@ const Page = async ({ params }: { params: Promise<{ formId: number }> }) => {
       <div>
         <SectionAlert applyCount={mock.applyCount} />
         <SectionSummary {...mock} />
-        <SectionTerms {...mock} />
-        <SectionContact {...mock} />
-        <SectionDescription description={mock.description} />
+        <div className="mt-[32px] md:mt-[40px]">
+          <SectionTerms {...mock} />
+        </div>
+        <div className="mt-[32px]">
+          <SectionContact {...mock} />
+        </div>
+        <div className="mt-[32px]">
+          <SectionDescription description={mock.description} />
+        </div>
       </div>
-      <Requirements {...mock} />
-      <Location location={mock.location} />
+      <div className="mt-[32px]">
+        <Requirements {...mock} />
+      </div>
+      <div className="mt-[32px]">
+        <Location location={mock.location} />
+      </div>
     </div>
   );
 };
