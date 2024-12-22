@@ -6,6 +6,7 @@ import SectionContact from '@/app/(with-main-header)/alba/_components/SectionCon
 import SectionAlert from '@/app/(with-main-header)/alba/_components/SectionAlert';
 import SectionDescription from '@/app/(with-main-header)/alba/_components/SectionDescription';
 import FixedActions from '@/app/(with-main-header)/alba/_components/FixedActions';
+import ApplicationActions from '@/app/(with-main-header)/alba/_components/ApplicationActions';
 
 const mock = {
   isPublic: true,
@@ -62,6 +63,9 @@ const Page = async ({ params }: { params: Promise<{ formId: number }> }) => {
       </div>
       <div className="mt-[32px]">
         <Location location={mock.location} />
+      </div>
+      <div className="mt-[40px] mb-[30px]">
+        <ApplicationActions formId={formId} />
       </div>
       <FixedActions isScrapped={mock.isScrapped} />
     </div>
