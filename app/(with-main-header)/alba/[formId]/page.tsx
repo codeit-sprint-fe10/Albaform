@@ -29,6 +29,8 @@ const mock = {
   phoneNumber: '010-1234-5678',
   recruitmentEndDate: '2024-12-31T15:31:08.301Z',
   recruitmentStartDate: '2024-11-03T15:31:08.301Z',
+  description:
+    '코드잇 스터디 카페입니다. \n주말 토, 일 오픈업무 하실 분 구합니다.\n\n성실하게 일하실 분들만 지원 바랍니다.\n작성한 이력서(사진 부착)를 알바폼에 첨부해주시고, 아래와 같이 문자 보내주세요. \n근무 중 전화통화 불가합니다.\n\n 예) OOO입니다. __에 거주합니다. 알바폼 지원. \n\n이력서 검토 후 면접진행자에 한해 면접일정 개별 연락드리겠습니다. \n많은 지원 바랍니다.',
 };
 
 const Page = async ({ params }: { params: Promise<{ formId: number }> }) => {
@@ -131,6 +133,12 @@ const Page = async ({ params }: { params: Promise<{ formId: number }> }) => {
           <span className="text-black-100 ">모집기간</span>
           <span className="text-black-400 ">{mock.phoneNumber}</span>
         </div>
+      </div>
+
+      <div>
+        <p className="text-black-400 font-regular text-lg lg:text-2xl whitespace-pre-wrap">
+          {mock.description}
+        </p>
       </div>
     </div>
   );
