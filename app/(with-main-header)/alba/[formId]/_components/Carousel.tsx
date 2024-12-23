@@ -38,7 +38,7 @@ const Carousel = ({ imageUrls }: CarouselProps) => {
         src={imageUrls[currentSlide]}
         alt=""
         fill
-        className="object-cover"
+        className="object-cover xl:rounded-[8px]"
       />
       <div className="hidden lg:block absolute bottom-6 left-1/2">
         <div className="flex justify-between items-center gap-[15px]">

@@ -9,6 +9,7 @@ const tailwindConfig = {
     screens: {
       md: '768px',
       lg: '1280px',
+      xl: '1600px',
     },
     fontSize: {
       '3xl': ['32px', '42px'],
