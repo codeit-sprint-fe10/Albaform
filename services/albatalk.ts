@@ -1,15 +1,8 @@
 import { instance } from './axiosInstance';
-import { GetPostsResponse } from '@/types/albatalk';
-
-interface GetPostsParams {
-  cursor: number;
-  limit: number;
-  orderBy?: 'mostRecent' | 'mostCommented' | 'mostLiked';
-  keyword?: string;
-}
+import { GetPostsResponse, GetPostsParameters } from '@/types/albatalk';
 
 export const getPosts = async (
-  params?: GetPostsParams,
+  params?: GetPostsParameters,
 ): Promise<GetPostsResponse> => {
   try {
     const response = await instance.get<GetPostsResponse>('/posts', {

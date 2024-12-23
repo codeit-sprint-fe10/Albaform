@@ -20,3 +20,10 @@ export interface GetPostsResponse {
   nextCursor: number;
   data: Post[];
 }
+
+export interface GetPostsParameters {
+  cursor: number;
+  limit: number;
+  orderBy?: 'mostRecent' | 'mostCommented' | 'mostLiked';
+  keyword?: string;
+}
