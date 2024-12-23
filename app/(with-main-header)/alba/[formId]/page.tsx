@@ -7,9 +7,6 @@ import AlertSection from '@/app/(with-main-header)/alba/[formId]/_components/Ale
 import DescriptionSection from '@/app/(with-main-header)/alba/[formId]/_components/DescriptionSection';
 import FixedActions from '@/app/(with-main-header)/alba/[formId]/_components/FixedActions';
 import ApplicationActions from '@/app/(with-main-header)/alba/[formId]/_components/ApplicationActions';
-import Image from 'next/image';
-import IconEllipse480 from '@/public/icons/ellipse-480.svg';
-import IconEllipse481 from '@/public/icons/ellipse-481.svg';
 import Carousel from '@/app/(with-main-header)/alba/[formId]/_components/Carousel';
 
 const mock = {
@@ -62,7 +59,6 @@ const AlbaFormIdPage = async ({
           <Carousel imageUrls={mock.imageUrls} />
         </div>
       </div>
-
       <div>
         <AlertSection applyCount={mock.applyCount} />
         <div className="mt-[32px] md:mt-[80px]">
