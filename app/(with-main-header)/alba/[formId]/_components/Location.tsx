@@ -1,6 +1,7 @@
 'use client';
 
 import { Recruitment } from '@/types/recruitment';
+import GoogleMap from '@/app/(with-main-header)/alba/[formId]/_components/GoogleMap';
 
 type LocationProps = Pick<Recruitment, 'location'>;
 
@@ -30,7 +31,9 @@ const Location = ({ location }: LocationProps) => {
           복사
         </button>
       </div>
-      <div className="mt-[16px] lg:mt-[48px]">지도영역</div>
+      <div className="mt-[16px] lg:mt-[48px] w-full h-[210px]">
+        {/*<GoogleMap {...location.coordinates}/>*/}
+      </div>
     </section>
   );
 };
