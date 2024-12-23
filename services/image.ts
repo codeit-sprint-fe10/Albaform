@@ -1,13 +1,13 @@
 import { instance } from './axiosInstance';
 
-interface UploadImageResponse {
+interface PostImageResponse {
   url: string;
 }
 
-export const uploadImage = async (image: File) => {
+export const postImage = async (image: File) => {
   const formData = new FormData();
   formData.append('image', image);
-  const response = await instance.post<UploadImageResponse>(
+  const response = await instance.post<PostImageResponse>(
     'images/upload',
     formData,
     {

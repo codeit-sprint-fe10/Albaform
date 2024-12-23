@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { ChangeEvent, useState } from 'react';
 import Image from 'next/image';
-import { uploadImage } from '@/services/image';
+import { postImage } from '@/services/image';
 
 interface FileInputProps {
   id: string;
@@ -21,7 +21,7 @@ const FileInput = ({ id, name, setValue, imageUrls }: FileInputProps) => {
 
     if (file) {
       if (!allowedTypes.includes(file.type)) return;
-      const newImage = await uploadImage(file);
+      const newImage = await postImage(file);
       setPreviews((previousPreviews) => {
         const newImages = [...previousPreviews, newImage];
         setValue(name, newImages);
