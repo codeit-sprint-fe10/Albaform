@@ -28,6 +28,10 @@ const Carousel = ({ imageUrls }: CarouselProps) => {
     );
   };
 
+  const handleIndicatorClick = (index: number) => {
+    setCurrentSlide(index);
+  };
+
   return (
     <div className="relative w-full h-[260px] lg:h-[560px]">
       <Image
@@ -40,9 +44,23 @@ const Carousel = ({ imageUrls }: CarouselProps) => {
         <div className="flex justify-between items-center gap-[15px]">
           {imageUrls.map((url, index) =>
             index === currentSlide ? (
-              <IconEllipse480 key={url} />
+              <button
+                type="button"
+                key={url}
+                onClick={() => handleIndicatorClick(index)}
+                aria-label={`${index + 1}번 사진보기`}
+              >
+                <IconEllipse480 />
+              </button>
             ) : (
-              <IconEllipse481 key={url} />
+              <button
+                type="button"
+                key={url}
+                onClick={() => handleIndicatorClick(index)}
+                aria-label={`${index + 1}번 사진보기`}
+              >
+                <IconEllipse481 />
+              </button>
             ),
           )}
         </div>
@@ -54,15 +72,17 @@ const Carousel = ({ imageUrls }: CarouselProps) => {
       </div>
       <button
         onClick={goToPreviousSlide}
-        className="absolute left-3 top-1/2 transform -translate-y-1/2 bg-[rgba(0,0,0,0.5)] text-white p-2 rounded-full"
+        className="absolute left-0 top-0 w-[40px] lg:w-[80px] h-full text-black-200 font-bold text-2xl lg:text-3xl"
+        aria-label="이전 이미지 보기"
       >
-        ←
+        &lt;
       </button>
       <button
         onClick={goToNextSlide}
-        className="absolute right-3 top-1/2 transform -translate-y-1/2 bg-[rgba(0,0,0,0.5)] text-white p-2 rounded-full"
+        className="absolute right-0 top-0 w-[40px] lg:w-[80px] h-full text-black-200 font-bold text-2xl lg:text-3xl "
+        aria-label="다음 이미지 보기"
       >
-        →
+        &gt;
       </button>
     </div>
   );
