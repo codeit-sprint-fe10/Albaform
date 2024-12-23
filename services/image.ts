@@ -6,7 +6,8 @@ interface PostImageResponse {
 
 export const postImage = async (image: File) => {
   const formData = new FormData();
-  formData.append('image', image);
+  const imageName = image.name.replaceAll(' ', '');
+  formData.append('image', image, imageName);
   const response = await instance.post<PostImageResponse>(
     'images/upload',
     formData,
