@@ -4,7 +4,7 @@ interface UploadImageResponse {
   url: string;
 }
 
-export const uploadImage = async (image: File): Promise<string> => {
+export const uploadImage = async (image: File) => {
   const formData = new FormData();
   formData.append('image', image);
   const response = await instance.post<UploadImageResponse>(
