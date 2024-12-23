@@ -10,6 +10,7 @@ import ApplicationActions from '@/app/(with-main-header)/alba/[formId]/_componen
 import Image from 'next/image';
 import IconEllipse480 from '@/public/icons/ellipse-480.svg';
 import IconEllipse481 from '@/public/icons/ellipse-481.svg';
+import Carousel from '@/app/(with-main-header)/alba/[formId]/_components/Carousel';
 
 const mock = {
   isPublic: true,
@@ -57,20 +58,8 @@ const AlbaFormIdPage = async ({
   return (
     <div>
       <div className="-mx-[24px] md:-mx-[72px] flex justify-center">
-        <div className="relative w-full h-[260px] lg:h-[560px] -mx-[24px]">
-          <Image src={mock.imageUrls[1]} alt="" fill className="object-cover" />
-          <div className="hidden lg:block absolute bottom-3 left-1/2">
-            <div className="flex justify-between items-center gap-[15px]">
-              <IconEllipse480 />
-              <IconEllipse481 />
-              <IconEllipse481 />
-            </div>
-          </div>
-          <div className="text-gray-100 text-xs lg:text-2lg font-regular absolute bottom-3 lg:bottom-4 right-3 lg:right-4 bg-[rgba(0,0,0,0.2)] rounded-[100px] flex justify-center gap-[4px] lg:gap-[8px] px-[10px] lg:px-[16px] py-[2px] lg:py-[8px]">
-            <span className="font-semibold">1</span>
-            <span>/</span>
-            <span>{mock.imageUrls.length}</span>
-          </div>
+        <div className="w-full -mx-[24px]">
+          <Carousel imageUrls={mock.imageUrls} />
         </div>
       </div>
 
