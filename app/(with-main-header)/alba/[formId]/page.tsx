@@ -1,12 +1,12 @@
-import Requirements from '@/app/(with-main-header)/alba/_components/Requirements';
-import Location from '@/app/(with-main-header)/alba/_components/Location';
-import SectionSummary from '@/app/(with-main-header)/alba/_components/SectionSummary';
-import SectionTerms from '@/app/(with-main-header)/alba/_components/SectionTerms';
-import SectionContact from '@/app/(with-main-header)/alba/_components/SectionContact';
-import SectionAlert from '@/app/(with-main-header)/alba/_components/SectionAlert';
-import SectionDescription from '@/app/(with-main-header)/alba/_components/SectionDescription';
-import FixedActions from '@/app/(with-main-header)/alba/_components/FixedActions';
-import ApplicationActions from '@/app/(with-main-header)/alba/_components/ApplicationActions';
+import Requirements from '@/app/(with-main-header)/alba/[formId]/_components/Requirements';
+import Location from '@/app/(with-main-header)/alba/[formId]/_components/Location';
+import SummarySection from '@/app/(with-main-header)/alba/[formId]/_components/SummarySection';
+import TermsSection from '@/app/(with-main-header)/alba/[formId]/_components/TermsSection';
+import ContactSection from '@/app/(with-main-header)/alba/[formId]/_components/ContactSection';
+import AlertSection from '@/app/(with-main-header)/alba/[formId]/_components/AlertSection';
+import DescriptionSection from '@/app/(with-main-header)/alba/[formId]/_components/DescriptionSection';
+import FixedActions from '@/app/(with-main-header)/alba/[formId]/_components/FixedActions';
+import ApplicationActions from '@/app/(with-main-header)/alba/[formId]/_components/ApplicationActions';
 
 const mock = {
   isPublic: true,
@@ -39,23 +39,27 @@ const mock = {
   isScrapped: false,
 };
 
-const Page = async ({ params }: { params: Promise<{ formId: number }> }) => {
+const AlbaFormIdPage = async ({
+  params,
+}: {
+  params: Promise<{ formId: number }>;
+}) => {
   const { formId } = await params;
   console.log(formId); // TODO api 호출 후 제거
 
   return (
     <div className="mt-[50px]">
       <div>
-        <SectionAlert applyCount={mock.applyCount} />
-        <SectionSummary {...mock} />
+        <AlertSection applyCount={mock.applyCount} />
+        <SummarySection {...mock} />
         <div className="mt-[32px] md:mt-[40px]">
-          <SectionTerms {...mock} />
+          <TermsSection {...mock} />
         </div>
         <div className="mt-[32px]">
-          <SectionContact {...mock} />
+          <ContactSection {...mock} />
         </div>
         <div className="mt-[32px]">
-          <SectionDescription description={mock.description} />
+          <DescriptionSection description={mock.description} />
         </div>
       </div>
       <div className="mt-[32px]">
@@ -72,4 +76,4 @@ const Page = async ({ params }: { params: Promise<{ formId: number }> }) => {
   );
 };
 
-export default Page;
+export default AlbaFormIdPage;

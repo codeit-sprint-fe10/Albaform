@@ -1,4 +1,4 @@
-import TermsDetail from '@/app/(with-main-header)/alba/_components/TermsDetail';
+import TermsDetail from '@/app/(with-main-header)/alba/[formId]/_components/TermsDetail';
 import { formatDate } from '@/utils/dateFormatter';
 import { Recruitment } from '@/types/recruitment';
 
@@ -13,7 +13,7 @@ type SectionTermsProps = Pick<
   | 'workEndTime'
 >;
 
-const SectionTerms = ({
+const TermsSection = ({
   hourlyWage,
   workStartDate,
   workEndDate,
@@ -48,4 +48,4 @@ const SectionTerms = ({
   );
 };
 
-export default SectionTerms;
+export default TermsSection;

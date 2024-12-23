@@ -1,4 +1,4 @@
-import Chip from '@/components/Chip';
+import Badge from '@/components/Badge';
 import { formatFullDateTime } from '@/utils/dateFormatter';
 import Image from 'next/image';
 import { Recruitment } from '@/types/recruitment';
@@ -14,7 +14,7 @@ type SectionFirstProps = Pick<
   | 'applyCount'
 >;
 
-const SectionSummary = ({
+const SummarySection = ({
   isPublic,
   createdAt,
   storeName,
@@ -27,8 +27,8 @@ const SectionSummary = ({
     <section>
       <div className="flex items-center justify-between">
         <div className="flex gap-[8px]">
-          <Chip value={isPublic ? '공개' : '비공개'} />
-          <Chip value={'모집중'} />
+          <Badge value={isPublic ? '공개' : '비공개'} />
+          <Badge value={'모집중'} />
         </div>
         <span className="text-gray-500 font-regular text-xs lg:text-2lg">
           {formatFullDateTime(createdAt)} 등록
@@ -75,4 +75,4 @@ const SectionSummary = ({
   );
 };
 
-export default SectionSummary;
+export default SummarySection;

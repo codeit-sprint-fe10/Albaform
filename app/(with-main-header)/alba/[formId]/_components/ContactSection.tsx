@@ -10,7 +10,7 @@ type SectionContactProps = Pick<
   | 'phoneNumber'
 >;
 
-const SectionContact = ({
+const ContactSection = ({
   recruitmentEndDate,
   recruitmentStartDate,
   storePhoneNumber,
@@ -37,4 +37,4 @@ const SectionContact = ({
   );
 };
 
-export default SectionContact;
+export default ContactSection;

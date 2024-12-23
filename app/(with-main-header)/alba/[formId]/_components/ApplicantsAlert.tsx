@@ -37,7 +37,7 @@ const ApplicantsAlert = ({ count }: ApplicantsAlertProps) => {
       </p>
       <button onClick={handleClick}>
         <div className="relative w-[24px] lg:w-[36px] h-[24px] lg:h-[36px]">
-          <Image src="/icons/X-thin.svg" alt="닫기 버튼" fill />
+          <Image src="/icons/x-thin.svg" alt="닫기 버튼" fill />
         </div>
       </button>
     </div>
