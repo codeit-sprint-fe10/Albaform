@@ -48,9 +48,13 @@ const SummarySection = ({
       <div className="mt-[32px] lg:mt-[40px] px-[8px] py-[12px] relative before:content-[''] before:absolute before:left-0 before:top-0 before:w-full before:h-[1px] before:bg-line-100 after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-[1px] after:bg-line-100">
         <div className="grid grid-cols-[3fr_7fr] grid-rows-2 gap-4">
           <div className="flex items-center gap-[8px]">
-            <div className="relative w-[24px] h-[24px] lg:w-[36px] lg:h-[36px]">
-              <Image src="/icons/bookmark.svg" alt="bookmark icon" fill />
-            </div>
+            <Image
+              src="/icons/bookmark.svg"
+              alt="bookmark icon"
+              width={24}
+              height={24}
+              className="lg:w-[36px] lg:h-[36px]"
+            />
             <span className="text-black-400 font-semibold text-xs lg:text-2lg">
               스크랩
             </span>
@@ -59,9 +63,13 @@ const SummarySection = ({
             {scrapCount}회
           </span>
           <div className="flex items-center gap-[8px]">
-            <div className="relative w-[24px] h-[24px] lg:w-[36px] lg:h-[36px]">
-              <Image src="/icons/user.svg" alt="user icon" fill />
-            </div>
+            <Image
+              src="/icons/user.svg"
+              alt="user icon"
+              width={24}
+              height={24}
+              className="lg:w-[36px] lg:h-[36px]"
+            />
             <span className="text-black-400 font-semibold text-xs lg:text-2lg flex items-center">
               지원현황
             </span>

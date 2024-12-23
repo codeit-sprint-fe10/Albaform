@@ -10,9 +10,13 @@ const TermsDetail = ({ title, value, iconUrl }: TermsDetailProps) => {
   return (
     <div className="rounded-[8px] border border-line-100 p-[8px] flex gap-[8px]">
       <div className="rounded-full w-[36px] h-[36px] bg-line-100 flex items-center justify-center">
-        <div className="relative w-[13px] h-[13px] lg:w-[21px] lg:h-[21px]">
-          <Image src={iconUrl} alt="terms icon" fill />
-        </div>
+        <Image
+          src={iconUrl}
+          alt="terms icon"
+          width={13}
+          height={13}
+          className="lg:w-[21px] lg:h-[21px]"
+        />
       </div>
       <div className="flex flex-col">
         <span className="text-black-100 font-regular text-xs">{title}</span>

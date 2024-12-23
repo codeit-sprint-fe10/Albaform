@@ -36,9 +36,13 @@ const ApplicantsAlert = ({ count }: ApplicantsAlertProps) => {
         현재 <span className="text-orange-300">{count}명</span>이 지원했어요!
       </p>
       <button onClick={handleClick}>
-        <div className="relative w-[24px] lg:w-[36px] h-[24px] lg:h-[36px]">
-          <Image src="/icons/x-thin.svg" alt="닫기 버튼" fill />
-        </div>
+        <Image
+          src="/icons/x-thin.svg"
+          alt="닫기 버튼"
+          width={24}
+          height={24}
+          className="lg:w-[36px] lg:h-[36px]"
+        />
       </button>
     </div>
   );
