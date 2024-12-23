@@ -7,6 +7,7 @@ import AlertSection from '@/app/(with-main-header)/alba/[formId]/_components/Ale
 import DescriptionSection from '@/app/(with-main-header)/alba/[formId]/_components/DescriptionSection';
 import FixedActions from '@/app/(with-main-header)/alba/[formId]/_components/FixedActions';
 import ApplicationActions from '@/app/(with-main-header)/alba/[formId]/_components/ApplicationActions';
+import Image from 'next/image';
 
 const mock = {
   isPublic: true,
@@ -37,6 +38,10 @@ const mock = {
   age: '연령무관',
   preferred: '업무 관련 자격증 소지, 유사업무 경험 우대, 인근 거주 우대',
   isScrapped: false,
+  imageUrls: [
+    'https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Albaform/user/268/1734927454801/1.png',
+    'https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Albaform/user/268/1734927494408/2.png',
+  ],
 };
 
 const AlbaFormIdPage = async ({
@@ -48,10 +53,23 @@ const AlbaFormIdPage = async ({
   console.log(formId); // TODO api 호출 후 제거
 
   return (
-    <div className="mt-[50px]">
+    <div>
+      <div className="-mx-[24px] md:-mx-[72px] flex justify-center">
+        <div className="relative w-full h-[260px] -mx-[24px]">
+          <Image src={mock.imageUrls[0]} alt="" fill className="object-cover" />
+          <div className="text-gray-100 text-xs lg:text-2lg font-regular absolute bottom-3 right-3 bg-[rgba(0,0,0,0.2)] rounded-[100px] flex justify-center gap-[4px] lg:gap-[8px] px-[10px] lg:px-[16px] py-[2px] lg:py-[8px]">
+            <span className="font-semibold">1</span>
+            <span>/</span>
+            <span>{mock.imageUrls.length}</span>
+          </div>
+        </div>
+      </div>
+
       <div>
         <AlertSection applyCount={mock.applyCount} />
-        <SummarySection {...mock} />
+        <div className="mt-[32px] md:mt-[80px]">
+          <SummarySection {...mock} />
+        </div>
         <div className="mt-[32px] md:mt-[40px]">
           <TermsSection {...mock} />
         </div>
