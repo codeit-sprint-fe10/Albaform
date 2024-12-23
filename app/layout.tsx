@@ -1,5 +1,7 @@
+import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
+import UserProvider from './UserProvider';
 import QueryProvider from './QueryProvider';
 import './globals.css';
 
@@ -28,11 +30,15 @@ export const metadata: Metadata = {
   },
 };
 
-const Providers = ({ children }: { children: React.ReactNode }) => {
-  return <QueryProvider>{children}</QueryProvider>;
+const Providers = ({ children }: { children: ReactNode }) => {
+  return (
+    <UserProvider>
+      <QueryProvider>{children}</QueryProvider>
+    </UserProvider>
+  );
 };
 
-const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
+const RootLayout = ({ children }: Readonly<{ children: ReactNode }>) => {
   return (
     <html lang="ko">
       <body className={`${pretendard.className} antialiased`}>
