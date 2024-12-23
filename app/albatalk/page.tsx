@@ -1,58 +1,76 @@
 'use client';
-import React, { useState, ChangeEvent } from 'react';
+import React, { useState, ChangeEvent, useEffect } from 'react';
+import { useQuery, keepPreviousData } from '@tanstack/react-query';
 import AlbatalkCard from './_components/AlbatalkCard';
-import SearchIcon from '@/public/icons/search.svg';
 import Pagination from './_components/Pagination';
-
-interface Post {
-  id: number;
-  title: string;
-  likes: number;
-  date: string;
-}
+import SearchIcon from '@/public/icons/search.svg';
+import { getPosts } from '@/services/albatalk';
+import { Post, GetPostsResponse } from '@/types/albatalk';
 
 const Albatalk: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [nextCursor, setNextCursor] = useState<number>(0);
+  const [sortOrder, setSortOrder] = useState<
+    'mostRecent' | 'mostLiked' | 'mostCommented'
+  >('mostRecent');
+  const PAGE_LIMIT = 6;
 
-  const postsPerPage = 6;
+  //total count 값 설정 방식 수정 필요
+  const TOTAL_COUNT = 10;
+
   const handleSearch = (e: ChangeEvent<HTMLInputElement>): void => {
     setSearchTerm(e.target.value);
+    setCurrentPage(1);
+    setNextCursor(0);
   };
 
-  // Mock data
-  const posts: Post[] = [
-    { id: 1, title: '첫 번째 알바 후기', likes: 10, date: '2024-12-01' },
-    { id: 2, title: '알바 팁 공유합니다', likes: 25, date: '2024-12-02' },
-    { id: 3, title: '알바 면접 후기', likes: 15, date: '2024-12-03' },
-    { id: 4, title: '첫 번째 알바 후기', likes: 10, date: '2024-12-01' },
-    { id: 5, title: '알바 팁 공유합니다', likes: 25, date: '2024-12-02' },
-    { id: 6, title: '알바 면접 후기', likes: 15, date: '2024-12-03' },
-    { id: 7, title: '알바 면접 후기', likes: 15, date: '2024-12-03' },
-    { id: 8, title: '첫 번째 알바 후기', likes: 10, date: '2024-12-01' },
-    { id: 9, title: '알바 팁 공유합니다', likes: 25, date: '2024-12-02' },
-    { id: 10, title: '알바 면접 후기', likes: 15, date: '2024-12-03' },
-    { id: 11, title: '알바 면접 후기', likes: 15, date: '2024-12-03' },
-    { id: 12, title: '첫 번째 알바 후기', likes: 10, date: '2024-12-01' },
-    { id: 13, title: '알바 팁 공유합니다', likes: 25, date: '2024-12-02' },
-    { id: 14, title: '알바 면접 후기', likes: 15, date: '2024-12-03' },
-  ];
+  const handleSortOrderChange = (
+    order: 'mostRecent' | 'mostLiked' | 'mostCommented',
+  ) => {
+    setSortOrder(order);
+    setCurrentPage(1);
+    setNextCursor(0);
+  };
 
-  const filteredPosts = posts.filter((post) =>
-    post.title.toLowerCase().includes(searchTerm.toLowerCase()),
-  );
+  //로딩중일때, 에러처리 필요
+  const { data, isLoading, error } = useQuery<GetPostsResponse>({
+    queryKey: [
+      'posts',
+      PAGE_LIMIT,
+      currentPage,
+      searchTerm,
+      sortOrder,
+      nextCursor,
+    ],
+    queryFn: () =>
+      getPosts({
+        cursor: nextCursor,
+        limit: PAGE_LIMIT,
+        keyword: searchTerm,
+        orderBy: sortOrder,
+      }),
+    placeholderData: keepPreviousData,
+  });
 
-  const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
-  const startIndex = (currentPage - 1) * postsPerPage;
-  const currentPosts = filteredPosts.slice(
-    startIndex,
-    startIndex + postsPerPage,
-  );
+  // const totalPage = data?.totalCount
+  //   ? Math.ceil(data.totalCount / PAGE_LIMIT)
+  //   : 1;
+
+  useEffect(() => {
+    if (data) {
+      console.log(data);
+      setNextCursor(data.nextCursor);
+    }
+  }, [currentPage]);
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
 
   return (
     <div className="w-full">
       <div className="flex justify-center border-b-2">
-        <div className="flex max-w-7xl w-full h-28 items-center justify-between gap-4">
+        <div className="flex max-w-container-200 w-full h-28 items-center justify-between gap-4">
           <div className="flex w-full max-w-6xl bg-background-200 border-none rounded-3xl px-6 py-4 justify-center items-center">
             <div className="flex items-center justify-center w-8 h-8">
               <SearchIcon className="text-gray-500" />
@@ -65,24 +83,44 @@ const Albatalk: React.FC = () => {
               className="w-full pl-2 bg-background-200 focus:outline-none"
             />
           </div>
-          <button>최신순</button>
+          <div className="flex gap-2">
+            <button
+              className={`px-4 py-2 ${sortOrder === 'mostRecent' ? 'bg-blue-500 text-white' : ''}`}
+              onClick={() => handleSortOrderChange('mostRecent')}
+            >
+              최신순
+            </button>
+            <button
+              className={`px-4 py-2 ${sortOrder === 'mostLiked' ? 'bg-blue-500 text-white' : ''}`}
+              onClick={() => handleSortOrderChange('mostLiked')}
+            >
+              좋아요순
+            </button>
+            <button
+              className={`px-4 py-2 ${sortOrder === 'mostCommented' ? 'bg-blue-500 text-white' : ''}`}
+              onClick={() => handleSortOrderChange('mostCommented')}
+            >
+              댓글 많은순
+            </button>
+          </div>
         </div>
       </div>
-
       <div className="w-full flex items-center justify-center mt-10">
-        <div className="flex w-full max-w-7xl">
+        <div className="flex w-full max-w-container-200">
           <ul className="w-full grid grid-cols-3 gap-6 gap-y-12">
-            {currentPosts.map((post: Post) => (
-              <AlbatalkCard key={post.id} />
+            {data?.data.map((post: Post) => (
+              <AlbatalkCard key={post.id} post={post} />
             ))}
           </ul>
         </div>
       </div>
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={setCurrentPage}
-      />
+      <div className="w-full flex items-center justify-center mt-4">
+        <Pagination
+          currentPage={currentPage}
+          totalPages={TOTAL_COUNT}
+          onPageChange={handlePageChange}
+        />
+      </div>
     </div>
   );
 };

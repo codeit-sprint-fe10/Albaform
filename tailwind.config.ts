@@ -28,6 +28,7 @@ const tailwindConfig = {
     },
     maxWidth: {
       container: '1600px',
+      'container-200': '1200px',
     },
     minWidth: {
       container: '320px',

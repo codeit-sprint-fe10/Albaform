@@ -2,8 +2,12 @@ import KebabIcon from '@/public/icons/kebab.svg';
 import CommentIcon from '@/public/icons/comment.svg';
 import LikeIcon from '@/public/icons/like.svg';
 import Image from 'next/image';
+import { Post } from '@/types/albatalk';
 
-const AlbatalkCard = () => {
+interface AlbatalkCardProps {
+  post: Post;
+}
+const AlbatalkCard: React.FC<AlbatalkCardProps> = ({ post }) => {
   return (
     <div className="relative w-full h-72 p-6 border rounded-2xl">
       <KebabIcon className="absolute right-5" />
