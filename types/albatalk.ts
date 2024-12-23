@@ -6,8 +6,8 @@ export interface Writer {
 
 export interface Post {
   writer: Writer;
-  updatedAt: string;
-  createdAt: string;
+  updatedAt: Date;
+  createdAt: Date;
   commentCount: number;
   likeCount: number;
   imageUrl: string;
