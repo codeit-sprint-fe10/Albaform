@@ -26,7 +26,7 @@ const SummarySection = ({
   return (
     <section>
       <div className="flex items-center justify-between">
-        <div className="flex gap-[8px]">
+        <div className="flex gap-2">
           <Badge value={isPublic ? '공개' : '비공개'} />
           <Badge value={'모집중'} />
         </div>
@@ -34,23 +34,27 @@ const SummarySection = ({
           {formatFullDateTime(createdAt)} 등록
         </span>
       </div>
-      <div className="mt-[24px] lg:mt-[48px]">
+      <div className="mt-6 lg:mt-12">
         <span className="text-black-400 font-semibold text-md lg:text-2xl relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-[1.5px] after:bg-black-400">
           {storeName}
         </span>
-        <span className="text-gray-400 font-medium text-sm lg:text-xl ml-[10px] lg:ml-[16px]">
+        <span className="text-gray-400 font-medium text-sm lg:text-xl ml-2.5 lg:ml-4">
           {location} ・ 경력무관
         </span>
       </div>
-      <h2 className="font-semibold text-black-500 text-xl lg:text-3xl mt-[12px] lg:mt-[16px]">
+      <h2 className="font-semibold text-black-500 text-xl lg:text-3xl mt-3 lg:mt-4">
         {title}
       </h2>
-      <div className="mt-[32px] lg:mt-[40px] px-[8px] py-[12px] relative before:content-[''] before:absolute before:left-0 before:top-0 before:w-full before:h-[1px] before:bg-line-100 after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-[1px] after:bg-line-100">
+      <div className="mt-8 lg:mt-10 px-2 py-3 relative before:content-[''] before:absolute before:left-0 before:top-0 before:w-full before:h-[1px] before:bg-line-100 after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-[1px] after:bg-line-100">
         <div className="grid grid-cols-[3fr_7fr] grid-rows-2 gap-4">
-          <div className="flex items-center gap-[8px]">
-            <div className="relative w-[24px] h-[24px] lg:w-[36px] lg:h-[36px]">
-              <Image src="/icons/bookmark.svg" alt="bookmark icon" fill />
-            </div>
+          <div className="flex items-center gap-2">
+            <Image
+              src="/icons/bookmark.svg"
+              alt="bookmark icon"
+              width={24}
+              height={24}
+              className="lg:w-9 lg:h-9"
+            />
             <span className="text-black-400 font-semibold text-xs lg:text-2lg">
               스크랩
             </span>
@@ -58,10 +62,14 @@ const SummarySection = ({
           <span className="text-black-200 font-semibold text-xs lg:text-2lg flex items-center">
             {scrapCount}회
           </span>
-          <div className="flex items-center gap-[8px]">
-            <div className="relative w-[24px] h-[24px] lg:w-[36px] lg:h-[36px]">
-              <Image src="/icons/user.svg" alt="user icon" fill />
-            </div>
+          <div className="flex items-center gap-2">
+            <Image
+              src="/icons/user.svg"
+              alt="user icon"
+              width={24}
+              height={24}
+              className="lg:w-9 lg:h-9"
+            />
             <span className="text-black-400 font-semibold text-xs lg:text-2lg flex items-center">
               지원현황
             </span>

@@ -14,10 +14,8 @@ const Requirements = ({
 }: RequirementsProps) => {
   return (
     <section>
-      <h3 className="py-[16px] font-semibold text-2lg lg:text-3xl">
-        모집 조건
-      </h3>
-      <div className="rounded-lg border border-line-100 px-[16px] py-[10px] bg-background-100 lg:p-[24px]">
+      <h3 className="py-4 font-semibold text-2lg lg:text-3xl">모집 조건</h3>
+      <div className="rounded-lg border border-line-100 px-4 py-2.5 bg-background-100 lg:p-6">
         <table className="font-regular text-md text-left lg:text-xl">
           <tbody>
             <tr>

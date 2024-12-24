@@ -165,11 +165,11 @@ const DateRangePicker = ({ onChange }: DateRangePickerProps) => {
           : '시작일 ~ 종료일'}
       </button>
       {isOpen && (
-        <div className="absolute top-12 left-0 bg-white border shadow-md px-[9px] pb-4 lg:px-[14px] lg:pb-6 rounded-md z-10">
-          <h3 className="text-center font-medium text-md lg:text-2lg py-3 px-[14px] lg:py-3 my-2 lg:mt-6 lg:mb-0">
+        <div className="absolute top-12 left-0 bg-white border shadow-md px-[9px] pb-4 lg:px-3.5 lg:pb-6 rounded-md z-10">
+          <h3 className="text-center font-medium text-md lg:text-2lg py-3 px-3.5 lg:py-3 my-2 lg:mt-6 lg:mb-0">
             기간 선택
           </h3>
-          <div className="flex justify-between items-center py-[11px] px-[14px] lg:py-3 mb-2">
+          <div className="flex justify-between items-center py-[11px] px-3.5 lg:py-3 mb-2">
             <button onClick={handlePrevMonth}>&lt;</button>
             <h3 className="font-semibold text-lg lg:text-xl">
               {format(currentDate, 'yyyy. MM')}
@@ -186,7 +186,7 @@ const DateRangePicker = ({ onChange }: DateRangePickerProps) => {
               </div>
             ))}
           </div>
-          <div className="flex flex-col gap-[14px] lg:gap-6 pt-[7px] lg:pt-3">
+          <div className="flex flex-col gap-3.5 lg:gap-6 pt-[7px] lg:pt-3">
             {renderDays()}
           </div>
         </div>

@@ -7,13 +7,14 @@ import AlertSection from '@/app/(with-main-header)/alba/[formId]/_components/Ale
 import DescriptionSection from '@/app/(with-main-header)/alba/[formId]/_components/DescriptionSection';
 import FixedActions from '@/app/(with-main-header)/alba/[formId]/_components/FixedActions';
 import ApplicationActions from '@/app/(with-main-header)/alba/[formId]/_components/ApplicationActions';
+import Carousel from '@/app/(with-main-header)/alba/[formId]/_components/Carousel';
 
 const mock = {
   isPublic: true,
   createdAt: '2024-12-21T06:37:44.900Z',
   storeName: '코드잇',
   location:
-    '서울특별시 중구 청계천로 100 시그니쳐타워 동관 1층 코드잇 스터디카페',
+    '{"address": "서울시 송파구 삼전동", "coordinates": {"lat": 37.5027233386059, "lng": 127.092519707191}}',
   scrapCount: 8,
   applyCount: 5,
   title:
@@ -37,6 +38,10 @@ const mock = {
   age: '연령무관',
   preferred: '업무 관련 자격증 소지, 유사업무 경험 우대, 인근 거주 우대',
   isScrapped: false,
+  imageUrls: [
+    'https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Albaform/user/268/1734927454801/1.png',
+    'https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/Albaform/user/268/1734927494408/2.png',
+  ],
 };
 
 const AlbaFormIdPage = async ({
@@ -48,27 +53,34 @@ const AlbaFormIdPage = async ({
   console.log(formId); // TODO api 호출 후 제거
 
   return (
-    <div className="mt-[50px]">
+    <div>
+      <div className="-mx-6 md:-mx-[72px] flex justify-center">
+        <div className="w-full -mx-6">
+          <Carousel imageUrls={mock.imageUrls} />
+        </div>
+      </div>
       <div>
         <AlertSection applyCount={mock.applyCount} />
-        <SummarySection {...mock} />
-        <div className="mt-[32px] md:mt-[40px]">
+        <div className="mt-8 md:mt-[80px]">
+          <SummarySection {...mock} />
+        </div>
+        <div className="mt-8 md:mt-10">
           <TermsSection {...mock} />
         </div>
-        <div className="mt-[32px]">
+        <div className="mt-8">
           <ContactSection {...mock} />
         </div>
-        <div className="mt-[32px]">
+        <div className="mt-8">
           <DescriptionSection description={mock.description} />
         </div>
       </div>
-      <div className="mt-[32px]">
+      <div className="mt-8">
         <Requirements {...mock} />
       </div>
-      <div className="mt-[32px]">
+      <div className="mt-8">
         <Location location={mock.location} />
       </div>
-      <div className="mt-[40px] mb-[30px]">
+      <div className="mt-10 mb-[30px]">
         <ApplicationActions formId={formId} />
       </div>
       <FixedActions isScrapped={mock.isScrapped} />

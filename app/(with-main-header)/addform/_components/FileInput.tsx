@@ -6,15 +6,14 @@ import Image from 'next/image';
 import { postImage } from '@/services/image';
 
 interface FileInputProps {
-  id: string;
-  name: 'imageUrls';
   setValue: (name: 'imageUrls', value: string[] | null) => void;
   imageUrls?: string[];
 }
 
-const FileInput = ({ id, name, setValue, imageUrls }: FileInputProps) => {
+const FileInput = ({ setValue, imageUrls }: FileInputProps) => {
   const [previews, setPreviews] = useState<string[]>([]);
   const allowedTypes = ['image/png', 'image/jpeg'];
+  const name = 'imageUrls';
 
   const handleChange = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -54,7 +53,7 @@ const FileInput = ({ id, name, setValue, imageUrls }: FileInputProps) => {
         이미지 첨부
       </h3>
       <div className="flex gap-4 flex-wrap">
-        <label htmlFor={id}>
+        <label htmlFor={name}>
           <div className="inline-flex justify-center items-center bg-background-200 rounded-lg cursor-pointer p-7 lg:p-10">
             <Image
               src="/icons/upload.svg"
@@ -94,7 +93,7 @@ const FileInput = ({ id, name, setValue, imageUrls }: FileInputProps) => {
       <input
         className="hidden"
         type="file"
-        id={id}
+        id={name}
         name={name}
         accept="image/png, image/jpeg"
         onChange={handleChange}

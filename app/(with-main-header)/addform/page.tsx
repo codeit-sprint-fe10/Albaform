@@ -2,9 +2,11 @@
 
 import { useForm } from 'react-hook-form';
 import FileInput from './_components/FileInput';
+import LocationInput from './_components/LocationInput';
 
 export interface FormValues {
   imageUrls: string[] | null;
+  location: string;
 }
 
 const AddFormPage = () => {
@@ -12,7 +14,8 @@ const AddFormPage = () => {
 
   return (
     <>
-      <FileInput id="imageUrls" name="imageUrls" setValue={setValue} />
+      <LocationInput setValue={setValue} />
+      <FileInput setValue={setValue} />
     </>
   );
 };
