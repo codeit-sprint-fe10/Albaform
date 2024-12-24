@@ -1,11 +1,12 @@
 'use client';
+
 import React, { useState, useEffect } from 'react';
 import { useQuery, keepPreviousData } from '@tanstack/react-query';
 import AlbatalkCard from './_components/AlbatalkCard';
 import SearchBar from './_components/SearchBar';
 import Pagination from './_components/Pagination';
 import { getPosts } from '@/services/albatalk';
-import { Post, GetPostsResponse } from '@/types/albatalk';
+import { GetPostsResponse } from '@/types/albatalk';
 
 const Albatalk = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
@@ -16,10 +17,10 @@ const Albatalk = () => {
   >('mostRecent');
   const PAGE_LIMIT = 6;
 
-  //total count 값 설정 방식 수정 필요
+  //TODO: total count 값 설정 방식 수정 필요
   const TOTAL_COUNT = 10;
 
-  //로딩중일때, 에러처리 필요
+  //TODO: 로딩중일때, 에러처리 필요
   const { data, isLoading, error } = useQuery<GetPostsResponse>({
     queryKey: [
       'posts',
@@ -48,7 +49,6 @@ const Albatalk = () => {
 
   useEffect(() => {
     if (data) {
-      console.log(data);
       setNextCursor(data.nextCursor);
     }
   }, [currentPage]);
@@ -70,9 +70,27 @@ const Albatalk = () => {
       <div className="w-full flex items-center justify-center mt-10">
         <div className="flex w-full max-w-container-200">
           <ul className="w-full grid grid-cols-3 gap-6 gap-y-12">
-            {data?.data.map((post: Post) => (
-              <AlbatalkCard key={post.id} post={post} />
-            ))}
+            {data?.data.map(
+              ({
+                id,
+                title,
+                content,
+                writer,
+                createdAt,
+                commentCount,
+                likeCount,
+              }) => (
+                <AlbatalkCard
+                  key={id}
+                  title={title}
+                  content={content}
+                  writerNickname={writer.nickname}
+                  createdAt={createdAt}
+                  commentCount={commentCount}
+                  likeCount={likeCount}
+                />
+              ),
+            )}
           </ul>
         </div>
       </div>

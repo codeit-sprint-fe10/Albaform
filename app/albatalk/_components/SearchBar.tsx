@@ -1,18 +1,17 @@
+'use client';
 import React, { ChangeEvent } from 'react';
 import SearchIcon from '@/public/icons/search.svg';
 import SortDropdown from './SortDropdown';
+import { SortOrder } from '@/types/sort';
 
 interface SearchBarProps {
   searchTerm: string;
   setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
   setNextCursor: React.Dispatch<React.SetStateAction<number>>;
-  setSortOrder: React.Dispatch<
-    React.SetStateAction<'mostRecent' | 'mostLiked' | 'mostCommented'>
-  >;
-  sortOrder: 'mostRecent' | 'mostLiked' | 'mostCommented';
+  setSortOrder: React.Dispatch<React.SetStateAction<SortOrder>>;
+  sortOrder: SortOrder;
 }
-
 const SearchBar = ({
   searchTerm,
   setSearchTerm,

@@ -1,3 +1,4 @@
+'use client';
 import React, { useState } from 'react';
 
 interface SortDropdownProps {
@@ -29,7 +30,7 @@ const SortDropdown = ({ sortOrder, setSortOrder }: SortDropdownProps) => {
 
   return (
     <div className="relative">
-      <div
+      <button
         className="px-4 py-2 bg-white rounded-md flex items-center justify-between gap-3 cursor-pointer"
         onClick={handleDropdownToggle}
       >
@@ -41,7 +42,7 @@ const SortDropdown = ({ sortOrder, setSortOrder }: SortDropdownProps) => {
             isDropdownOpen ? 'rotate-[135deg]' : '-rotate-45'
           }`}
         ></div>
-      </div>
+      </button>
 
       {isDropdownOpen && (
         <div className="absolute right-0 top-12 w-32 px-2 py-3 bg-gray-50 border border-gray-100 rounded-lg shadow-lg z-10">
