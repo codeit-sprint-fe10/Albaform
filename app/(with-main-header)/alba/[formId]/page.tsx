@@ -14,7 +14,7 @@ const mock = {
   createdAt: '2024-12-21T06:37:44.900Z',
   storeName: '코드잇',
   location:
-    '서울특별시 중구 청계천로 100 시그니쳐타워 동관 1층 코드잇 스터디카페',
+    '{"address": "서울시 송파구 삼전동", "coordinates": {"lat": 37.5027233386059, "lng": 127.092519707191}}',
   scrapCount: 8,
   applyCount: 5,
   title:
