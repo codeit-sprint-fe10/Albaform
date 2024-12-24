@@ -12,7 +12,7 @@ const FixedActions = ({ isScrapped }: FixedActionsProps) => {
           alt={'스크랩'}
           width={54}
           height={54}
-          className="lg:w-[64px] lg:h-[64px]"
+          className="lg:w-16 lg:h-16"
         />
       </button>
       <button aria-label="공유하기">
@@ -21,7 +21,7 @@ const FixedActions = ({ isScrapped }: FixedActionsProps) => {
           alt={'공유하기'}
           width={54}
           height={54}
-          className="lg:w-[64px] lg:h-[64px]"
+          className="lg:w-16 lg:h-16"
         />
       </button>
     </aside>

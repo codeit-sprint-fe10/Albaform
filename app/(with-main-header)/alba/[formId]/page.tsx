@@ -54,33 +54,33 @@ const AlbaFormIdPage = async ({
 
   return (
     <div>
-      <div className="-mx-[24px] md:-mx-[72px] flex justify-center">
-        <div className="w-full -mx-[24px]">
+      <div className="-mx-6 md:-mx-[72px] flex justify-center">
+        <div className="w-full -mx-6">
           <Carousel imageUrls={mock.imageUrls} />
         </div>
       </div>
       <div>
         <AlertSection applyCount={mock.applyCount} />
-        <div className="mt-[32px] md:mt-[80px]">
+        <div className="mt-8 md:mt-[80px]">
           <SummarySection {...mock} />
         </div>
-        <div className="mt-[32px] md:mt-[40px]">
+        <div className="mt-8 md:mt-10">
           <TermsSection {...mock} />
         </div>
-        <div className="mt-[32px]">
+        <div className="mt-8">
           <ContactSection {...mock} />
         </div>
-        <div className="mt-[32px]">
+        <div className="mt-8">
           <DescriptionSection description={mock.description} />
         </div>
       </div>
-      <div className="mt-[32px]">
+      <div className="mt-8">
         <Requirements {...mock} />
       </div>
-      <div className="mt-[32px]">
+      <div className="mt-8">
         <Location location={mock.location} />
       </div>
-      <div className="mt-[40px] mb-[30px]">
+      <div className="mt-10 mb-[30px]">
         <ApplicationActions formId={formId} />
       </div>
       <FixedActions isScrapped={mock.isScrapped} />

@@ -29,7 +29,7 @@ const ApplicantsAlert = ({ count }: ApplicantsAlertProps) => {
 
   return (
     <div
-      className={`flex items-center justify-between gap-[8px] px-[24px] py-[12px] rounded-[14px] bg-gradient-to-t from-black/20 to-black/20 bg-[rgba(42,44,61,0.90)] transition-all duration-500 ease-out ${!isVisible ? 'opacity-0 translate-y-[-20px] pointer-events-none' : 'opacity-100 translate-y-0'}`}
+      className={`flex items-center justify-between gap-2 px-6 py-3 lg:px-10 lg:py-6 rounded-[14px] bg-gradient-to-t from-black/20 to-black/20 bg-[rgba(42,44,61,0.90)] transition-all duration-500 ease-out ${!isVisible ? 'opacity-0 translate-y-[-20px] pointer-events-none' : 'opacity-100 translate-y-0'}`}
     >
       <IconUser className="fill-gray-50" />
       <p className="flex-1 text-gray-50 font-medium text-sm lg:text-xl">
@@ -41,7 +41,7 @@ const ApplicantsAlert = ({ count }: ApplicantsAlertProps) => {
           alt="닫기 버튼"
           width={24}
           height={24}
-          className="lg:w-[36px] lg:h-[36px]"
+          className="lg:w-9 lg:h-9"
         />
       </button>
     </div>

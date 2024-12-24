@@ -19,9 +19,7 @@ const Location = ({ location }: LocationProps) => {
 
   return (
     <section>
-      <h3 className="py-[16px] font-semibold text-2lg lg:text-3xl">
-        근무 지역
-      </h3>
+      <h3 className="py-4 font-semibold text-2lg lg:text-3xl">근무 지역</h3>
       <div className="text-md lg:text-2xl flex items-center gap-[30px]">
         <span className="font-medium text-black-400">{location}</span>
         <button
@@ -31,7 +29,7 @@ const Location = ({ location }: LocationProps) => {
           복사
         </button>
       </div>
-      <div className="mt-[16px] lg:mt-[48px] w-full h-[210px]">
+      <div className="mt-4 lg:mt-12 w-full h-[210px]">
         {/*<GoogleMap {...location.coordinates}/>*/}
       </div>
     </section>

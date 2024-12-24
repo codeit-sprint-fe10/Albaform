@@ -9,7 +9,7 @@ const MainHeader = () => {
   const pathname = usePathname();
 
   return (
-    <header className="flex justify-between items-center gap-8 bg-gray-50 py-[10px] md:py-[19px] lg:py-[24px]">
+    <header className="flex justify-between items-center gap-8 bg-gray-50 py-2.5 md:py-[19px] lg:py-6">
       <div>
         <Link href="/" className="flex items-center gap-2">
           <Image
@@ -17,18 +17,18 @@ const MainHeader = () => {
             alt="albaform logo"
             width={45}
             height={30}
-            className="lg:w-[60px] lg:h-[40px]"
+            className="lg:w-[60px] lg:h-10"
           />
           <Image
             src="/icons/albaform.svg"
             alt="albaform text logo"
             width={120}
             height={20}
-            className="hidden md:inline lg:w-[212px] lg:h-[36px]"
+            className="hidden md:inline lg:w-[212px] lg:h-9"
           />
         </Link>
       </div>
-      <nav className="flex-1 flex gap-[16px] md:gap-[16px] lg:gap-[24px] flex-nowrap font-medium text-gray-300 text-md md:text-lg lg:text-xl lg:mt-[12px]">
+      <nav className="flex-1 flex gap-4 md:gap-4 lg:gap-6 flex-nowrap font-medium text-gray-300 text-md md:text-lg lg:text-xl lg:mt-3">
         <Link
           href="/albalist"
           className={`link ${pathname === '/albalist' ? 'font-bold text-orange-200' : ''}`}

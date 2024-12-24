@@ -33,12 +33,12 @@ const Carousel = ({ imageUrls }: CarouselProps) => {
   };
 
   return (
-    <div className="relative w-full h-[260px] lg:h-[560px]">
+    <div className="relative w-full h-16 lg:h-[560px]">
       <Image
         src={imageUrls[currentSlide]}
         alt=""
         fill
-        className="object-cover xl:rounded-[8px]"
+        className="object-cover xl:rounded-lg"
       />
       <div className="hidden lg:block absolute bottom-6 left-1/2">
         <div className="flex justify-between items-center gap-[15px]">
@@ -65,21 +65,21 @@ const Carousel = ({ imageUrls }: CarouselProps) => {
           )}
         </div>
       </div>
-      <div className="text-gray-100 text-xs lg:text-2lg font-regular absolute bottom-3 lg:bottom-4 right-3 lg:right-4 bg-[rgba(0,0,0,0.2)] rounded-[100px] flex justify-center gap-[4px] lg:gap-[8px] px-[10px] lg:px-[16px] py-[2px] lg:py-[8px]">
+      <div className="text-gray-100 text-xs lg:text-2lg font-regular absolute bottom-3 lg:bottom-4 right-3 lg:right-4 bg-[rgba(0,0,0,0.2)] rounded-3xl flex justify-center gap-1 lg:gap-2 px-2.5 lg:px-4 py-0.5 lg:py-2">
         <span className="font-semibold">{currentSlide + 1}</span>
         <span>/</span>
         <span>{imageUrls.length}</span>
       </div>
       <button
         onClick={goToPreviousSlide}
-        className="absolute left-0 top-0 w-[40px] lg:w-[80px] h-full text-black-200 font-bold text-2xl lg:text-3xl"
+        className="absolute left-0 top-0 w-10 lg:w-20 h-full text-black-200 font-bold text-2xl lg:text-3xl"
         aria-label="이전 이미지 보기"
       >
         &lt;
       </button>
       <button
         onClick={goToNextSlide}
-        className="absolute right-0 top-0 w-[40px] lg:w-[80px] h-full text-black-200 font-bold text-2xl lg:text-3xl "
+        className="absolute right-0 top-0 w-10 lg:w-20 h-full text-black-200 font-bold text-2xl lg:text-3xl "
         aria-label="다음 이미지 보기"
       >
         &gt;
