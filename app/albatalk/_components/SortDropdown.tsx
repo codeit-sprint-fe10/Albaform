@@ -10,6 +10,12 @@ interface SortDropdownProps {
 const SortDropdown = ({ sortOrder, setSortOrder }: SortDropdownProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
+  const SORT_OPTIONS = [
+    { key: 'mostRecent', label: '최신순' },
+    { key: 'mostLiked', label: '좋아요순' },
+    { key: 'mostCommented', label: '댓글 많은순' },
+  ] as const;
+
   const handleDropdownToggle = () => {
     setIsDropdownOpen((prevState) => !prevState);
   };
@@ -28,11 +34,7 @@ const SortDropdown = ({ sortOrder, setSortOrder }: SortDropdownProps) => {
         onClick={handleDropdownToggle}
       >
         <span className="text-lg font-semibold">
-          {sortOrder === 'mostRecent'
-            ? '최신순'
-            : sortOrder === 'mostLiked'
-              ? '좋아요순'
-              : '댓글 많은순'}
+          {SORT_OPTIONS.find((option) => option.key === sortOrder)?.label}
         </span>
         <div
           className={`w-2 h-2 border-t-2 border-r-2 border-gray-500 transform transition-transform ${
@@ -43,30 +45,17 @@ const SortDropdown = ({ sortOrder, setSortOrder }: SortDropdownProps) => {
 
       {isDropdownOpen && (
         <div className="absolute right-0 top-12 w-32 px-2 py-3 bg-gray-50 border border-gray-100 rounded-lg shadow-lg z-10">
-          <div
-            className={`w-full px-4 py-2 text-center text-lg rounded-lg font-semibold cursor-pointer hover:bg-orange-50 ${
-              sortOrder === 'mostRecent' ? 'bg-blue-500 text-white' : ''
-            }`}
-            onClick={() => handleSortOrderChange('mostRecent')}
-          >
-            최신순
-          </div>
-          <div
-            className={`w-full px-4 py-2 text-center text-lg rounded-lg font-semibold cursor-pointer hover:bg-orange-50 ${
-              sortOrder === 'mostLiked' ? 'bg-blue-500 text-white' : ''
-            }`}
-            onClick={() => handleSortOrderChange('mostLiked')}
-          >
-            좋아요순
-          </div>
-          <div
-            className={`w-full px-4 py-2 text-center text-lg rounded-lg font-semibold cursor-pointer hover:bg-orange-50 ${
-              sortOrder === 'mostCommented' ? 'bg-blue-500 text-white' : ''
-            }`}
-            onClick={() => handleSortOrderChange('mostCommented')}
-          >
-            댓글 많은순
-          </div>
+          {SORT_OPTIONS.map((option) => (
+            <div
+              key={option.key}
+              className={`w-full px-4 py-2 text-center text-lg rounded-lg font-semibold cursor-pointer hover:bg-orange-50 ${
+                sortOrder === option.key ? 'bg-blue-500 text-white' : ''
+              }`}
+              onClick={() => handleSortOrderChange(option.key)}
+            >
+              {option.label}
+            </div>
+          ))}
         </div>
       )}
     </div>
