@@ -15,7 +15,7 @@ const denyPaths = {
 } as const;
 
 const middleware = (request: NextRequest) => {
-  const userRole = request.cookies.get('user_role')?.name || 'GUEST';
+  const userRole = request.cookies.get('user_role')?.value || 'GUEST';
   const paths = denyPaths[userRole as 'APPLICANT' | 'OWNER' | 'GUEST'];
   const nextPath = request.nextUrl.pathname;
 
