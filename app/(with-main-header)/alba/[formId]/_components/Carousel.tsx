@@ -4,9 +4,9 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import IconEllipse480 from '@/public/icons/ellipse-480.svg';
 import IconEllipse481 from '@/public/icons/ellipse-481.svg';
-import { Recruitment } from '@/types/recruitment';
+import { Alba } from '@/types/alba';
 
-type CarouselProps = Pick<Recruitment, 'imageUrls'>;
+type CarouselProps = Pick<Alba, 'imageUrls'>;
 
 const Carousel = ({ imageUrls }: CarouselProps) => {
   const [currentSlide, setCurrentSlide] = useState(0);

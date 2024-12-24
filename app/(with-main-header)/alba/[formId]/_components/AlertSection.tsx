@@ -1,7 +1,7 @@
 import ApplicantsAlert from '@/app/(with-main-header)/alba/[formId]/_components/ApplicantsAlert';
-import { Recruitment } from '@/types/recruitment';
+import { Alba } from '@/types/alba';
 
-type SectionAlertProps = Pick<Recruitment, 'applyCount'>;
+type SectionAlertProps = Pick<Alba, 'applyCount'>;
 
 const AlertSection = ({ applyCount }: SectionAlertProps) => {
   return (

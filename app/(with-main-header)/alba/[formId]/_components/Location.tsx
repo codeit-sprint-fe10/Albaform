@@ -1,9 +1,9 @@
 'use client';
 
-import { Recruitment } from '@/types/recruitment';
+import { Alba } from '@/types/alba';
 import GoogleMap from '@/app/(with-main-header)/alba/[formId]/_components/GoogleMap';
 
-type LocationProps = Pick<Recruitment, 'location'>;
+type LocationProps = Pick<Alba, 'location'>;
 
 const Location = ({ location }: LocationProps) => {
   const { address, coordinates } = JSON.parse(location);

@@ -1,7 +1,7 @@
-import { Recruitment } from '@/types/recruitment';
+import { Alba } from '@/types/alba';
 import Image from 'next/image';
 
-type FixedActionsProps = Pick<Recruitment, 'isScrapped'>;
+type FixedActionsProps = Pick<Alba, 'isScrapped'>;
 
 const FixedActions = ({ isScrapped }: FixedActionsProps) => {
   return (

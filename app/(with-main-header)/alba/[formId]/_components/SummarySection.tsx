@@ -1,10 +1,10 @@
 import Badge from '@/components/Badge';
 import { formatFullDateTime } from '@/utils/dateFormatter';
 import Image from 'next/image';
-import { Recruitment } from '@/types/recruitment';
+import { Alba } from '@/types/alba';
 
 type SectionFirstProps = Pick<
-  Recruitment,
+  Alba,
   | 'isPublic'
   | 'createdAt'
   | 'storeName'

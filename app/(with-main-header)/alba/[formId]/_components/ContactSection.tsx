@@ -1,9 +1,9 @@
-import { Recruitment } from '@/types/recruitment';
+import { Alba } from '@/types/alba';
 import { calculateDDay } from '@/utils/dDayCalculator';
 import { formatDateWithSpace } from '@/utils/dateFormatter';
 
 type SectionContactProps = Pick<
-  Recruitment,
+  Alba,
   | 'recruitmentEndDate'
   | 'recruitmentStartDate'
   | 'storePhoneNumber'

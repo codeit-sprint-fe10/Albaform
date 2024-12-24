@@ -1,7 +1,7 @@
-import { Recruitment } from '@/types/recruitment';
+import { Alba } from '@/types/alba';
 
 type RequirementsProps = Pick<
-  Recruitment,
+  Alba,
   'numberOfPositions' | 'gender' | 'education' | 'age' | 'preferred'
 >;
 

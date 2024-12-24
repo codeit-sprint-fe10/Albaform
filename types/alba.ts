@@ -1,4 +1,4 @@
-export interface Recruitment {
+export interface Alba {
   updatedAt: string;
   createdAt: string;
   preferred: string;

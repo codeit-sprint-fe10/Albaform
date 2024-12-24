@@ -1,6 +1,6 @@
-import { Recruitment } from '@/types/recruitment';
+import { Alba } from '@/types/alba';
 
-type SectinoDescriptionProps = Pick<Recruitment, 'description'>;
+type SectinoDescriptionProps = Pick<Alba, 'description'>;
 
 const DescriptionSection = ({ description }: SectinoDescriptionProps) => {
   return (

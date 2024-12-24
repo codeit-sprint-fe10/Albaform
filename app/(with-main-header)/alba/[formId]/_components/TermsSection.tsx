@@ -1,9 +1,9 @@
 import TermsDetail from '@/app/(with-main-header)/alba/[formId]/_components/TermsDetail';
 import { formatDate } from '@/utils/dateFormatter';
-import { Recruitment } from '@/types/recruitment';
+import { Alba } from '@/types/alba';
 
 type SectionTermsProps = Pick<
-  Recruitment,
+  Alba,
   | 'hourlyWage'
   | 'workStartDate'
   | 'workEndDate'
