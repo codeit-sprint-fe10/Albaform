@@ -1,7 +1,7 @@
 import axios, { AxiosError } from 'axios';
 import { postRefresh } from './auth';
 
-const BASE_URL = 'https://fe-project-albaform.vercel.app/10-4/';
+const BASE_URL = 'https://fe-project-albaform.vercel.app/10-4';
 
 export const instance = axios.create({
   baseURL: BASE_URL,
@@ -9,7 +9,7 @@ export const instance = axios.create({
 });
 
 instance.interceptors.request.use(async (config) => {
-  if (config.url === 'auth/refresh') return config;
+  if (config.url === '/auth/refresh') return config;
 
   try {
     const auths = await axios
@@ -25,7 +25,13 @@ instance.interceptors.request.use(async (config) => {
 
     await axios.patch('/api/auth', { accessToken });
     config.headers['Authorization'] = `Bearer ${accessToken}`;
-  } catch {
+  } catch (error) {
+    const e = error as AxiosError<{ message: string }>;
+    const res = e.response;
+
+    if (res) console.log(`[${e.status}:${res.config.url}] ${res.data.message}`);
+    else console.log(`[${e.code}] ${e.message}`);
+
     await axios.delete('/api/auth');
   }
 
@@ -34,11 +40,11 @@ instance.interceptors.request.use(async (config) => {
 
 instance.interceptors.response.use(
   (response) => response,
-  (error: AxiosError<{ message: string }>) => {
-    const res = error.response;
-    if (res)
-      console.log(`[${error.status}:${res.config.url}] ${res.data.message}`);
+  (e: AxiosError<{ message: string }>) => {
+    const res = e.response;
+    if (res) console.log(`[${e.status}:${res.config.url}] ${res.data.message}`);
+    else console.log(`[${e.code}] ${e.message}`);
 
-    return Promise.reject(error);
+    return Promise.reject(e);
   },
 );

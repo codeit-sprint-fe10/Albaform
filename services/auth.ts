@@ -1,54 +1,35 @@
-import { UserRole, User } from '@/types/user';
+import {
+  PostSignUpBody,
+  PostSignUpResponse,
+  PostSignInBody,
+  PostSignInResponse,
+  PostRefreshBody,
+  PostRefreshResponse,
+} from '@/types/auth';
 import { instance } from './axiosInstance';
 
-interface PostSignUpParams {
-  email: string;
-  password: string;
-  role: UserRole;
-}
+export const postSignUp = async (body: PostSignUpBody) => {
+  const bodyObj = { ...body, name: '익명' };
 
-interface PostSignUpRes {
-  accessToken: string;
-  refreshToken: string;
-  user: Omit<User, 'password'>;
-}
-
-export const postSignUp = async (params: PostSignUpParams) => {
-  const bodyObj = { ...params, name: '익명', nickname: '익명' };
-
-  const response = await instance.post<PostSignUpRes>('auth/sign-up', bodyObj);
+  const response = await instance.post<PostSignUpResponse>(
+    '/auth/sign-up',
+    bodyObj,
+  );
   return response.data;
 };
 
-interface PostSignInParams {
-  email: string;
-  password: string;
-}
-
-interface PostSignInRes {
-  accessToken: string;
-  refreshToken: string;
-  user: Omit<User, 'password'>;
-}
-
-export const postSignIn = async (params: PostSignInParams) => {
-  const bodyObj = params;
-
-  const response = await instance.post<PostSignInRes>('auth/sign-in', bodyObj);
+export const postSignIn = async (body: PostSignInBody) => {
+  const response = await instance.post<PostSignInResponse>(
+    '/auth/sign-in',
+    body,
+  );
   return response.data;
 };
 
-interface PostRefreshParams {
-  refreshToken: string;
-}
-
-interface PostRefreshRes {
-  accessToken: string;
-}
-
-export const postRefresh = async (params: PostRefreshParams) => {
-  const bodyObj = params;
-
-  const response = await instance.post<PostRefreshRes>('auth/refresh', bodyObj);
+export const postRefresh = async (body: PostRefreshBody) => {
+  const response = await instance.post<PostRefreshResponse>(
+    '/auth/refresh',
+    body,
+  );
   return response.data;
 };
