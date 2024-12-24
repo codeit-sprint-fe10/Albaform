@@ -83,7 +83,7 @@ const AlbaFormIdPage = async ({
       <div className="mt-10 mb-[30px]">
         <ApplicationActions formId={formId} />
       </div>
-      <FixedActions isScrapped={mock.isScrapped} />
+      <FixedActions isScrapped={mock.isScrapped} id={formId} />
     </div>
   );
 };
