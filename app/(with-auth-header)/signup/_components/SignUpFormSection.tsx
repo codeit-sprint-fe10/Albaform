@@ -1,9 +1,11 @@
 'use client';
 
+import { usePathname, useRouter } from 'next/navigation';
+import { AxiosError } from 'axios';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { postSignUp } from '@/services/auth';
-import { usePathname } from 'next/navigation';
 import { UserRole } from '@/types/user';
+import { useAuth } from '@/hooks/useAuth';
+import VisibilityInput from '../../_components/VisibilityInput';
 
 interface SignUpFormData {
   email: string;
@@ -12,10 +14,9 @@ interface SignUpFormData {
 }
 
 const SignUpFormSection = () => {
-  const userRole = usePathname().includes('applicant')
-    ? UserRole.APPLICANT
-    : UserRole.OWNER;
-
+  const { replace } = useRouter();
+  const pathname = usePathname();
+  const { signUp } = useAuth();
   const {
     register,
     handleSubmit,
@@ -26,19 +27,22 @@ const SignUpFormSection = () => {
 
   const signUpSubmit: SubmitHandler<SignUpFormData> = async (data, event) => {
     event?.preventDefault();
-    if (!isValid) return;
 
     try {
-      const postSignUpBody = {
+      await signUp({
         email: data.email,
         password: data.password,
-        role: userRole,
-      };
-      await postSignUp(postSignUpBody);
-    } catch {
-      setError('email', {
-        message: '이메일 혹은 비밀번호를 확인해 주세요.',
+        role: pathname.includes('applicant')
+          ? UserRole.APPLICANT
+          : UserRole.OWNER,
       });
+
+      window.alert('회원가입되었습니다!\n로그인 페이지로 이동합니다.');
+      replace(pathname.replace('signup', 'signin'));
+    } catch (e) {
+      const error = e as AxiosError<{ message: string }>;
+      const message = error.response?.data.message;
+      if (message?.includes('이메일')) setError('email', { message });
     }
   };
 
@@ -48,9 +52,10 @@ const SignUpFormSection = () => {
       <input
         type="email"
         id="email"
-        placeholder="이메일 입력"
+        placeholder="이메일을 입력해 주세요."
         {...register('email', {
           required: { value: true, message: '이메일은 필수 입력입니다.' },
+          maxLength: { value: 20, message: '이메일은 최대 20자 이하입니다.' },
           pattern: {
             value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
             message: '이메일 형식으로 작성해 주세요.',
@@ -59,20 +64,24 @@ const SignUpFormSection = () => {
       />
       <span>{errors.email?.message}</span>
       <label htmlFor="password">비밀번호</label>
-      <input
-        type="password"
+      <VisibilityInput
         id="password"
-        placeholder="비밀번호 입력"
+        placeholder="비밀번호를 입력해 주세요."
         {...register('password', {
           required: { value: true, message: '비밀번호는 필수 입력입니다.' },
+          minLength: { value: 8, message: '비밀번호는 최소 8자 이상입니다.' },
+          maxLength: { value: 20, message: '비밀번호는 최대 20자 이하입니다.' },
+          pattern: {
+            value: /^([a-z]|[A-Z]|[0-9]|[!@#$%^&*])+$/,
+            message: '비밀번호는 영문, 숫자, 허용된 특수문자만 가능합니다.',
+          },
         })}
       />
       <span>{errors.password?.message}</span>
-      <label htmlFor="passwordConfirmation">비밀번호</label>
-      <input
-        type="password"
+      <label htmlFor="passwordConfirmation">비밀번호 확인</label>
+      <VisibilityInput
         id="passwordConfirmation"
-        placeholder="비밀번호 확인"
+        placeholder="비밀번호를 한 번 더 입력해 주세요."
         {...register('passwordConfirmation', {
           required: {
             value: true,
@@ -84,8 +93,11 @@ const SignUpFormSection = () => {
           },
         })}
       />
+
       <span>{errors.passwordConfirmation?.message}</span>
-      <button type="submit">다음</button>
+      <button type="submit" disabled={!isValid}>
+        다음
+      </button>
     </form>
   );
 };
