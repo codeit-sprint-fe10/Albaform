@@ -8,11 +8,28 @@ export interface User {
   email: string;
   password: string;
   name: string;
-  nickname: string;
-  phoneNumber: string | 'undefined';
+  nickname: string | null;
+  phoneNumber: string | null;
   imageUrl: string | null;
   role: UserRole;
-  storeName: string | 'undefined';
-  storePhoneNumber: string | 'undefined';
-  location: string | 'undefined';
+  storeName: string | null;
+  storePhoneNumber: string | null;
+  location: string | null;
+}
+
+export type GetMeResponse = Omit<User, 'password'>;
+
+export type PatchMeBody = Partial<
+  Omit<User, 'id' | 'email' | 'password' | 'role'>
+>;
+
+export type PatchMeResponse = Omit<User, 'password'>;
+
+export interface PatchPasswordBody {
+  currentPassword: string;
+  newPassword: string;
+}
+
+export interface PatchPasswordResponse {
+  message: string;
 }
