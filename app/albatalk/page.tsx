@@ -7,7 +7,7 @@ import Pagination from './_components/Pagination';
 import { getPosts } from '@/services/albatalk';
 import { Post, GetPostsResponse } from '@/types/albatalk';
 
-const Albatalk: React.FC = () => {
+const Albatalk = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [nextCursor, setNextCursor] = useState<number>(0);

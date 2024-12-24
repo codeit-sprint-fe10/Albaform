@@ -1,4 +1,3 @@
-// SearchBar.tsx
 import React, { ChangeEvent } from 'react';
 import SearchIcon from '@/public/icons/search.svg';
 import SortDropdown from './SortDropdown';
@@ -14,14 +13,14 @@ interface SearchBarProps {
   sortOrder: 'mostRecent' | 'mostLiked' | 'mostCommented';
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({
+const SearchBar = ({
   searchTerm,
   setSearchTerm,
   setCurrentPage,
   setNextCursor,
   setSortOrder,
   sortOrder,
-}) => {
+}: SearchBarProps) => {
   const handleSearch = (e: ChangeEvent<HTMLInputElement>): void => {
     setSearchTerm(e.target.value);
     setCurrentPage(1);

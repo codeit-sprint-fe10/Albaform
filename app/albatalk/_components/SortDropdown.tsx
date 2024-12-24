@@ -7,10 +7,7 @@ interface SortDropdownProps {
   >;
 }
 
-const SortDropdown: React.FC<SortDropdownProps> = ({
-  sortOrder,
-  setSortOrder,
-}) => {
+const SortDropdown = ({ sortOrder, setSortOrder }: SortDropdownProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const handleDropdownToggle = () => {

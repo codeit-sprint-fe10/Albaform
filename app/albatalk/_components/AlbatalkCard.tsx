@@ -9,7 +9,7 @@ interface AlbatalkCardProps {
   post: Post;
 }
 
-const AlbatalkCard: React.FC<AlbatalkCardProps> = ({ post }) => {
+const AlbatalkCard = ({ post }: AlbatalkCardProps) => {
   return (
     <div className="relative w-full h-72 p-6 border rounded-2xl">
       <KebabIcon className="absolute right-5" />
