@@ -6,6 +6,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { UserRole } from '@/types/user';
 import { useAuth } from '@/hooks/useAuth';
 import VisibilityInput from '../../_components/VisibilityInput';
+import Button from '@/components/Button';
 
 interface SignUpFormData {
   email: string;
@@ -93,11 +94,13 @@ const SignUpFormSection = () => {
           },
         })}
       />
-
       <span>{errors.passwordConfirmation?.message}</span>
-      <button type="submit" disabled={!isValid}>
-        다음
-      </button>
+      <Button
+        type="submit"
+        content="다음"
+        design="solid"
+        disabled={!isValid}
+      ></Button>
     </form>
   );
 };

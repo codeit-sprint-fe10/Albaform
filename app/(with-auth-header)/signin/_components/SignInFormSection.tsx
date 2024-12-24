@@ -5,6 +5,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { User } from '@/types/user';
 import { useAuth } from '@/hooks/useAuth';
 import VisibilityInput from '../../_components/VisibilityInput';
+import Button from '@/components/Button';
 
 type SignInFormData = Pick<User, 'email' | 'password'>;
 
@@ -58,9 +59,12 @@ const SignInFormSection = () => {
         })}
       />
       <span>{errors.password?.message}</span>
-      <button type="submit" disabled={!isValid}>
-        로그인
-      </button>
+      <Button
+        type="submit"
+        content="로그인 하기"
+        design="solid"
+        disabled={!isValid}
+      ></Button>
     </form>
   );
 };
