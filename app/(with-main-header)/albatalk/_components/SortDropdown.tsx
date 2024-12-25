@@ -34,7 +34,7 @@ const SortDropdown = ({ sortOrder, setSortOrder }: SortDropdownProps) => {
         className="px-4 py-2 bg-white rounded-md flex items-center justify-between gap-3 cursor-pointer"
         onClick={handleDropdownToggle}
       >
-        <span className="text-lg font-semibold">
+        <span className="text-xs lg:text-lg font-semibold">
           {SORT_OPTIONS.find((option) => option.key === sortOrder)?.label}
         </span>
         <div
@@ -45,11 +45,11 @@ const SortDropdown = ({ sortOrder, setSortOrder }: SortDropdownProps) => {
       </button>
 
       {isDropdownOpen && (
-        <div className="absolute right-0 top-12 w-32 px-2 py-3 bg-gray-50 border border-gray-100 rounded-lg shadow-lg z-10">
+        <div className="absolute top-10 right-2 lg:right-0 lg:top-12 w-20 lg:w-32 px-2 py-3 bg-gray-50 border border-gray-100 rounded-lg shadow-lg z-10">
           {SORT_OPTIONS.map((option) => (
             <div
               key={option.key}
-              className={`w-full px-4 py-2 text-center text-lg rounded-lg font-semibold cursor-pointer hover:bg-orange-50 ${
+              className={`w-full lg:px-4 py-2 text-center text-xs lg:text-lg rounded-lg font-semibold cursor-pointer hover:bg-orange-50 ${
                 sortOrder === option.key ? 'bg-blue-500 text-white' : ''
               }`}
               onClick={() => handleSortOrderChange(option.key)}

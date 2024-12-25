@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useQuery, keepPreviousData } from '@tanstack/react-query';
 import AlbatalkCard from './_components/AlbatalkCard';
 import Pagination from './_components/Pagination';
@@ -14,16 +14,34 @@ const Albatalk = () => {
   const [sortOrder, setSortOrder] = useState<
     'mostRecent' | 'mostLiked' | 'mostCommented'
   >('mostRecent');
-  const PAGE_LIMIT = 6;
+  const [pageLimit, setPageLimit] = useState<number>(6); // PAGE_LIMIT state
+
+  useEffect(() => {
+    const updatePageLimit = () => {
+      const width = window.innerWidth;
+      if (width < 768) {
+        setPageLimit(3);
+      } else if (width < 1280) {
+        setPageLimit(4);
+      } else {
+        setPageLimit(6);
+      }
+    };
+
+    updatePageLimit();
+    window.addEventListener('resize', updatePageLimit); // 윈도우 크기 변화에 따라 호출
+
+    return () => window.removeEventListener('resize', updatePageLimit); // 컴포넌트가 언마운트되면 이벤트 리스너 제거
+  }, []);
 
   const currentCursor = cursorHistory[cursorHistory.length - 1];
 
   const { data, isLoading, error } = useQuery<GetPostsResponse>({
-    queryKey: ['posts', { PAGE_LIMIT, searchTerm, sortOrder, currentCursor }],
+    queryKey: ['posts', { pageLimit, searchTerm, sortOrder, currentCursor }],
     queryFn: () =>
       getPosts({
         cursor: currentCursor,
-        limit: PAGE_LIMIT,
+        limit: pageLimit,
         keyword: searchTerm,
         orderBy: sortOrder,
       }),
@@ -47,7 +65,7 @@ const Albatalk = () => {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full flex flex-col">
       <SearchBar
         searchTerm={searchTerm}
         sortOrder={sortOrder}
@@ -56,9 +74,9 @@ const Albatalk = () => {
         setSortOrder={setSortOrder}
         setCursorHistory={setCursorHistory}
       />
-      <div className="w-full flex flex-col items-center justify-center mt-10">
+      <div className="w-full flex flex-col items-center justify-center mt-4 lg:mt-10">
         <div className="flex w-full max-w-container-md">
-          <ul className="w-full grid grid-cols-3 gap-6 gap-y-12">
+          <ul className="w-full flex flex-col gap-4 lg:grid lg:grid-cols-3 lg:gap-6 lg:gap-y-12">
             {data?.data.map(
               ({
                 id,

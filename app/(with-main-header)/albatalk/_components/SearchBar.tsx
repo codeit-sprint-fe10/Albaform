@@ -25,9 +25,9 @@ const SearchBar = ({
   };
 
   return (
-    <div className="flex justify-center border-b-2">
-      <div className="flex max-w-container-200 w-full h-28 items-center justify-between gap-4">
-        <div className="flex w-5/6 bg-background-200 border-none rounded-3xl px-6 py-4 justify-center items-center">
+    <div className="flex justify-center md:border-b-2">
+      <div className="flex w-full flex-col h-28 mt-4 items-end justify-center gap-4 md:flex-row lg:max-w-container-200 md:items-center md:justify-between lg:gap-4 md:mt-0">
+        <div className="flex w-full md:w-4/5 lg:w-5/6 bg-background-200 border-none rounded-3xl px-6 py-4 justify-center items-center">
           <div className="flex items-center justify-center w-8 h-8">
             <SearchIcon className="text-gray-500" />
           </div>
