@@ -95,12 +95,7 @@ const SignUpFormSection = () => {
         })}
       />
       <span>{errors.passwordConfirmation?.message}</span>
-      <Button
-        type="submit"
-        content="다음"
-        design="solid"
-        disabled={!isValid}
-      ></Button>
+      <Button type="submit" content="다음" disabled={!isValid}></Button>
     </form>
   );
 };

@@ -56,15 +56,11 @@ const SignInFormSection = () => {
         placeholder="비밀번호를 입력해 주세요."
         {...register('password', {
           required: { value: true, message: '비밀번호는 필수 입력입니다.' },
+          minLength: { value: 8, message: '비밀번호는 최소 8자 이상입니다.' },
         })}
       />
       <span>{errors.password?.message}</span>
-      <Button
-        type="submit"
-        content="로그인 하기"
-        design="solid"
-        disabled={!isValid}
-      ></Button>
+      <Button type="submit" content="로그인 하기" disabled={!isValid}></Button>
     </form>
   );
 };
