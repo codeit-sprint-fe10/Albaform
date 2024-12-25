@@ -50,7 +50,15 @@ const Button = ({
       disabled={disabled}
       className={buttonStyle + className}
     >
-      {iconUrl && <Image src={iconUrl} alt={iconAlt} className={iconStyle} />}
+      {iconUrl && (
+        <Image
+          src={iconUrl}
+          alt={iconAlt}
+          width={0}
+          height={0}
+          className={iconStyle}
+        />
+      )}
       {content}
     </button>
   );

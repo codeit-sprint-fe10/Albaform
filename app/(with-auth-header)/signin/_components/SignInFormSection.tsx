@@ -6,6 +6,7 @@ import { User } from '@/types/user';
 import { useAuth } from '@/hooks/useAuth';
 import VisibilityInput from '../../_components/VisibilityInput';
 import Button from '@/components/Button';
+import { em, pw } from '@/constants/form';
 
 type SignInFormData = Pick<User, 'email' | 'password'>;
 
@@ -40,12 +41,12 @@ const SignInFormSection = () => {
       <input
         type="email"
         id="email"
-        placeholder="이메일을 입력해 주세요."
+        placeholder={em.msg.placeholder}
         {...register('email', {
-          required: { value: true, message: '이메일은 필수 입력입니다.' },
+          required: { value: true, message: em.msg.required },
           pattern: {
-            value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-            message: '이메일 형식으로 작성해 주세요.',
+            value: em.fmt.regExp,
+            message: em.msg.pattern,
           },
         })}
       />
@@ -53,10 +54,10 @@ const SignInFormSection = () => {
       <label htmlFor="password">비밀번호</label>
       <VisibilityInput
         id="password"
-        placeholder="비밀번호를 입력해 주세요."
+        placeholder={pw.msg.placeholder}
         {...register('password', {
-          required: { value: true, message: '비밀번호는 필수 입력입니다.' },
-          minLength: { value: 8, message: '비밀번호는 최소 8자 이상입니다.' },
+          required: { value: true, message: pw.msg.required },
+          minLength: { value: pw.fmt.minLength, message: pw.msg.minLength },
         })}
       />
       <span>{errors.password?.message}</span>

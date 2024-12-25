@@ -7,6 +7,7 @@ import { UserRole } from '@/types/user';
 import { useAuth } from '@/hooks/useAuth';
 import VisibilityInput from '../../_components/VisibilityInput';
 import Button from '@/components/Button';
+import { em, pw, pwCf } from '@/constants/form';
 
 interface SignUpFormData {
   email: string;
@@ -53,13 +54,13 @@ const SignUpFormSection = () => {
       <input
         type="email"
         id="email"
-        placeholder="이메일을 입력해 주세요."
+        placeholder={em.msg.placeholder}
         {...register('email', {
-          required: { value: true, message: '이메일은 필수 입력입니다.' },
-          maxLength: { value: 20, message: '이메일은 최대 20자 이하입니다.' },
+          required: { value: true, message: em.msg.required },
+          maxLength: { value: em.fmt.maxLength, message: em.msg.maxLength },
           pattern: {
-            value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-            message: '이메일 형식으로 작성해 주세요.',
+            value: em.fmt.regExp,
+            message: em.msg.pattern,
           },
         })}
       />
@@ -67,14 +68,14 @@ const SignUpFormSection = () => {
       <label htmlFor="password">비밀번호</label>
       <VisibilityInput
         id="password"
-        placeholder="비밀번호를 입력해 주세요."
+        placeholder={pw.msg.placeholder}
         {...register('password', {
-          required: { value: true, message: '비밀번호는 필수 입력입니다.' },
-          minLength: { value: 8, message: '비밀번호는 최소 8자 이상입니다.' },
-          maxLength: { value: 20, message: '비밀번호는 최대 20자 이하입니다.' },
+          required: { value: true, message: pw.msg.required },
+          minLength: { value: pw.fmt.minLength, message: pw.msg.minLength },
+          maxLength: { value: pw.fmt.maxLength, message: pw.msg.maxLength },
           pattern: {
-            value: /^([a-z]|[A-Z]|[0-9]|[!@#$%^&*])+$/,
-            message: '비밀번호는 영문, 숫자, 허용된 특수문자만 가능합니다.',
+            value: pw.fmt.regExp,
+            message: pw.msg.pattern,
           },
         })}
       />
@@ -82,15 +83,14 @@ const SignUpFormSection = () => {
       <label htmlFor="passwordConfirmation">비밀번호 확인</label>
       <VisibilityInput
         id="passwordConfirmation"
-        placeholder="비밀번호를 한 번 더 입력해 주세요."
+        placeholder={pwCf.msg.placeholder}
         {...register('passwordConfirmation', {
           required: {
             value: true,
-            message: '비밀번호 확인은 필수 입력입니다.',
+            message: pwCf.msg.required,
           },
           validate: {
-            value: (value) =>
-              value === watch('password') || '비밀번호가 일치하지 않습니다.',
+            value: (value) => value === watch('password') || pwCf.msg.notEqual,
           },
         })}
       />
