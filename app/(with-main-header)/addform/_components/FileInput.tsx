@@ -49,7 +49,7 @@ const FileInput = ({ setValue, imageUrls }: FileInputProps) => {
 
   return (
     <div>
-      <h3 className="font-medium text-md lg:text-xl text-black-400 pb-[17px] lg:pb-4">
+      <h3 className="font-medium text-md lg:text-xl text-black-400 mb-4">
         이미지 첨부
       </h3>
       <div className="flex gap-4 flex-wrap">
