@@ -16,7 +16,7 @@ const Pagination = ({
   handleLoadMore,
 }: PaginationProps) => {
   return (
-    <div className="w-full flex items-center justify-between mt-14 max-w-container-md">
+    <div className="w-full flex items-center justify-between mt-14 max-w-container-md mb-6">
       <button
         onClick={handleLoadPrev}
         disabled={isFirstPage}
