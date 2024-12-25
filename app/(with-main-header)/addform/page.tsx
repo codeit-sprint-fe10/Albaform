@@ -6,12 +6,14 @@ import LocationInput from './_components/LocationInput';
 import Input from './_components/Input';
 import Label from '@/components/Label';
 import Textarea from './_components/Textarea';
+import CheckboxInput from './_components/CheckboxInput';
 
 export interface FormValues {
   title: string;
   description: string;
   imageUrls: string[] | null;
   location: string;
+  isPublic: boolean;
 }
 
 const AddFormPage = () => {
@@ -39,6 +41,10 @@ const AddFormPage = () => {
       </div>
       <LocationInput setValue={setValue} />
       <FileInput setValue={setValue} />
+      <div>
+        <Label label="공개 설정" className="mb-3 lg:mb-4" required />
+        <CheckboxInput label="공개" register={register('isPublic')} />
+      </div>
     </>
   );
 };

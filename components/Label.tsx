@@ -1,11 +1,11 @@
 interface LabelProps {
-  id: string;
   label: string;
+  id?: string;
   required?: boolean;
   className?: string;
 }
 
-const Label = ({ id, label, required, className }: LabelProps) => {
+const Label = ({ label, id, required, className }: LabelProps) => {
   return (
     <label
       className={`inline-block font-medium text-md lg:text-xl text-black-400 ${className}`}
