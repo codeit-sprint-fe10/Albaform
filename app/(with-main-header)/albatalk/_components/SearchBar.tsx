@@ -6,24 +6,22 @@ import { SortOrder } from '@/types/sort';
 
 interface SearchBarProps {
   searchTerm: string;
-  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
-  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
-  setNextCursor: React.Dispatch<React.SetStateAction<number>>;
-  setSortOrder: React.Dispatch<React.SetStateAction<SortOrder>>;
   sortOrder: SortOrder;
+  cursorHistory: number[];
+  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
+  setSortOrder: React.Dispatch<React.SetStateAction<SortOrder>>;
+  setCursorHistory: React.Dispatch<React.SetStateAction<number[]>>;
 }
 const SearchBar = ({
   searchTerm,
-  setSearchTerm,
-  setCurrentPage,
-  setNextCursor,
-  setSortOrder,
   sortOrder,
+  setSearchTerm,
+  setSortOrder,
+  setCursorHistory,
 }: SearchBarProps) => {
   const handleSearch = (e: ChangeEvent<HTMLInputElement>): void => {
     setSearchTerm(e.target.value);
-    setCurrentPage(1);
-    setNextCursor(0);
+    setCursorHistory([0]);
   };
 
   return (

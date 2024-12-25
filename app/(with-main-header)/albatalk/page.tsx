@@ -1,74 +1,63 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useQuery, keepPreviousData } from '@tanstack/react-query';
 import AlbatalkCard from './_components/AlbatalkCard';
-import SearchBar from './_components/SearchBar';
 import Pagination from './_components/Pagination';
+import SearchBar from './_components/SearchBar';
 import { getPosts } from '@/services/albatalk';
 import { GetPostsResponse } from '@/types/albatalk';
 
 const Albatalk = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const [nextCursor, setNextCursor] = useState<number>(0);
+  const [cursorHistory, setCursorHistory] = useState<number[]>([0]);
   const [sortOrder, setSortOrder] = useState<
     'mostRecent' | 'mostLiked' | 'mostCommented'
   >('mostRecent');
   const PAGE_LIMIT = 6;
 
-  //TODO: total count 값 설정 방식 수정 필요
-  const TOTAL_COUNT = 10;
+  const currentCursor = cursorHistory[cursorHistory.length - 1];
 
-  //TODO: 로딩중일때, 에러처리 필요
   const { data, isLoading, error } = useQuery<GetPostsResponse>({
-    queryKey: [
-      'posts',
-      {
-        PAGE_LIMIT,
-        currentPage,
-        searchTerm,
-        sortOrder,
-        nextCursor,
-      },
-    ],
+    queryKey: ['posts', { PAGE_LIMIT, searchTerm, sortOrder, currentCursor }],
     queryFn: () =>
       getPosts({
-        cursor: nextCursor,
+        cursor: currentCursor,
         limit: PAGE_LIMIT,
         keyword: searchTerm,
         orderBy: sortOrder,
       }),
     placeholderData: keepPreviousData,
-    enabled: nextCursor !== null,
+    enabled: !!cursorHistory.length,
   });
 
-  // const totalPage = data?.totalCount
-  //   ? Math.ceil(data.totalCount / PAGE_LIMIT)
-  //   : 1;
+  const isFirstPage = cursorHistory.length === 1;
+  const hasNextPage = data?.nextCursor !== null;
 
-  useEffect(() => {
-    if (data) {
-      setNextCursor(data.nextCursor);
+  const handleLoadMore = () => {
+    if (data?.nextCursor) {
+      setCursorHistory((prev) => [...prev, data.nextCursor]);
     }
-  }, [currentPage]);
+  };
 
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
+  const handleLoadPrev = () => {
+    if (cursorHistory.length > 1) {
+      setCursorHistory((prev) => prev.slice(0, -1));
+    }
   };
 
   return (
     <div className="w-full">
       <SearchBar
         searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
-        setCurrentPage={setCurrentPage}
-        setNextCursor={setNextCursor}
-        setSortOrder={setSortOrder}
         sortOrder={sortOrder}
+        cursorHistory={cursorHistory}
+        setSearchTerm={setSearchTerm}
+        setSortOrder={setSortOrder}
+        setCursorHistory={setCursorHistory}
       />
-      <div className="w-full flex items-center justify-center mt-10">
-        <div className="flex w-full max-w-container-200">
+      <div className="w-full flex flex-col items-center justify-center mt-10">
+        <div className="flex w-full max-w-container-md">
           <ul className="w-full grid grid-cols-3 gap-6 gap-y-12">
             {data?.data.map(
               ({
@@ -93,12 +82,11 @@ const Albatalk = () => {
             )}
           </ul>
         </div>
-      </div>
-      <div className="w-full flex items-center justify-center mt-4">
         <Pagination
-          currentPage={currentPage}
-          totalPages={TOTAL_COUNT}
-          onPageChange={handlePageChange}
+          isFirstPage={isFirstPage}
+          hasNextPage={hasNextPage}
+          handleLoadPrev={handleLoadPrev}
+          handleLoadMore={handleLoadMore}
         />
       </div>
     </div>
