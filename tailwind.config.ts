@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss';
+import { PluginAPI } from 'tailwindcss/types/config';
 
 const tailwindConfig = {
   content: [
@@ -74,6 +75,22 @@ const tailwindConfig = {
       error: '#FC4100',
     },
   },
+  plugins: [
+    function ({ addUtilities, theme }: PluginAPI) {
+      addUtilities({
+        '.bg-inherit': {
+          background: 'inherit',
+        },
+        '.custom-scrollbar::-webkit-scrollbar': {
+          width: '3px',
+        },
+        '.custom-scrollbar::-webkit-scrollbar-thumb': {
+          backgroundColor: theme('colors.gray.200'),
+          borderRadius: '100px',
+        },
+      });
+    },
+  ],
 } satisfies Config;
 
 export default tailwindConfig;
