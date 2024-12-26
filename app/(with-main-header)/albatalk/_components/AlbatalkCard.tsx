@@ -4,11 +4,11 @@ import LikeIcon from '@/public/icons/like.svg';
 import Image from 'next/image';
 import { format } from '@/utils/date';
 import Link from 'next/link';
-
+import { Writer } from '@/types/albatalk';
 interface AlbatalkCardProps {
   title: string;
   content: string;
-  writerNickname: string;
+  writer: Writer;
   createdAt: Date;
   commentCount: number;
   likeCount: number;
@@ -18,12 +18,13 @@ interface AlbatalkCardProps {
 const AlbatalkCard = ({
   title,
   content,
-  writerNickname,
+  writer,
   createdAt,
   commentCount,
   likeCount,
   talkId,
 }: AlbatalkCardProps) => {
+  console.log(writer);
   return (
     <div className="relative w-full h-[180px] lg:h-[280px] p-6 border rounded-2xl">
       <Link href={`/albatalk/${talkId}`}>
@@ -41,11 +42,19 @@ const AlbatalkCard = ({
             <div className="flex w-full justify-between items-center">
               <div className="flex gap-4 items-center">
                 <div className="flex gap-1 items-center">
-                  <div className="w-6 h-6 lg:w-9 lg:h-9 relative">
-                    <Image src="/icons/profile.svg" alt="user profile" fill />
+                  <div className="w-6 h-6 lg:w-9 lg:h-9 rounded-3xl relative">
+                    <Image
+                      src={
+                        writer && writer.imageUrl
+                          ? writer.imageUrl
+                          : '/icons/profile.svg'
+                      }
+                      alt="user profile"
+                      fill
+                    />
                   </div>
                   <div className="max-w-40 text-gray-500 text-xs md:text-md lg:text-lg font-regular">
-                    {writerNickname}
+                    {writer?.nickname}
                   </div>
                 </div>
                 <div className="text-gray-300">|</div>

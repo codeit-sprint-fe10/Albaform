@@ -91,7 +91,7 @@ const Albatalk = () => {
                   key={id}
                   title={title}
                   content={content}
-                  writerNickname={writer.nickname}
+                  writer={writer}
                   createdAt={createdAt}
                   commentCount={commentCount}
                   likeCount={likeCount}

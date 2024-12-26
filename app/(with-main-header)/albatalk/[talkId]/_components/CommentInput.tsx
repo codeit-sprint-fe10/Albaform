@@ -8,8 +8,8 @@ const CommentInput = () => {
           placeholder="댓글을 입력해주세요"
         ></textarea>
       </div>
-      <div className="flex justify-end">
-        <Button className="w-[108px] h-[50px]" content="등록하기" />
+      <div className="flex w-full justify-end">
+        <Button className="w-28 h-[50px]" content="등록하기" />
       </div>
     </div>
   );

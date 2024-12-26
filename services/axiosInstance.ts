@@ -32,7 +32,7 @@ instance.interceptors.request.use(async (config) => {
     if (res) console.log(`[${e.status}:${res.config.url}] ${res.data.message}`);
     else console.log(`[${e.code}] ${e.message}`);
 
-    await axios.delete('/api/auth');
+    // await axios.delete('/api/auth');
   }
 
   return config;
