@@ -41,4 +41,5 @@ export interface GetPostDetailResponse {
   content: string;
   title: string;
   id: number;
+  isLiked: boolean;
 }

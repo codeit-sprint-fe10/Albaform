@@ -21,19 +21,13 @@ export const getPosts = async (
 };
 
 export const getPostDetail = async (
-  postId: string,
-  params?: GetPostDetailParameters,
+  id: number,
 ): Promise<GetPostDetailResponse> => {
   try {
-    const response = await instance.get<GetPostDetailResponse>(
-      `/posts/${postId}`,
-      {
-        params,
-      },
-    );
+    const response = await instance.get<GetPostDetailResponse>(`/posts/${id}`);
     return response.data;
   } catch (error) {
-    console.error('Error fetching posts:', error);
+    console.error('Error fetching post detail:', error);
     throw error;
   }
 };
