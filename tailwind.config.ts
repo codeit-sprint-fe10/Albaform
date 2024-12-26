@@ -78,9 +78,6 @@ const tailwindConfig = {
   plugins: [
     function ({ addUtilities, theme }: PluginAPI) {
       addUtilities({
-        '.bg-inherit': {
-          background: 'inherit',
-        },
         '.custom-scrollbar::-webkit-scrollbar': {
           width: '3px',
         },

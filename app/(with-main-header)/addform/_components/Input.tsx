@@ -1,3 +1,5 @@
+'use client';
+
 import { InputHTMLAttributes, PropsWithChildren } from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
 
