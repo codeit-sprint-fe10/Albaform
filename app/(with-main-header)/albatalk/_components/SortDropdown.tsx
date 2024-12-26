@@ -45,7 +45,7 @@ const SortDropdown = ({ sortOrder, setSortOrder }: SortDropdownProps) => {
       </button>
 
       {isDropdownOpen && (
-        <div className="absolute top-10 right-2 lg:right-0 lg:top-12 w-20 lg:w-32 px-2 py-3 bg-gray-50 border border-gray-100 rounded-lg shadow-lg z-10">
+        <div className="absolute top-[calc(100%+4px)] right-[calc(100%)+2px] lg:right-0 w-20 lg:w-32 px-2 py-3 bg-gray-50 border border-gray-100 rounded-lg shadow-lg z-10">
           {SORT_OPTIONS.map((option) => (
             <div
               key={option.key}

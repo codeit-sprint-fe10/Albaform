@@ -18,17 +18,19 @@ const Pagination = ({
   return (
     <div className="w-full flex items-center justify-between mt-14 max-w-container-md mb-6">
       <button
+        type="button"
         onClick={handleLoadPrev}
         disabled={isFirstPage}
-        className={`btn ${isFirstPage ? 'btn-disabled opacity-50' : ''} flex text-black-400`}
+        className={`${isFirstPage ? 'opacity-50' : ''} flex text-black-400`}
       >
         <PrevIcon className="stroke-black-400" />
         이전
       </button>
       <button
+        type="button"
         onClick={handleLoadMore}
         disabled={!hasNextPage}
-        className={`btn ${!hasNextPage ? 'btn-disabled opacity-50' : ''} flex text-black-400`}
+        className={`${!hasNextPage ? 'opacity-50' : ''} flex text-black-400`}
       >
         다음
         <PrevIcon className="stroke-black-400 rotate-180" />

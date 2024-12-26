@@ -14,7 +14,7 @@ const Albatalk = () => {
   const [sortOrder, setSortOrder] = useState<
     'mostRecent' | 'mostLiked' | 'mostCommented'
   >('mostRecent');
-  const [pageLimit, setPageLimit] = useState<number>(6); // PAGE_LIMIT state
+  const [pageLimit, setPageLimit] = useState<number>(6);
 
   useEffect(() => {
     const updatePageLimit = () => {
@@ -29,12 +29,12 @@ const Albatalk = () => {
     };
 
     updatePageLimit();
-    window.addEventListener('resize', updatePageLimit); // 윈도우 크기 변화에 따라 호출
+    window.addEventListener('resize', updatePageLimit);
 
-    return () => window.removeEventListener('resize', updatePageLimit); // 컴포넌트가 언마운트되면 이벤트 리스너 제거
+    return () => window.removeEventListener('resize', updatePageLimit);
   }, []);
 
-  const currentCursor = cursorHistory[cursorHistory.length - 1];
+  const currentCursor = cursorHistory.at(-1) ?? 0;
 
   const { data, isLoading, error } = useQuery<GetPostsResponse>({
     queryKey: ['posts', { pageLimit, searchTerm, sortOrder, currentCursor }],
@@ -76,7 +76,7 @@ const Albatalk = () => {
       />
       <div className="w-full flex flex-col items-center justify-center mt-4 lg:mt-10">
         <div className="flex w-full max-w-container-md">
-          <ul className="w-full flex flex-col gap-4 lg:grid lg:grid-cols-3 lg:gap-6 lg:gap-y-12">
+          <div className="w-full flex flex-col gap-4 lg:grid lg:grid-cols-3 lg:gap-6 lg:gap-y-12">
             {data?.data.map(
               ({
                 id,
@@ -98,7 +98,7 @@ const Albatalk = () => {
                 />
               ),
             )}
-          </ul>
+          </div>
         </div>
         <Pagination
           isFirstPage={isFirstPage}
