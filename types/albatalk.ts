@@ -27,3 +27,18 @@ export interface GetPostsParameters {
   orderBy?: 'mostRecent' | 'mostCommented' | 'mostLiked';
   keyword?: string;
 }
+
+export interface GetPostDetailParameters {
+  id: number;
+}
+export interface GetPostDetailResponse {
+  writer: Writer;
+  updatedAt: Date;
+  createdAt: Date;
+  commentCount: number;
+  likeCount: number;
+  imageUrl: string;
+  content: string;
+  title: string;
+  id: number;
+}

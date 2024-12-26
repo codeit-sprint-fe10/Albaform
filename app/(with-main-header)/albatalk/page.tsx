@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useQuery, keepPreviousData } from '@tanstack/react-query';
 import AlbatalkCard from './_components/AlbatalkCard';
 import Pagination from './_components/Pagination';
@@ -95,6 +95,7 @@ const Albatalk = () => {
                   createdAt={createdAt}
                   commentCount={commentCount}
                   likeCount={likeCount}
+                  talkId={id}
                 />
               ),
             )}
