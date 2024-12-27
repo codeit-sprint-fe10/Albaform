@@ -20,12 +20,13 @@ const AlbatalkDetail = async ({ params }: { params: { talkId: number } }) => {
             <div className="flex">
               <div className="flex w-full justify-between items-center">
                 <div className="flex gap-4 items-center">
-                  <div className="flex gap-1 items-center">
-                    <div className="w-6 h-6 lg:w-9 lg:h-9 relative">
+                  <div className="flex gap-2 items-center">
+                    <div className="w-[20px] h-[20px] lg:w-9 lg:h-9 relative ">
                       <Image
                         src={post?.writer.imageUrl || '/icons/profile.svg'}
                         alt="user profile"
                         fill
+                        className="border border-none rounded-3xl"
                       />
                     </div>
                     <div className="max-w-40 text-gray-500 text-xs md:text-md lg:text-lg font-regular">
@@ -60,12 +61,15 @@ const AlbatalkDetail = async ({ params }: { params: { talkId: number } }) => {
               </div>
             </div>
           </div>
-          <div className="flex flex-col gap-2">
-            <div className="relative w-full h-32">
-              {post?.imageUrl && (
-                <Image src={post?.imageUrl} alt="post image" fill />
-              )}
+          <div className="flex flex-col gap-2 md:flex-row md:gap-5">
+            <div className="flex justify-center items-center">
+              <div className="relative flex w-64 h-40 md:w-80 md:h-80">
+                {post?.imageUrl && (
+                  <Image src={post?.imageUrl} alt="post image" fill />
+                )}
+              </div>
             </div>
+
             <div className="text-md font-regular text-gray-500">
               {post?.content}
             </div>

@@ -34,7 +34,7 @@ const CommentInput = ({
         <textarea
           value={comment}
           onChange={(e) => setComment(e.target.value)}
-          className="h-[132px] p-[14px] placeholder:text-md placeholder:text-gray-400 rounded-lg bg-background-200 resize-none"
+          className="h-[132px] p-[14px] placeholder:text-md focus:outline-none placeholder:text-gray-400  rounded-lg bg-background-200 resize-none"
           placeholder="댓글을 입력해주세요"
         ></textarea>
       </div>

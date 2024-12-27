@@ -88,12 +88,13 @@ const CommentList = ({
             <div className="flex flex-col gap-6">
               <div className="flex w-full justify-between items-center">
                 <div className="flex gap-4 items-center">
-                  <div className="flex gap-1 items-center">
-                    <div className="w-6 h-6 lg:w-9 lg:h-9 relative">
+                  <div className="flex gap-2 items-center">
+                    <div className="relative w-4 h-4 lg:w-6 lg:h-6 ">
                       <Image
                         src={comment.writer.imageUrl || '/icons/profile.svg'}
                         alt="user profile"
                         fill
+                        className="border border-none rounded-3xl"
                       />
                     </div>
                     <div className="max-w-40 text-gray-500 text-xs md:text-md lg:text-lg font-regular">
