@@ -33,3 +33,16 @@ export const pwCf = {
     notEqual: '비밀번호가 일치하지 않습니다.',
   },
 } as const;
+
+export const name = {
+  fmt: {
+    regExp: /^[a-zA-Z가-힣\s]+$/,
+    maxLength: 20,
+  },
+  msg: {
+    placeholder: '이름을 입력해 주세요.',
+    required: '이름은 필수 입력입니다.',
+    maxLength: '이름은 최대 20자 이하입니다.',
+    pattern: '이름은 한글, 영문, 공백만 가능합니다.',
+  },
+};

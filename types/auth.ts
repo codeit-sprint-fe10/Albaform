@@ -1,6 +1,6 @@
 import { User } from '@/types/user';
 
-export type PostSignUpBody = Pick<User, 'email' | 'password' | 'role'>;
+export type PostSignUpBody = Pick<User, 'email' | 'password' | 'name' | 'role'>;
 
 export interface PostSignUpResponse {
   accessToken: string;

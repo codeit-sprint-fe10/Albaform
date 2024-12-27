@@ -7,9 +7,10 @@ import { UserRole } from '@/types/user';
 import { useAuth } from '@/hooks/useAuth';
 import VisibilityInput from '../../_components/VisibilityInput';
 import Button from '@/components/Button';
-import { em, pw, pwCf } from '@/constants/form';
+import { em, name, pw, pwCf } from '@/constants/form';
 
 interface SignUpFormData {
+  name: string;
   email: string;
   password: string;
   passwordConfirmation: string;
@@ -34,6 +35,7 @@ const SignUpFormSection = () => {
       await signUp({
         email: data.email,
         password: data.password,
+        name: data.name,
         role: pathname.includes('applicant')
           ? UserRole.APPLICANT
           : UserRole.OWNER,
@@ -95,6 +97,21 @@ const SignUpFormSection = () => {
         })}
       />
       <span>{errors.passwordConfirmation?.message}</span>
+      <label htmlFor="name">이름</label>
+      <input
+        type="text"
+        id="name"
+        placeholder={name.msg.placeholder}
+        {...register('name', {
+          required: { value: true, message: name.msg.required },
+          maxLength: { value: name.fmt.maxLength, message: name.msg.maxLength },
+          pattern: {
+            value: name.fmt.regExp,
+            message: name.msg.pattern,
+          },
+        })}
+      />
+      <span>{errors.name?.message}</span>
       <Button type="submit" content="다음" disabled={!isValid}></Button>
     </form>
   );

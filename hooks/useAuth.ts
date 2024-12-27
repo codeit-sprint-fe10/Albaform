@@ -4,7 +4,7 @@ import { User } from '@/types/user';
 import { useUserStore } from '@/store/user';
 import { postSignUp, postSignIn } from '@/services/auth';
 
-type SignUpParameters = Pick<User, 'email' | 'password' | 'role'>;
+type SignUpParameters = Pick<User, 'email' | 'password' | 'name' | 'role'>;
 type SignInParameters = Pick<User, 'email' | 'password'>;
 
 export const useAuth = () => {
