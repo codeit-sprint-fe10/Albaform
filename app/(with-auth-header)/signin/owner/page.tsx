@@ -1,12 +1,14 @@
 import Link from 'next/link';
 import SignInFormSection from '../_components/SignInFormSection';
 import SocialSignInSection from '../_components/SocialSignInSection';
+import RoleNav from '@/components/RoleNav';
 
 const SignInOwnerPage = () => {
   return (
     <main>
       <section>
         <h1>로그인</h1>
+        <RoleNav isHeader={false} />
         <p>
           사장님 계정이 없으신가요?
           <Link href="/signup/owner" replace>

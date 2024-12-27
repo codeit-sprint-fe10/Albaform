@@ -1,11 +1,13 @@
 import Link from 'next/link';
 import SignInFormSection from '../_components/SignInFormSection';
 import SocialSignInSection from '../_components/SocialSignInSection';
+import RoleNav from '@/components/RoleNav';
 
 const SignInApplicantPage = () => {
   return (
     <main>
       <section>
+        <RoleNav isHeader={false} />
         <h1>로그인</h1>
         <p>
           아직 계정이 없으신가요?

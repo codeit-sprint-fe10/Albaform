@@ -1,12 +1,14 @@
 import Link from 'next/link';
 import SignUpFormSection from '../_components/SignUpFormSection';
 import SocialSignUpSection from '../_components/SocialSignUpSection';
+import RoleNav from '@/components/RoleNav';
 
 const SignUpApplicantPage = () => {
   return (
     <main>
       <section>
         <h1>회원가입</h1>
+        <RoleNav isHeader={false} />
         <p>
           이미 계정이 있으신가요?
           <Link href="/signin/applicant" replace>
