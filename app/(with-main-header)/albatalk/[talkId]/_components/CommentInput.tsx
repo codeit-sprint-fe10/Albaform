@@ -34,12 +34,12 @@ const CommentInput = ({
         <textarea
           value={comment}
           onChange={(e) => setComment(e.target.value)}
-          className="h-[132px] p-[14px] placeholder:text-md focus:outline-none placeholder:text-gray-400  rounded-lg bg-background-200 resize-none"
+          className="h-[132px] p-[14px] placeholder:text-md focus:outline-none placeholder:text-gray-400  placeholder:md:text-lg placeholder:lg:text-xl rounded-lg bg-background-200 resize-none"
           placeholder="댓글을 입력해주세요"
         ></textarea>
       </div>
       <div className="flex justify-end">
-        <div className="w-[108px]">
+        <div className="w-[108px] lg:w-[214px]">
           <Button
             content={'등록하기'}
             onClick={handleSubmit}

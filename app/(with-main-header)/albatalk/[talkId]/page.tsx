@@ -15,7 +15,9 @@ const AlbatalkDetail = async ({ params }: { params: { talkId: number } }) => {
       <div className="items-center justify-center mt-4 lg:mt-10">
         <div className="flex flex-col gap-16">
           <div className="flex flex-col gap-4">
-            <div className="text-lg font-semibold">{post?.title}</div>
+            <div className="text-lg font-semibold md:text-xl lg:text-2xl">
+              {post?.title}
+            </div>
             <div className="w-full border stroke-gray-30"></div>
             <div className="flex">
               <div className="flex w-full justify-between items-center">
@@ -70,7 +72,7 @@ const AlbatalkDetail = async ({ params }: { params: { talkId: number } }) => {
               </div>
             </div>
 
-            <div className="text-md font-regular text-gray-500">
+            <div className="text-md font-regular text-gray-500 md:text-lg lg:text-xl ">
               {post?.content}
             </div>
           </div>

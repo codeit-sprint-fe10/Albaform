@@ -49,7 +49,7 @@ const SortDropdown = ({ sortOrder, setSortOrder }: SortDropdownProps) => {
           {SORT_OPTIONS.map((option) => (
             <div
               key={option.key}
-              className={`w-full lg:px-4 py-2 text-center text-xs lg:text-lg rounded-lg font-semibold cursor-pointer hover:bg-orange-50 ${
+              className={`w-full text-gray-400 font-regular lg:px-4 py-2 text-center text-xs lg:text-lg rounded-lg hover:font-semibold cursor-pointer hover:bg-orange-50 hover:text-black-400 ${
                 sortOrder === option.key ? 'bg-blue-500 text-white' : ''
               }`}
               onClick={() => handleSortOrderChange(option.key)}

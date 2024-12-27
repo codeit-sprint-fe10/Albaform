@@ -78,7 +78,7 @@ const CommentList = ({
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-4">
-        <div className="text-lg font-semibold">{`댓글(${commentCount})`}</div>
+        <div className="text-lg font-semibold md:text-xl lg:text-2xl">{`댓글(${commentCount})`}</div>
         <div className="w-full border stroke-gray-30"></div>
       </div>
       <CommentInput id={id} onCommentPosted={handleCommentPosted} />
@@ -108,7 +108,7 @@ const CommentList = ({
                 </div>
                 <KebabIcon className="w-6 h-6" />
               </div>
-              <div className="text-black-400 font-regular text-md">
+              <div className="text-black-400 font-regular text-md md:text-lg lg:text-xl">
                 {comment.content}
               </div>
             </div>
