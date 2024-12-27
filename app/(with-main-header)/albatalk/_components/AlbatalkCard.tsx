@@ -1,3 +1,4 @@
+'use client';
 import KebabIcon from '@/public/icons/kebab.svg';
 import CommentIcon from '@/public/icons/comment.svg';
 import LikeIcon from '@/public/icons/like.svg';
@@ -24,7 +25,6 @@ const AlbatalkCard = ({
   likeCount,
   talkId,
 }: AlbatalkCardProps) => {
-  console.log(writer);
   return (
     <div className="relative w-full h-[180px] lg:h-[280px] p-6 border rounded-2xl">
       <Link href={`/albatalk/${talkId}`}>
@@ -70,7 +70,7 @@ const AlbatalkCard = ({
                   </div>
                 </div>
                 <div className="flex gap-1 items-center">
-                  <LikeIcon className="w-6 h-6 lg:w-9 lg:h-9 " />
+                  <LikeIcon className="w-6 h-6 lg:w-9 lg:h-9 text-gray-100" />
                   <div className="text-gray-500 text-xs md:text-md lg:text-lg font-regular">
                     {likeCount}
                   </div>

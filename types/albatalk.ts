@@ -28,9 +28,6 @@ export interface GetPostsParameters {
   keyword?: string;
 }
 
-export interface GetPostDetailParameters {
-  id: number;
-}
 export interface GetPostDetailResponse {
   writer: Writer;
   updatedAt: Date;
@@ -42,4 +39,23 @@ export interface GetPostDetailResponse {
   title: string;
   id: number;
   isLiked: boolean;
+}
+export interface GetCommentsParameters {
+  id: number;
+  page: number;
+  pageSize: number;
+}
+
+export interface Comment {
+  id: number;
+  content: string;
+  createdAt: Date;
+  updatedAt: Date;
+  writer: Writer;
+}
+export interface GetCommentsResponse {
+  data: Comment[];
+  totalItemCount: number;
+  currentPage: number;
+  totalPages: number;
 }
