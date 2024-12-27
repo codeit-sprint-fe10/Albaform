@@ -62,7 +62,7 @@ const Albatalk = () => {
       setCursorHistory((prev) => prev.slice(0, -1));
     }
   };
-
+  //TODO: 게시물 로딩중일때 UI 추가 필요
   return (
     <div className="w-full flex flex-col">
       <SearchBar

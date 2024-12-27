@@ -33,7 +33,8 @@ const CommentList = ({
       }),
     placeholderData: keepPreviousData,
   });
-  //TODO: 로딩중일때 표시
+  //TODO: 로딩중일때 UI 필요
+  //TODO: 댓글 없을때 UI 추가 필요
   const handleCommentPosted = () => {
     queryClient.invalidateQueries({
       queryKey: ['comments', { id, page, pageSize }],
