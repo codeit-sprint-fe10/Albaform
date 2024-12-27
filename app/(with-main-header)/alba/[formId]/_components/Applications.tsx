@@ -14,7 +14,7 @@ type ApplicationsProps = {
   formId: number;
 };
 
-const PAGE_LIMIT = 2;
+const PAGE_LIMIT = 5;
 
 const Applications = ({ formId }: ApplicationsProps) => {
   const [orderByExperience, toggleOrderByExperience] = useToggleOrderBy(

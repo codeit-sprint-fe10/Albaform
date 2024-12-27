@@ -23,15 +23,15 @@ const InfiniteScroll = ({
   const { inView, ref } = useInView(inViewOptions);
 
   useEffect(() => {
-    if (inView && !isLoading && !hasNextPage) {
+    if (inView && hasNextPage && !isLoading) {
       loadNextPage();
     }
-  }, [inView, isLoading, hasNextPage, loadNextPage]);
+  }, [inView, hasNextPage, isLoading, loadNextPage]);
 
   return (
     <>
       {children}
-      {isLoading ? loader : <div ref={ref} />}
+      {isLoading ? loader : <div ref={ref} />}{' '}
     </>
   );
 };
