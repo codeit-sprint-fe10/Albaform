@@ -5,13 +5,19 @@ import RoleNav from '@/components/RoleNav';
 
 const SignInApplicantPage = () => {
   return (
-    <main>
-      <section>
+    <>
+      <section className="flex flex-col items-center text-center">
         <RoleNav isHeader={false} />
-        <h1>로그인</h1>
-        <p>
-          아직 계정이 없으신가요?
-          <Link href="/signup/applicant" replace>
+        <h1 className="mt-10 md:mt-0 mb-4 md:mb-6 lg:mb-8 text-2xl lg:text-3xl font-semibold">
+          로그인
+        </h1>
+        <p className="text-xs md:text-md lg:text-xl text-black-100">
+          아직 계정이 없으신가요?&nbsp;
+          <Link
+            href="/signup/applicant"
+            replace
+            className="text-black-400 font-semibold underline"
+          >
             회원가입 하기
           </Link>
           <br />
@@ -20,7 +26,7 @@ const SignInApplicantPage = () => {
       </section>
       <SignInFormSection />
       <SocialSignInSection />
-    </main>
+    </>
   );
 };
 

@@ -24,8 +24,8 @@ const Button = ({
 }: ButtonProps) => {
   let buttonStyle =
     'flex flex-row items-center justify-center gap-1 ' +
-    'w-full h-[58px] md:h-[72px] rounded-lg ' +
-    'text-lg md:text-xl font-semibold ';
+    'w-full h-[58px] lg:h-[72px] rounded-lg ' +
+    'text-lg lg:text-xl font-semibold transition duration-200 ';
 
   switch (design) {
     case 'solid':

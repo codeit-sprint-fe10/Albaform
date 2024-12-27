@@ -14,9 +14,13 @@ const VisibilityInput = (props: VisibilityInputProps) => {
   };
 
   return (
-    <div>
+    <div className="relative">
       <input type={visible ? 'text' : 'password'} {...props} />
-      <button type="button" onClick={handleButtonClick}>
+      <button
+        type="button"
+        onClick={handleButtonClick}
+        className="absolute top-[calc(50%-12px)] right-[14px]"
+      >
         <Image
           src={`/icons/visibility-${visible ? 'on' : 'off'}.svg`}
           alt={visible ? '내용 가리기' : '내용 보이기'}

@@ -36,33 +36,57 @@ const SignInFormSection = () => {
   };
 
   return (
-    <form method="post" onSubmit={handleSubmit(signInSubmit)}>
-      <label htmlFor="email">이메일</label>
-      <input
-        type="email"
-        id="email"
-        placeholder={em.msg.placeholder}
-        {...register('email', {
-          required: { value: true, message: em.msg.required },
-          pattern: {
-            value: em.fmt.regExp,
-            message: em.msg.pattern,
-          },
-        })}
-      />
-      <span>{errors.email?.message}</span>
-      <label htmlFor="password">비밀번호</label>
-      <VisibilityInput
-        id="password"
-        placeholder={pw.msg.placeholder}
-        {...register('password', {
-          required: { value: true, message: pw.msg.required },
-          minLength: { value: pw.fmt.minLength, message: pw.msg.minLength },
-        })}
-      />
-      <span>{errors.password?.message}</span>
-      <Button type="submit" content="로그인 하기" disabled={!isValid}></Button>
-    </form>
+    <section>
+      <form
+        method="post"
+        onSubmit={handleSubmit(signInSubmit)}
+        className="flex flex-col"
+      >
+        <label htmlFor="email" className="mb-2 ml-2 lg:ml-3 text-md lg:text-xl">
+          이메일
+        </label>
+        <input
+          type="email"
+          id="email"
+          placeholder={em.msg.placeholder}
+          {...register('email', {
+            required: { value: true, message: em.msg.required },
+            pattern: {
+              value: em.fmt.regExp,
+              message: em.msg.pattern,
+            },
+          })}
+          className={`p-[14px] mb-1 rounded-lg border ${errors.email ? 'border-error' : 'border-gray-200 focus:border-orange-300'} outline-none text-lg lg:text-xl placeholder:text-gray-400 transition duration-200`}
+        />
+        <span className="h-[22px] lg:h-[26px] mr-2 lg:mr-3 text-right text-sm lg:text-lg text-error font-medium">
+          {errors.email?.message}
+        </span>
+        <label
+          htmlFor="password"
+          className="mb-2 ml-2 lg:ml-3 text-md lg:text-xl"
+        >
+          비밀번호
+        </label>
+        <VisibilityInput
+          id="password"
+          placeholder={pw.msg.placeholder}
+          {...register('password', {
+            required: { value: true, message: pw.msg.required },
+            minLength: { value: pw.fmt.minLength, message: pw.msg.minLength },
+          })}
+          className={`w-full p-[14px] mb-1 rounded-lg border ${errors.password ? 'border-error' : 'border-gray-200 focus:border-orange-300'} outline-none text-lg lg:text-xl placeholder:text-gray-400 transition duration-200`}
+        />
+        <span className="h-[22px] lg:h-[26px] mr-2 lg:mr-3 text-right text-sm lg:text-lg text-error font-medium">
+          {errors.password?.message}
+        </span>
+        <Button
+          type="submit"
+          content="로그인 하기"
+          disabled={!isValid}
+          className="mt-8 lg:mt-12"
+        ></Button>
+      </form>
+    </section>
   );
 };
 
