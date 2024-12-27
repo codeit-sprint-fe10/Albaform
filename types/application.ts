@@ -31,7 +31,7 @@ export interface GetApplicationsResponse {
 }
 
 export interface GetApplicationsParameters {
-  cursor: number;
+  cursor?: number;
   limit: number;
   orderByExperience?: orderByType;
   orderByStatus?: orderByType;
