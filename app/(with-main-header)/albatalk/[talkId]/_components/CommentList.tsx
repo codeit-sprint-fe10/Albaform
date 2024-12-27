@@ -11,6 +11,7 @@ import { format } from '@/utils/date';
 import KebabIcon from '@/public/icons/kebab.svg';
 import { getComments } from '@/services/albatalk';
 import { GetCommentsResponse } from '@/types/albatalk';
+import { formatDate } from '@/utils/dateFormatter';
 
 const CommentList = ({
   id,
@@ -104,7 +105,7 @@ const CommentList = ({
                   </div>
                   <div className="text-gray-300">|</div>
                   <div className="max-w-40 text-gray-500 text-xs md:text-md lg:text-lg font-regular">
-                    {format(new Date(comment.createdAt), 'yyyy.MM.dd')}
+                    {formatDate(new Date(comment.createdAt))}
                   </div>
                 </div>
                 <KebabIcon className="w-6 h-6" />

@@ -1,16 +1,15 @@
 import CommentIcon from '@/public/icons/comment.svg';
 import LikeIcon from '@/public/icons/like.svg';
 import Image from 'next/image';
-import { format } from '@/utils/date';
 import CommentList from './_components/CommentList';
 import { getPostDetail } from '@/services/albatalk';
+import { formatDate } from '@/utils/dateFormatter';
 const AlbatalkDetail = async ({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ talkId: number }>;
 }) => {
-  const { id } = await params;
-  const talkId = Number(id);
+  const { talkId } = await params;
   const post = await getPostDetail(talkId);
 
   return (
@@ -41,7 +40,7 @@ const AlbatalkDetail = async ({
                   <div className="text-gray-300">|</div>
                   <div className="max-w-40 text-gray-500 text-xs md:text-md lg:text-lg font-regular">
                     {post?.createdAt
-                      ? format(new Date(post.createdAt), 'yyyy.MM.dd')
+                      ? formatDate(new Date(post.createdAt))
                       : ''}
                   </div>
                 </div>
@@ -74,7 +73,6 @@ const AlbatalkDetail = async ({
                 )}
               </div>
             </div>
-
             <div className="text-md font-regular text-gray-500 md:text-lg lg:text-xl ">
               {post?.content}
             </div>

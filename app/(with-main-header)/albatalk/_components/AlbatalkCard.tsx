@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { format } from '@/utils/date';
 import Link from 'next/link';
 import { Writer } from '@/types/albatalk';
+import { formatDate } from '@/utils/dateFormatter';
 interface AlbatalkCardProps {
   title: string;
   content: string;
@@ -60,7 +61,7 @@ const AlbatalkCard = ({
                 </div>
                 <div className="text-gray-300">|</div>
                 <div className="max-w-40 text-gray-500 text-xs md:text-md lg:text-lg font-regular">
-                  {format(new Date(createdAt), 'yyyy.MM.dd')}
+                  {formatDate(new Date(createdAt))}
                 </div>
               </div>
               <div className="flex gap-3">

@@ -10,7 +10,7 @@ import {
 } from '@/types/albatalk';
 
 export const getPosts = async (
-  params?: GetPostsParameters,
+  params: GetPostsParameters,
 ): Promise<GetPostsResponse> => {
   try {
     const response = await instance.get<GetPostsResponse>('/posts', {
@@ -36,11 +36,11 @@ export const getPostDetail = async (
 };
 
 export const getComments = async (
-  params?: GetCommentsParameters,
+  params: GetCommentsParameters,
 ): Promise<GetCommentsResponse> => {
   try {
     const response = await instance.get<GetCommentsResponse>(
-      `/posts/${params?.id}/comments`,
+      `/posts/${params.id}/comments`,
     );
     return response.data;
   } catch (error) {

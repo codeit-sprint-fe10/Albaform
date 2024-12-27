@@ -9,8 +9,8 @@ const CommentInput = ({
   id: number;
   onCommentPosted: () => void;
 }) => {
-  const [comment, setComment] = useState<string>('');
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [comment, setComment] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const handleSubmit = async () => {
     if (!comment.trim()) {
       alert('댓글을 입력해주세요.');
@@ -25,6 +25,8 @@ const CommentInput = ({
       setIsLoading(false);
     } catch (error) {
       console.error('댓글 등록 실패:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
   //TODO: 등록하고, 리스트에 반영되기까지 시간이 걸림 .. 이때도 로딩중인거 표시해줄 필요 있을듯?
