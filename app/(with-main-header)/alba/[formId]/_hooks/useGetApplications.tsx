@@ -18,10 +18,11 @@ const useGetApplications = ({
     });
 
   return useInfiniteQuery({
-    queryKey: ['applications'],
+    queryKey: ['applications', searchParams],
     queryFn,
     getNextPageParam: (lastPage) => lastPage.nextCursor,
     initialPageParam: 0,
+    retry: false,
   });
 };
 
