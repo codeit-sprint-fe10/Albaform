@@ -1,14 +1,15 @@
 'use client';
 
-import React, { ReactNode, useCallback, useRef } from 'react';
-import useIntersectionObserver from '@/hooks/useIntersectionObserver';
+import React, { ReactNode, useEffect } from 'react';
+import { IntersectionOptions, useInView } from 'react-intersection-observer';
 
-type InfiniteScrollProps = {
+type InfiniteScrollProps<T> = {
   children: ReactNode;
   hasNextPage: boolean;
   isLoading: boolean;
   loadNextPage: () => void;
   loader?: ReactNode;
+  inViewOptions?: T;
 };
 
 const InfiniteScroll = ({
@@ -17,25 +18,20 @@ const InfiniteScroll = ({
   isLoading,
   loadNextPage,
   loader,
-}: InfiniteScrollProps) => {
-  const loadMoreRef = useRef<HTMLDivElement | null>(null);
+  inViewOptions,
+}: InfiniteScrollProps<IntersectionOptions>) => {
+  const { inView, ref } = useInView(inViewOptions);
 
-  const handleIntersect = useCallback(() => {
-    if (hasNextPage && !isLoading) {
+  useEffect(() => {
+    if (inView && !isLoading && !hasNextPage) {
       loadNextPage();
     }
-  }, [hasNextPage, isLoading, loadNextPage]);
-
-  useIntersectionObserver({
-    onIntersect: handleIntersect,
-    enabled: hasNextPage,
-  })(loadMoreRef.current);
+  }, [inView, isLoading, hasNextPage, loadNextPage]);
 
   return (
     <>
       {children}
-      <div ref={loadMoreRef} />
-      {isLoading && loader}
+      {isLoading ? loader : <div ref={ref} />}
     </>
   );
 };

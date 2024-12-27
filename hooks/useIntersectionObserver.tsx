@@ -10,6 +10,9 @@ type useIntersectionObserverProps = {
   enabled?: boolean;
 };
 
+/**
+ * @deprecated useInView로 대체 추후 제거 예정
+ */
 const useIntersectionObserver = ({
   root = null,
   rootMargin = '0px',
