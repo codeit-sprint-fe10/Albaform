@@ -9,7 +9,6 @@ import { GetPostDetailResponse } from '@/types/albatalk';
 const AlbatalkDetail = async ({ params }: { params: { talkId: number } }) => {
   const { talkId } = params;
   const post = await getPostDetail(talkId);
-  console.log(post);
 
   return (
     <div className="w-full flex flex-col">

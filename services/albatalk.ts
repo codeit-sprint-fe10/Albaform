@@ -5,6 +5,8 @@ import {
   GetPostDetailResponse,
   GetCommentsParameters,
   GetCommentsResponse,
+  PostCommentBody,
+  PostCommentResponse,
 } from '@/types/albatalk';
 
 export const getPosts = async (
@@ -24,7 +26,6 @@ export const getPosts = async (
 export const getPostDetail = async (
   id: number,
 ): Promise<GetPostDetailResponse> => {
-  console.log(id);
   try {
     const response = await instance.get<GetPostDetailResponse>(`/posts/${id}`);
     return response.data;
@@ -46,4 +47,11 @@ export const getComments = async (
     console.error('Error fetching comments:', error);
     throw error;
   }
+};
+export const postComment = async (id: number, body: PostCommentBody) => {
+  const response = await instance.post<PostCommentResponse>(
+    `/posts/${id}/comments`,
+    body,
+  );
+  return response.data;
 };

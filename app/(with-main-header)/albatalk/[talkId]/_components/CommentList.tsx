@@ -1,6 +1,11 @@
 'use client';
 import CommentInput from './CommentInput';
-import { useQuery, keepPreviousData } from '@tanstack/react-query';
+import { useState, useEffect } from 'react';
+import {
+  useQuery,
+  keepPreviousData,
+  useQueryClient,
+} from '@tanstack/react-query';
 import Image from 'next/image';
 import { format } from '@/utils/date';
 import KebabIcon from '@/public/icons/kebab.svg';
@@ -14,9 +19,10 @@ const CommentList = ({
   id: number;
   commentCount: number;
 }) => {
-  const pageSize = 10;
-  const page = 1;
-
+  const pageSize = 5;
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const queryClient = useQueryClient();
   const { data, isLoading, error } = useQuery<GetCommentsResponse>({
     queryKey: ['comments', { id, page, pageSize }],
     queryFn: () =>
@@ -25,12 +31,49 @@ const CommentList = ({
         page: page,
         pageSize: pageSize,
       }),
-
     placeholderData: keepPreviousData,
   });
-  console.log(data);
-  if (isLoading) return <div>Loading comments...</div>;
-  if (error) return <div>Error loading comments</div>;
+  //TODO: 로딩중일때 표시
+  const handleCommentPosted = () => {
+    queryClient.invalidateQueries({
+      queryKey: ['comments', { id, page, pageSize }],
+    });
+  };
+  useEffect(() => {
+    if (data) {
+      if (data.totalItemCount === 0 || data.totalPages === 0) {
+        setHasMore(false);
+      } else if (data.currentPage >= data.totalPages) {
+        setHasMore(false);
+      }
+    }
+  }, [data]);
+  const loadMoreComments = () => {
+    if (hasMore) {
+      setPage((prevPage) => prevPage + 1);
+    }
+  };
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && hasMore) {
+          loadMoreComments();
+        }
+      },
+      { threshold: 1.0 },
+    );
+
+    const sentinel = document.getElementById('sentinel');
+    if (sentinel) {
+      observer.observe(sentinel);
+    }
+
+    return () => {
+      if (sentinel) {
+        observer.unobserve(sentinel);
+      }
+    };
+  }, [hasMore]);
 
   return (
     <div className="flex flex-col gap-6">
@@ -38,7 +81,7 @@ const CommentList = ({
         <div className="text-lg font-semibold">{`댓글(${commentCount})`}</div>
         <div className="w-full border stroke-gray-30"></div>
       </div>
-      <CommentInput />
+      <CommentInput id={id} onCommentPosted={handleCommentPosted} />
       <div className="flex flex-col gap-8 mt-4">
         {data?.data.map((comment) => (
           <div key={comment.id} className="flex flex-col gap-4">
@@ -72,6 +115,7 @@ const CommentList = ({
           </div>
         ))}
       </div>
+      {hasMore && <div id="sentinel" className="h-2 bg-transparent" />}
     </div>
   );
 };

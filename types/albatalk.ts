@@ -59,3 +59,14 @@ export interface GetCommentsResponse {
   currentPage: number;
   totalPages: number;
 }
+
+export interface PostCommentBody {
+  content: string;
+}
+export interface PostCommentResponse {
+  id: number;
+  content: string;
+  createdAt: Date;
+  updatedAt: Date;
+  writer: Writer;
+}
