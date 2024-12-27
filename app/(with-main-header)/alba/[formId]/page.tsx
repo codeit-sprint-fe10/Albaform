@@ -8,6 +8,7 @@ import DescriptionSection from '@/app/(with-main-header)/alba/[formId]/_componen
 import FixedActions from '@/app/(with-main-header)/alba/[formId]/_components/FixedActions';
 import ApplicationActions from '@/app/(with-main-header)/alba/[formId]/_components/ApplicationActions';
 import Carousel from '@/app/(with-main-header)/alba/[formId]/_components/Carousel';
+import Applications from '@/app/(with-main-header)/alba/[formId]/_components/Applications';
 
 const mock = {
   isPublic: true,
@@ -53,38 +54,41 @@ const AlbaFormIdPage = async ({
   console.log(formId); // TODO api 호출 후 제거
 
   return (
-    <div>
-      <div className="-mx-6 md:-mx-[72px] flex justify-center">
-        <div className="w-full -mx-6">
-          <Carousel imageUrls={mock.imageUrls} />
-        </div>
-      </div>
+    <>
       <div>
-        <AlertSection applyCount={mock.applyCount} />
-        <div className="mt-8 md:mt-[80px]">
-          <SummarySection {...mock} />
+        <div className="-mx-6 md:-mx-[72px] flex justify-center">
+          <div className="w-full -mx-6">
+            <Carousel imageUrls={mock.imageUrls} />
+          </div>
         </div>
-        <div className="mt-8 md:mt-10">
-          <TermsSection {...mock} />
+        <div>
+          <AlertSection applyCount={mock.applyCount} />
+          <div className="mt-8 md:mt-[80px]">
+            <SummarySection {...mock} />
+          </div>
+          <div className="mt-8 md:mt-10">
+            <TermsSection {...mock} />
+          </div>
+          <div className="mt-8">
+            <ContactSection {...mock} />
+          </div>
+          <div className="mt-8">
+            <DescriptionSection description={mock.description} />
+          </div>
         </div>
         <div className="mt-8">
-          <ContactSection {...mock} />
+          <Requirements {...mock} />
         </div>
         <div className="mt-8">
-          <DescriptionSection description={mock.description} />
+          <Location location={mock.location} />
         </div>
+        <div className="mt-10 mb-[30px]">
+          <ApplicationActions formId={formId} />
+        </div>
+        <FixedActions isScrapped={mock.isScrapped} id={formId} />
       </div>
-      <div className="mt-8">
-        <Requirements {...mock} />
-      </div>
-      <div className="mt-8">
-        <Location location={mock.location} />
-      </div>
-      <div className="mt-10 mb-[30px]">
-        <ApplicationActions formId={formId} />
-      </div>
-      <FixedActions isScrapped={mock.isScrapped} id={formId} />
-    </div>
+      <Applications id={formId} />
+    </>
   );
 };
 
