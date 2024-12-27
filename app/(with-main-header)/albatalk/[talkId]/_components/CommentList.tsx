@@ -7,7 +7,6 @@ import {
   useQueryClient,
 } from '@tanstack/react-query';
 import Image from 'next/image';
-import { format } from '@/utils/date';
 import KebabIcon from '@/public/icons/kebab.svg';
 import { getComments } from '@/services/albatalk';
 import { GetCommentsResponse } from '@/types/albatalk';
