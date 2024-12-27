@@ -13,7 +13,7 @@ export const em = {
 
 export const pw = {
   fmt: {
-    regExp: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+    regExp: /^([a-z]|[A-Z]|[0-9]|[!@#$%^&*])+$/,
     minLength: 8,
     maxLength: 20,
   },
