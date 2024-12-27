@@ -14,7 +14,7 @@ type ApplicationsProps = {
   formId: number;
 };
 
-const PAGE_LIMIT = 5;
+const PAGE_LIMIT = 2;
 
 const Applications = ({ formId }: ApplicationsProps) => {
   const [orderByExperience, toggleOrderByExperience] = useToggleOrderBy(
@@ -38,71 +38,62 @@ const Applications = ({ formId }: ApplicationsProps) => {
       <h3 className="text-black-500 font-2lg font-semibold lg:text-3xl">
         지원 현황
       </h3>
-      <table className="table-auto w-full text-left">
-        <thead className="text-black-100 font-regular text-md lg:text-xl">
-          <tr>
-            <th className="py-6 border-b border-line-100">이름</th>
-            <th className="py-6 border-b border-line-100">전화번호</th>
-            <th className="py-6 border-b border-line-100">
-              <button
-                onClick={toggleOrderByExperience}
-                className="flex gap-1 items-center lg:gap-2"
-              >
-                경력
-                <Image
-                  src={`/icons/arrow-${orderByExperience}.svg`}
-                  alt={orderByExperience}
-                  width={32}
-                  height={32}
-                  className="lg:w-9 lg:h-9"
-                />
-              </button>
-            </th>
-            <th className="py-6 border-b border-line-100">
-              <button
-                onClick={toggleOrderByStatus}
-                className="flex gap-1 items-center lg:gap-2"
-              >
-                상태
-                <Image
-                  src={`/icons/arrow-${orderByStatus}.svg`}
-                  alt={orderByExperience}
-                  width={32}
-                  height={32}
-                  className="lg:w-9 lg:h-9"
-                />
-              </button>
-            </th>
-          </tr>
-        </thead>
-        <tbody className="text-black-400 text-md font-regular lg:text-xl">
-          <InfiniteScroll
-            hasNextPage={hasNextPage}
-            isLoading={isFetchingNextPage}
-            loadNextPage={fetchNextPage}
-            loader={<p>Loading applications...</p>}
+      <div className="grid grid-cols-4 items-center gap-4 text-black-100 font-regular text-md lg:text-xl border-b border-line-100">
+        <div className="py-6">이름</div>
+        <div className="py-6">전화번호</div>
+        <div className="py-6">
+          <button
+            onClick={toggleOrderByExperience}
+            className="flex gap-1 items-center lg:gap-2"
           >
-            {data?.pages.map((page) =>
-              page.data.map((application) => (
-                <tr key={application.applicantId}>
-                  <td className="py-6 border-b border-line-100">
-                    {application.name}
-                  </td>
-                  <td className="py-6 border-b border-line-100">
-                    {application.phoneNumber}
-                  </td>
-                  <td className="py-6 border-b border-line-100">
-                    {application.experienceMonths}
-                  </td>
-                  <td className="py-6 border-b border-line-100">
-                    {applicationStatus[application.status]}
-                  </td>
-                </tr>
-              )),
-            )}
-          </InfiniteScroll>
-        </tbody>
-      </table>
+            경력
+            <Image
+              src={`/icons/arrow-${orderByExperience}.svg`}
+              alt={orderByExperience}
+              width={32}
+              height={32}
+              className="lg:w-9 lg:h-9"
+            />
+          </button>
+        </div>
+        <div className="py-6">
+          <button
+            onClick={toggleOrderByStatus}
+            className="flex gap-1 items-center lg:gap-2"
+          >
+            상태
+            <Image
+              src={`/icons/arrow-${orderByStatus}.svg`}
+              alt={orderByExperience}
+              width={32}
+              height={32}
+              className="lg:w-9 lg:h-9"
+            />
+          </button>
+        </div>
+      </div>
+      <div className="text-black-400 text-md font-regular lg:text-xl">
+        <InfiniteScroll
+          hasNextPage={hasNextPage}
+          isLoading={isFetchingNextPage}
+          loadNextPage={fetchNextPage}
+          loader={<p>Loading applications...</p>}
+        >
+          {data?.pages.map((page) =>
+            page.data.map((application) => (
+              <div
+                key={application.applicantId}
+                className="grid grid-cols-4 gap-4 border-b border-line-100 py-6"
+              >
+                <div>{application.name}</div>
+                <div>{application.phoneNumber}</div>
+                <div>{application.experienceMonths}</div>
+                <div>{applicationStatus[application.status]}</div>
+              </div>
+            )),
+          )}
+        </InfiniteScroll>
+      </div>
     </div>
   );
 };
