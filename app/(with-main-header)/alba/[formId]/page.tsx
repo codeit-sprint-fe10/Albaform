@@ -87,7 +87,7 @@ const AlbaFormIdPage = async ({
         </div>
         <FixedActions isScrapped={mock.isScrapped} id={formId} />
       </div>
-      <Applications id={formId} />
+      <Applications formId={formId} />
     </>
   );
 };

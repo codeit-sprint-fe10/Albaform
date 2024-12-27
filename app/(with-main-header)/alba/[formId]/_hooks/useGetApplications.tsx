@@ -22,7 +22,7 @@ const useGetApplications = ({
     queryFn,
     getNextPageParam: (lastPage) => lastPage.nextCursor,
     initialPageParam: 0,
-    retry: false,
+    retry: false, // TODO 에러 처리 후 제거
   });
 };
 
