@@ -82,28 +82,24 @@ const Applications = ({ formId }: ApplicationsProps) => {
             loadNextPage={fetchNextPage}
             loader={<p>Loading applications...</p>}
           >
-            {data?.pages.map((page, pageIndex) => (
-              <tr key={pageIndex}>
-                {page.data.map((application) => {
-                  return (
-                    <>
-                      <td className="py-6 border-b border-line-100">
-                        {application.name}
-                      </td>
-                      <td className="py-6 border-b border-line-100">
-                        {application.phoneNumber}
-                      </td>
-                      <td className="py-6 border-b border-line-100">
-                        {application.experienceMonths}
-                      </td>
-                      <td className="py-6 border-b border-line-100">
-                        {applicationStatus[application.status]}
-                      </td>
-                    </>
-                  );
-                })}
-              </tr>
-            ))}
+            {data?.pages.map((page) =>
+              page.data.map((application) => (
+                <tr key={application.applicantId}>
+                  <td className="py-6 border-b border-line-100">
+                    {application.name}
+                  </td>
+                  <td className="py-6 border-b border-line-100">
+                    {application.phoneNumber}
+                  </td>
+                  <td className="py-6 border-b border-line-100">
+                    {application.experienceMonths}
+                  </td>
+                  <td className="py-6 border-b border-line-100">
+                    {applicationStatus[application.status]}
+                  </td>
+                </tr>
+              )),
+            )}
           </InfiniteScroll>
         </tbody>
       </table>
