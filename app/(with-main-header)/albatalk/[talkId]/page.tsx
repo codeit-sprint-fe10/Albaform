@@ -4,10 +4,13 @@ import Image from 'next/image';
 import { format } from '@/utils/date';
 import CommentList from './_components/CommentList';
 import { getPostDetail } from '@/services/albatalk';
-import { GetPostDetailResponse } from '@/types/albatalk';
-
-const AlbatalkDetail = async ({ params }: { params: { talkId: number } }) => {
-  const { talkId } = params;
+const AlbatalkDetail = async ({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) => {
+  const { id } = await params;
+  const talkId = Number(id);
   const post = await getPostDetail(talkId);
 
   return (
@@ -18,7 +21,7 @@ const AlbatalkDetail = async ({ params }: { params: { talkId: number } }) => {
             <div className="text-lg font-semibold md:text-xl lg:text-2xl">
               {post?.title}
             </div>
-            <div className="w-full border stroke-gray-30"></div>
+            <div className="w-full border stroke-gray-30" />
             <div className="flex">
               <div className="flex w-full justify-between items-center">
                 <div className="flex gap-4 items-center">
