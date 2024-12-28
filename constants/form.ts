@@ -13,7 +13,7 @@ export const em = {
 
 export const pw = {
   fmt: {
-    regExp: /^([a-z]|[A-Z]|[0-9]|[!@#$%^&*])+$/,
+    regExp: /^([a-zA-Z0-9!@#$%^&*])+$/,
     minLength: 8,
     maxLength: 20,
   },
@@ -44,5 +44,51 @@ export const name = {
     required: '이름은 필수 입력입니다.',
     maxLength: '이름은 최대 20자 이하입니다.',
     pattern: '이름은 한글, 영문, 공백만 가능합니다.',
+  },
+};
+
+export const nn = {
+  fmt: {
+    regExp: /^[a-zA-Z가-힣\s]+$/,
+    maxLength: 20,
+  },
+  msg: {
+    placeholder: '닉네임을 입력해 주세요.',
+    required: '닉네임은 필수 입력입니다.',
+    maxLength: '닉네임은 최대 20자 이하입니다.',
+    pattern: '닉네임은 한글, 영문, 공백만 가능합니다.',
+  },
+};
+
+export const pN = {
+  fmt: {
+    regExp: /^[0-9]+$/,
+    minLength: 9,
+    maxLength: 11,
+  },
+  msg: {
+    placeholder: '전화번호를 입력해 주세요.',
+    required: '전화번호는 필수 입력입니다.',
+    minLength: '전화번호는 최소 9자 이상입니다.',
+    maxLength: '전화번호는 최대 11자 이하입니다.',
+    pattern: '전화번호는 숫자만 가능합니다.',
+  },
+};
+
+export const sN = {
+  fmt: {
+    maxLength: 20,
+  },
+  msg: {
+    placeholder: '가게 이름을 입력해 주세요.',
+    required: '가게 이름은 필수 입력입니다.',
+    maxLength: '가게 이름은 최대 20자 이하입니다.',
+  },
+};
+
+export const loc = {
+  msg: {
+    placeholder: '가게 위치를 설정해 주세요.',
+    required: '가게 이름은 필수 설정입니다.',
   },
 };
