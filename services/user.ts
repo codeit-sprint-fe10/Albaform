@@ -23,7 +23,7 @@ export const patchMe = async (body: PatchMeBody) => {
 };
 
 export const patchPassword = async (body: PatchPasswordBody) => {
-  const response = await instance.post<PatchPasswordResponse>(
+  const response = await instance.patch<PatchPasswordResponse>(
     '/users/me/password',
     body,
   );

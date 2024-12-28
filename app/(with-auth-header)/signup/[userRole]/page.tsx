@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useParams } from 'next/navigation';
-import { UserRoleLow } from '@/types/user';
+import { UserRoleLowerCase } from '@/types/user';
 import SignUpHeadSection from './_components/SignUpHeadSection';
 import SignUpFormSection from './_components/SignUpFormSection';
 import SocialSignUpSection from './_components/SocialSignUpSection';
@@ -19,9 +19,9 @@ const SignUpPage = () => {
 
   return isSignUp ? (
     <>
-      <SignUpHeadSection userRole={userRole as UserRoleLow} />
+      <SignUpHeadSection userRole={userRole as UserRoleLowerCase} />
       <SignUpFormSection
-        userRole={userRole as UserRoleLow}
+        userRole={userRole as UserRoleLowerCase}
         onSubmit={handleSignUpFormSubmit}
       />
       <SocialSignUpSection />
@@ -29,7 +29,7 @@ const SignUpPage = () => {
   ) : (
     <>
       <InformationHeadSection />
-      <InformationFormSection userRole={userRole as UserRoleLow} />
+      <InformationFormSection userRole={userRole as UserRoleLowerCase} />
     </>
   );
 };

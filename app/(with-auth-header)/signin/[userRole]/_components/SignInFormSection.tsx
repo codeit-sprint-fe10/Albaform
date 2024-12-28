@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { User } from '@/types/user';
 import { useAuth } from '@/hooks/useAuth';
-import { em, pw } from '@/constants/form';
+import { EMAIL, PASSWORD } from '@/constants/form';
 import FormField from '../../../_components/FormField';
 import Button from '@/components/Button';
 
@@ -29,9 +29,7 @@ const SignInFormSection = () => {
       window.alert('로그인되었습니다!\n랜딩 페이지로 이동합니다.');
       replace('/');
     } catch {
-      setError('email', {
-        message: '이메일 혹은 비밀번호를 확인해 주세요.',
-      });
+      setError('email', { message: EMAIL.message.logInError });
     }
   };
 
@@ -45,12 +43,12 @@ const SignInFormSection = () => {
         <FormField
           name="email"
           label="이메일"
-          placeholder={em.msg.placeholder}
+          placeholder={EMAIL.message.placeholder}
           register={register('email', {
-            required: { value: true, message: em.msg.required },
+            required: { value: true, message: EMAIL.message.required },
             pattern: {
-              value: em.fmt.regExp,
-              message: em.msg.pattern,
+              value: EMAIL.format.regExp,
+              message: EMAIL.message.pattern,
             },
           })}
           error={errors.email}
@@ -58,10 +56,13 @@ const SignInFormSection = () => {
         <FormField
           name="password"
           label="비밀번호"
-          placeholder={pw.msg.placeholder}
+          placeholder={PASSWORD.message.placeholder}
           register={register('password', {
-            required: { value: true, message: pw.msg.required },
-            minLength: { value: pw.fmt.minLength, message: pw.msg.minLength },
+            required: { value: true, message: PASSWORD.message.required },
+            minLength: {
+              value: PASSWORD.format.minLength,
+              message: PASSWORD.message.minLength,
+            },
           })}
           error={errors.password}
         />

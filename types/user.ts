@@ -3,9 +3,9 @@ export const UserRole = {
   owner: 'OWNER',
 } as const;
 
-export type UserRoleUp = (typeof UserRole)[keyof typeof UserRole];
+export type UserRoleUpperCase = (typeof UserRole)[keyof typeof UserRole];
 
-export type UserRoleLow = keyof typeof UserRole;
+export type UserRoleLowerCase = keyof typeof UserRole;
 
 export interface User {
   id: number;
@@ -15,7 +15,7 @@ export interface User {
   nickname: string | null;
   phoneNumber: string | null;
   imageUrl: string | null;
-  role: UserRoleUp;
+  role: UserRoleUpperCase;
   storeName: string | null;
   storePhoneNumber: string | null;
   location: string | null;

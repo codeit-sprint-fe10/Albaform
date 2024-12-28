@@ -2,9 +2,9 @@
 
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { AxiosError } from 'axios';
-import { UserRole, UserRoleLow } from '@/types/user';
+import { UserRole, UserRoleLowerCase } from '@/types/user';
 import { useAuth } from '@/hooks/useAuth';
-import { em, pw, pwCf, name } from '@/constants/form';
+import { EMAIL, PASSWORD, PASSWORD_CONFIRMATION, NAME } from '@/constants/form';
 import FormField from '../../../_components/FormField';
 import Button from '@/components/Button';
 
@@ -16,7 +16,7 @@ interface SignUpFormData {
 }
 
 interface SignUpFormSectionProps {
-  userRole: UserRoleLow;
+  userRole: UserRoleLowerCase;
   onSubmit: () => void;
 }
 
@@ -65,13 +65,16 @@ const SignUpFormSection = ({ userRole, onSubmit }: SignUpFormSectionProps) => {
         <FormField
           name="email"
           label="이메일"
-          placeholder={em.msg.placeholder}
+          placeholder={EMAIL.message.placeholder}
           register={register('email', {
-            required: { value: true, message: em.msg.required },
-            maxLength: { value: em.fmt.maxLength, message: em.msg.maxLength },
+            required: { value: true, message: EMAIL.message.required },
+            maxLength: {
+              value: EMAIL.format.maxLength,
+              message: EMAIL.message.maxLength,
+            },
             pattern: {
-              value: em.fmt.regExp,
-              message: em.msg.pattern,
+              value: EMAIL.format.regExp,
+              message: EMAIL.message.pattern,
             },
           })}
           error={errors.email}
@@ -79,14 +82,20 @@ const SignUpFormSection = ({ userRole, onSubmit }: SignUpFormSectionProps) => {
         <FormField
           name="password"
           label="비밀번호"
-          placeholder={pw.msg.placeholder}
+          placeholder={PASSWORD.message.placeholder}
           register={register('password', {
-            required: { value: true, message: pw.msg.required },
-            minLength: { value: pw.fmt.minLength, message: pw.msg.minLength },
-            maxLength: { value: pw.fmt.maxLength, message: pw.msg.maxLength },
+            required: { value: true, message: PASSWORD.message.required },
+            minLength: {
+              value: PASSWORD.format.minLength,
+              message: PASSWORD.message.minLength,
+            },
+            maxLength: {
+              value: PASSWORD.format.maxLength,
+              message: PASSWORD.message.maxLength,
+            },
             pattern: {
-              value: pw.fmt.regExp,
-              message: pw.msg.pattern,
+              value: PASSWORD.format.regExp,
+              message: PASSWORD.message.pattern,
             },
           })}
           error={errors.password}
@@ -94,15 +103,16 @@ const SignUpFormSection = ({ userRole, onSubmit }: SignUpFormSectionProps) => {
         <FormField
           name="passwordConfirmation"
           label="비밀번호 확인"
-          placeholder={pwCf.msg.placeholder}
+          placeholder={PASSWORD_CONFIRMATION.message.placeholder}
           register={register('passwordConfirmation', {
             required: {
               value: true,
-              message: pwCf.msg.required,
+              message: PASSWORD_CONFIRMATION.message.required,
             },
             validate: {
               value: (value) =>
-                value === watch('password') || pwCf.msg.notEqual,
+                value === watch('password') ||
+                PASSWORD_CONFIRMATION.message.notEqual,
             },
           })}
           error={errors.passwordConfirmation}
@@ -110,16 +120,16 @@ const SignUpFormSection = ({ userRole, onSubmit }: SignUpFormSectionProps) => {
         <FormField
           name="name"
           label="이름"
-          placeholder={name.msg.placeholder}
+          placeholder={NAME.message.placeholder}
           register={register('name', {
-            required: { value: true, message: name.msg.required },
+            required: { value: true, message: NAME.message.required },
             maxLength: {
-              value: name.fmt.maxLength,
-              message: name.msg.maxLength,
+              value: NAME.format.maxLength,
+              message: NAME.message.maxLength,
             },
             pattern: {
-              value: name.fmt.regExp,
-              message: name.msg.pattern,
+              value: NAME.format.regExp,
+              message: NAME.message.pattern,
             },
           })}
           error={errors.name}

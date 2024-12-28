@@ -1,10 +1,10 @@
-export const names = {
+export const NAMES = {
   accessToken: 'access_token',
   refreshToken: 'refresh_token',
   userRole: 'user_role',
 } as const;
 
-export const options = {
+export const OPTIONS = {
   httpOnly: true,
   secure: process.env.NODE_ENV === 'production',
   maxAge: 60 * 60 * 24 * 7,

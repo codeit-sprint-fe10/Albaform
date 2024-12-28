@@ -1,10 +1,10 @@
 import Link from 'next/link';
-import { signIn } from '@/constants/account';
+import { SIGN_IN_SENTENCE } from '@/constants/account';
 import RoleNav from '@/components/RoleNav';
-import { UserRoleLow } from '@/types/user';
+import { UserRoleLowerCase } from '@/types/user';
 
 interface SignInHeadSectionProps {
-  userRole: UserRoleLow;
+  userRole: UserRoleLowerCase;
 }
 
 const SignInHeadSection = ({ userRole }: SignInHeadSectionProps) => {
@@ -15,7 +15,7 @@ const SignInHeadSection = ({ userRole }: SignInHeadSectionProps) => {
         로그인
       </h1>
       <p className="text-xs md:text-md lg:text-xl text-black-100">
-        {signIn[userRole].p1}
+        {SIGN_IN_SENTENCE[userRole][0]}
         <Link
           href={`/signup/${userRole}`}
           replace
@@ -24,7 +24,7 @@ const SignInHeadSection = ({ userRole }: SignInHeadSectionProps) => {
           회원가입 하기
         </Link>
         <br />
-        {signIn[userRole].p2}
+        {SIGN_IN_SENTENCE[userRole][1]}
       </p>
     </section>
   );

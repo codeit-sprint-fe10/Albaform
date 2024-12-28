@@ -3,11 +3,11 @@
 import { useRouter } from 'next/navigation';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { AxiosError } from 'axios';
-import { nn, pN, sN, loc } from '@/constants/form';
+import { NICKNAME, PHONE_NUMBER, STORE_NAME, LOCATION } from '@/constants/form';
+import { UserRoleLowerCase } from '@/types/user';
+import { patchMe } from '@/services/user';
 import FormField from '../../../_components/FormField';
 import Button from '@/components/Button';
-import { patchMe } from '@/services/user';
-import { UserRoleLow } from '@/types/user';
 
 interface InformationFormData {
   nickname: string;
@@ -19,7 +19,7 @@ interface InformationFormData {
 }
 
 interface InformationFormSectionProps {
-  userRole: UserRoleLow;
+  userRole: UserRoleLowerCase;
 }
 
 const InformationFormSection = ({ userRole }: InformationFormSectionProps) => {
@@ -58,13 +58,16 @@ const InformationFormSection = ({ userRole }: InformationFormSectionProps) => {
         <FormField
           name="nickname"
           label="닉네임"
-          placeholder={nn.msg.placeholder}
+          placeholder={NICKNAME.message.placeholder}
           register={register('nickname', {
-            required: { value: true, message: nn.msg.required },
-            maxLength: { value: nn.fmt.maxLength, message: nn.msg.maxLength },
+            required: { value: true, message: NICKNAME.message.required },
+            maxLength: {
+              value: NICKNAME.format.maxLength,
+              message: NICKNAME.message.maxLength,
+            },
             pattern: {
-              value: nn.fmt.regExp,
-              message: nn.msg.pattern,
+              value: NICKNAME.format.regExp,
+              message: NICKNAME.message.pattern,
             },
           })}
           error={errors.nickname}
@@ -72,14 +75,20 @@ const InformationFormSection = ({ userRole }: InformationFormSectionProps) => {
         <FormField
           name="phoneNumber"
           label="전화번호"
-          placeholder={pN.msg.placeholder}
+          placeholder={PHONE_NUMBER.message.placeholder}
           register={register('phoneNumber', {
-            required: { value: true, message: pN.msg.required },
-            minLength: { value: pN.fmt.minLength, message: pN.msg.minLength },
-            maxLength: { value: pN.fmt.maxLength, message: pN.msg.maxLength },
+            required: { value: true, message: PHONE_NUMBER.message.required },
+            minLength: {
+              value: PHONE_NUMBER.format.minLength,
+              message: PHONE_NUMBER.message.minLength,
+            },
+            maxLength: {
+              value: PHONE_NUMBER.format.maxLength,
+              message: PHONE_NUMBER.message.maxLength,
+            },
             pattern: {
-              value: pN.fmt.regExp,
-              message: pN.msg.pattern,
+              value: PHONE_NUMBER.format.regExp,
+              message: PHONE_NUMBER.message.pattern,
             },
           })}
           error={errors.phoneNumber}
@@ -89,12 +98,12 @@ const InformationFormSection = ({ userRole }: InformationFormSectionProps) => {
             <FormField
               name="storeName"
               label="가게 이름"
-              placeholder={sN.msg.placeholder}
+              placeholder={STORE_NAME.message.placeholder}
               register={register('storeName', {
-                required: { value: true, message: sN.msg.required },
+                required: { value: true, message: STORE_NAME.message.required },
                 maxLength: {
-                  value: sN.fmt.maxLength,
-                  message: sN.msg.maxLength,
+                  value: STORE_NAME.format.maxLength,
+                  message: STORE_NAME.message.maxLength,
                 },
               })}
               error={errors.storeName}
@@ -102,20 +111,23 @@ const InformationFormSection = ({ userRole }: InformationFormSectionProps) => {
             <FormField
               name="storePhoneNumber"
               label="가게 전화번호"
-              placeholder={pN.msg.placeholder}
+              placeholder={PHONE_NUMBER.message.placeholder}
               register={register('storePhoneNumber', {
-                required: { value: true, message: pN.msg.required },
+                required: {
+                  value: true,
+                  message: PHONE_NUMBER.message.required,
+                },
                 minLength: {
-                  value: pN.fmt.minLength,
-                  message: pN.msg.minLength,
+                  value: PHONE_NUMBER.format.minLength,
+                  message: PHONE_NUMBER.message.minLength,
                 },
                 maxLength: {
-                  value: pN.fmt.maxLength,
-                  message: pN.msg.maxLength,
+                  value: PHONE_NUMBER.format.maxLength,
+                  message: PHONE_NUMBER.message.maxLength,
                 },
                 pattern: {
-                  value: pN.fmt.regExp,
-                  message: pN.msg.pattern,
+                  value: PHONE_NUMBER.format.regExp,
+                  message: PHONE_NUMBER.message.pattern,
                 },
               })}
               error={errors.storePhoneNumber}
@@ -123,9 +135,9 @@ const InformationFormSection = ({ userRole }: InformationFormSectionProps) => {
             <FormField
               name="location"
               label="가게 위치"
-              placeholder={loc.msg.placeholder}
+              placeholder={LOCATION.message.placeholder}
               register={register('location', {
-                required: { value: true, message: loc.msg.required },
+                required: { value: true, message: LOCATION.message.required },
               })}
               error={errors.location}
             />
