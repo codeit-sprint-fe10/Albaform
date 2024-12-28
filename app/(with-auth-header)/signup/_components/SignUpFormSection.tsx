@@ -1,13 +1,13 @@
 'use client';
 
 import { usePathname, useRouter } from 'next/navigation';
-import { AxiosError } from 'axios';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { AxiosError } from 'axios';
 import { UserRole } from '@/types/user';
 import { useAuth } from '@/hooks/useAuth';
-import VisibilityInput from '../../_components/VisibilityInput';
+import { em, pw, pwCf, name } from '@/constants/form';
+import FormField from '../../_components/FormField';
 import Button from '@/components/Button';
-import { em, name, pw, pwCf } from '@/constants/form';
 
 interface SignUpFormData {
   name: string;
@@ -17,8 +17,8 @@ interface SignUpFormData {
 }
 
 const SignUpFormSection = () => {
-  const { replace } = useRouter();
   const pathname = usePathname();
+  const { replace } = useRouter();
   const { signUp } = useAuth();
   const {
     register,
@@ -57,14 +57,11 @@ const SignUpFormSection = () => {
         onSubmit={handleSubmit(signUpSubmit)}
         className="flex flex-col"
       >
-        <label htmlFor="email" className="mb-2 ml-2 lg:ml-3 text-md lg:text-xl">
-          이메일
-        </label>
-        <input
-          type="email"
-          id="email"
+        <FormField
+          name="email"
+          label="이메일"
           placeholder={em.msg.placeholder}
-          {...register('email', {
+          register={register('email', {
             required: { value: true, message: em.msg.required },
             maxLength: { value: em.fmt.maxLength, message: em.msg.maxLength },
             pattern: {
@@ -72,21 +69,13 @@ const SignUpFormSection = () => {
               message: em.msg.pattern,
             },
           })}
-          className={`p-[14px] mb-1 rounded-lg border ${errors.email ? 'border-error' : 'border-gray-200 focus:border-orange-300'} outline-none text-lg lg:text-xl placeholder:text-gray-400 transition duration-200`}
+          error={errors.email}
         />
-        <span className="h-[22px] lg:h-[26px] mr-2 lg:mr-3 text-right text-sm lg:text-lg text-error font-medium">
-          {errors.email?.message}
-        </span>
-        <label
-          htmlFor="password"
-          className="mb-2 ml-2 lg:ml-3 text-md lg:text-xl"
-        >
-          비밀번호
-        </label>
-        <VisibilityInput
-          id="password"
+        <FormField
+          name="password"
+          label="비밀번호"
           placeholder={pw.msg.placeholder}
-          {...register('password', {
+          register={register('password', {
             required: { value: true, message: pw.msg.required },
             minLength: { value: pw.fmt.minLength, message: pw.msg.minLength },
             maxLength: { value: pw.fmt.maxLength, message: pw.msg.maxLength },
@@ -95,21 +84,13 @@ const SignUpFormSection = () => {
               message: pw.msg.pattern,
             },
           })}
-          className={`w-full p-[14px] mb-1 rounded-lg border ${errors.password ? 'border-error' : 'border-gray-200 focus:border-orange-300'} outline-none text-lg lg:text-xl placeholder:text-gray-400 transition duration-200`}
+          error={errors.password}
         />
-        <span className="h-[22px] lg:h-[26px] mr-2 lg:mr-3 text-right text-sm lg:text-lg text-error font-medium">
-          {errors.password?.message}
-        </span>
-        <label
-          htmlFor="passwordConfirmation"
-          className="mb-2 ml-2 lg:ml-3 text-md lg:text-xl"
-        >
-          비밀번호 확인
-        </label>
-        <VisibilityInput
-          id="passwordConfirmation"
+        <FormField
+          name="passwordConfirmation"
+          label="비밀번호 확인"
           placeholder={pwCf.msg.placeholder}
-          {...register('passwordConfirmation', {
+          register={register('passwordConfirmation', {
             required: {
               value: true,
               message: pwCf.msg.required,
@@ -119,19 +100,13 @@ const SignUpFormSection = () => {
                 value === watch('password') || pwCf.msg.notEqual,
             },
           })}
-          className={`w-full p-[14px] mb-1 rounded-lg border ${errors.password ? 'border-error' : 'border-gray-200 focus:border-orange-300'} outline-none text-lg lg:text-xl placeholder:text-gray-400 transition duration-200`}
+          error={errors.passwordConfirmation}
         />
-        <span className="h-[22px] lg:h-[26px] mr-2 lg:mr-3 text-right text-sm lg:text-lg text-error font-medium">
-          {errors.passwordConfirmation?.message}
-        </span>
-        <label htmlFor="name" className="mb-2 ml-2 lg:ml-3 text-md lg:text-xl">
-          이름
-        </label>
-        <input
-          type="text"
-          id="name"
+        <FormField
+          name="name"
+          label="이름"
           placeholder={name.msg.placeholder}
-          {...register('name', {
+          register={register('name', {
             required: { value: true, message: name.msg.required },
             maxLength: {
               value: name.fmt.maxLength,
@@ -142,11 +117,8 @@ const SignUpFormSection = () => {
               message: name.msg.pattern,
             },
           })}
-          className={`p-[14px] mb-1 rounded-lg border ${errors.name ? 'border-error' : 'border-gray-200 focus:border-orange-300'} outline-none text-lg lg:text-xl placeholder:text-gray-400 transition duration-200`}
+          error={errors.name}
         />
-        <span className="h-[22px] lg:h-[26px] mr-2 lg:mr-3 text-right text-sm lg:text-lg text-error font-medium">
-          {errors.name?.message}
-        </span>
         <Button
           type="submit"
           content="다음"

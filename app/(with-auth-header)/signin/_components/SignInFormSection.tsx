@@ -4,9 +4,9 @@ import { useRouter } from 'next/navigation';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { User } from '@/types/user';
 import { useAuth } from '@/hooks/useAuth';
-import VisibilityInput from '../../_components/VisibilityInput';
-import Button from '@/components/Button';
 import { em, pw } from '@/constants/form';
+import FormField from '../../_components/FormField';
+import Button from '@/components/Button';
 
 type SignInFormData = Pick<User, 'email' | 'password'>;
 
@@ -42,43 +42,29 @@ const SignInFormSection = () => {
         onSubmit={handleSubmit(signInSubmit)}
         className="flex flex-col"
       >
-        <label htmlFor="email" className="mb-2 ml-2 lg:ml-3 text-md lg:text-xl">
-          이메일
-        </label>
-        <input
-          type="email"
-          id="email"
+        <FormField
+          name="email"
+          label="이메일"
           placeholder={em.msg.placeholder}
-          {...register('email', {
+          register={register('email', {
             required: { value: true, message: em.msg.required },
             pattern: {
               value: em.fmt.regExp,
               message: em.msg.pattern,
             },
           })}
-          className={`p-[14px] mb-1 rounded-lg border ${errors.email ? 'border-error' : 'border-gray-200 focus:border-orange-300'} outline-none text-lg lg:text-xl placeholder:text-gray-400 transition duration-200`}
+          error={errors.email}
         />
-        <span className="h-[22px] lg:h-[26px] mr-2 lg:mr-3 text-right text-sm lg:text-lg text-error font-medium">
-          {errors.email?.message}
-        </span>
-        <label
-          htmlFor="password"
-          className="mb-2 ml-2 lg:ml-3 text-md lg:text-xl"
-        >
-          비밀번호
-        </label>
-        <VisibilityInput
-          id="password"
+        <FormField
+          name="password"
+          label="비밀번호"
           placeholder={pw.msg.placeholder}
-          {...register('password', {
+          register={register('password', {
             required: { value: true, message: pw.msg.required },
             minLength: { value: pw.fmt.minLength, message: pw.msg.minLength },
           })}
-          className={`w-full p-[14px] mb-1 rounded-lg border ${errors.password ? 'border-error' : 'border-gray-200 focus:border-orange-300'} outline-none text-lg lg:text-xl placeholder:text-gray-400 transition duration-200`}
+          error={errors.password}
         />
-        <span className="h-[22px] lg:h-[26px] mr-2 lg:mr-3 text-right text-sm lg:text-lg text-error font-medium">
-          {errors.password?.message}
-        </span>
         <Button
           type="submit"
           content="로그인 하기"
