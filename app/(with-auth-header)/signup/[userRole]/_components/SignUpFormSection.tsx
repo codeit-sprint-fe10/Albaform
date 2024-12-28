@@ -51,7 +51,9 @@ const SignUpFormSection = ({ userRole, onSubmit }: SignUpFormSectionProps) => {
     } catch (e) {
       const error = e as AxiosError<{ message: string }>;
       const message = error.response?.data.message;
+
       if (message?.includes('이메일')) setError('email', { message });
+      else window.alert('오류가 발생했습니다.\n확인 후 다시 시도해 주세요.');
     }
   };
 

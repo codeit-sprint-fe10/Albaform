@@ -7,6 +7,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { EMAIL, PASSWORD } from '@/constants/form';
 import FormField from '../../../_components/FormField';
 import Button from '@/components/Button';
+import { AxiosError } from 'axios';
 
 type SignInFormData = Pick<User, 'email' | 'password'>;
 
@@ -26,10 +27,15 @@ const SignInFormSection = () => {
     try {
       await signIn(data);
 
-      window.alert('로그인되었습니다!\n랜딩 페이지로 이동합니다.');
+      window.alert('로그인되었습니다!\n즐거운 알바폼 되세요.');
       replace('/');
-    } catch {
-      setError('email', { message: EMAIL.message.logInError });
+    } catch (e) {
+      const error = e as AxiosError<{ message: string }>;
+      const message = error.response?.data.message;
+
+      if (message?.includes('이메일')) setError('email', { message });
+      else if (message?.includes('비밀번호')) setError('password', { message });
+      else window.alert('오류가 발생했습니다.\n확인 후 다시 시도해 주세요.');
     }
   };
 

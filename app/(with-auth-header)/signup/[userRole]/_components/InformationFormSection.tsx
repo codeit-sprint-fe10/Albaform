@@ -2,7 +2,6 @@
 
 import { useRouter } from 'next/navigation';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { AxiosError } from 'axios';
 import { NICKNAME, PHONE_NUMBER, STORE_NAME, LOCATION } from '@/constants/form';
 import { UserRoleLowerCase } from '@/types/user';
 import { patchMe } from '@/services/user';
@@ -28,7 +27,6 @@ const InformationFormSection = ({ userRole }: InformationFormSectionProps) => {
     register,
     handleSubmit,
     formState: { isValid, errors },
-    setError,
   } = useForm<InformationFormData>({ mode: 'onTouched' });
 
   const InformationSubmit: SubmitHandler<InformationFormData> = async (
@@ -39,12 +37,11 @@ const InformationFormSection = ({ userRole }: InformationFormSectionProps) => {
 
     try {
       await patchMe(data);
+
       window.alert('추가 정보를 등록했습니다!\n즐거운 알바폼 되세요.');
       replace('/');
-    } catch (e) {
-      const error = e as AxiosError<{ message: string }>;
-      const message = error.response?.data.message;
-      setError('nickname', { message });
+    } catch {
+      window.alert('오류가 발생했습니다.\n확인 후 다시 시도해 주세요.');
     }
   };
 
