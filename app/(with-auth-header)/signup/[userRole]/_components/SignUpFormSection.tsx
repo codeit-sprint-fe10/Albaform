@@ -1,12 +1,11 @@
 'use client';
 
-import { usePathname, useRouter } from 'next/navigation';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { AxiosError } from 'axios';
-import { UserRole } from '@/types/user';
+import { UserRole, UserRoleLow } from '@/types/user';
 import { useAuth } from '@/hooks/useAuth';
 import { em, pw, pwCf, name } from '@/constants/form';
-import FormField from '../../_components/FormField';
+import FormField from '../../../_components/FormField';
 import Button from '@/components/Button';
 
 interface SignUpFormData {
@@ -16,10 +15,13 @@ interface SignUpFormData {
   passwordConfirmation: string;
 }
 
-const SignUpFormSection = () => {
-  const pathname = usePathname();
-  const { replace } = useRouter();
-  const { signUp } = useAuth();
+interface SignUpFormSectionProps {
+  userRole: UserRoleLow;
+  onSubmit: () => void;
+}
+
+const SignUpFormSection = ({ userRole, onSubmit }: SignUpFormSectionProps) => {
+  const { signUp, signIn } = useAuth();
   const {
     register,
     handleSubmit,
@@ -36,13 +38,16 @@ const SignUpFormSection = () => {
         email: data.email,
         password: data.password,
         name: data.name,
-        role: pathname.includes('applicant')
-          ? UserRole.APPLICANT
-          : UserRole.OWNER,
+        role: UserRole[userRole],
       });
 
-      window.alert('회원가입되었습니다!\n로그인 페이지로 이동합니다.');
-      replace(pathname.replace('signup', 'signin'));
+      await signIn({
+        email: data.email,
+        password: data.password,
+      });
+
+      window.alert('회원가입되었습니다!\n추가 정보를 등록합니다.');
+      onSubmit();
     } catch (e) {
       const error = e as AxiosError<{ message: string }>;
       const message = error.response?.data.message;

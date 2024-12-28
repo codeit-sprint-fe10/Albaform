@@ -5,7 +5,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { User } from '@/types/user';
 import { useAuth } from '@/hooks/useAuth';
 import { em, pw } from '@/constants/form';
-import FormField from '../../_components/FormField';
+import FormField from '../../../_components/FormField';
 import Button from '@/components/Button';
 
 type SignInFormData = Pick<User, 'email' | 'password'>;

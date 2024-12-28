@@ -1,7 +1,11 @@
-export enum UserRole {
-  APPLICANT = 'APPLICANT',
-  OWNER = 'OWNER',
-}
+export const UserRole = {
+  applicant: 'APPLICANT',
+  owner: 'OWNER',
+} as const;
+
+export type UserRoleUp = (typeof UserRole)[keyof typeof UserRole];
+
+export type UserRoleLow = keyof typeof UserRole;
 
 export interface User {
   id: number;
@@ -11,7 +15,7 @@ export interface User {
   nickname: string | null;
   phoneNumber: string | null;
   imageUrl: string | null;
-  role: UserRole;
+  role: UserRoleUp;
   storeName: string | null;
   storePhoneNumber: string | null;
   location: string | null;

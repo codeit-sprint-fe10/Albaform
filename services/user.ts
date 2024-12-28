@@ -18,7 +18,7 @@ export const patchMe = async (body: PatchMeBody) => {
     return acc;
   }, {} as PatchMeBody);
 
-  const response = await instance.post<PatchMeResponse>('/users/me', bodyObj);
+  const response = await instance.patch<PatchMeResponse>('/users/me', bodyObj);
   return response.data;
 };
 
