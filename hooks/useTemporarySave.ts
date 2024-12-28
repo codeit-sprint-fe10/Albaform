@@ -1,11 +1,8 @@
 import { PostFormBody } from '@/types/form';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export const useTemporarySave = () => {
-  const [formData, setFormData] = useState(() => {
-    const savedData = localStorage.getItem('tempData');
-    return savedData ? JSON.parse(savedData) : {};
-  });
+  const [formData, setFormData] = useState({});
 
   const saveData = (currentValues: PostFormBody) => {
     setFormData(currentValues);
@@ -15,6 +12,14 @@ export const useTemporarySave = () => {
   const clearData = () => {
     localStorage.removeItem('tempData');
   };
+
+  useEffect(() => {
+    const savedData =
+      typeof window !== 'undefined' ? localStorage.getItem('tempData') : null;
+    if (savedData) {
+      setFormData(JSON.parse(savedData));
+    }
+  }, []);
 
   return { formData, saveData, clearData };
 };
