@@ -1,19 +1,23 @@
 'use client';
 
-import { useForm, UseFormRegister, UseFormSetValue } from 'react-hook-form';
+import { PostFormBody } from '@/types/form';
 import RecruitmentDetails from './RecruitmentDetails';
 import RecruitmentRequirements from './RecruitmentRequirements';
 import WorkingConditions from './WorkingConditions';
-import { PostFormBody } from '@/types/form';
+import { FormProps } from './FormNavigator';
+import { UseFormHandleSubmit } from 'react-hook-form';
 
-export interface FormProps {
-  register: UseFormRegister<PostFormBody>;
-  setValue: UseFormSetValue<PostFormBody>;
+interface StepContentProps extends FormProps {
+  currentStep: number;
+  handleSubmit: UseFormHandleSubmit<PostFormBody>;
 }
 
-const StepContent = ({ currentStep }: { currentStep: number }) => {
-  const { setValue, register, handleSubmit } = useForm<PostFormBody>();
-
+const StepContent = ({
+  currentStep,
+  register,
+  setValue,
+  handleSubmit,
+}: StepContentProps) => {
   const onSubmit = (data: PostFormBody) => {
     console.log(data);
   };

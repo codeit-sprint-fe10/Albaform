@@ -1,13 +1,29 @@
 'use client';
 
 import { useState } from 'react';
+import { useForm, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 import FormTabs from './FormTabs';
 import FormDropdown from './FormDropdown';
 import StepContent from './StepContent';
 import Button from '@/components/Button';
+import { useTemporarySave } from '@/hooks/useTemporarySave';
+import { PostFormBody } from '@/types/form';
+
+export interface FormProps {
+  register: UseFormRegister<PostFormBody>;
+  setValue: UseFormSetValue<PostFormBody>;
+}
 
 const FormNavigator = () => {
   const [currentStep, setCurrentStep] = useState(1);
+  const { setValue, register, handleSubmit, getValues } =
+    useForm<PostFormBody>();
+  const { saveData, clearData } = useTemporarySave();
+
+  const handleTemporarySave = () => {
+    const currentValues = getValues();
+    saveData(currentValues);
+  };
 
   return (
     <div className="relative w-[375px] lg:w-auto lg:max-w-[640px] mx-auto lg:mx-0 px-6 lg:px-0 lg:ml-[600px]">
@@ -16,8 +32,12 @@ const FormNavigator = () => {
           <FormTabs currentStep={currentStep} setCurrentStep={setCurrentStep} />
         </div>
         <div className="absolute top-[calc(100%)] left-1/2 -translate-x-1/2 lg:translate-x-0 flex flex-col gap-2.5 w-full px-6 lg:px-0 py-2.5 lg:py-0 lg:static">
-          <Button design="outlined" content="임시 저장" />
-          <Button content="등록 하기" />
+          <Button
+            design="outlined"
+            content="임시 저장"
+            onClick={handleTemporarySave}
+          />
+          <Button content="등록 하기" onClick={clearData} />
         </div>
       </aside>
       <div className="flex justify-between items-center">
@@ -37,7 +57,12 @@ const FormNavigator = () => {
           setCurrentStep={setCurrentStep}
         />
       </div>
-      <StepContent currentStep={currentStep} />
+      <StepContent
+        currentStep={currentStep}
+        register={register}
+        setValue={setValue}
+        handleSubmit={handleSubmit}
+      />
     </div>
   );
 };

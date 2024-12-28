@@ -123,6 +123,7 @@ const DateRangePicker = ({ onChange }: DateRangePickerProps) => {
 
               return (
                 <button
+                  type="button"
                   key={day.toISOString()}
                   onClick={() => handleDayClick(day)}
                   onMouseEnter={() => handleDayMouseEnter(day)}
@@ -190,6 +191,7 @@ const DateRangePicker = ({ onChange }: DateRangePickerProps) => {
   return (
     <div className="relative" ref={datePickerRef}>
       <button
+        type="button"
         onClick={handleOpen}
         className="flex items-center gap-2 w-full bg-background-200 rounded-lg font-regular text-lg lg:text-xl text-black-400 p-3.5 lg:py-4"
       >
@@ -225,7 +227,7 @@ const DateRangePicker = ({ onChange }: DateRangePickerProps) => {
             </h3>
           </div>
           <div className="flex justify-between items-center py-[11px] px-3.5 lg:py-3 mb-2">
-            <button onClick={handlePrevMonth}>
+            <button type="button" onClick={handlePrevMonth}>
               <Image
                 src="/icons/chevron-right.svg"
                 width={24}
@@ -237,7 +239,7 @@ const DateRangePicker = ({ onChange }: DateRangePickerProps) => {
             <h3 className="font-semibold text-lg lg:text-xl">
               {format(currentDate, 'yyyy. MM')}
             </h3>
-            <button onClick={handleNextMonth}>
+            <button type="button" onClick={handleNextMonth}>
               <Image
                 src="/icons/chevron-left.svg"
                 width={24}

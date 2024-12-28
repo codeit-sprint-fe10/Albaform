@@ -1,7 +1,7 @@
 import Label from '@/components/Label';
 import DateRangePicker from '@/components/DateRangePicker';
 import CheckboxInput from './input/CheckboxInput';
-import { FormProps } from './StepContent';
+import { FormProps } from './FormNavigator';
 import DaysInput from './input/DaysInput';
 import LocationInput from './input/LocationInput';
 import Input from './input/Input';

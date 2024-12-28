@@ -1,6 +1,6 @@
 import Label from '@/components/Label';
 import DropdownInput from './input/DropdownInput';
-import { FormProps } from './StepContent';
+import { FormProps } from './FormNavigator';
 import {
   AGE_OPTIONS,
   EDUCATION_OPTIONS,

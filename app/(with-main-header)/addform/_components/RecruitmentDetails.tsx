@@ -2,7 +2,7 @@ import Label from '@/components/Label';
 import DateRangePicker from '@/components/DateRangePicker';
 import Input from './input/Input';
 import Textarea from './input/Textarea';
-import { FormProps } from './StepContent';
+import { FormProps } from './FormNavigator';
 import FileInput from './input/FileInput';
 
 const RecruitmentDetails = ({ register, setValue }: FormProps) => {
