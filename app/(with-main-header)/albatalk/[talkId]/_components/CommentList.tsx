@@ -104,7 +104,7 @@ const CommentList = ({
                   </div>
                   <div className="text-gray-300">|</div>
                   <div className="max-w-40 text-gray-500 text-xs md:text-md lg:text-lg font-regular">
-                    {formatDate(new Date(comment.createdAt))}
+                    {formatDate(comment.createdAt)}
                   </div>
                 </div>
                 <KebabIcon className="w-6 h-6" />
