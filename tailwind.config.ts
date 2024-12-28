@@ -82,7 +82,7 @@ const tailwindConfig = {
           width: '3px',
         },
         '.custom-scrollbar::-webkit-scrollbar-thumb': {
-          backgroundColor: theme('colors.gray.200'),
+          backgroundColor: theme('colors.orange.200'),
           borderRadius: '100px',
         },
       });

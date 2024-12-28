@@ -1,17 +1,15 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Script from 'next/script';
 import Image from 'next/image';
 import Input from './Input';
-import Label from '@/components/Label';
 
 interface LocationInputProps {
   setValue: (name: 'location', value: string) => void;
 }
 
 const LocationInput = ({ setValue }: LocationInputProps) => {
-  const [address, setAddress] = useState<string>('');
+  const [address, setAddress] = useState('');
   const name = 'location';
 
   const handleClick = () => {
@@ -44,15 +42,6 @@ const LocationInput = ({ setValue }: LocationInputProps) => {
 
   return (
     <div>
-      <Script
-        src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"
-        strategy="beforeInteractive"
-      />
-      <Script
-        src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_API_KEY}&libraries=services&autoload=false`}
-        strategy="beforeInteractive"
-      />
-      <Label id={name} label="근무 위치" className="mb-4" required />
       <Input
         name={name}
         placeholder="위치를 입력해주세요."

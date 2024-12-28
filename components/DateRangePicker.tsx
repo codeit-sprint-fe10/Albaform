@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   addMonths,
   format,
@@ -8,17 +8,20 @@ import {
   isSameDay,
   isWithinInterval,
 } from '@/utils/date';
+import Image from 'next/image';
 
-type DateRangePickerProps = {
+interface DateRangePickerProps {
   onChange?: (range: { startDate: Date | null; endDate: Date | null }) => void;
-};
+}
 
 const DateRangePicker = ({ onChange }: DateRangePickerProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenUp, setIsOpenUp] = useState(false);
   const [currentDate, setCurrentDate] = useState<Date>(new Date());
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
   const [hoverDate, setHoverDate] = useState<Date | null>(null);
+  const datePickerRef = useRef<HTMLDivElement | null>(null);
 
   const handleDayClick = (day: Date) => {
     if (!startDate || endDate) {
@@ -154,27 +157,95 @@ const DateRangePicker = ({ onChange }: DateRangePickerProps) => {
     );
   };
 
+  const updateCalendarPosition = () => {
+    if (datePickerRef.current) {
+      const rect = datePickerRef.current.getBoundingClientRect();
+      const availableSpaceBelow = window.innerHeight - rect.bottom;
+      const availableSpaceAbove = rect.top;
+      const calendarHeight = 600;
+      setIsOpenUp(
+        availableSpaceAbove > availableSpaceBelow &&
+          availableSpaceAbove >= calendarHeight,
+      );
+    }
+  };
+
+  const handleOpen = () => {
+    setIsOpen((prev) => !prev);
+    updateCalendarPosition();
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      window.addEventListener('scroll', updateCalendarPosition, true);
+      window.addEventListener('resize', updateCalendarPosition);
+    }
+
+    return () => {
+      window.removeEventListener('scroll', updateCalendarPosition, true);
+      window.removeEventListener('resize', updateCalendarPosition);
+    };
+  }, [isOpen]);
+
   return (
-    <div className="relative">
+    <div className="relative" ref={datePickerRef}>
       <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="border border-gray-300 p-2 rounded-md w-full flex justify-between items-center"
+        onClick={handleOpen}
+        className="flex items-center gap-2 w-full bg-background-200 rounded-lg font-regular text-lg lg:text-xl text-black-400 p-3.5 lg:py-4"
       >
-        {startDate && endDate
-          ? `${format(startDate, 'yyyy.MM.dd')} ~ ${format(endDate, 'yyyy.MM.dd')}`
-          : '시작일 ~ 종료일'}
+        <Image
+          src="/icons/calendar-fill.svg"
+          width={24}
+          height={24}
+          alt="모집 기간"
+          className="lg:w-9 lg:h-9"
+        />
+        {startDate && endDate ? (
+          `${format(startDate, 'yyyy.MM.dd')} ~ ${format(endDate, 'yyyy.MM.dd')}`
+        ) : (
+          <span className="text-gray-400">시작일 ~ 종료일</span>
+        )}
       </button>
       {isOpen && (
-        <div className="absolute top-12 left-0 bg-white border shadow-md px-[9px] pb-4 lg:px-3.5 lg:pb-6 rounded-md z-10">
-          <h3 className="text-center font-medium text-md lg:text-2lg py-3 px-3.5 lg:py-3 my-2 lg:mt-6 lg:mb-0">
-            기간 선택
-          </h3>
+        <div
+          className={`absolute left-0 border-[0.5px] w-full bg-gray-50 rounded-lg shadow-md px-[9px] pb-4 lg:px-3.5 lg:pb-6 z-10 ${isOpenUp ? 'bottom-[calc(100%+4px)]' : 'top-[calc(100%+4px)]'}`}
+        >
+          <div className="relative flex justify-between items-center py-3 px-3.5 lg:py-3 my-2 lg:mt-6 lg:mb-0">
+            <button type="button" onClick={() => setIsOpen(false)}>
+              <Image
+                src="/icons/x.svg"
+                width={24}
+                height={24}
+                alt="닫기"
+                className="lg:w-9 lg:h-9"
+              />
+            </button>
+            <h3 className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 font-medium text-md lg:text-2lg ">
+              기간 선택
+            </h3>
+          </div>
           <div className="flex justify-between items-center py-[11px] px-3.5 lg:py-3 mb-2">
-            <button onClick={handlePrevMonth}>&lt;</button>
+            <button onClick={handlePrevMonth}>
+              <Image
+                src="/icons/chevron-right.svg"
+                width={24}
+                height={24}
+                alt="이전달"
+                className="lg:w-9 lg:h-9"
+              />
+            </button>
             <h3 className="font-semibold text-lg lg:text-xl">
               {format(currentDate, 'yyyy. MM')}
             </h3>
-            <button onClick={handleNextMonth}>&gt;</button>
+            <button onClick={handleNextMonth}>
+              <Image
+                src="/icons/chevron-left.svg"
+                width={24}
+                height={24}
+                alt="다음음"
+                className="lg:w-9 lg:h-9"
+              />
+            </button>
           </div>
           <div className="flex">
             {['일', '월', '화', '수', '목', '금', '토'].map((day) => (
