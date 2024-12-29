@@ -7,6 +7,7 @@ import {
   GetCommentsResponse,
   PostCommentBody,
   PostCommentResponse,
+  PostTalkBody,
 } from '@/types/albatalk';
 
 export const getPosts = async (
@@ -53,5 +54,9 @@ export const postComment = async (id: number, body: PostCommentBody) => {
     `/posts/${id}/comments`,
     body,
   );
+  return response.data;
+};
+export const postTalk = async (body: PostTalkBody) => {
+  const response = await instance.post<PostCommentResponse>(`/posts`, body);
   return response.data;
 };

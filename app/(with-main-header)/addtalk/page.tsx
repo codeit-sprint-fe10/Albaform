@@ -8,26 +8,24 @@ import FileInput from './_components/FileInput';
 import Label from '@/components/Label';
 import Button from '@/components/Button';
 import { PostTalkBody } from '@/types/albatalk';
-
-interface TalkFormData {
-  title: string;
-  content: string;
-  image: FileList;
-}
+import { postTalk } from '@/services/albatalk';
 
 const AddTalk = () => {
   const router = useRouter();
-  const { setValue } = useForm<PostTalkBody>();
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
-  } = useForm<TalkFormData>({ mode: 'onTouched' });
+  } = useForm<PostTalkBody>({ mode: 'onTouched' });
 
-  const onSubmit: SubmitHandler<TalkFormData> = (data) => {
+  const onSubmit: SubmitHandler<PostTalkBody> = async (data) => {
     console.log('Form Data:', data);
-    if (data.image.length > 0) {
-      console.log('Uploaded Image:', data.image[0]);
+    try {
+      const response = await postTalk(data);
+      router.push('/albatalk');
+    } catch (error) {
+      console.error('Error posting talk:', error);
     }
   };
 

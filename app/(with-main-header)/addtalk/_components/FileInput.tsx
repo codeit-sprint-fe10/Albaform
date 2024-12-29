@@ -23,6 +23,7 @@ const FileInput = ({ setValue, imageUrl }: FileInputProps) => {
       const newImage = await postImage(file);
       setPreview(newImage);
       setValue(name, newImage);
+      console.log(newImage);
     }
 
     event.target.value = '';
