@@ -44,7 +44,7 @@ const FileInput = ({ setValue, imageUrl }: FileInputProps) => {
       <div className="font-medium text-md lg:text-xl text-black-400 mb-4">
         이미지 첨부
       </div>
-      <div className="flex gap-4 flex-wrap">
+      <div className="flex gap-4 flex-wrap h-40 lg:h-60 ">
         {!preview && (
           <label htmlFor={name}>
             <div className="inline-flex flex-col gap-2 w-40 h-40 lg:w-60 lg:h-60 justify-center items-center bg-background-200 rounded-lg cursor-pointer p-7 lg:p-10">
@@ -66,9 +66,9 @@ const FileInput = ({ setValue, imageUrl }: FileInputProps) => {
             <Image
               src={preview}
               alt="미리보기"
-              width={80}
-              height={80}
-              className="rounded-lg aspect-square lg:w-[160px] lg:h-[160px]"
+              width={160}
+              height={160}
+              className="rounded-lg aspect-square lg:w-60 lg:h-60"
             />
             <button
               className="absolute top-0 right-0 translate-x-1/2 -translate-y-1/2"

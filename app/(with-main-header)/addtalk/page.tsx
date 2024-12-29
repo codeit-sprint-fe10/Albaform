@@ -65,7 +65,7 @@ const AddTalk = () => {
           <FileInput setValue={setValue} />
         </div>
 
-        <div className="flex flex-col gap-2 md:flex-row md:relative md:justify-end md:bottom-[702px] lg:bottom-[870px] ">
+        <div className="flex flex-col gap-2 md:flex-row md:relative md:justify-end md:bottom-[702px] lg:bottom-[869px] ">
           <Button
             design="outlined"
             content="취소"
