@@ -70,3 +70,9 @@ export interface PostCommentResponse {
   updatedAt: string;
   writer: Writer;
 }
+
+export interface PostTalkBody {
+  imageUrl: string | null;
+  content: string;
+  title: string;
+}

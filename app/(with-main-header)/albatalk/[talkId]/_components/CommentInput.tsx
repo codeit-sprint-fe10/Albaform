@@ -1,5 +1,5 @@
 'use client';
-import React, { FormEvent, useState } from 'react';
+import React, { useState } from 'react';
 import Button from '@/components/Button';
 import { postComment } from '@/services/albatalk';
 import Form from 'next/form';

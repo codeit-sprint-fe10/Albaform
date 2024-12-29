@@ -8,6 +8,8 @@ import { formatDate } from '@/utils/dateFormatter';
 import { GetPostDetailResponse } from '@/types/albatalk';
 import { useParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
+
+// TODO: RSC 대응하도록 API 고쳐지면 수정!
 // const AlbatalkDetail = async ({
 //   params,
 // }: {
@@ -15,6 +17,7 @@ import { useQuery } from '@tanstack/react-query';
 // }) => {
 //   const { talkId } = await params;
 //   const post = await getPostDetail(talkId);
+
 const AlbatalkDetail = () => {
   const { talkId: talkIdStr } = useParams();
   const talkId = Number(talkIdStr);
