@@ -76,3 +76,15 @@ export interface PostTalkBody {
   content: string;
   title: string;
 }
+export interface PostTalkResponse {
+  id: number;
+  title: string;
+  content: string;
+  imageUrl: string | null;
+  likeCount: number;
+  commentCount: number;
+  createdAt: string;
+  updatedAt: string;
+  writer: Writer;
+  isLiked: boolean;
+}

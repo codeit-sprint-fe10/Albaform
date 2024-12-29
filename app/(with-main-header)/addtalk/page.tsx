@@ -23,7 +23,7 @@ const AddTalk = () => {
     console.log('Form Data:', data);
     try {
       const response = await postTalk(data);
-      router.push('/albatalk');
+      router.push(`/albatalk/${response.id}`);
     } catch (error) {
       console.error('Error posting talk:', error);
     }
