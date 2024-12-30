@@ -10,11 +10,7 @@ import Button from '@/components/Button';
 import { useTemporarySave } from '@/hooks/useTemporarySave';
 import { PostFormBody } from '@/types/form';
 import { postForm } from '@/services/form';
-import {
-  STEP_1_CONTENT,
-  STEP_2_CONTENT,
-  STEP_3_CONTENT,
-} from '@/constants/form';
+import { STEP_1_FIELDS, STEP_2_FIELDS, STEP_3_FIELDS } from '@/constants/form';
 
 const FormNavigator = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -36,9 +32,9 @@ const FormNavigator = () => {
   const formRef = useRef<{ submit: () => void | null }>(null);
   const fieldGroups: Record<string, string[]> = useMemo(
     () => ({
-      tab1: STEP_1_CONTENT,
-      tab2: STEP_2_CONTENT,
-      tab3: STEP_3_CONTENT,
+      tab1: STEP_1_FIELDS,
+      tab2: STEP_2_FIELDS,
+      tab3: STEP_3_FIELDS,
     }),
     [],
   );

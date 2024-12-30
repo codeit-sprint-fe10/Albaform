@@ -94,7 +94,7 @@ export const LOCATION = {
   },
 } as const;
 
-export const STEP_1_CONTENT = [
+export const STEP_1_FIELDS = [
   'title',
   'description',
   'recruitmentEndDate',
@@ -102,7 +102,7 @@ export const STEP_1_CONTENT = [
   'imageUrls',
 ];
 
-export const STEP_2_CONTENT = [
+export const STEP_2_FIELDS = [
   'numberOfPositions',
   'gender',
   'education',
@@ -110,7 +110,7 @@ export const STEP_2_CONTENT = [
   'preferred',
 ];
 
-export const STEP_3_CONTENT = [
+export const STEP_3_FIELDS = [
   'location',
   'workStartTime',
   'workEndTime',
