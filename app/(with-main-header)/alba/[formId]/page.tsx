@@ -84,6 +84,9 @@ const AlbaFormIdPage = async ({
           </div>
           <div className="lg:basis-1/2">
             <div className="lg:flex flex-col">
+              <div className="hidden mt-8 lg:block">
+                <ContactSection {...mock} />
+              </div>
               <div className="mt-8 lg:order-2">
                 <Requirements {...mock} />
               </div>

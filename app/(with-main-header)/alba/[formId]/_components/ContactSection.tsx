@@ -17,7 +17,7 @@ const ContactSection = ({
   phoneNumber,
 }: ContactSectionProps) => {
   return (
-    <section>
+    <section className="lg:p-6 lg:bg-background-100 lg:rounded-lg lg:border border-line-100">
       <div className="border-b border-line-100 flex items-center justify-between py-3.5 font-regular text-xs lg:text-xl">
         <span className="text-black-100 ">
           모집기간
@@ -29,7 +29,7 @@ const ContactSection = ({
         <span className="text-black-100 ">가게 전화번호</span>
         <span className="text-black-400 ">{storePhoneNumber}</span>
       </div>
-      <div className="border-b border-line-100 flex items-center justify-between py-3.5 font-regular text-xs lg:text-xl">
+      <div className="border-b border-line-100 flex items-center justify-between py-3.5 font-regular text-xs lg:text-xl lg:border-none">
         <span className="text-black-100 ">사장님 전화번호</span>
         <span className="text-black-400 ">{phoneNumber}</span>
       </div>
