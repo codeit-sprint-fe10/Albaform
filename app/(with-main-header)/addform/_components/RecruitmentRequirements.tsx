@@ -1,6 +1,8 @@
+'use client';
+
+import { useFormContext } from 'react-hook-form';
 import Label from '@/components/Label';
 import DropdownInput from './input/DropdownInput';
-import { FormProps } from './FormNavigator';
 import {
   AGE_OPTIONS,
   EDUCATION_OPTIONS,
@@ -8,8 +10,11 @@ import {
   NUMBER_OF_POSITION_OPTIONS,
   PREFERRED_OPTIONS,
 } from '@/constants/dropdown';
+import { PostFormBody } from '@/types/form';
 
-const RecruitmentRequirements = ({ register, setValue }: FormProps) => {
+const RecruitmentRequirements = () => {
+  const { register, setValue, getValues } = useFormContext<PostFormBody>();
+
   return (
     <fieldset className="flex flex-col gap-8 lg:gap-10">
       <div>
@@ -17,7 +22,9 @@ const RecruitmentRequirements = ({ register, setValue }: FormProps) => {
         <DropdownInput
           name="numberOfPositions"
           options={NUMBER_OF_POSITION_OPTIONS}
-          register={register('numberOfPositions')}
+          register={register}
+          setValue={setValue}
+          defaultValue={getValues('numberOfPositions')}
         />
       </div>
       <div>
@@ -25,7 +32,8 @@ const RecruitmentRequirements = ({ register, setValue }: FormProps) => {
         <DropdownInput
           name="gender"
           options={GENDER_OPTIONS}
-          register={register('gender')}
+          setValue={setValue}
+          defaultValue={getValues('gender')}
         />
       </div>
       <div>
@@ -33,7 +41,8 @@ const RecruitmentRequirements = ({ register, setValue }: FormProps) => {
         <DropdownInput
           name="education"
           options={EDUCATION_OPTIONS}
-          register={register('education')}
+          setValue={setValue}
+          defaultValue={getValues('education')}
         />
       </div>
       <div>
@@ -41,7 +50,8 @@ const RecruitmentRequirements = ({ register, setValue }: FormProps) => {
         <DropdownInput
           name="age"
           options={AGE_OPTIONS}
-          register={register('age')}
+          setValue={setValue}
+          defaultValue={getValues('age')}
         />
       </div>
       <div>
@@ -49,7 +59,9 @@ const RecruitmentRequirements = ({ register, setValue }: FormProps) => {
         <DropdownInput
           name="preferred"
           options={PREFERRED_OPTIONS}
-          register={register('preferred')}
+          register={register}
+          setValue={setValue}
+          defaultValue={getValues('preferred')}
         />
       </div>
     </fieldset>

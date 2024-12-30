@@ -1,9 +1,10 @@
 'use client';
 
 import { useState, useRef, useEffect, ReactNode } from 'react';
-import { UseFormRegisterReturn } from 'react-hook-form';
+import { UseFormRegister } from 'react-hook-form';
 import Image from 'next/image';
 import Input from './Input';
+import { DropdownFieldName, PostFormBody } from '@/types/form';
 
 interface Option {
   key: string;
@@ -12,12 +13,14 @@ interface Option {
 
 interface DropdownProps {
   options: Option[];
-  name: string;
+  name: DropdownFieldName;
+  setValue: (name: DropdownFieldName, value: string) => void;
   widthStyle?: string;
   paddingStyle?: string;
-  register?: UseFormRegisterReturn;
+  register?: UseFormRegister<PostFormBody>;
   icon?: ReactNode;
   type?: string;
+  defaultValue: string | number;
 }
 
 const DropdownInput = ({
@@ -28,13 +31,20 @@ const DropdownInput = ({
   register,
   icon,
   type,
+  setValue,
+  defaultValue,
 }: DropdownProps) => {
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
-  const [selectedOption, setSelectedOption] = useState<Option | null>(null);
+  const [selectedOption, setSelectedOption] = useState<string | number | null>(
+    defaultValue,
+  );
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
   const handleOptionClick = (option: Option) => {
-    setSelectedOption(option);
+    setSelectedOption(option.label);
+    setValue(name, option.label);
+    // console.log(name, option.label);
+    // saveData({ [name]: option.label });
     setIsDropdownVisible(false);
   };
 
@@ -58,13 +68,13 @@ const DropdownInput = ({
     <div className="relative" ref={dropdownRef}>
       <button
         type="button"
-        className={`flex items-center gap-2 lg:gap-4 w-full font-regular text-lg lg:text-xl bg-background-200 text-black-400 placeholder:text-gray-400 rounded-lg ${paddingStyle} ${widthStyle}`}
+        className={`flex items-center gap-2 lg:gap-4 font-regular text-lg lg:text-xl bg-background-200 text-black-400 placeholder:text-gray-400 rounded-lg ${paddingStyle} ${widthStyle}`}
         onClick={() => setIsDropdownVisible((prev) => !prev)}
       >
         {icon}
         <div className="flex justify-between items-center flex-1">
           {selectedOption ? (
-            selectedOption.label
+            selectedOption
           ) : (
             <span className="text-gray-200">선택</span>
           )}
@@ -97,9 +107,13 @@ const DropdownInput = ({
           </ul>
         </div>
       )}
-      {selectedOption && selectedOption.key === 'customInput' && (
+      {selectedOption === '직접입력' && register && (
         <div className="mt-3 lg:mt-4">
-          <Input name={name} className="p-3.5 lg:py-4" {...register} />
+          <Input
+            name={name}
+            className="p-3.5 lg:py-4"
+            register={register(name)}
+          />
         </div>
       )}
     </div>

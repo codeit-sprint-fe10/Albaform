@@ -1,15 +1,18 @@
+import { useFormContext } from 'react-hook-form';
 import Label from '@/components/Label';
 import DateRangePicker from '@/components/DateRangePicker';
 import CheckboxInput from './input/CheckboxInput';
-import { FormProps } from './FormNavigator';
 import DaysInput from './input/DaysInput';
 import LocationInput from './input/LocationInput';
 import Input from './input/Input';
 import DropdownInput from './input/DropdownInput';
 import { TIME_OPTIONS } from '@/constants/dropdown';
+import { PostFormBody } from '@/types/form';
 import ClockIcon from '@/public/icons/clock.svg';
 
-const WorkingConditions = ({ register, setValue }: FormProps) => {
+const WorkingConditions = () => {
+  const { register, setValue, getValues } = useFormContext<PostFormBody>();
+
   return (
     <fieldset className="flex flex-col gap-8 lg:gap-[52px]">
       <div>
@@ -19,11 +22,24 @@ const WorkingConditions = ({ register, setValue }: FormProps) => {
           className="mb-3 lg:mb-4"
           required
         />
-        <LocationInput setValue={setValue} />
+        <LocationInput
+          setValue={setValue}
+          defaultValue={
+            getValues('location')
+              ? JSON.parse(getValues('location')).address
+              : ''
+          }
+        />
       </div>
       <div>
         <Label label="근무 기간" className="mb-3 lg:mb-4" required />
-        <DateRangePicker />
+        <DateRangePicker
+          setValue={setValue}
+          startDateName="workStartDate"
+          endDateName="workEndDate"
+          defaultStartDate={getValues('workStartDate')}
+          defaultEndDate={getValues('workEndDate')}
+        />
       </div>
       <div>
         <Label label="근무 시간" className="mb-3 lg:mb-4" required />
@@ -33,7 +49,8 @@ const WorkingConditions = ({ register, setValue }: FormProps) => {
             options={TIME_OPTIONS}
             widthStyle="w-[150px] lg:w-[210px]"
             paddingStyle="p-3.5"
-            register={register('workStartTime')}
+            setValue={setValue}
+            defaultValue={getValues('workStartTime')}
             icon={
               <ClockIcon className="w-[13px] h-[13px] lg:w-5 lg:h-5 text-gray-200 " />
             }
@@ -44,7 +61,8 @@ const WorkingConditions = ({ register, setValue }: FormProps) => {
             options={TIME_OPTIONS}
             widthStyle="w-[150px] lg:w-[210px]"
             paddingStyle="p-3.5"
-            register={register('workEndTime')}
+            setValue={setValue}
+            defaultValue={getValues('workEndTime')}
             icon={
               <ClockIcon className="w-[13px] h-[13px] lg:w-5 lg:h-5 text-gray-200 " />
             }

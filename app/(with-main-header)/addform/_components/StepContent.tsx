@@ -1,40 +1,34 @@
 'use client';
 
-import { PostFormBody } from '@/types/form';
+import { forwardRef, useImperativeHandle } from 'react';
+import { useFormContext } from 'react-hook-form';
 import RecruitmentDetails from './RecruitmentDetails';
 import RecruitmentRequirements from './RecruitmentRequirements';
 import WorkingConditions from './WorkingConditions';
-import { FormProps } from './FormNavigator';
-import { UseFormHandleSubmit } from 'react-hook-form';
+import { PostFormBody } from '@/types/form';
 
-interface StepContentProps extends FormProps {
+interface StepContentProps {
   currentStep: number;
-  handleSubmit: UseFormHandleSubmit<PostFormBody>;
+  onSubmit: (data: PostFormBody) => void;
 }
 
-const StepContent = ({
-  currentStep,
-  register,
-  setValue,
-  handleSubmit,
-}: StepContentProps) => {
-  const onSubmit = (data: PostFormBody) => {
-    console.log(data);
-  };
+const StepContent = forwardRef(
+  ({ currentStep, onSubmit }: StepContentProps, ref) => {
+    const { handleSubmit } = useFormContext<PostFormBody>();
 
-  return (
-    <form onSubmit={handleSubmit(onSubmit)} className="py-8 lg:py-12">
-      {currentStep === 1 && (
-        <RecruitmentDetails register={register} setValue={setValue} />
-      )}
-      {currentStep === 2 && (
-        <RecruitmentRequirements register={register} setValue={setValue} />
-      )}
-      {currentStep === 3 && (
-        <WorkingConditions register={register} setValue={setValue} />
-      )}
-    </form>
-  );
-};
+    useImperativeHandle(ref, () => ({
+      submit: handleSubmit(onSubmit),
+    }));
 
+    return (
+      <form onSubmit={handleSubmit(onSubmit)} className="py-8 lg:py-12">
+        {currentStep === 1 && <RecruitmentDetails />}
+        {currentStep === 2 && <RecruitmentRequirements />}
+        {currentStep === 3 && <WorkingConditions />}
+      </form>
+    );
+  },
+);
+
+StepContent.displayName = 'StepContent';
 export default StepContent;

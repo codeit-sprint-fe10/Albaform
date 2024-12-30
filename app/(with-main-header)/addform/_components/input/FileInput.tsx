@@ -7,11 +7,11 @@ import { postImage } from '@/services/image';
 
 interface FileInputProps {
   setValue: (name: 'imageUrls', value: string[] | null) => void;
-  imageUrls?: string[];
+  imageUrls: string[];
 }
 
 const FileInput = ({ setValue, imageUrls }: FileInputProps) => {
-  const [previews, setPreviews] = useState<string[]>([]);
+  const [previews, setPreviews] = useState<string[]>(imageUrls);
   const allowedTypes = ['image/png', 'image/jpeg'];
   const name = 'imageUrls';
 

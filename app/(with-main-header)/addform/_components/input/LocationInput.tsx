@@ -6,10 +6,11 @@ import Input from './Input';
 
 interface LocationInputProps {
   setValue: (name: 'location', value: string) => void;
+  defaultValue: string;
 }
 
-const LocationInput = ({ setValue }: LocationInputProps) => {
-  const [address, setAddress] = useState('');
+const LocationInput = ({ setValue, defaultValue }: LocationInputProps) => {
+  const [address, setAddress] = useState(defaultValue || '');
   const name = 'location';
 
   const handleClick = () => {
