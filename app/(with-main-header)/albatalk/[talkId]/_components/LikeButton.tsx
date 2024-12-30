@@ -7,15 +7,9 @@ interface LikeButtonProps {
   postId: number;
   isLiked: boolean;
   likeCount: number;
-  onLikeToggle: (newLikeStatus: boolean, newLikeCount: number) => void;
 }
 
-const LikeButton = ({
-  postId,
-  isLiked,
-  likeCount,
-  onLikeToggle,
-}: LikeButtonProps) => {
+const LikeButton = ({ postId, isLiked, likeCount }: LikeButtonProps) => {
   const [liked, setLiked] = useState(isLiked);
   const [count, setCount] = useState(likeCount);
   const [loading, setLoading] = useState(false);
@@ -36,7 +30,6 @@ const LikeButton = ({
 
       const newCount = newLikeStatus ? count + 1 : count - 1;
       setCount(newCount);
-      onLikeToggle?.(newLikeStatus, newCount);
     } catch (error) {
       console.error('Failed to update like status:', error);
     } finally {
