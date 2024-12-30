@@ -23,7 +23,7 @@ const TermsSection = ({
   workEndTime,
 }: TermsSectionProps) => {
   return (
-    <section className="grid grid-rows-2 grid-cols-2 gap-2">
+    <section className="grid grid-rows-2 grid-cols-2 gap-2 lg:gap-0 lg:rounded-lg lg:bg-background-100 lg:border lg:border-line-100 lg:p-6">
       <TermsDetail
         title="시급"
         value={hourlyWage.toLocaleString() + '원'}
