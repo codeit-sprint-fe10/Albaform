@@ -3,7 +3,6 @@ import KebabIcon from '@/public/icons/kebab.svg';
 import CommentIcon from '@/public/icons/comment.svg';
 import LikeIcon from '@/public/icons/like.svg';
 import Image from 'next/image';
-import { format } from '@/utils/date';
 import Link from 'next/link';
 import { Writer } from '@/types/albatalk';
 import { formatDate } from '@/utils/dateFormatter';
@@ -11,7 +10,7 @@ interface AlbatalkCardProps {
   title: string;
   content: string;
   writer: Writer;
-  createdAt: Date;
+  createdAt: string;
   commentCount: number;
   likeCount: number;
   talkId: number;
@@ -61,7 +60,7 @@ const AlbatalkCard = ({
                 </div>
                 <div className="text-gray-300">|</div>
                 <div className="max-w-40 text-gray-500 text-xs md:text-md lg:text-lg font-regular">
-                  {formatDate(new Date(createdAt))}
+                  {formatDate(createdAt)}
                 </div>
               </div>
               <div className="flex gap-3">

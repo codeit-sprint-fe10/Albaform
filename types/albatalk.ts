@@ -6,8 +6,8 @@ export interface Writer {
 
 export interface Post {
   writer: Writer;
-  updatedAt: Date;
-  createdAt: Date;
+  updatedAt: string;
+  createdAt: string;
   commentCount: number;
   likeCount: number;
   imageUrl: string;
@@ -30,8 +30,8 @@ export interface GetPostsParameters {
 
 export interface GetPostDetailResponse {
   writer: Writer;
-  updatedAt: Date;
-  createdAt: Date;
+  updatedAt: string;
+  createdAt: string;
   commentCount: number;
   likeCount: number;
   imageUrl: string;
@@ -49,8 +49,8 @@ export interface GetCommentsParameters {
 export interface Comment {
   id: number;
   content: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
   writer: Writer;
 }
 export interface GetCommentsResponse {
@@ -66,7 +66,25 @@ export interface PostCommentBody {
 export interface PostCommentResponse {
   id: number;
   content: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
   writer: Writer;
+}
+
+export interface PostTalkBody {
+  imageUrl: string | null;
+  content: string;
+  title: string;
+}
+export interface PostTalkResponse {
+  id: number;
+  title: string;
+  content: string;
+  imageUrl: string | null;
+  likeCount: number;
+  commentCount: number;
+  createdAt: string;
+  updatedAt: string;
+  writer: Writer;
+  isLiked: boolean;
 }

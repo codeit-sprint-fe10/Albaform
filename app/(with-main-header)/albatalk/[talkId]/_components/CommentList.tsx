@@ -1,5 +1,5 @@
 'use client';
-import CommentInput from './CommentInput';
+import CommentForm from './CommentForm';
 import { useState, useEffect } from 'react';
 import {
   useQuery,
@@ -82,7 +82,7 @@ const CommentList = ({
         <div className="text-lg font-semibold md:text-xl lg:text-2xl">{`댓글(${commentCount})`}</div>
         <div className="w-full border stroke-gray-30"></div>
       </div>
-      <CommentInput id={id} onCommentPosted={handleCommentPosted} />
+      <CommentForm id={id} onCommentPosted={handleCommentPosted} />
       <div className="flex flex-col gap-8 mt-4">
         {data?.data.map((comment) => (
           <div key={comment.id} className="flex flex-col gap-4">
@@ -104,7 +104,7 @@ const CommentList = ({
                   </div>
                   <div className="text-gray-300">|</div>
                   <div className="max-w-40 text-gray-500 text-xs md:text-md lg:text-lg font-regular">
-                    {formatDate(new Date(comment.createdAt))}
+                    {formatDate(comment.createdAt)}
                   </div>
                 </div>
                 <KebabIcon className="w-6 h-6" />

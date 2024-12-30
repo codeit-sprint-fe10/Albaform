@@ -1,16 +1,30 @@
+'use client';
 import CommentIcon from '@/public/icons/comment.svg';
 import LikeIcon from '@/public/icons/like.svg';
 import Image from 'next/image';
 import CommentList from './_components/CommentList';
 import { getPostDetail } from '@/services/albatalk';
 import { formatDate } from '@/utils/dateFormatter';
-const AlbatalkDetail = async ({
-  params,
-}: {
-  params: Promise<{ talkId: number }>;
-}) => {
-  const { talkId } = await params;
-  const post = await getPostDetail(talkId);
+import { GetPostDetailResponse } from '@/types/albatalk';
+import { useParams } from 'next/navigation';
+import { useQuery } from '@tanstack/react-query';
+
+// TODO: RSC 대응하도록 API 고쳐지면 수정!
+// const AlbatalkDetail = async ({
+//   params,
+// }: {
+//   params: Promise<{ talkId: number }>;
+// }) => {
+//   const { talkId } = await params;
+//   const post = await getPostDetail(talkId);
+
+const AlbatalkDetail = () => {
+  const { talkId: talkIdStr } = useParams();
+  const talkId = Number(talkIdStr);
+  const { data: post } = useQuery<GetPostDetailResponse>({
+    queryKey: ['comments', talkId],
+    queryFn: () => getPostDetail(talkId),
+  });
 
   return (
     <div className="w-full flex flex-col">
@@ -77,7 +91,7 @@ const AlbatalkDetail = async ({
               {post?.content}
             </div>
           </div>
-          <CommentList id={talkId} commentCount={post.commentCount} />
+          <CommentList id={talkId} commentCount={post?.commentCount || 0} />
         </div>
       </div>
     </div>

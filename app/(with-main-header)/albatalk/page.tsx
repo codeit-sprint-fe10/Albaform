@@ -6,14 +6,15 @@ import Pagination from './_components/Pagination';
 import SearchBar from './_components/SearchBar';
 import { getPosts } from '@/services/albatalk';
 import { GetPostsResponse } from '@/types/albatalk';
+import WriteButton from './_components/WriteButton';
 
 const Albatalk = () => {
-  const [searchTerm, setSearchTerm] = useState<string>('');
-  const [cursorHistory, setCursorHistory] = useState<number[]>([0]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [cursorHistory, setCursorHistory] = useState([0]);
   const [sortOrder, setSortOrder] = useState<
     'mostRecent' | 'mostLiked' | 'mostCommented'
   >('mostRecent');
-  const [pageLimit, setPageLimit] = useState<number>(6);
+  const [pageLimit, setPageLimit] = useState(6);
 
   useEffect(() => {
     const updatePageLimit = () => {
@@ -107,6 +108,7 @@ const Albatalk = () => {
           handleLoadMore={handleLoadMore}
         />
       </div>
+      <WriteButton />
     </div>
   );
 };
