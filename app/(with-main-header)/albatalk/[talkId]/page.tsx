@@ -68,11 +68,11 @@ const AlbatalkDetail = () => {
                       {post?.commentCount}
                     </div>
                   </div>
-                  {post?.isLiked && (
+                  {post && (
                     <LikeButton
                       postId={post.id}
                       isLiked={post.isLiked}
-                      likeCount={post.likeCount}
+                      likeCount={post.likeCount || 0}
                       onLikeToggle={handleLikeToggle}
                     />
                   )}
@@ -80,18 +80,20 @@ const AlbatalkDetail = () => {
               </div>
             </div>
           </div>
+
           <div className="flex flex-col gap-2 md:flex-row md:gap-5">
-            <div className="flex justify-center items-center">
-              <div className="relative flex w-64 h-40 md:w-80 md:h-80">
-                {post?.imageUrl && (
+            {post?.imageUrl && (
+              <div className="flex justify-center items-center">
+                <div className="relative flex w-64 h-40 md:w-80 md:h-80">
                   <Image src={post?.imageUrl} alt="post image" fill />
-                )}
+                </div>
               </div>
-            </div>
+            )}
             <div className="text-md font-regular text-gray-500 md:text-lg lg:text-xl ">
               {post?.content}
             </div>
           </div>
+
           <CommentList id={talkId} commentCount={post?.commentCount || 0} />
         </div>
       </div>
