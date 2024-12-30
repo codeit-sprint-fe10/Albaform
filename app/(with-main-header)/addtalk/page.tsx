@@ -19,8 +19,9 @@ const AddTalk = () => {
     formState: { errors },
   } = useForm<PostTalkBody>({ mode: 'onTouched' });
 
-  const onSubmit: SubmitHandler<PostTalkBody> = async (data) => {
+  const onSubmit: SubmitHandler<PostTalkBody> = async (data, event) => {
     console.log('Form Data:', data);
+    event?.preventDefault();
     try {
       const response = await postTalk(data);
       router.push(`/albatalk/${response.id}`);
@@ -41,41 +42,49 @@ const AddTalk = () => {
             글쓰기
           </h1>
         </div>
-        <div className="flex flex-col mt-8 gap-6 lg:gap-10">
-          <div>
-            <Label id="title" label="제목" className="mb-4" required />
-            <Input
-              name="title"
-              placeholder="제목을 입력해주세요."
-              className="p-3.5 lg:py-4"
-              register={register('title')}
-            />
+        <form method="post" onSubmit={handleSubmit(onSubmit)}>
+          <div className="flex flex-col mt-8 gap-6 lg:gap-10">
+            <div>
+              <Label id="title" label="제목" className="mb-4" required />
+              <Input
+                id="title"
+                name="title"
+                placeholder="제목을 입력해주세요."
+                className="p-3.5 lg:py-4"
+                register={register('title', {
+                  required: '제목을 입력해주세요',
+                })}
+              />
+            </div>
+            <div>
+              <Label id="content" label="내용" className="mb-4" required />
+              <Textarea
+                id="content"
+                name="content"
+                placeholder="내용을 입력해주세요."
+                className="h-40"
+                register={register('content', {
+                  required: '내용을 입력해주세요',
+                })}
+              />
+            </div>
+            <FileInput setValue={setValue} />
           </div>
-          <div>
-            <Label id="content" label="내용" className="mb-4" required />
-            <Textarea
-              name="description"
-              placeholder="내용을 입력해주세요."
-              className="h-40"
-              register={register('content')}
-            />
-          </div>
-          <FileInput setValue={setValue} />
-        </div>
 
-        <div className="flex flex-col gap-2 md:flex-row md:relative md:justify-end md:bottom-[702px] lg:bottom-[869px] ">
-          <Button
-            design="outlined"
-            content="취소"
-            onClick={handleCancel}
-            className="md:w-[101px] md:h-[46px] md:text-md lg:w-[180px] lg:h-[58px]"
-          />
-          <Button
-            content="등록 하기"
-            onClick={handleSubmit(onSubmit)}
-            className="md:w-[101px] md:h-[46px] text-md lg:w-[180px] lg:h-[58px]"
-          />
-        </div>
+          <div className="flex flex-col mt-9 gap-2 md:mt-0 md:flex-row md:relative md:justify-end md:bottom-[702px] lg:bottom-[869px] ">
+            <Button
+              design="outlined"
+              content="취소"
+              onClick={handleCancel}
+              className="md:w-[101px] md:h-[46px] md:text-md lg:w-[180px] lg:h-[58px]"
+            />
+            <Button
+              type="submit"
+              content="등록 하기"
+              className="md:w-[101px] md:h-[46px] text-md lg:w-[180px] lg:h-[58px]"
+            />
+          </div>
+        </form>
       </div>
     </div>
   );

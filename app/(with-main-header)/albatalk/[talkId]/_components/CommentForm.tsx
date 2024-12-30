@@ -4,7 +4,7 @@ import Button from '@/components/Button';
 import { postComment } from '@/services/albatalk';
 import Form from 'next/form';
 
-const CommentInput = ({
+const CommentForm = ({
   id,
   onCommentPosted,
 }: {
@@ -50,4 +50,4 @@ const CommentInput = ({
   );
 };
 
-export default CommentInput;
+export default CommentForm;

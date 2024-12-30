@@ -6,7 +6,7 @@ import Pagination from './_components/Pagination';
 import SearchBar from './_components/SearchBar';
 import { getPosts } from '@/services/albatalk';
 import { GetPostsResponse } from '@/types/albatalk';
-import FixedActions from './_components/FixedActions';
+import WriteButton from './_components/WriteButton';
 
 const Albatalk = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -108,7 +108,7 @@ const Albatalk = () => {
           handleLoadMore={handleLoadMore}
         />
       </div>
-      <FixedActions />
+      <WriteButton />
     </div>
   );
 };
