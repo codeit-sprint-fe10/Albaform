@@ -1,13 +1,20 @@
 'use client';
 
+import WritingChip from './WritingChip';
+
 interface FormTabsProps {
   currentStep: number;
   setCurrentStep: (step: number) => void;
+  tabStatuses: Record<string, boolean>;
 }
 
 const tabs = ['모집 내용', '모집 조건', '근무 조건'];
 
-const FormTabs = ({ currentStep, setCurrentStep }: FormTabsProps) => {
+const FormTabs = ({
+  currentStep,
+  setCurrentStep,
+  tabStatuses,
+}: FormTabsProps) => {
   return (
     <div className="flex flex-col">
       {tabs.map((tab, index) => {
@@ -19,7 +26,7 @@ const FormTabs = ({ currentStep, setCurrentStep }: FormTabsProps) => {
             onClick={() => setCurrentStep(index + 1)}
             className={`flex justify-between items-center w-full font-bold text-xl text-black-100 py-5 px-8 ${isSelected ? 'bg-orange-300 rounded-2xl text-gray-50' : ''} `}
           >
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-6 py-[3px]">
               <div
                 className={`flex justify-center items-center w-7 h-7 bg-background-300 rounded-full text-gray-200 ${isSelected ? 'bg-orange-50 text-orange-300' : ''}`}
               >
@@ -27,6 +34,9 @@ const FormTabs = ({ currentStep, setCurrentStep }: FormTabsProps) => {
               </div>
               {tab}
             </div>
+            {tabStatuses[`tab${index + 1}`] && (
+              <WritingChip isSelected={isSelected} />
+            )}
           </button>
         );
       })}

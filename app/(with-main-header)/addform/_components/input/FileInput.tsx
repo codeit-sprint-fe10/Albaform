@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { postImage } from '@/services/image';
 
 interface FileInputProps {
-  setValue: (name: 'imageUrls', value: string[] | null) => void;
+  setValue: (name: 'imageUrls', value: string[]) => void;
   imageUrls: string[];
 }
 

@@ -1,21 +1,47 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
+import { useMutation } from '@tanstack/react-query';
 import FormTabs from './FormTabs';
 import FormDropdown from './FormDropdown';
 import StepContent from './StepContent';
 import Button from '@/components/Button';
 import { useTemporarySave } from '@/hooks/useTemporarySave';
 import { PostFormBody } from '@/types/form';
-import { useMutation } from '@tanstack/react-query';
 import { postForm } from '@/services/form';
+import {
+  STEP_1_CONTENT,
+  STEP_2_CONTENT,
+  STEP_3_CONTENT,
+} from '@/constants/form';
 
 const FormNavigator = () => {
   const [currentStep, setCurrentStep] = useState(1);
-  const methods = useForm<PostFormBody>();
+  const [tabStatuses, setTabStatuses] = useState<{ [key: string]: boolean }>({
+    tab1: false,
+    tab2: false,
+    tab3: false,
+  });
+  const [isSubmitEnabled, setIsSubmitEnabled] = useState(false);
+  const methods = useForm<PostFormBody>({
+    defaultValues: {
+      imageUrls: [],
+      workDays: [],
+      isNegotiableWorkDays: false,
+      isPublic: false,
+    },
+  });
   const { getData, saveData, clearData } = useTemporarySave();
   const formRef = useRef<{ submit: () => void | null }>(null);
+  const fieldGroups: Record<string, string[]> = useMemo(
+    () => ({
+      tab1: STEP_1_CONTENT,
+      tab2: STEP_2_CONTENT,
+      tab3: STEP_3_CONTENT,
+    }),
+    [],
+  );
 
   const mutation = useMutation({
     mutationFn: postForm,
@@ -44,6 +70,29 @@ const FormNavigator = () => {
     }
   }, []);
 
+  useEffect(() => {
+    const subscription = methods.watch((values) => {
+      const statuses: { [key: string]: boolean } = {};
+      const groupName = `tab${currentStep}`;
+      statuses[groupName] = fieldGroups[groupName].some((field) => {
+        const value = values[field as keyof typeof values];
+        return value != null && value !== '';
+      });
+      setTabStatuses((prevStatuses) => ({ ...prevStatuses, ...statuses }));
+
+      const allFieldsValid = Object.values(fieldGroups).every((fields) =>
+        fields.every((field) => {
+          const value = values[field as keyof typeof values];
+          return value != null && value !== '';
+        }),
+      );
+
+      setIsSubmitEnabled(allFieldsValid);
+    });
+
+    return () => subscription.unsubscribe();
+  }, [methods, currentStep, fieldGroups]);
+
   return (
     <FormProvider {...methods}>
       <div className="relative w-[375px] lg:w-auto lg:max-w-[640px] mx-auto lg:mx-0 px-6 lg:px-0 lg:ml-[600px]">
@@ -52,6 +101,7 @@ const FormNavigator = () => {
             <FormTabs
               currentStep={currentStep}
               setCurrentStep={setCurrentStep}
+              tabStatuses={tabStatuses}
             />
           </div>
           <div className="absolute top-[calc(100%)] left-1/2 -translate-x-1/2 lg:translate-x-0 flex flex-col gap-2.5 w-full px-6 lg:px-0 py-2.5 lg:py-0 lg:static">
@@ -64,6 +114,7 @@ const FormNavigator = () => {
               type="submit"
               content="등록 하기"
               onClick={() => formRef.current?.submit()}
+              disabled={!isSubmitEnabled}
             />
           </div>
         </aside>
@@ -83,6 +134,7 @@ const FormNavigator = () => {
           <FormDropdown
             currentStep={currentStep}
             setCurrentStep={setCurrentStep}
+            tabStatuses={tabStatuses}
           />
         </div>
         <StepContent

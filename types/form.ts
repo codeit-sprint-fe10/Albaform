@@ -3,8 +3,7 @@ export interface PostFormBody {
   description: string;
   recruitmentEndDate: string;
   recruitmentStartDate: string;
-  imageUrls: string[] | null;
-  workDays: string[];
+  imageUrls: string[];
   numberOfPositions: number;
   gender: string;
   education: string;
@@ -16,6 +15,7 @@ export interface PostFormBody {
   hourlyWage: number;
   isNegotiableWorkDays: boolean;
   isPublic: boolean;
+  workDays: string[];
   workEndDate: string;
   workStartDate: string;
 }
