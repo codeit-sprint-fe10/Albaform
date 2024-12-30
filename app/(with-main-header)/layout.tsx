@@ -9,7 +9,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
           <MainHeader />
         </div>
       </div>
-      <main className="mt-[50px] md:mt-[78px] lg:mt-[92px] px-6 md:px-[72px] lg:max-w-container lg:m-auto overflow-y-auto">
+      <main className="mt-[50px] md:mt-[78px] lg:mt-[92px] px-6 md:px-[72px] lg:max-w-container lg:m-auto">
         {children}
       </main>
     </>

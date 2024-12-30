@@ -33,7 +33,7 @@ const Carousel = ({ imageUrls }: CarouselProps) => {
   };
 
   return (
-    <div className="relative w-full h-16 lg:h-[560px]">
+    <div className="relative w-full h-[260px] lg:h-[560px]">
       <Image
         src={imageUrls[currentSlide]}
         alt=""

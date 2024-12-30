@@ -5,7 +5,7 @@ import TermsSection from '@/app/(with-main-header)/alba/[formId]/_components/Ter
 import ContactSection from '@/app/(with-main-header)/alba/[formId]/_components/ContactSection';
 import AlertSection from '@/app/(with-main-header)/alba/[formId]/_components/AlertSection';
 import DescriptionSection from '@/app/(with-main-header)/alba/[formId]/_components/DescriptionSection';
-import FixedActions from '@/app/(with-main-header)/alba/[formId]/_components/FixedActions';
+import FloatingActions from '@/app/(with-main-header)/alba/[formId]/_components/FloatingActions';
 import ApplicationActions from '@/app/(with-main-header)/alba/[formId]/_components/ApplicationActions';
 import Carousel from '@/app/(with-main-header)/alba/[formId]/_components/Carousel';
 import Applications from '@/app/(with-main-header)/alba/[formId]/_components/Applications';
@@ -57,7 +57,7 @@ const AlbaFormIdPage = async ({
     <>
       <div>
         <div className="-mx-6 md:-mx-[72px] flex justify-center">
-          <div className="w-full -mx-6">
+          <div className="w-full">
             <Carousel imageUrls={mock.imageUrls} />
           </div>
         </div>
@@ -85,9 +85,11 @@ const AlbaFormIdPage = async ({
         <div className="mt-10 mb-[30px]">
           <ApplicationActions formId={formId} />
         </div>
-        <FixedActions isScrapped={mock.isScrapped} id={formId} />
+        <FloatingActions isScrapped={mock.isScrapped} id={formId} />
       </div>
-      <Applications formId={formId} />
+      <div className="relative mt-10 before:content-[''] before:absolute before:-mx-4 before:w-screen before:-ml-[calc((100vw-100%)/2)] before:h-2 before:bg-line-100">
+        <Applications formId={formId} />
+      </div>
     </>
   );
 };

@@ -34,7 +34,7 @@ const Applications = ({ formId }: ApplicationsProps) => {
     useGetApplications({ formId, searchParams });
 
   return (
-    <div>
+    <div className="py-10 w-full">
       <h3 className="text-black-500 font-2lg font-semibold lg:text-3xl">
         지원 현황
       </h3>
