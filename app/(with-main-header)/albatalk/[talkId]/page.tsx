@@ -8,6 +8,7 @@ import { formatDate } from '@/utils/dateFormatter';
 import { GetPostDetailResponse } from '@/types/albatalk';
 import { useParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
+import LikeButton from './_components/LikeButton';
 
 // TODO: RSC 대응하도록 API 고쳐지면 수정!
 // const AlbatalkDetail = async ({
@@ -25,7 +26,9 @@ const AlbatalkDetail = () => {
     queryKey: ['comments', talkId],
     queryFn: () => getPostDetail(talkId),
   });
-
+  const handleLikeToggle = (newLikeStatus: boolean) => {
+    console.log('New Like Status:', newLikeStatus);
+  };
   return (
     <div className="w-full flex flex-col">
       <div className="items-center justify-center mt-4 lg:mt-10">
@@ -65,16 +68,14 @@ const AlbatalkDetail = () => {
                       {post?.commentCount}
                     </div>
                   </div>
-                  <div className="flex gap-1 items-center">
-                    {post?.isLiked ? (
-                      <LikeIcon className="w-6 h-6 lg:w-9 lg:h-9 text-orange-300" />
-                    ) : (
-                      <LikeIcon className="w-6 h-6 lg:w-9 lg:h-9 text-gray-100" />
-                    )}
-                    <div className="text-gray-500 text-xs md:text-md lg:text-lg font-regular">
-                      {post?.likeCount}
-                    </div>
-                  </div>
+                  {post?.isLiked && (
+                    <LikeButton
+                      postId={post.id}
+                      isLiked={post.isLiked}
+                      likeCount={post.likeCount}
+                      onLikeToggle={handleLikeToggle}
+                    />
+                  )}
                 </div>
               </div>
             </div>

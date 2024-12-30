@@ -8,6 +8,7 @@ import {
   PostCommentBody,
   PostCommentResponse,
   PostTalkBody,
+  PostTalkResponse,
 } from '@/types/albatalk';
 
 export const getPosts = async (
@@ -57,6 +58,16 @@ export const postComment = async (id: number, body: PostCommentBody) => {
   return response.data;
 };
 export const postTalk = async (body: PostTalkBody) => {
-  const response = await instance.post<PostCommentResponse>(`/posts`, body);
+  const response = await instance.post<PostTalkResponse>(`/posts`, body);
+  return response.data;
+};
+
+export const postLike = async (id: number) => {
+  const response = await instance.post<PostTalkResponse>(`/posts/${id}/like`);
+  return response.data;
+};
+
+export const deleteLike = async (id: number) => {
+  const response = await instance.delete<PostTalkResponse>(`/posts/${id}/like`);
   return response.data;
 };
