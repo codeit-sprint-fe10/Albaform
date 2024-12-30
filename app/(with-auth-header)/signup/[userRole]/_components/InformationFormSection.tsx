@@ -25,6 +25,9 @@ const InformationFormSection = ({ userRole }: InformationFormSectionProps) => {
   const { replace } = useRouter();
   const {
     register,
+    setValue,
+    setError,
+    clearErrors,
     handleSubmit,
     formState: { isValid, errors },
   } = useForm<InformationFormData>({ mode: 'onTouched' });
@@ -133,10 +136,10 @@ const InformationFormSection = ({ userRole }: InformationFormSectionProps) => {
               name="location"
               label="가게 위치"
               placeholder={LOCATION.message.placeholder}
-              register={register('location', {
-                required: { value: true, message: LOCATION.message.required },
-              })}
               error={errors.location}
+              setValue={setValue}
+              setError={setError}
+              clearErrors={clearErrors}
             />
           </>
         )}

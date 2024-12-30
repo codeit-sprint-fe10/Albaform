@@ -14,7 +14,7 @@ const VisibilityInput = (props: VisibilityInputProps) => {
   };
 
   return (
-    <div className="relative">
+    <div className="relative mb-1">
       <input type={visible ? 'text' : 'password'} {...props} />
       <button
         type="button"

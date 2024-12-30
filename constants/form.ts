@@ -91,5 +91,6 @@ export const LOCATION = {
   message: {
     placeholder: '가게 위치를 설정해 주세요.',
     required: '가게 이름은 필수 설정입니다.',
+    error: '위치 등록에 문제가 발생했습니다',
   },
 } as const;
