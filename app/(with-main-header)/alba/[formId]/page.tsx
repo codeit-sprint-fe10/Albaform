@@ -54,43 +54,49 @@ const AlbaFormIdPage = async ({
   console.log(formId); // TODO api 호출 후 제거
 
   return (
-    <>
-      <div>
-        <div className="-mx-6 md:-mx-[72px] flex justify-center">
-          <div className="w-full">
-            <Carousel imageUrls={mock.imageUrls} />
-          </div>
+    <div>
+      <div className="-mx-6 md:-mx-[72px] xl:mx-0 flex justify-center">
+        <div className="w-full">
+          <Carousel imageUrls={mock.imageUrls} />
         </div>
-        <div>
-          <AlertSection applyCount={mock.applyCount} />
-          <div className="mt-8 md:mt-[80px]">
-            <SummarySection {...mock} />
-          </div>
-          <div className="mt-8 md:mt-10">
-            <TermsSection {...mock} />
-          </div>
-          <div className="mt-8">
-            <ContactSection {...mock} />
-          </div>
-          <div className="mt-8">
-            <DescriptionSection description={mock.description} />
-          </div>
-        </div>
-        <div className="mt-8">
-          <Requirements {...mock} />
-        </div>
-        <div className="mt-8">
-          <Location location={mock.location} />
-        </div>
-        <div className="mt-10 mb-[30px]">
-          <ApplicationActions formId={formId} />
-        </div>
-        <FloatingActions isScrapped={mock.isScrapped} id={formId} />
       </div>
-      <div>
-        <OwnerSection formId={formId} />
+      <div className="relative">
+        <div className="lg:flex lg:justify-between lg:gap-36">
+          <div className="lg:basis-1/2">
+            <div>
+              <AlertSection applyCount={mock.applyCount} />
+              <div className="mt-8 md:mt-[80px]">
+                <SummarySection {...mock} />
+              </div>
+              <div className="mt-8 md:mt-10">
+                <TermsSection {...mock} />
+              </div>
+              <div className="mt-8">
+                <ContactSection {...mock} />
+              </div>
+              <div className="mt-8">
+                <DescriptionSection description={mock.description} />
+              </div>
+            </div>
+            <div className="mt-8">
+              <Requirements {...mock} />
+            </div>
+            <div className="mt-8">
+              <Location location={mock.location} />
+            </div>
+            <FloatingActions isScrapped={mock.isScrapped} id={formId} />
+          </div>
+          <div className="absolute top-[calc(100%)] left-1/2 -translate-x-1/2 lg:translate-x-0 w-full lg:basis-1/2 lg:static">
+            <div className="mt-10 mb-[30px]">
+              <ApplicationActions formId={formId} />
+            </div>
+            {/*<div>*/}
+            {/*  <OwnerSection formId={formId} />*/}
+            {/*</div>*/}
+          </div>
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 
