@@ -1,25 +1,13 @@
-export interface Alba {
+import { PostFormBody } from '@/types/form';
+
+export interface Alba extends PostFormBody {
   updatedAt: string;
   createdAt: string;
-  preferred: string;
-  age: string;
-  education: string;
-  gender: string;
-  numberOfPositions: number;
-  isPublic: boolean;
-  hourlyWage: number;
-  isNegotiableWorkDays: boolean;
-  workDays: string[];
-  workEndTime: string;
-  workStartTime: string;
   workEndDate: string;
   workStartDate: string;
-  location: string;
-  imageUrls: string[];
+  imageUrls: string[]; // TODO imageUrl이 null일경우 처리후 제거
   recruitmentEndDate: string;
   recruitmentStartDate: string;
-  description: string;
-  title: string;
   ownerId: number;
   id: number;
   scrapCount: number;
