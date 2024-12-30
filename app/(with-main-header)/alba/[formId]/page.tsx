@@ -8,7 +8,6 @@ import DescriptionSection from '@/app/(with-main-header)/alba/[formId]/_componen
 import FloatingActions from '@/app/(with-main-header)/alba/[formId]/_components/FloatingActions';
 import ApplicationActions from '@/app/(with-main-header)/alba/[formId]/_components/ApplicationActions';
 import Carousel from '@/app/(with-main-header)/alba/[formId]/_components/Carousel';
-import OwnerSection from '@/app/(with-main-header)/alba/[formId]/_components/OwnerSection';
 
 const mock = {
   isPublic: true,
@@ -68,10 +67,10 @@ const AlbaFormIdPage = async ({
               <div className="mt-8 md:mt-[80px]">
                 <SummarySection {...mock} />
               </div>
-              <div className="mt-8 md:mt-10">
+              <div className="mt-8 md:mt-10 lg:hidden">
                 <TermsSection {...mock} />
               </div>
-              <div className="mt-8">
+              <div className="mt-8 lg:hidden">
                 <ContactSection {...mock} />
               </div>
               <div className="mt-8">
@@ -79,16 +78,18 @@ const AlbaFormIdPage = async ({
               </div>
             </div>
             <div className="mt-8">
-              <Requirements {...mock} />
-            </div>
-            <div className="mt-8">
               <Location location={mock.location} />
             </div>
             <FloatingActions isScrapped={mock.isScrapped} id={formId} />
           </div>
           <div className="absolute top-[calc(100%)] left-1/2 -translate-x-1/2 lg:translate-x-0 w-full lg:basis-1/2 lg:static">
-            <div className="mt-10 mb-[30px]">
-              <ApplicationActions formId={formId} />
+            <div className="lg:flex flex-col">
+              <div className="mt-8 lg:order-2">
+                <Requirements {...mock} />
+              </div>
+              <div className="mt-10 mb-[30px] lg:order-1">
+                <ApplicationActions formId={formId} />
+              </div>
             </div>
             {/*<div>*/}
             {/*  <OwnerSection formId={formId} />*/}
