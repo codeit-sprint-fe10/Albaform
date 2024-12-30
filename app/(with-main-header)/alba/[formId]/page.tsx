@@ -60,7 +60,7 @@ const AlbaFormIdPage = async ({
         </div>
       </div>
       <div className="relative">
-        <div className="lg:flex lg:justify-between lg:gap-36">
+        <div className="flex flex-col lg:flex-row justify-between lg:gap-36">
           <div className="lg:basis-1/2">
             <div>
               <AlertSection applyCount={mock.applyCount} />
@@ -82,7 +82,7 @@ const AlbaFormIdPage = async ({
             </div>
             <FloatingActions isScrapped={mock.isScrapped} id={formId} />
           </div>
-          <div className="absolute top-[calc(100%)] left-1/2 -translate-x-1/2 lg:translate-x-0 w-full lg:basis-1/2 lg:static">
+          <div className="lg:basis-1/2">
             <div className="lg:flex flex-col">
               <div className="mt-8 lg:order-2">
                 <Requirements {...mock} />
@@ -90,10 +90,10 @@ const AlbaFormIdPage = async ({
               <div className="mt-10 mb-[30px] lg:order-1">
                 <ApplicationActions formId={formId} />
               </div>
+              {/*<div>*/}
+              {/*  <OwnerSection formId={formId} />*/}
+              {/*</div>*/}
             </div>
-            {/*<div>*/}
-            {/*  <OwnerSection formId={formId} />*/}
-            {/*</div>*/}
           </div>
         </div>
       </div>
