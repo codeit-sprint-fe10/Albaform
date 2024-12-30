@@ -8,8 +8,7 @@ import DescriptionSection from '@/app/(with-main-header)/alba/[formId]/_componen
 import FloatingActions from '@/app/(with-main-header)/alba/[formId]/_components/FloatingActions';
 import ApplicationActions from '@/app/(with-main-header)/alba/[formId]/_components/ApplicationActions';
 import Carousel from '@/app/(with-main-header)/alba/[formId]/_components/Carousel';
-import Applications from '@/app/(with-main-header)/alba/[formId]/_components/Applications';
-import OwnerActions from '@/app/(with-main-header)/alba/[formId]/_components/OwnerActions';
+import OwnerSection from '@/app/(with-main-header)/alba/[formId]/_components/OwnerSection';
 
 const mock = {
   isPublic: true,
@@ -88,14 +87,8 @@ const AlbaFormIdPage = async ({
         </div>
         <FloatingActions isScrapped={mock.isScrapped} id={formId} />
       </div>
-
       <div>
-        <div className="relative mt-10 before:content-[''] before:absolute before:-mx-4 before:w-screen before:-ml-[calc((100vw-100%)/2)] before:h-2 before:bg-line-100">
-          <Applications formId={formId} />
-        </div>
-        <div className="py-4">
-          <OwnerActions formId={formId} />
-        </div>
+        <OwnerSection formId={formId} />
       </div>
     </>
   );

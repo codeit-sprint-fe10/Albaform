@@ -34,7 +34,7 @@ const Applications = ({ formId }: ApplicationsProps) => {
     useGetApplications({ formId, searchParams });
 
   return (
-    <section className="py-10 w-full">
+    <div className="py-10 w-full">
       <h3 className="text-black-500 font-2lg font-semibold lg:text-3xl">
         지원 현황
       </h3>
@@ -98,7 +98,7 @@ const Applications = ({ formId }: ApplicationsProps) => {
           <div className="text-center pt-6 text-gray-500">지원자 없음</div>
         )}
       </div>
-    </section>
+    </div>
   );
 };
 
