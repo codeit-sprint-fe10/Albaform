@@ -2,7 +2,7 @@ import TermsDetail from '@/app/(with-main-header)/alba/[formId]/_components/Term
 import { formatDate } from '@/utils/dateFormatter';
 import { Alba } from '@/types/alba';
 
-type SectionTermsProps = Pick<
+type TermsSectionProps = Pick<
   Alba,
   | 'hourlyWage'
   | 'workStartDate'
@@ -21,7 +21,7 @@ const TermsSection = ({
   workDays,
   workStartTime,
   workEndTime,
-}: SectionTermsProps) => {
+}: TermsSectionProps) => {
   return (
     <section className="grid grid-rows-2 grid-cols-2 gap-2">
       <TermsDetail

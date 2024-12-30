@@ -2,7 +2,7 @@ import { Alba } from '@/types/alba';
 import { calculateDDay } from '@/utils/dDayCalculator';
 import { formatDateWithSpace } from '@/utils/dateFormatter';
 
-type SectionContactProps = Pick<
+type ContactSectionProps = Pick<
   Alba,
   | 'recruitmentEndDate'
   | 'recruitmentStartDate'
@@ -15,7 +15,7 @@ const ContactSection = ({
   recruitmentStartDate,
   storePhoneNumber,
   phoneNumber,
-}: SectionContactProps) => {
+}: ContactSectionProps) => {
   return (
     <section>
       <div className="border-b border-line-100 flex items-center justify-between py-3.5 font-regular text-xs lg:text-xl">

@@ -3,7 +3,7 @@ import { formatFullDateTime } from '@/utils/dateFormatter';
 import Image from 'next/image';
 import { Alba } from '@/types/alba';
 
-type SectionFirstProps = Pick<
+type SummarySectionProps = Pick<
   Alba,
   | 'isPublic'
   | 'createdAt'
@@ -22,7 +22,7 @@ const SummarySection = ({
   title,
   scrapCount,
   applyCount,
-}: SectionFirstProps) => {
+}: SummarySectionProps) => {
   return (
     <section>
       <div className="flex items-center justify-between">
