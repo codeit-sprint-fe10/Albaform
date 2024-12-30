@@ -43,8 +43,6 @@ const DropdownInput = ({
   const handleOptionClick = (option: Option) => {
     setSelectedOption(option.label);
     setValue(name, option.label);
-    // console.log(name, option.label);
-    // saveData({ [name]: option.label });
     setIsDropdownVisible(false);
   };
 
