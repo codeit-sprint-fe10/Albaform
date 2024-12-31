@@ -14,7 +14,7 @@ import { STEP_1_FIELDS, STEP_2_FIELDS, STEP_3_FIELDS } from '@/constants/form';
 
 const FormNavigator = () => {
   const [currentStep, setCurrentStep] = useState(1);
-  const [tabStatuses, setTabStatuses] = useState<{ [key: string]: boolean }>({
+  const [tabStatuses, setTabStatuses] = useState<Record<string, boolean>>({
     tab1: false,
     tab2: false,
     tab3: false,
@@ -87,7 +87,7 @@ const FormNavigator = () => {
     });
 
     return () => subscription.unsubscribe();
-  }, [methods, currentStep, fieldGroups]);
+  }, [currentStep, fieldGroups]);
 
   return (
     <FormProvider {...methods}>
