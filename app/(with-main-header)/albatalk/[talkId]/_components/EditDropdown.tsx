@@ -1,7 +1,6 @@
 'use client';
 import React, { useState } from 'react';
 import KebabIcon from '@/public/icons/kebab.svg';
-import { deleteTalk } from '@/services/albatalk';
 
 interface EditDropdownProps {
   onEdit: () => void;
@@ -9,16 +8,11 @@ interface EditDropdownProps {
   id: number;
 }
 
-const EditDropdown: React.FC<EditDropdownProps> = ({
-  onEdit,
-  onDelete,
-  id,
-}) => {
+const EditDropdown = ({ onEdit, onDelete, id }: EditDropdownProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
   const OPTIONS = [
     { key: 'edit', label: '수정하기', action: onEdit },
-    { key: 'delete', label: '삭제하기', action: () => handleDelete(id) },
+    { key: 'delete', label: '삭제하기', action: () => onDelete(id) },
   ] as const;
 
   const handleDropdownToggle = () => {
@@ -28,15 +22,6 @@ const EditDropdown: React.FC<EditDropdownProps> = ({
   const handleOptionClick = (action: () => void) => {
     action();
     setIsDropdownOpen(false);
-  };
-
-  const handleDelete = async (id: number) => {
-    try {
-      await deleteTalk(id);
-      console.log(`Talk with ID ${id} deleted successfully.`);
-    } catch (error) {
-      console.error('Error delete talk:', error);
-    }
   };
 
   return (

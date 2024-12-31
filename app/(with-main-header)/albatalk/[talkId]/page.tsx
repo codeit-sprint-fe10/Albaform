@@ -8,8 +8,10 @@ import { GetPostDetailResponse } from '@/types/albatalk';
 import { useParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import LikeButton from './_components/LikeButton';
-
+import { useUserStore } from '@/store/user';
 import EditDropdown from './_components/EditDropdown';
+import { deleteTalk } from '@/services/albatalk';
+import { useRouter } from 'next/navigation';
 
 // TODO: RSC 대응하도록 API 고쳐지면 수정!
 // const AlbatalkDetail = async ({
@@ -23,13 +25,24 @@ import EditDropdown from './_components/EditDropdown';
 const AlbatalkDetail = () => {
   const { talkId: talkIdStr } = useParams();
   const talkId = Number(talkIdStr);
+  const router = useRouter();
   const { data: post } = useQuery<GetPostDetailResponse>({
     queryKey: ['comments', talkId],
     queryFn: () => getPostDetail(talkId),
+    staleTime: 30 * 1000,
+    gcTime: 5 * 60 * 1000,
   });
-  const handleLikeToggle = (newLikeStatus: boolean) => {
-    console.log('New Like Status:', newLikeStatus);
+
+  const handleDelete = async (talkId: number) => {
+    try {
+      await deleteTalk(talkId);
+      router.replace('/albatalk');
+    } catch (error) {
+      console.error('Error delete talk:', error);
+    }
   };
+  const handleEdit = async () => {};
+  const user = useUserStore((state) => state.user);
   return (
     <div className="w-full flex flex-col">
       {post && (
@@ -38,15 +51,13 @@ const AlbatalkDetail = () => {
             <div className="flex flex-col gap-4">
               <div className="flex justify-between items-center text-lg font-semibold md:text-xl lg:text-2xl">
                 {post?.title}
-                <EditDropdown
-                  onEdit={function (): void {
-                    throw new Error('Function not implemented.');
-                  }}
-                  onDelete={function (): void {
-                    throw new Error('Function not implemented.');
-                  }}
-                  id={post.id}
-                />
+                {user?.id === post.writer.id && (
+                  <EditDropdown
+                    onEdit={handleEdit}
+                    onDelete={handleDelete}
+                    id={post.id}
+                  />
+                )}
               </div>
               <div className="w-full border stroke-gray-30" />
               <div className="flex">
