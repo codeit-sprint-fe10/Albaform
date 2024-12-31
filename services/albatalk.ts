@@ -74,6 +74,7 @@ export const deleteLike = async (id: number) => {
 
 export const deleteTalk = async (id: number) => {
   const response = await instance.delete(`/posts/${id}`);
+  console.log(response);
   return response.data;
 };
 export const patchTalk = async (id: number, body: PostTalkBody) => {

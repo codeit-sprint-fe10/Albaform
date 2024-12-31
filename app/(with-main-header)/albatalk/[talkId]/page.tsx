@@ -12,7 +12,7 @@ import { useUserStore } from '@/store/user';
 import EditDropdown from './_components/EditDropdown';
 import { deleteTalk } from '@/services/albatalk';
 import { useRouter } from 'next/navigation';
-
+import { EditDropdownAction } from '@/types/albatalk';
 // TODO: RSC 대응하도록 API 고쳐지면 수정!
 // const AlbatalkDetail = async ({
 //   params,
@@ -33,7 +33,7 @@ const AlbatalkDetail = () => {
     gcTime: 5 * 60 * 1000,
   });
 
-  const handleAction = async (action: 'edit' | 'delete') => {
+  const handleAction = async (action: EditDropdownAction) => {
     if (action === 'edit') {
       router.push(`/edittalk/${talkId}`);
     } else if (action === 'delete') {
@@ -54,7 +54,7 @@ const AlbatalkDetail = () => {
           <div className="flex flex-col gap-16">
             <div className="flex flex-col gap-4">
               <div className="flex justify-between items-center text-lg font-semibold md:text-xl lg:text-2xl">
-                {post?.title}
+                {post.title}
                 {user?.id === post.writer.id && (
                   <EditDropdown onAction={handleAction} />
                 )}
@@ -73,7 +73,7 @@ const AlbatalkDetail = () => {
                         />
                       </div>
                       <div className="max-w-40 text-gray-500 text-xs md:text-md lg:text-lg font-regular">
-                        {post?.writer.nickname}
+                        {post.writer.nickname}
                       </div>
                     </div>
                     <div className="text-gray-300">|</div>
@@ -85,16 +85,15 @@ const AlbatalkDetail = () => {
                     <div className="flex gap-1 items-center">
                       <CommentIcon className="w-6 h-6 lg:w-9 lg:h-9 " />
                       <div className="text-gray-500 text-xs md:text-md lg:text-lg font-regular">
-                        {post?.commentCount}
+                        {post.commentCount}
                       </div>
                     </div>
-                    {post && (
-                      <LikeButton
-                        postId={post.id}
-                        isLiked={post.isLiked}
-                        likeCount={post.likeCount || 0}
-                      />
-                    )}
+
+                    <LikeButton
+                      postId={post.id}
+                      isLiked={post.isLiked}
+                      likeCount={post.likeCount}
+                    />
                   </div>
                 </div>
               </div>
@@ -104,7 +103,7 @@ const AlbatalkDetail = () => {
               {post.imageUrl && (
                 <div className="flex justify-center items-center">
                   <div className="relative flex w-64 h-40 md:w-80 md:h-80">
-                    <Image src={post?.imageUrl} alt="post image" fill />
+                    <Image src={post.imageUrl} alt="post image" fill />
                   </div>
                 </div>
               )}

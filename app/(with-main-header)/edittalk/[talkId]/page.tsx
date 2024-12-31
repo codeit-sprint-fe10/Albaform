@@ -50,7 +50,7 @@ const EditTalk = () => {
   };
 
   const handleCancel = () => {
-    router.push(`albatalk/${talkId}`);
+    router.push(`/albatalk/${talkId}`);
   };
   return (
     <div className="flex flex-col gap-9 mt-4 md:mt-6 lg:my-[40px]">

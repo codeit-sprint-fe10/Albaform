@@ -88,3 +88,5 @@ export interface PostTalkResponse {
   writer: Writer;
   isLiked: boolean;
 }
+
+export type EditDropdownAction = 'edit' | 'delete';

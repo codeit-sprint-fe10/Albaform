@@ -1,24 +1,25 @@
 'use client';
 import React, { useState } from 'react';
 import KebabIcon from '@/public/icons/kebab.svg';
+import { EditDropdownAction } from '@/types/albatalk';
 
 interface EditDropdownProps {
-  onAction: (action: 'edit' | 'delete') => void;
+  onAction: (action: EditDropdownAction) => void;
 }
 
 const EditDropdown = ({ onAction }: EditDropdownProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const OPTIONS = [
-    { key: 'edit', label: '수정하기', action: 'edit' },
-    { key: 'delete', label: '삭제하기', action: 'delete' },
+    { key: 'edit', label: '수정하기' },
+    { key: 'delete', label: '삭제하기' },
   ] as const;
 
   const handleDropdownToggle = () => {
     setIsDropdownOpen((prevState) => !prevState);
   };
 
-  const handleOptionClick = (action: 'edit' | 'delete') => {
-    onAction(action);
+  const handleOptionClick = (key: EditDropdownAction) => {
+    onAction(key);
     setIsDropdownOpen(false);
   };
 
@@ -37,7 +38,7 @@ const EditDropdown = ({ onAction }: EditDropdownProps) => {
             <div
               key={option.key}
               className="w-full text-gray-400 font-regular lg:px-4 py-2 text-center text-xs lg:text-lg rounded-lg hover:font-semibold cursor-pointer hover:bg-orange-50 hover:text-black-400"
-              onClick={() => handleOptionClick(option.key as 'edit' | 'delete')}
+              onClick={() => handleOptionClick(option.key)}
             >
               {option.label}
             </div>
