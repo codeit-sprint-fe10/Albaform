@@ -55,9 +55,11 @@ const AlbaFormIdPage = async ({
   return (
     <div>
       <div className="-mx-6 md:-mx-[72px] xl:mx-0 flex justify-center">
-        <div className="w-full">
-          <Carousel imageUrls={mock.imageUrls} />
-        </div>
+        {mock.imageUrls?.length && (
+          <div className="w-full">
+            <Carousel imageUrls={mock.imageUrls} />
+          </div>
+        )}
       </div>
       <div className="relative">
         <div className="flex flex-col lg:flex-row justify-between lg:gap-36">

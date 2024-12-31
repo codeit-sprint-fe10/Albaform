@@ -11,7 +11,7 @@ interface DeviceInfo {
   isDeskTop: boolean;
 }
 
-const UseDetectDevice = () => {
+const useDetectDevice = () => {
   const detectDeviceFromUA = () => {
     const { device } = UAParser(navigator.userAgent);
     return {
@@ -58,4 +58,4 @@ const UseDetectDevice = () => {
   return device;
 };
 
-export default UseDetectDevice;
+export default useDetectDevice;
