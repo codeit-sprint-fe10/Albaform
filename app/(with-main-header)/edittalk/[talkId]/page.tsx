@@ -37,7 +37,7 @@ const EditTalk = () => {
       setValue('content', post.content);
       setValue('imageUrl', post.imageUrl);
     }
-  });
+  }, [post, setValue]);
 
   const onSubmit: SubmitHandler<PostTalkBody> = async (data, event) => {
     event?.preventDefault();
