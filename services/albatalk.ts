@@ -76,3 +76,7 @@ export const deleteTalk = async (id: number) => {
   const response = await instance.delete(`/posts/${id}`);
   return response.data;
 };
+export const patchTalk = async (id: number, body: PostTalkBody) => {
+  const response = await instance.patch<PostTalkResponse>(`/posts/${id}`, body);
+  return response.data;
+};

@@ -27,21 +27,25 @@ const AlbatalkDetail = () => {
   const talkId = Number(talkIdStr);
   const router = useRouter();
   const { data: post } = useQuery<GetPostDetailResponse>({
-    queryKey: ['comments', talkId],
+    queryKey: ['talk', talkId],
     queryFn: () => getPostDetail(talkId),
     staleTime: 30 * 1000,
     gcTime: 5 * 60 * 1000,
   });
 
-  const handleDelete = async (talkId: number) => {
-    try {
-      await deleteTalk(talkId);
-      router.replace('/albatalk');
-    } catch (error) {
-      console.error('Error delete talk:', error);
+  const handleAction = async (action: 'edit' | 'delete') => {
+    if (action === 'edit') {
+      router.push(`/edittalk/${talkId}`);
+    } else if (action === 'delete') {
+      try {
+        await deleteTalk(talkId);
+        router.replace('/albatalk');
+      } catch (error) {
+        console.error('Error delete talk:', error);
+      }
     }
   };
-  const handleEdit = async () => {};
+
   const user = useUserStore((state) => state.user);
   return (
     <div className="w-full flex flex-col">
@@ -52,11 +56,7 @@ const AlbatalkDetail = () => {
               <div className="flex justify-between items-center text-lg font-semibold md:text-xl lg:text-2xl">
                 {post?.title}
                 {user?.id === post.writer.id && (
-                  <EditDropdown
-                    onEdit={handleEdit}
-                    onDelete={handleDelete}
-                    id={post.id}
-                  />
+                  <EditDropdown onAction={handleAction} />
                 )}
               </div>
               <div className="w-full border stroke-gray-30" />

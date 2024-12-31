@@ -3,24 +3,22 @@ import React, { useState } from 'react';
 import KebabIcon from '@/public/icons/kebab.svg';
 
 interface EditDropdownProps {
-  onEdit: () => void;
-  onDelete: (id: number) => void;
-  id: number;
+  onAction: (action: 'edit' | 'delete') => void;
 }
 
-const EditDropdown = ({ onEdit, onDelete, id }: EditDropdownProps) => {
+const EditDropdown = ({ onAction }: EditDropdownProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const OPTIONS = [
-    { key: 'edit', label: '수정하기', action: onEdit },
-    { key: 'delete', label: '삭제하기', action: () => onDelete(id) },
+    { key: 'edit', label: '수정하기', action: 'edit' },
+    { key: 'delete', label: '삭제하기', action: 'delete' },
   ] as const;
 
   const handleDropdownToggle = () => {
     setIsDropdownOpen((prevState) => !prevState);
   };
 
-  const handleOptionClick = (action: () => void) => {
-    action();
+  const handleOptionClick = (action: 'edit' | 'delete') => {
+    onAction(action);
     setIsDropdownOpen(false);
   };
 
@@ -39,7 +37,7 @@ const EditDropdown = ({ onEdit, onDelete, id }: EditDropdownProps) => {
             <div
               key={option.key}
               className="w-full text-gray-400 font-regular lg:px-4 py-2 text-center text-xs lg:text-lg rounded-lg hover:font-semibold cursor-pointer hover:bg-orange-50 hover:text-black-400"
-              onClick={() => handleOptionClick(option.action)}
+              onClick={() => handleOptionClick(option.key as 'edit' | 'delete')}
             >
               {option.label}
             </div>
