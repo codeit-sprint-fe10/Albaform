@@ -22,9 +22,9 @@ const StepContent = ({ currentStep, onSubmit, ref }: StepContentProps) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="py-8 lg:py-12">
-      {currentStep === 1 && <RecruitmentDetails />}
-      {currentStep === 2 && <RecruitmentRequirements />}
-      {currentStep === 3 && <WorkingConditions />}
+      <RecruitmentDetails isVisible={currentStep === 1} />
+      <RecruitmentRequirements isVisible={currentStep === 2} />
+      <WorkingConditions isVisible={currentStep === 3} />
     </form>
   );
 };

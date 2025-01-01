@@ -1,18 +1,21 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useFormContext } from 'react-hook-form';
 import Image from 'next/image';
 import Input from './Input';
 
 interface LocationInputProps {
-  setValue: (name: 'location', value: string) => void;
-  defaultValue: string;
+  name: string;
+  value: string;
+  onChange: (value: string) => void;
 }
 
-const LocationInput = ({ setValue, defaultValue = '' }: LocationInputProps) => {
-  const [address, setAddress] = useState(defaultValue);
-  const name = 'location';
-
+const LocationInput = ({ name, value = '', onChange }: LocationInputProps) => {
+  const [address, setAddress] = useState(
+    value ? JSON.parse(value).address : '',
+  );
+  const { trigger } = useFormContext();
   const handleClick = () => {
     new daum.Postcode({
       oncomplete: function (data) {
@@ -28,7 +31,8 @@ const LocationInput = ({ setValue, defaultValue = '' }: LocationInputProps) => {
               address: detailedAddress,
               coordinates: { lat, lng },
             });
-            setValue(name, location);
+            onChange(location);
+            trigger(name);
           }
         });
       },
@@ -50,7 +54,6 @@ const LocationInput = ({ setValue, defaultValue = '' }: LocationInputProps) => {
         className="py-[14px] lg:py-4 pl-12 lg:pl-[68px] pr-4 cursor-pointer"
         onClick={handleClick}
         readOnly
-        required
       >
         <Image
           src="/icons/stroke.svg"

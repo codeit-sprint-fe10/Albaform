@@ -1,6 +1,6 @@
 'use client';
 
-import { useFormContext } from 'react-hook-form';
+import { useFormContext, Controller } from 'react-hook-form';
 import Label from '@/components/Label';
 import DropdownInput from './input/DropdownInput';
 import {
@@ -12,56 +12,96 @@ import {
 } from '@/constants/dropdown';
 import { PostFormBody } from '@/types/form';
 
-const RecruitmentRequirements = () => {
-  const { register, setValue, getValues } = useFormContext<PostFormBody>();
+const RecruitmentRequirements = ({ isVisible }: { isVisible: boolean }) => {
+  const { getValues, control } = useFormContext<PostFormBody>();
 
   return (
-    <fieldset className="flex flex-col gap-8 lg:gap-10">
+    <fieldset
+      className={`flex flex-col gap-8 lg:gap-10 ${!isVisible && 'hidden'}`}
+    >
       <div>
         <Label label="모집인원" className="mb-3 lg:mb-4" required />
-        <DropdownInput
+        <Controller
           name="numberOfPositions"
-          options={NUMBER_OF_POSITION_OPTIONS}
-          register={register}
-          setValue={setValue}
+          control={control}
+          rules={{ required: 'This field is required' }}
           defaultValue={getValues('numberOfPositions')}
+          render={({ field }) => (
+            <DropdownInput
+              options={NUMBER_OF_POSITION_OPTIONS}
+              name={field.name}
+              value={field.value}
+              onChange={field.onChange}
+            />
+          )}
         />
       </div>
       <div>
         <Label label="성별" className="mb-3 lg:mb-4" required />
-        <DropdownInput
+        <Controller
           name="gender"
-          options={GENDER_OPTIONS}
-          setValue={setValue}
+          control={control}
+          rules={{ required: 'This field is required' }}
           defaultValue={getValues('gender')}
+          render={({ field }) => (
+            <DropdownInput
+              options={GENDER_OPTIONS}
+              name={field.name}
+              value={field.value}
+              onChange={field.onChange}
+            />
+          )}
         />
       </div>
       <div>
         <Label label="학력" className="mb-3 lg:mb-4" required />
-        <DropdownInput
+        <Controller
           name="education"
-          options={EDUCATION_OPTIONS}
-          setValue={setValue}
+          control={control}
+          rules={{ required: 'This field is required' }}
           defaultValue={getValues('education')}
+          render={({ field }) => (
+            <DropdownInput
+              options={EDUCATION_OPTIONS}
+              name={field.name}
+              value={field.value}
+              onChange={field.onChange}
+            />
+          )}
         />
       </div>
       <div>
         <Label label="연령" className="mb-3 lg:mb-4" required />
-        <DropdownInput
+        <Controller
           name="age"
-          options={AGE_OPTIONS}
-          setValue={setValue}
+          control={control}
+          rules={{ required: 'This field is required' }}
           defaultValue={getValues('age')}
+          render={({ field }) => (
+            <DropdownInput
+              options={AGE_OPTIONS}
+              name={field.name}
+              value={field.value}
+              onChange={field.onChange}
+            />
+          )}
         />
       </div>
       <div>
         <Label label="우대사항" className="mb-3 lg:mb-4" required />
-        <DropdownInput
+        <Controller
           name="preferred"
-          options={PREFERRED_OPTIONS}
-          register={register}
-          setValue={setValue}
+          control={control}
+          rules={{ required: 'This field is required' }}
           defaultValue={getValues('preferred')}
+          render={({ field }) => (
+            <DropdownInput
+              options={PREFERRED_OPTIONS}
+              name={field.name}
+              value={field.value}
+              onChange={field.onChange}
+            />
+          )}
         />
       </div>
     </fieldset>

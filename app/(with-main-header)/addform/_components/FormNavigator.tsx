@@ -14,12 +14,12 @@ import { STEP_1_FIELDS, STEP_2_FIELDS, STEP_3_FIELDS } from '@/constants/form';
 
 const FormNavigator = () => {
   const [currentStep, setCurrentStep] = useState(1);
+  const [formKey, setFormKey] = useState(1);
   const [tabStatuses, setTabStatuses] = useState<Record<string, boolean>>({
     tab1: false,
     tab2: false,
     tab3: false,
   });
-  const [isSubmitEnabled, setIsSubmitEnabled] = useState(false);
   const methods = useForm<PostFormBody>({
     defaultValues: {
       imageUrls: [],
@@ -61,29 +61,44 @@ const FormNavigator = () => {
 
   useEffect(() => {
     const storedData = getData();
+    const defaultValues = methods.getValues();
+
     if (storedData) {
       methods.reset(storedData);
+
+      const newTabStatuses: Record<string, boolean> = {};
+      Object.entries(fieldGroups).forEach(([tab, fields]) => {
+        newTabStatuses[tab] = fields.some((field) => {
+          const storedValue = storedData[field as keyof typeof storedData];
+          const defaultValue =
+            defaultValues[field as keyof typeof defaultValues];
+
+          if (Array.isArray(storedValue)) {
+            return storedValue.length !== 0 && storedValue !== defaultValue;
+          }
+
+          return (
+            storedValue !== null &&
+            storedValue !== '' &&
+            storedValue !== defaultValue
+          );
+        });
+      });
+
+      setFormKey((prev) => prev + 1);
+      setTabStatuses(newTabStatuses);
     }
   }, []);
 
   useEffect(() => {
     const subscription = methods.watch((values) => {
-      const statuses: { [key: string]: boolean } = {};
+      const statuses: Record<string, boolean> = {};
       const groupName = `tab${currentStep}`;
       statuses[groupName] = fieldGroups[groupName].some((field) => {
         const value = values[field as keyof typeof values];
         return value != null && value !== '';
       });
       setTabStatuses((prevStatuses) => ({ ...prevStatuses, ...statuses }));
-
-      const allFieldsValid = Object.values(fieldGroups).every((fields) =>
-        fields.every((field) => {
-          const value = values[field as keyof typeof values];
-          return value != null && value !== '';
-        }),
-      );
-
-      setIsSubmitEnabled(allFieldsValid);
     });
 
     return () => subscription.unsubscribe();
@@ -91,7 +106,10 @@ const FormNavigator = () => {
 
   return (
     <FormProvider {...methods}>
-      <div className="relative w-[375px] lg:w-auto lg:max-w-[640px] mx-auto lg:mx-0 px-6 lg:px-0 lg:ml-[600px]">
+      <div
+        key={formKey}
+        className="relative w-[375px] lg:w-auto lg:max-w-[640px] mx-auto lg:mx-0 px-6 lg:px-0 lg:ml-[600px]"
+      >
         <aside className="flex flex-col justify-between bg-background-200 rounded-3xl lg:fixed lg:top-32 lg:left-36 lg:w-[452px] lg:h-[80vh] lg:p-10">
           <div className="hidden lg:block">
             <FormTabs
@@ -110,7 +128,7 @@ const FormNavigator = () => {
               type="submit"
               content="등록 하기"
               onClick={() => formRef.current?.submit()}
-              disabled={!isSubmitEnabled}
+              disabled={!methods.formState.isValid}
             />
           </div>
         </aside>

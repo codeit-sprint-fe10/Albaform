@@ -1,10 +1,9 @@
 'use client';
 
 import { useState, useRef, useEffect, ReactNode } from 'react';
-import { UseFormRegister } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 import Image from 'next/image';
 import Input from './Input';
-import { DropdownFieldName, PostFormBody } from '@/types/form';
 
 interface Option {
   key: string;
@@ -12,38 +11,40 @@ interface Option {
 }
 
 interface DropdownProps {
+  name: string;
+  value: string | number;
+  onChange: (value: string) => void;
   options: Option[];
-  name: DropdownFieldName;
-  setValue: (name: DropdownFieldName, value: string) => void;
   widthStyle?: string;
   paddingStyle?: string;
-  register?: UseFormRegister<PostFormBody>;
   icon?: ReactNode;
   type?: string;
-  defaultValue: string | number;
 }
 
 const DropdownInput = ({
-  options,
   name,
+  value,
+  onChange,
+  options,
   widthStyle = 'w-full',
   paddingStyle = 'py-[9px] px-6 lg:py-3.5 lg:px-8',
-  register,
   icon,
   type,
-  setValue,
-  defaultValue,
 }: DropdownProps) => {
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const [selectedOption, setSelectedOption] = useState<string | number | null>(
-    defaultValue,
+    value,
   );
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const { setValue, trigger } = useFormContext();
 
   const handleOptionClick = (option: Option) => {
     setSelectedOption(option.label);
-    setValue(name, option.label);
+    onChange(option.label);
     setIsDropdownVisible(false);
+    if (option.label === '직접입력') {
+      setValue(name, '');
+    }
   };
 
   const handleOutsideClick = (e: MouseEvent) => {
@@ -53,6 +54,11 @@ const DropdownInput = ({
     ) {
       setIsDropdownVisible(false);
     }
+  };
+
+  const handleCustomInputChange = (value: string) => {
+    setValue(name, value);
+    trigger(name);
   };
 
   useEffect(() => {
@@ -105,12 +111,12 @@ const DropdownInput = ({
           </ul>
         </div>
       )}
-      {selectedOption === '직접입력' && register && (
+      {selectedOption === '직접입력' && (
         <div className="mt-3 lg:mt-4">
           <Input
             name={name}
             className="p-3.5 lg:py-4"
-            register={register(name)}
+            onChange={(e) => handleCustomInputChange(e.target.value)}
           />
         </div>
       )}

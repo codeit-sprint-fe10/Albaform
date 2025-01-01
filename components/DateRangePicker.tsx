@@ -10,6 +10,7 @@ import {
   isWithinInterval,
 } from '@/utils/date';
 import { DateFieldName } from '@/types/form';
+import { useFormContext } from 'react-hook-form';
 
 interface DateRangePickerProps {
   setValue: (name: DateFieldName, value: string) => void;
@@ -33,23 +34,30 @@ const DateRangePicker = ({
   const [endDate, setEndDate] = useState<Date | null>(null);
   const [hoverDate, setHoverDate] = useState<Date | null>(null);
   const datePickerRef = useRef<HTMLDivElement | null>(null);
+  const { trigger, register } = useFormContext();
 
   const handleDayClick = (day: Date) => {
     if (!startDate || endDate) {
       setStartDate(day);
       setEndDate(null);
       setValue(startDateName, day.toISOString());
+      setValue(endDateName, '');
+      trigger(startDateName);
+      trigger(endDateName);
       return;
     }
 
     if (day < startDate) {
       setStartDate(day);
       setValue(startDateName, day.toISOString());
+      trigger(startDateName);
       return;
     }
 
     setEndDate(day);
     setValue(endDateName, day.toISOString());
+    trigger(endDateName);
+    setIsOpen(false);
   };
 
   const handleDayMouseEnter = (day: Date) => {
@@ -275,6 +283,14 @@ const DateRangePicker = ({
           </div>
         </div>
       )}
+      <input
+        className="hidden"
+        {...register(startDateName, { required: 'Start date is required' })}
+      />
+      <input
+        className="hidden"
+        {...register(endDateName, { required: 'End date is required' })}
+      />
     </div>
   );
 };
