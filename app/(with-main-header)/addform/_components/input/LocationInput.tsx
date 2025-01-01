@@ -9,8 +9,8 @@ interface LocationInputProps {
   defaultValue: string;
 }
 
-const LocationInput = ({ setValue, defaultValue }: LocationInputProps) => {
-  const [address, setAddress] = useState(defaultValue || '');
+const LocationInput = ({ setValue, defaultValue = '' }: LocationInputProps) => {
+  const [address, setAddress] = useState(defaultValue);
   const name = 'location';
 
   const handleClick = () => {
