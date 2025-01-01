@@ -88,7 +88,6 @@ const AlbatalkDetail = () => {
                         {post.commentCount}
                       </div>
                     </div>
-
                     <LikeButton
                       postId={post.id}
                       isLiked={post.isLiked}
@@ -99,7 +98,7 @@ const AlbatalkDetail = () => {
               </div>
             </div>
 
-            <div className="flex flex-col gap-2 md:flex-row md:gap-5">
+            <div className="flex flex-col gap-6 md:flex-row md:gap-5">
               {post.imageUrl && (
                 <div className="flex justify-center items-center">
                   <div className="relative flex w-64 h-40 md:w-80 md:h-80">

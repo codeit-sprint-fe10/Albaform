@@ -6,11 +6,12 @@ import {
   keepPreviousData,
   useQueryClient,
 } from '@tanstack/react-query';
-import Image from 'next/image';
-import KebabIcon from '@/public/icons/kebab.svg';
 import { getComments } from '@/services/albatalk';
 import { GetCommentsResponse } from '@/types/albatalk';
-import { formatDate } from '@/utils/dateFormatter';
+import { useUserStore } from '@/store/user';
+import { EditDropdownAction } from '@/types/albatalk';
+import { deleteComment } from '@/services/albatalk';
+import CommentItem from './CommentItem';
 
 const CommentList = ({
   id,
@@ -22,6 +23,7 @@ const CommentList = ({
   const pageSize = 5;
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
+  const user = useUserStore((state) => state.user);
   const queryClient = useQueryClient();
   const { data, isLoading, error } = useQuery<GetCommentsResponse>({
     queryKey: ['comments', { id, page, pageSize }],
@@ -35,13 +37,16 @@ const CommentList = ({
     staleTime: 10 * 1000,
     gcTime: 2 * 60 * 1000,
   });
+
   //TODO: 로딩중일때 UI 필요
   //TODO: 댓글 없을때 UI 추가 필요
+
   const handleCommentPosted = () => {
     queryClient.invalidateQueries({
       queryKey: ['comments', { id, page, pageSize }],
     });
   };
+
   useEffect(() => {
     if (data) {
       if (data.totalItemCount === 0 || data.totalPages === 0) {
@@ -51,11 +56,13 @@ const CommentList = ({
       }
     }
   }, [data]);
+
   const loadMoreComments = () => {
     if (hasMore) {
       setPage((prevPage) => prevPage + 1);
     }
   };
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -78,6 +85,23 @@ const CommentList = ({
     };
   }, [hasMore]);
 
+  const handleAction = async (
+    action: EditDropdownAction,
+    commentId: number,
+  ) => {
+    if (action === 'edit') {
+    } else if (action === 'delete') {
+      try {
+        await deleteComment(commentId);
+        queryClient.invalidateQueries({
+          queryKey: ['comments', { id, page, pageSize }],
+        });
+      } catch (error) {
+        console.error('Error deleting comment', error);
+      }
+    }
+  };
+
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-4">
@@ -87,36 +111,12 @@ const CommentList = ({
       <CommentForm id={id} onCommentPosted={handleCommentPosted} />
       <div className="flex flex-col gap-8 mt-4">
         {data?.data.map((comment) => (
-          <div key={comment.id} className="flex flex-col gap-4">
-            <div className="flex flex-col gap-6">
-              <div className="flex w-full justify-between items-center">
-                <div className="flex gap-4 items-center">
-                  <div className="flex gap-2 items-center">
-                    <div className="relative w-4 h-4 lg:w-6 lg:h-6 ">
-                      <Image
-                        src={comment.writer.imageUrl || '/icons/profile.svg'}
-                        alt="user profile"
-                        fill
-                        className="border border-none rounded-3xl"
-                      />
-                    </div>
-                    <div className="max-w-40 text-gray-500 text-xs md:text-md lg:text-lg font-regular">
-                      {comment.writer.nickname}
-                    </div>
-                  </div>
-                  <div className="text-gray-300">|</div>
-                  <div className="max-w-40 text-gray-500 text-xs md:text-md lg:text-lg font-regular">
-                    {formatDate(comment.createdAt)}
-                  </div>
-                </div>
-                <KebabIcon className="w-6 h-6" />
-              </div>
-              <div className="text-black-400 font-regular text-md md:text-lg lg:text-xl">
-                {comment.content}
-              </div>
-            </div>
-            <div className="w-full border stroke-gray-30"></div>
-          </div>
+          <CommentItem
+            key={comment.id}
+            comment={comment}
+            userId={user?.id ?? null}
+            onAction={(action) => handleAction(action, comment.id)}
+          />
         ))}
       </div>
       {hasMore && <div id="sentinel" className="h-2 bg-transparent" />}

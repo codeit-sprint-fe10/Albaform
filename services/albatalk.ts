@@ -81,3 +81,14 @@ export const patchTalk = async (id: number, body: PostTalkBody) => {
   const response = await instance.patch<PostTalkResponse>(`/posts/${id}`, body);
   return response.data;
 };
+export const deleteComment = async (id: number) => {
+  const response = await instance.delete(`/comments/${id}`);
+  return response.data;
+};
+export const patchComment = async (id: number, body: PostCommentBody) => {
+  const response = await instance.patch<PostCommentResponse>(
+    `/comments/${id}`,
+    body,
+  );
+  return response.data;
+};
