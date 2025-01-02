@@ -27,6 +27,7 @@ const AlbatalkDetail = () => {
   const router = useRouter();
 
   const { data: post } = useGetPostDetail({ talkId });
+  const user = useUserStore((state) => state.user);
 
   const handleAction = async (action: EditDropdownAction) => {
     if (action === 'edit') {
@@ -41,7 +42,6 @@ const AlbatalkDetail = () => {
     }
   };
 
-  const user = useUserStore((state) => state.user);
   return (
     <div className="w-full flex flex-col">
       {post && (

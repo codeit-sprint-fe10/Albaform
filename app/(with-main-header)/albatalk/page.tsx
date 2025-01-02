@@ -1,13 +1,11 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { useQuery, keepPreviousData } from '@tanstack/react-query';
+
 import AlbatalkCard from './_components/AlbatalkCard';
 import Pagination from './_components/Pagination';
 import SearchBar from './_components/SearchBar';
-import { getPosts } from '@/services/albatalk';
-import { GetPostsResponse } from '@/types/albatalk';
 import WriteButton from './_components/WriteButton';
-
+import useGetPosts from './_hooks/useGetPosts';
 const Albatalk = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [cursorHistory, setCursorHistory] = useState([0]);
@@ -27,44 +25,27 @@ const Albatalk = () => {
         setPageLimit(6);
       }
     };
-
     updatePageLimit();
     window.addEventListener('resize', updatePageLimit);
 
     return () => window.removeEventListener('resize', updatePageLimit);
   }, []);
 
-  const currentCursor = cursorHistory.at(-1) ?? 0;
-
-  const { data, isLoading, error } = useQuery<GetPostsResponse>({
-    queryKey: ['posts', { pageLimit, searchTerm, sortOrder, currentCursor }],
-    queryFn: () =>
-      getPosts({
-        cursor: currentCursor,
-        limit: pageLimit,
-        keyword: searchTerm,
-        orderBy: sortOrder,
-      }),
-    placeholderData: keepPreviousData,
-    enabled: !!cursorHistory.length,
-    staleTime: 20 * 1000,
-    gcTime: 3 * 60 * 1000,
+  const {
+    data,
+    isLoading,
+    error,
+    isFirstPage,
+    hasNextPage,
+    handleLoadPrev,
+    handleLoadMore,
+  } = useGetPosts({
+    pageLimit,
+    searchTerm,
+    sortOrder,
+    currentCursor: 0,
   });
 
-  const isFirstPage = cursorHistory.length === 1;
-  const hasNextPage = data?.nextCursor !== null;
-
-  const handleLoadMore = () => {
-    if (data?.nextCursor) {
-      setCursorHistory((prev) => [...prev, data.nextCursor]);
-    }
-  };
-
-  const handleLoadPrev = () => {
-    if (cursorHistory.length > 1) {
-      setCursorHistory((prev) => prev.slice(0, -1));
-    }
-  };
   //TODO: 게시물 로딩중일때 UI 추가 필요
   return (
     <div className="w-full flex flex-col">
