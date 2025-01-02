@@ -22,6 +22,14 @@ export const getApplications = async ({
   return response.data;
 };
 
+export const getApplication = async (applicationId: number) => {
+  const response = await instance.get<Application>(
+    `/applications/${applicationId}`,
+  );
+
+  return response.data;
+};
+
 export const getMyApplication = async ({ formId }: { formId: number }) => {
   const response = await instance.get<Application>(
     `/forms/${formId}/my-application`,

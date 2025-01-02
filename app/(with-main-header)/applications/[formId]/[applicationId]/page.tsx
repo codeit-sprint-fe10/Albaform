@@ -2,10 +2,9 @@ import { getAlbaDetail } from '@/services/alba';
 import Carousel from '@/app/(with-main-header)/alba/[formId]/_components/Carousel';
 import SummarySection from '@/app/(with-main-header)/alba/[formId]/_components/SummarySection';
 import DescriptionSection from '@/app/(with-main-header)/alba/[formId]/_components/DescriptionSection';
-import ApplicationStatusSection from '@/app/(with-main-header)/myapply/[formId]/_components/applicant/ApplicationStatusSection';
 import { ApplicationStatusType } from '@/types/application';
-import Applications from '@/app/(with-main-header)/alba/[formId]/_components/Applications';
-import ApplicationDetail from '@/app/(with-main-header)/myapply/[formId]/_components/applicant/ApplicationDetail';
+import ApplicationStatusSection from '@/app/(with-main-header)/myapply/[formId]/_components/owner/ApplicationStatusSection';
+import ApplicationDetail from '@/app/(with-main-header)/myapply/[formId]/_components/owner/ApplicationDetail';
 
 const mock = {
   applicantId: 0,
@@ -21,12 +20,12 @@ const mock = {
   id: 0,
 };
 
-const MyApplyPage = async ({
+const ApplicationPage = async ({
   params,
 }: {
-  params: Promise<{ formId: number }>;
+  params: Promise<{ applicationId: number; formId: number }>;
 }) => {
-  const { formId } = await params;
+  const { applicationId, formId } = await params;
   const albaDetail = await getAlbaDetail(formId);
 
   return (
@@ -65,11 +64,11 @@ const MyApplyPage = async ({
       </div>
       <section className="relative mt-10 before:content-[''] before:absolute before:left-1/2 before:-translate-x-1/2 before:w-screen before:h-2 before:bg-line-100">
         <div className="lg:w-[45%]">
-          <ApplicationDetail formId={formId} />
+          <ApplicationDetail applicationId={applicationId} />
         </div>
       </section>
     </div>
   );
 };
 
-export default MyApplyPage;
+export default ApplicationPage;
