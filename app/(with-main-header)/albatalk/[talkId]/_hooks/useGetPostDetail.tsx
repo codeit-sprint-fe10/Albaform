@@ -2,11 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getPostDetail } from '@/services/albatalk';
 import { GetPostDetailResponse } from '@/types/albatalk';
 
-type UseGetPostDetailProps = {
-  talkId: number;
-};
-
-const useGetPostDetail = ({ talkId }: UseGetPostDetailProps) => {
+const useGetPostDetail = (talkId: number) => {
   return useQuery<GetPostDetailResponse>({
     queryKey: ['talk', talkId],
     queryFn: () => getPostDetail(talkId),

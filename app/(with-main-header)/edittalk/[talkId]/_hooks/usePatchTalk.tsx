@@ -13,7 +13,7 @@ const usePatchTalk = () => {
       queryClient.invalidateQueries({ queryKey: ['talk'] });
     },
     onError: (error) => {
-      console.error('Error posting talk:', error);
+      console.error('Error editing talk:', error);
     },
   });
 };

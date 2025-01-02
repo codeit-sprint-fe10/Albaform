@@ -26,7 +26,7 @@ const AlbatalkDetail = () => {
   const talkId = Number(talkIdStr);
   const router = useRouter();
   const { mutate: deleteMutation } = useDeleteTalk(talkId);
-  const { data: post } = useGetPostDetail({ talkId });
+  const { data: post } = useGetPostDetail(talkId);
   const user = useUserStore((state) => state.user);
 
   const handleAction = async (action: EditDropdownAction) => {

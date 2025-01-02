@@ -12,10 +12,12 @@ import { GetPostDetailResponse, PostTalkBody } from '@/types/albatalk';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import usePatchTalk from './_hooks/usePatchTalk';
+import useGetPostDetail from '../../albatalk/[talkId]/_hooks/useGetPostDetail';
 
 const EditTalk = () => {
   const { talkId: talkIdStr } = useParams();
   const talkId = Number(talkIdStr);
+  const { data: post } = useGetPostDetail(talkId);
   const router = useRouter();
   const {
     register,
@@ -24,21 +26,14 @@ const EditTalk = () => {
     formState: { errors },
   } = useForm<PostTalkBody>({ mode: 'onTouched' });
 
-  const {
-    data: post,
-    isLoading,
-    isError,
-  } = useQuery<GetPostDetailResponse>({
-    queryKey: ['talk', talkId],
-    queryFn: () => getPostDetail(talkId),
-  });
   useEffect(() => {
     if (post) {
       setValue('title', post.title);
       setValue('content', post.content);
       setValue('imageUrl', post.imageUrl);
     }
-  }, [post, setValue]);
+  }, [post]);
+
   const { mutate } = usePatchTalk();
   const onSubmit: SubmitHandler<PostTalkBody> = (data) => {
     mutate(
@@ -52,12 +47,13 @@ const EditTalk = () => {
   const handleCancel = () => {
     router.push(`/albatalk/${talkId}`);
   };
+
   return (
     <div className="flex flex-col gap-9 mt-4 md:mt-6 lg:my-[40px]">
       <div className="flex flex-col gap-4">
         <div className="py-4 md:py-6 lg:py-10 border-b border-gray-400">
           <h1 className="text-black-400 text-2lg md:text-xl lg:text-2xl font-semibold">
-            글쓰기
+            수정하기
           </h1>
         </div>
         <form method="post" onSubmit={handleSubmit(onSubmit)}>
