@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import UserProvider from './UserProvider';
 import QueryProvider from './QueryProvider';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import './globals.css';
 
 const pretendard = localFont({
@@ -33,7 +34,10 @@ export const metadata: Metadata = {
 const Providers = ({ children }: { children: ReactNode }) => {
   return (
     <UserProvider>
-      <QueryProvider>{children}</QueryProvider>
+      <QueryProvider>
+        {children}
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryProvider>
     </UserProvider>
   );
 };
