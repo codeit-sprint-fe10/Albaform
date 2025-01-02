@@ -6,10 +6,10 @@ import DateRangePicker from '@/components/DateRangePicker';
 import Input from './input/Input';
 import Textarea from './input/Textarea';
 import FileInput from './input/FileInput';
-import { PostFormBody } from '@/types/form';
+import { PostAlbaBody } from '@/types/alba';
 
 const RecruitmentDetails = ({ isVisible }: { isVisible: boolean }) => {
-  const { register, setValue, getValues } = useFormContext<PostFormBody>();
+  const { register, setValue, getValues } = useFormContext<PostAlbaBody>();
 
   return (
     <fieldset

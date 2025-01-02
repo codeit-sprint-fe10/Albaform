@@ -35,3 +35,13 @@ export function formatDateWithSpace(targetDate: string | Date): string {
 
   return `${year}. ${month}. ${day}`;
 }
+
+export function convertMonthsToYearsAndMonths(months: number): string {
+  const years = Math.floor(months / 12);
+  const remainingMonths = months % 12;
+
+  const yearPart = years > 0 ? `${years}년` : '';
+  const monthPart = remainingMonths > 0 ? `${remainingMonths}개월` : '';
+
+  return `${yearPart} ${monthPart}`.trim();
+}

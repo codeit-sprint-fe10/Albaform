@@ -9,7 +9,7 @@ import {
   isSameDay,
   isWithinInterval,
 } from '@/utils/date';
-import { DateFieldName } from '@/types/form';
+import { DateFieldName } from '@/types/alba';
 import { useFormContext } from 'react-hook-form';
 
 interface DateRangePickerProps {

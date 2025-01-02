@@ -5,16 +5,16 @@ import { useFormContext } from 'react-hook-form';
 import RecruitmentDetails from './RecruitmentDetails';
 import RecruitmentRequirements from './RecruitmentRequirements';
 import WorkingConditions from './WorkingConditions';
-import { PostFormBody } from '@/types/form';
+import { PostAlbaBody } from '@/types/alba';
 
 interface StepContentProps {
   currentStep: number;
-  onSubmit: (data: PostFormBody) => void;
+  onSubmit: (data: PostAlbaBody) => void;
   ref: Ref<unknown> | undefined;
 }
 
 const StepContent = ({ currentStep, onSubmit, ref }: StepContentProps) => {
-  const { handleSubmit } = useFormContext<PostFormBody>();
+  const { handleSubmit } = useFormContext<PostAlbaBody>();
 
   useImperativeHandle(ref, () => ({
     submit: handleSubmit(onSubmit),
