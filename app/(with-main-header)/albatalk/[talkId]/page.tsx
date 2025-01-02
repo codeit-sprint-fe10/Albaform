@@ -2,17 +2,16 @@
 import CommentIcon from '@/public/icons/comment.svg';
 import Image from 'next/image';
 import CommentList from './_components/CommentList';
-import { getPostDetail } from '@/services/albatalk';
 import { formatDate } from '@/utils/dateFormatter';
-import { GetPostDetailResponse } from '@/types/albatalk';
 import { useParams } from 'next/navigation';
-import { useQuery } from '@tanstack/react-query';
 import LikeButton from './_components/LikeButton';
 import { useUserStore } from '@/store/user';
 import EditDropdown from './_components/EditDropdown';
 import { deleteTalk } from '@/services/albatalk';
 import { useRouter } from 'next/navigation';
 import { EditDropdownAction } from '@/types/albatalk';
+import useGetPostDetail from './_hooks/useGetPostDetail';
+
 // TODO: RSC 대응하도록 API 고쳐지면 수정!
 // const AlbatalkDetail = async ({
 //   params,
@@ -27,12 +26,7 @@ const AlbatalkDetail = () => {
   const talkId = Number(talkIdStr);
   const router = useRouter();
 
-  const { data: post } = useQuery<GetPostDetailResponse>({
-    queryKey: ['talk', talkId],
-    queryFn: () => getPostDetail(talkId),
-    staleTime: 30 * 1000,
-    gcTime: 5 * 60 * 1000,
-  });
+  const { data: post } = useGetPostDetail({ talkId });
 
   const handleAction = async (action: EditDropdownAction) => {
     if (action === 'edit') {
@@ -112,10 +106,7 @@ const AlbatalkDetail = () => {
               </div>
             </div>
 
-            <CommentList
-              talkId={talkId}
-              commentCount={post.commentCount || 0}
-            />
+            <CommentList talkId={talkId} />
           </div>
         </div>
       )}

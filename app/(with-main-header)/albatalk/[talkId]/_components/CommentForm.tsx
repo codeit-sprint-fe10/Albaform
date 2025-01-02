@@ -12,7 +12,7 @@ const CommentForm = ({ id }: { id: number }) => {
       setComment('');
     },
   });
-  const handleSubmit = (formData: FormData) => {
+  const handleSubmit = () => {
     if (!comment.trim()) {
       alert('댓글을 입력해주세요.');
       return;

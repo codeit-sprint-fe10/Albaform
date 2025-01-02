@@ -31,6 +31,7 @@ const LikeButton = ({ postId, isLiked, likeCount }: LikeButtonProps) => {
     },
     onError: (error, newLikeStatus, context) => {
       if (context) {
+        console.log(error);
         setLiked(context.liked);
         setCount(context.count);
       }
