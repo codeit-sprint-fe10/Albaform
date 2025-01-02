@@ -3,6 +3,7 @@
 import useGetMyApplication from '@/app/(with-main-header)/myapply/[formId]/_hooks/useGetMyApplication';
 import { convertMonthsToYearsAndMonths } from '@/utils/dateFormatter';
 import DownloadIcon from '@/public/icons/download.svg';
+import { getResumeFile } from '@/services/resumeFile';
 
 type ApplicationDetailProps = {
   formId: number;
@@ -30,6 +31,14 @@ const ApplicationDetail = ({ formId }: ApplicationDetailProps) => {
   //   return <div>🚨공습경보🆘</div>;
   // }
 
+  const handleDownloadClick = async () => {
+    try {
+      await getResumeFile(mock.resumeId);
+    } catch {
+      alert('이력서 다운로드 실패!');
+    }
+  };
+
   return (
     <div className="py-14 lg:py-28 w-full">
       <h3 className="text-black-500 font-2lg font-semibold lg:text-3xl mb-4 lg:mb-14">
@@ -50,12 +59,16 @@ const ApplicationDetail = ({ formId }: ApplicationDetailProps) => {
         </div>
         <div className="py-4 lg:py-8 flex flex-col gap-4">
           <span className="text-black-100">이력서</span>
-          <div className="flex gap-6 justify-between items-center p-4 bg-background-200 rounded-lg">
-            <p className="flex-1 lg:text-xl text-black-400">
+          <button
+            type="button"
+            onClick={handleDownloadClick}
+            className="flex gap-6 justify-between items-center p-4 bg-background-200 rounded-lg hover:font-bold hover:underline "
+          >
+            <span className="flex-1 text-left lg:text-xl text-black-400">
               {mock.resumeName}
-            </p>
+            </span>
             <DownloadIcon className="w-6 h-6 lg:w-9 lg:h-9" />
-          </div>
+          </button>
         </div>
         <div className="flex flex-col gap-4 py-4 lg:py-8">
           <span className="text-black-100">자기소개</span>
