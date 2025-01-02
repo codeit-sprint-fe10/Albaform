@@ -88,3 +88,22 @@ export const TIME_OPTIONS = [
   { key: '23:30', label: '23:30' },
   { key: '24:00', label: '24:00' },
 ];
+
+export const PUBLIC_OPTIONS = [
+  { key: undefined, label: '전체' },
+  { key: true, label: '공개' },
+  { key: false, label: '비공개' },
+];
+
+export const RECRUIT_OPTIONS = [
+  { key: undefined, label: '전체' },
+  { key: true, label: '모집 중' },
+  { key: false, label: '모집 마감' },
+];
+
+export const FORM_ORDERBY_OPTIONS = [
+  { key: 'mostRecent', label: '최신순' },
+  { key: 'highestWage', label: '시급 높은순' },
+  { key: 'mostApplied', label: '지원자 많은순' },
+  { key: 'mostScrapped', label: '스크랩 많은순' },
+];
