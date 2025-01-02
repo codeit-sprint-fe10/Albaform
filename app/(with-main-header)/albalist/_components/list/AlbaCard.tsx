@@ -64,7 +64,10 @@ const AlbaCard = ({ form }: AlbaCardProps) => {
           alt="대체이미지"
           width={469}
           height={312}
-          className="w-full aspect-[3/2] object-none bg-gray-100 rounded-xl lg:rounded-2xl"
+          className={
+            'aspect-[3/2] w-full h-auto object-none bg-gray-100' +
+            ' rounded-xl lg:rounded-2xl'
+          }
         />
       )}
       <div className="flex items-center justify-between px-1">
