@@ -1,6 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { patchComment } from '@/services/albatalk';
-import { PostCommentBody } from '@/types/albatalk';
 
 const usePatchComment = () => {
   const queryClient = useQueryClient();

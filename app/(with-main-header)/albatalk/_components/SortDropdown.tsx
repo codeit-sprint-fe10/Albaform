@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 interface SortDropdownProps {
   sortOrder: 'mostRecent' | 'mostLiked' | 'mostCommented';

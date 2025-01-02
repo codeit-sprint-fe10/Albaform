@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useQuery, keepPreviousData } from '@tanstack/react-query';
 import { getPosts } from '@/services/albatalk';
 import { GetPostsResponse } from '@/types/albatalk';
