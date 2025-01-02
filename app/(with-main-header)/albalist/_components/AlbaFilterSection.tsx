@@ -1,6 +1,6 @@
 import { Dispatch, FormEvent, SetStateAction } from 'react';
 import { FilterProps } from '../page';
-import { FormOrderByEnglish } from '@/types/form';
+import { FormsOrderBy } from '@/types/form';
 import Dropdown, { OptionProps } from './Dropdown';
 import SearchInput from './SearchInput';
 import {
@@ -41,7 +41,7 @@ const AlbaFilterSection = ({
   const handleOrderBySelect = (option: OptionProps) => {
     setFilter((prev) => ({
       ...prev,
-      orderBy: option.key as FormOrderByEnglish,
+      orderBy: option.key as FormsOrderBy,
     }));
   };
 

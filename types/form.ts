@@ -1,16 +1,11 @@
-type FormOrderBy = {
-  mostRecent: '최신순';
-  highestWage: '시급 높은순';
-  mostApplied: '지원자 많은순';
-  mostScrapped: '스크랩 많은순';
-};
-
-export type FormOrderByEnglish = keyof FormOrderBy;
-
-export type FormOrderByKorean = FormOrderBy[keyof FormOrderBy];
+export type FormsOrderBy =
+  | 'mostRecent'
+  | 'highestWage'
+  | 'mostApplied'
+  | 'mostScrapped';
 
 export interface GetFormsParameters {
-  orderBy: FormOrderByEnglish;
+  orderBy: FormsOrderBy;
   limit: number;
   cursor: number;
   keyword?: string;
