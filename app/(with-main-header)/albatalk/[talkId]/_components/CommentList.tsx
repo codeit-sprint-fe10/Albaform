@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import CommentForm from './CommentForm';
 import useGetComments from '../_hooks/useGetComments';
 import CommentItem from './CommentItem';
@@ -8,12 +8,15 @@ import useDeleteComment from '../_hooks/useDeleteComment';
 import { EditDropdownAction } from '@/types/albatalk';
 import { useUserStore } from '@/store/user';
 import EditCommentForm from './EditCommentForm';
+import EmptyComment from './EmptyComment';
 
 type CommentListProps = {
   talkId: number;
+  totalItemCount: number;
+  onUpdateTotalItemCount: (count: number) => void;
 };
 
-const CommentList = ({ talkId }: CommentListProps) => {
+const CommentList = ({ talkId, onUpdateTotalItemCount }: CommentListProps) => {
   const user = useUserStore((state) => state.user);
   const [editingCommentId, setEditingCommentId] = useState<number | null>(null);
   const [initialComment, setInitialComment] = useState('');
@@ -30,6 +33,9 @@ const CommentList = ({ talkId }: CommentListProps) => {
     talkId,
     params: { page: 1, pageSize: PAGE_LIMIT },
   });
+  useEffect(() => {
+    onUpdateTotalItemCount(totalItemCount);
+  }, [totalItemCount, onUpdateTotalItemCount]);
 
   const handleAction = (
     action: EditDropdownAction,
@@ -61,7 +67,7 @@ const CommentList = ({ talkId }: CommentListProps) => {
       )}
 
       <div className="flex flex-col gap-8 mt-4">
-        {data?.pages.length ? (
+        {totalItemCount ? (
           <InfiniteScroll
             hasNextPage={hasNextPage}
             isLoading={isFetchingNextPage}
@@ -82,7 +88,7 @@ const CommentList = ({ talkId }: CommentListProps) => {
             )}
           </InfiniteScroll>
         ) : (
-          <div>댓글이 없습니다</div>
+          <EmptyComment />
         )}
       </div>
     </div>

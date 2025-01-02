@@ -1,4 +1,5 @@
 'use client';
+import { useState } from 'react';
 import CommentIcon from '@/public/icons/comment.svg';
 import Image from 'next/image';
 import CommentList from './_components/CommentList';
@@ -28,6 +29,11 @@ const AlbatalkDetail = () => {
   const { mutate: deleteMutation } = useDeleteTalk(talkId);
   const { data: post } = useGetPostDetail(talkId);
   const user = useUserStore((state) => state.user);
+  const [totalItemCount, setTotalItemCount] = useState(post?.commentCount || 0);
+
+  const handleTotalItemCountUpdate = (count: number) => {
+    setTotalItemCount(count);
+  };
 
   const handleAction = async (action: EditDropdownAction) => {
     if (action === 'edit') {
@@ -75,7 +81,7 @@ const AlbatalkDetail = () => {
                     <div className="flex gap-1 items-center">
                       <CommentIcon className="w-6 h-6 lg:w-9 lg:h-9 " />
                       <div className="text-gray-500 text-xs md:text-md lg:text-lg font-regular">
-                        {post.commentCount}
+                        {totalItemCount}
                       </div>
                     </div>
                     <LikeButton
@@ -101,7 +107,11 @@ const AlbatalkDetail = () => {
               </div>
             </div>
 
-            <CommentList talkId={talkId} />
+            <CommentList
+              talkId={talkId}
+              totalItemCount={totalItemCount}
+              onUpdateTotalItemCount={handleTotalItemCountUpdate}
+            />
           </div>
         </div>
       )}

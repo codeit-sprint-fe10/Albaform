@@ -18,9 +18,8 @@ const EditCommentForm = ({ id, content, onCancel }: CommentFormProps) => {
       alert('댓글을 입력해주세요.');
       return;
     }
-    const data = { content: comment };
     mutate(
-      { id, data },
+      { id, content: comment },
       {
         onSuccess: () => setComment(''),
       },

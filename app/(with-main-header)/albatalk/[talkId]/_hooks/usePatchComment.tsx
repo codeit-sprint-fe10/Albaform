@@ -6,8 +6,8 @@ const usePatchComment = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ id, data }: { id: number; data: PostCommentBody }) => {
-      return patchComment(id, data);
+    mutationFn: ({ id, content }: { id: number; content: string }) => {
+      return patchComment(id, { content });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['comments'] });
