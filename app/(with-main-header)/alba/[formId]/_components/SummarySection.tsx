@@ -1,5 +1,5 @@
 import Badge from '@/components/Badge';
-import { formatFullDateTime } from '@/utils/dateFormatter';
+import { formatDateTime } from '@/utils/dateFormatter';
 import Image from 'next/image';
 import { Alba } from '@/types/alba';
 
@@ -31,7 +31,7 @@ const SummarySection = ({
           <Badge value={'모집중'} />
         </div>
         <span className="text-gray-500 font-regular text-xs lg:text-2lg">
-          {formatFullDateTime(createdAt)} 등록
+          {formatDateTime(createdAt)} 등록
         </span>
       </div>
       <div className="mt-6 lg:mt-12">

@@ -11,13 +11,21 @@ function formatDateParts(date: string | Date) {
   return { year, month, day, hours, minutes, seconds };
 }
 
-export function formatFullDateTime(targetDate: string | Date): string {
+export function formatDateTime(targetDate: string | Date): string {
   if (!targetDate) return '';
 
   const { year, month, day, hours, minutes, seconds } =
     formatDateParts(targetDate);
 
   return `${year}.${month}.${day} ${hours}:${minutes}:${seconds}`;
+}
+
+export function formatDateTimeWithLetters(targetDate: string | Date): string {
+  if (!targetDate) return '';
+
+  const { year, month, day, hours, minutes } = formatDateParts(targetDate);
+
+  return `${year}년 ${month}월 ${day}일 ${hours}:${minutes}`;
 }
 
 export function formatDate(targetDate: string | Date): string {

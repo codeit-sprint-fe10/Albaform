@@ -27,12 +27,12 @@ const AlbaFormIdPage = async ({
           </div>
         )}
       </div>
-      <div className="relative">
+      <div className="relative mt-8 md:mt-[80px]">
         <div className="flex flex-col lg:flex-row justify-between lg:gap-36">
           <div className="lg:basis-1/2">
             <div>
               <AlertSection applyCount={albaDetail.applyCount} />
-              <div className="mt-8 md:mt-[80px]">
+              <div>
                 <SummarySection {...albaDetail} />
               </div>
               <div className="mt-8 md:mt-10 lg:hidden">
@@ -52,7 +52,7 @@ const AlbaFormIdPage = async ({
           </div>
           <div className="lg:basis-1/2">
             <div className="lg:flex flex-col">
-              <div className="hidden mt-8 md:mt-10 lg:block">
+              <div className="hidden lg:block">
                 <TermsSection {...albaDetail} />
               </div>
               <div className="hidden mt-8 lg:block">
