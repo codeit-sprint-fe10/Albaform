@@ -1,11 +1,11 @@
 'use client';
 import { useState, useEffect } from 'react';
-
 import AlbatalkCard from './_components/AlbatalkCard';
 import Pagination from './_components/Pagination';
 import SearchBar from './_components/SearchBar';
 import WriteButton from './_components/WriteButton';
 import useGetPosts from './_hooks/useGetPosts';
+
 const Albatalk = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [cursorHistory, setCursorHistory] = useState([0]);

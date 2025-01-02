@@ -1,11 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { postComment } from '@/services/albatalk';
 
-type UseCreateCommentProps = {
-  onSuccess: () => void;
-};
-
-const useCreateComment = ({ onSuccess }: UseCreateCommentProps) => {
+const useCreateComment = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async ({ id, content }: { id: number; content: string }) => {

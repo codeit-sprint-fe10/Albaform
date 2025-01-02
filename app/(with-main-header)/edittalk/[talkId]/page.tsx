@@ -7,10 +7,11 @@ import Input from './_components/Input';
 import FileInput from './_components/FileInput';
 import Label from '@/components/Label';
 import Button from '@/components/Button';
-import { getPostDetail, patchTalk, postTalk } from '@/services/albatalk';
+import { getPostDetail, patchTalk } from '@/services/albatalk';
 import { GetPostDetailResponse, PostTalkBody } from '@/types/albatalk';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
+import usePatchTalk from './_hooks/usePatchTalk';
 
 const EditTalk = () => {
   const { talkId: talkIdStr } = useParams();
@@ -38,15 +39,14 @@ const EditTalk = () => {
       setValue('imageUrl', post.imageUrl);
     }
   }, [post, setValue]);
-
-  const onSubmit: SubmitHandler<PostTalkBody> = async (data, event) => {
-    event?.preventDefault();
-    try {
-      const response = await patchTalk(talkId, data);
-      router.push(`/albatalk/${response.id}`);
-    } catch (error) {
-      console.error('Error editing talk:', error);
-    }
+  const { mutate } = usePatchTalk();
+  const onSubmit: SubmitHandler<PostTalkBody> = (data) => {
+    mutate(
+      { talkId, data },
+      {
+        onSuccess: () => router.push(`/albatalk/${talkId}`),
+      },
+    );
   };
 
   const handleCancel = () => {

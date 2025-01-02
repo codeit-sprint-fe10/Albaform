@@ -8,7 +8,7 @@ import FileInput from './_components/FileInput';
 import Label from '@/components/Label';
 import Button from '@/components/Button';
 import { PostTalkBody } from '@/types/albatalk';
-import { postTalk } from '@/services/albatalk';
+import usePostTalk from './_hooks/usePostTalk';
 
 const AddTalk = () => {
   const router = useRouter();
@@ -19,20 +19,18 @@ const AddTalk = () => {
     formState: { errors },
   } = useForm<PostTalkBody>({ mode: 'onTouched' });
 
-  const onSubmit: SubmitHandler<PostTalkBody> = async (data, event) => {
-    event?.preventDefault();
-    try {
-      const response = await postTalk(data);
-      router.push(`/albatalk/${response.id}`);
-    } catch (error) {
-      console.error('Error posting talk:', error);
-    }
+  const { mutate, isPending } = usePostTalk();
+
+  const onSubmit: SubmitHandler<PostTalkBody> = (data) => {
+    mutate(data, {
+      onSuccess: () => router.push('/albatalk'),
+    });
   };
 
   const handleCancel = () => {
     router.push('/albatalk');
   };
-
+  //TODO: isPending 일때 ui
   return (
     <div className="flex flex-col gap-9 mt-4 md:mt-6 lg:my-[40px]">
       <div className="flex flex-col gap-4">

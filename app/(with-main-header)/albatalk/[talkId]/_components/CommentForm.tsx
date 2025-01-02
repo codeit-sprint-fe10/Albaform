@@ -1,23 +1,25 @@
 'use client';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Button from '@/components/Button';
-import { postComment } from '@/services/albatalk';
 import Form from 'next/form';
 import useCreateComment from '../_hooks/useCreateComment';
-
-const CommentForm = ({ id }: { id: number }) => {
+type CommentFormProps = {
+  id: number;
+};
+const CommentForm = ({ id }: CommentFormProps) => {
   const [comment, setComment] = useState('');
-  const { mutate, isPending } = useCreateComment({
-    onSuccess: () => {
-      setComment('');
-    },
-  });
+  const { mutate, isPending } = useCreateComment();
   const handleSubmit = () => {
     if (!comment.trim()) {
       alert('댓글을 입력해주세요.');
       return;
     }
-    mutate({ id, content: comment });
+    mutate(
+      { id, content: comment },
+      {
+        onSuccess: () => setComment(''),
+      },
+    );
   };
 
   return (
