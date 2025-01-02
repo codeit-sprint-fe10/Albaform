@@ -3,30 +3,22 @@ import React, { useState } from 'react';
 import Button from '@/components/Button';
 import { postComment } from '@/services/albatalk';
 import Form from 'next/form';
+import useCreateComment from '../_hooks/useCreateComment';
 
-const CommentForm = ({
-  id,
-  onCommentPosted,
-}: {
-  id: number;
-  onCommentPosted: () => void;
-}) => {
+const CommentForm = ({ id }: { id: number }) => {
   const [comment, setComment] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const handleSubmit = async () => {
-    try {
-      setIsLoading(true);
-      await postComment(id, { content: comment });
+  const { mutate, isPending } = useCreateComment({
+    onSuccess: () => {
       setComment('');
-      onCommentPosted();
-      setIsLoading(false);
-    } catch (error) {
-      console.error('댓글 등록 실패:', error);
-    } finally {
-      setIsLoading(false);
+    },
+  });
+  const handleSubmit = (formData: FormData) => {
+    if (!comment.trim()) {
+      alert('댓글을 입력해주세요.');
+      return;
     }
+    mutate({ id, content: comment });
   };
-  //TODO: 등록하고, 리스트에 반영되기까지 시간이 걸림 .. 이때도 로딩중인거 표시해줄 필요 있을듯?
 
   return (
     <Form action={handleSubmit}>
@@ -41,7 +33,7 @@ const CommentForm = ({
         </div>
         <div className="flex justify-end">
           <div className="w-[108px] lg:w-[214px]">
-            <Button type="submit" content={'등록하기'} disabled={isLoading} />
+            <Button type="submit" content={'등록하기'} disabled={isPending} />
           </div>
         </div>
       </div>

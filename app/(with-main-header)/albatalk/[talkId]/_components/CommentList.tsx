@@ -1,35 +1,29 @@
 'use client';
-import { useState } from 'react';
 import CommentForm from './CommentForm';
-import { useQueryClient } from '@tanstack/react-query';
 import useGetComments from '../_hooks/useGetComments';
 import CommentItem from './CommentItem';
 import InfiniteScroll from '@/components/InfiniteScroll';
 import { deleteComment } from '@/services/albatalk';
 import { EditDropdownAction } from '@/types/albatalk';
 import { useUserStore } from '@/store/user';
-const PAGE_LIMIT = 5;
 
 type CommentProps = {
   talkId: number;
-  commentCount: number;
 };
 
-const CommentList = ({ talkId, commentCount }: CommentProps) => {
-  const queryClient = useQueryClient();
+const CommentList = ({ talkId }: CommentProps) => {
   const user = useUserStore((state) => state.user);
-
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useGetComments({
-      talkId,
-      params: { page: 1, pageSize: PAGE_LIMIT },
-    });
-
-  const handleCommentPosted = () => {
-    queryClient.invalidateQueries({
-      queryKey: ['comments', talkId, { page: 1, pageSize: PAGE_LIMIT }], // Invalidate on comment post
-    });
-  };
+  const PAGE_LIMIT = 5;
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    totalItemCount,
+  } = useGetComments({
+    talkId,
+    params: { page: 1, pageSize: PAGE_LIMIT },
+  });
 
   const handleAction = async (
     action: EditDropdownAction,
@@ -49,10 +43,10 @@ const CommentList = ({ talkId, commentCount }: CommentProps) => {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-4">
-        <div className="text-lg font-semibold md:text-xl lg:text-2xl">{`댓글(${commentCount})`}</div>
+        <div className="text-lg font-semibold md:text-xl lg:text-2xl">{`댓글(${totalItemCount})`}</div>
         <div className="w-full border stroke-gray-30"></div>
       </div>
-      <CommentForm id={talkId} onCommentPosted={handleCommentPosted} />
+      <CommentForm id={talkId} />
 
       <div className="flex flex-col gap-8 mt-4">
         {data?.pages.length ? (

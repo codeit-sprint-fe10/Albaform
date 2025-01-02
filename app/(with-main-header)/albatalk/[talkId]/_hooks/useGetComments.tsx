@@ -10,7 +10,7 @@ type UseGetCommentsProps = {
 };
 
 const useGetComments = ({ talkId, params }: UseGetCommentsProps) => {
-  return useInfiniteQuery({
+  const queryResult = useInfiniteQuery({
     queryKey: ['comments', talkId, params.page, params.pageSize],
     queryFn: ({ pageParam = params.page }) =>
       getComments({
@@ -27,6 +27,9 @@ const useGetComments = ({ talkId, params }: UseGetCommentsProps) => {
     },
     initialPageParam: 1,
   });
+  const totalItemCount = queryResult.data?.pages[0]?.totalItemCount || 0;
+
+  return { ...queryResult, totalItemCount };
 };
 
 export default useGetComments;
