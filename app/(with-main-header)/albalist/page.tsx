@@ -26,6 +26,7 @@ const AlbaListPage = () => {
 
   return (
     <>
+      <h1 className="sr-only">알바폼 목록</h1>
       <AlbaFilterSection setFilter={setFilter} setIsPublic={setIsPublic} />
       <AlbaListSection filter={filter} isPublic={isPublic} />
       {user?.role === UserRole.owner && <WriteFAB />}
