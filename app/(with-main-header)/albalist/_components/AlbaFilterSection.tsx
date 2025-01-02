@@ -1,8 +1,8 @@
 import { Dispatch, FormEvent, SetStateAction } from 'react';
 import { FilterProps } from '../page';
 import { FormsOrderBy } from '@/types/form';
-import Dropdown, { OptionProps } from './Dropdown';
-import SearchInput from './SearchInput';
+import Dropdown, { OptionProps } from './filter/Dropdown';
+import SearchInput from './filter/SearchInput';
 import {
   FORM_ORDERBY_OPTIONS,
   PUBLIC_OPTIONS,
@@ -61,7 +61,7 @@ const AlbaFilterSection = ({
       <div
         className={
           'flex items-center justify-between w-full h-14 lg:h-20 px-6 ' +
-          'md:px-[72px] lg:px-[max(72px,calc((100%-1456px)/2))] border-b border-line-100'
+          'md:px-[72px] lg:px-[max(72px,calc((100%-1456px)/2))]'
         }
       >
         <div className="flex items-center gap-3 lg:gap-4">

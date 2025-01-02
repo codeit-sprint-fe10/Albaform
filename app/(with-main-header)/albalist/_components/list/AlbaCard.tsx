@@ -5,6 +5,7 @@ import { isWithinInterval } from '@/utils/date';
 import { formatDate } from '@/utils/dateFormatter';
 import PrivateAlbaCard from './PrivateAlbaCard';
 import { calculateDDay } from '@/utils/dDayCalculator';
+import Badge from '@/components/Badge';
 
 interface AlbaCardProps {
   form: FormDataProps;
@@ -41,7 +42,7 @@ const AlbaCard = ({ form }: AlbaCardProps) => {
       )}
       <div className="flex items-center justify-between">
         <div className="flex items-center">
-          <div>{form.isPublic ? '공개' : '비공개'}</div>
+          <Badge value={form.isPublic ? '공개' : '비공개'} />
           <div>
             {isWithinInterval(new Date(), {
               start: new Date(form.recruitmentStartDate),

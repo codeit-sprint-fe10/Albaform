@@ -6,9 +6,9 @@ import { useInView } from 'react-intersection-observer';
 import { getForms } from '@/services/form';
 import { GetFormsResponse } from '@/types/form';
 import { FilterProps } from '../page';
-import AlbaCard from './AlbaCard';
-import AlbaListEmpty from './AlbaListEmpty';
-import AlbaCardSkeleton from './AlbaCardSkeleton';
+import AlbaCard from './list/AlbaCard';
+import AlbaListEmpty from './list/AlbaListEmpty';
+import AlbaCardSkeleton from './list/AlbaCardSkeleton';
 
 const LIMIT = 6;
 
@@ -49,7 +49,12 @@ const AlbaListSection = ({ filter, isPublic }: AlbaListSectionProps) => {
 
   return (
     <>
-      <ul className="mt-[130px] md:mt-[146px] lg:mt-[194px] flex flex-wrap justify-center gap-6">
+      <ul
+        className={
+          'flex flex-wrap justify-center gap-6 mt-[180px] md:mt-[214px] lg:mt-[286px] ' +
+          'pt-2 md:pt-4 lg:pt-14 pb-16 md:pb-24 lg:pb-32 '
+        }
+      >
         {isLoading ? (
           <AlbaCardSkeletons />
         ) : forms?.length === 0 ? (
