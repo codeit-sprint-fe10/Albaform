@@ -2,10 +2,11 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { FormDataProps } from '@/types/form';
 import { isWithinInterval } from '@/utils/date';
-import { formatDate } from '@/utils/dateFormatter';
+import { formatDateWithSpace } from '@/utils/dateFormatter';
 import PrivateAlbaCard from './PrivateAlbaCard';
 import { calculateDDay } from '@/utils/dDayCalculator';
 import Badge from '@/components/Badge';
+import Dropdown from '../Dropdown';
 
 interface AlbaCardProps {
   form: FormDataProps;
@@ -14,11 +15,37 @@ interface AlbaCardProps {
 const AlbaCard = ({ form }: AlbaCardProps) => {
   if (!form.isPublic) return <PrivateAlbaCard />;
 
+  const publicBadgeValue = form.isPublic ? '공개' : '비공개';
+
+  const recruitBadgeValue = isWithinInterval(new Date(), {
+    start: new Date(form.recruitmentStartDate),
+    end: new Date(form.recruitmentEndDate),
+  })
+    ? '모집 중'
+    : '모집 마감';
+
+  const recruitPeriod =
+    formatDateWithSpace(form.recruitmentStartDate).concat(' ~ ') +
+    formatDateWithSpace(form.recruitmentEndDate);
+
+  const recruitDDay =
+    calculateDDay(form.recruitmentEndDate) < 0
+      ? '모집 마감'
+      : `마감 D-${calculateDDay(form.recruitmentEndDate)}`;
+
+  const leftBarStyle =
+    'before:absolute before:left-[0px] before:inset-y-0 ' +
+    'before:block before:w-[1.5px] before:bg-line-200';
+
+  const rightBarStyle =
+    'after:absolute after:right-[0px] after:inset-y-0 ' +
+    'after:block after:w-[1.5px] after:bg-line-200';
+
   return (
     <Link
       href={`/alba/${form.id}`}
       className={
-        'flex flex-col gap-6 lg:gap-9 w-[min(100%,360px)] lg:w-[469px] ' +
+        'group flex-grow flex flex-col gap-3 lg:gap-6 ' +
         'rounded-xl lg:rounded-2xl hover:shadow-lg transition duration-200'
       }
     >
@@ -40,29 +67,35 @@ const AlbaCard = ({ form }: AlbaCardProps) => {
           className="w-full aspect-[3/2] object-none bg-gray-100 rounded-xl lg:rounded-2xl"
         />
       )}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center">
-          <Badge value={form.isPublic ? '공개' : '비공개'} />
-          <div>
-            {isWithinInterval(new Date(), {
-              start: new Date(form.recruitmentStartDate),
-              end: new Date(form.recruitmentEndDate),
-            })
-              ? '모집 중'
-              : '모집 마감'}
-          </div>
-          <div>{`${formatDate(form.recruitmentStartDate)} ~ ${formatDate(form.recruitmentEndDate)}`}</div>
+      <div className="flex items-center justify-between px-1">
+        <div className="flex items-center gap-2 lg:gap-3">
+          <Badge value={publicBadgeValue} />
+          <Badge value={recruitBadgeValue} />
+          <span className="text-md lg:text-lg text-black-100">
+            {recruitPeriod}
+          </span>
         </div>
+        {/* <Dropdown type="menu" /> */}
       </div>
-      <div>{form.title}</div>
-      <div>
+      <h3
+        className={
+          'h-[52px] lg:h-16 px-1 line-clamp-2 text-2lg lg:text-xl ' +
+          'font-semibold text-black-500 group-hover:underline'
+        }
+      >
+        {form.title}
+      </h3>
+      <div
+        className={
+          'grid grid-cols-3 gap-[1px] py-[10px] lg:py-4 rounded-xl lg:rounded-2xl border ' +
+          'border-line-200 text-center text-xs lg:text-lg text-black-200'
+        }
+      >
         <div>지원자 {form.applyCount}명</div>
-        <div>스크랩 {form.scrapCount}명</div>
-        <div>
-          {calculateDDay(form.recruitmentEndDate) < 0
-            ? '모집 마감'
-            : `모집 D-${calculateDDay(form.recruitmentEndDate)}`}
+        <div className={`relative ${leftBarStyle} ${rightBarStyle}`}>
+          스크랩 {form.scrapCount}명
         </div>
+        <div>{recruitDDay}</div>
       </div>
     </Link>
   );

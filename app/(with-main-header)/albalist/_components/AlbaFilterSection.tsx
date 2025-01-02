@@ -1,7 +1,7 @@
 import { Dispatch, FormEvent, SetStateAction } from 'react';
 import { FilterProps } from '../page';
 import { FormsOrderBy } from '@/types/form';
-import Dropdown, { OptionProps } from './filter/Dropdown';
+import Dropdown, { OptionProps } from './Dropdown';
 import SearchInput from './filter/SearchInput';
 import {
   FORM_ORDERBY_OPTIONS,

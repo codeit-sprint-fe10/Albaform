@@ -16,7 +16,7 @@ const AlbaCardSkeletons = () =>
   Array(LIMIT)
     .fill(0)
     .map((_, idx) => (
-      <li key={idx}>
+      <li key={idx} className="w-[min(100%,360px)] lg:w-[469px]">
         <AlbaCardSkeleton />
       </li>
     ));
@@ -51,8 +51,8 @@ const AlbaListSection = ({ filter, isPublic }: AlbaListSectionProps) => {
     <>
       <ul
         className={
-          'flex flex-wrap justify-center gap-6 mt-[180px] md:mt-[214px] lg:mt-[286px] ' +
-          'pt-2 md:pt-4 lg:pt-14 pb-16 md:pb-24 lg:pb-32 '
+          'flex flex-wrap justify-center gap-x-6 gap-y-8 md:gap-y-12 lg:gap-y-16 ' +
+          'mt-[180px] md:mt-[214px] lg:mt-[286px] pt-2 md:pt-4 lg:pt-14 pb-16 md:pb-24 lg:pb-32 '
         }
       >
         {isLoading ? (
@@ -61,7 +61,7 @@ const AlbaListSection = ({ filter, isPublic }: AlbaListSectionProps) => {
           <AlbaListEmpty />
         ) : (
           forms?.map((form) => (
-            <li key={form.id}>
+            <li key={form.id} className="w-[min(100%,360px)] lg:w-[469px]">
               <AlbaCard form={form} />
             </li>
           ))
