@@ -37,12 +37,20 @@ export const getPostDetail = async (
   }
 };
 
-export const getComments = async (
-  params: GetCommentsParameters,
-): Promise<GetCommentsResponse> => {
+export const getComments = async ({
+  talkId,
+  params,
+}: GetCommentsParameters): Promise<GetCommentsResponse> => {
   try {
+    const { page, pageSize } = params;
     const response = await instance.get<GetCommentsResponse>(
-      `/posts/${params.id}/comments`,
+      `/posts/${talkId}/comments`,
+      {
+        params: {
+          page,
+          pageSize,
+        },
+      },
     );
     return response.data;
   } catch (error) {

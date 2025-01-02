@@ -26,6 +26,7 @@ const AlbatalkDetail = () => {
   const { talkId: talkIdStr } = useParams();
   const talkId = Number(talkIdStr);
   const router = useRouter();
+
   const { data: post } = useQuery<GetPostDetailResponse>({
     queryKey: ['talk', talkId],
     queryFn: () => getPostDetail(talkId),
@@ -111,7 +112,10 @@ const AlbatalkDetail = () => {
               </div>
             </div>
 
-            <CommentList id={talkId} commentCount={post.commentCount || 0} />
+            <CommentList
+              talkId={talkId}
+              commentCount={post.commentCount || 0}
+            />
           </div>
         </div>
       )}

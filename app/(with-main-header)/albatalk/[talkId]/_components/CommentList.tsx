@@ -1,101 +1,45 @@
 'use client';
+import { useState } from 'react';
 import CommentForm from './CommentForm';
-import { useState, useEffect } from 'react';
-import {
-  useQuery,
-  keepPreviousData,
-  useQueryClient,
-} from '@tanstack/react-query';
-import { getComments } from '@/services/albatalk';
-import { GetCommentsResponse } from '@/types/albatalk';
-import { useUserStore } from '@/store/user';
-import { EditDropdownAction } from '@/types/albatalk';
-import { deleteComment } from '@/services/albatalk';
+import { useQueryClient } from '@tanstack/react-query';
+import useGetComments from '../_hooks/useGetComments';
 import CommentItem from './CommentItem';
+import InfiniteScroll from '@/components/InfiniteScroll';
+import { deleteComment } from '@/services/albatalk';
+import { EditDropdownAction } from '@/types/albatalk';
+import { useUserStore } from '@/store/user';
+const PAGE_LIMIT = 5;
 
-const CommentList = ({
-  id,
-  commentCount,
-}: {
-  id: number;
+type CommentProps = {
+  talkId: number;
   commentCount: number;
-}) => {
-  const pageSize = 5;
-  const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
-  const user = useUserStore((state) => state.user);
-  const queryClient = useQueryClient();
-  const { data, isLoading, error } = useQuery<GetCommentsResponse>({
-    queryKey: ['comments', { id, page, pageSize }],
-    queryFn: () =>
-      getComments({
-        id: id,
-        page: page,
-        pageSize: pageSize,
-      }),
-    placeholderData: keepPreviousData,
-    staleTime: 10 * 1000,
-    gcTime: 2 * 60 * 1000,
-  });
+};
 
-  //TODO: 로딩중일때 UI 필요
-  //TODO: 댓글 없을때 UI 추가 필요
+const CommentList = ({ talkId, commentCount }: CommentProps) => {
+  const queryClient = useQueryClient();
+  const user = useUserStore((state) => state.user);
+
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useGetComments({
+      talkId,
+      params: { page: 1, pageSize: PAGE_LIMIT },
+    });
 
   const handleCommentPosted = () => {
     queryClient.invalidateQueries({
-      queryKey: ['comments', { id, page, pageSize }],
+      queryKey: ['comments', talkId, { page: 1, pageSize: PAGE_LIMIT }], // Invalidate on comment post
     });
   };
-
-  useEffect(() => {
-    if (data) {
-      if (data.totalItemCount === 0 || data.totalPages === 0) {
-        setHasMore(false);
-      } else if (data.currentPage >= data.totalPages) {
-        setHasMore(false);
-      }
-    }
-  }, [data]);
-
-  const loadMoreComments = () => {
-    if (hasMore) {
-      setPage((prevPage) => prevPage + 1);
-    }
-  };
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && hasMore) {
-          loadMoreComments();
-        }
-      },
-      { threshold: 1.0 },
-    );
-
-    const sentinel = document.getElementById('sentinel');
-    if (sentinel) {
-      observer.observe(sentinel);
-    }
-
-    return () => {
-      if (sentinel) {
-        observer.unobserve(sentinel);
-      }
-    };
-  }, [hasMore]);
 
   const handleAction = async (
     action: EditDropdownAction,
     commentId: number,
   ) => {
     if (action === 'edit') {
+      // TODO: 수정하기 로직 추가
     } else if (action === 'delete') {
       try {
         await deleteComment(commentId);
-        queryClient.invalidateQueries({
-          queryKey: ['comments', { id, page, pageSize }],
-        });
       } catch (error) {
         console.error('Error deleting comment', error);
       }
@@ -108,18 +52,31 @@ const CommentList = ({
         <div className="text-lg font-semibold md:text-xl lg:text-2xl">{`댓글(${commentCount})`}</div>
         <div className="w-full border stroke-gray-30"></div>
       </div>
-      <CommentForm id={id} onCommentPosted={handleCommentPosted} />
+      <CommentForm id={talkId} onCommentPosted={handleCommentPosted} />
+
       <div className="flex flex-col gap-8 mt-4">
-        {data?.data.map((comment) => (
-          <CommentItem
-            key={comment.id}
-            comment={comment}
-            userId={user?.id ?? null}
-            onAction={(action) => handleAction(action, comment.id)}
-          />
-        ))}
+        {data?.pages.length ? (
+          <InfiniteScroll
+            hasNextPage={hasNextPage}
+            isLoading={isFetchingNextPage}
+            loadNextPage={fetchNextPage}
+            loader={<p>Loading comments...</p>}
+          >
+            {data?.pages.map((page) =>
+              page.data.map((comment) => (
+                <CommentItem
+                  key={comment.id}
+                  userId={user?.id || null}
+                  comment={comment}
+                  onAction={(action) => handleAction(action, comment.id)}
+                />
+              )),
+            )}
+          </InfiniteScroll>
+        ) : (
+          <div>댓글이 없습니다</div>
+        )}
       </div>
-      {hasMore && <div id="sentinel" className="h-2 bg-transparent" />}
     </div>
   );
 };
