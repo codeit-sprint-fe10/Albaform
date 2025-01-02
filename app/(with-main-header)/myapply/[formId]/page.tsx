@@ -4,6 +4,8 @@ import SummarySection from '@/app/(with-main-header)/alba/[formId]/_components/S
 import DescriptionSection from '@/app/(with-main-header)/alba/[formId]/_components/DescriptionSection';
 import ApplicationStatusSection from '@/app/(with-main-header)/myapply/[formId]/_components/ApplicationStatusSection';
 import { ApplicationStatusType } from '@/types/application';
+import Applications from '@/app/(with-main-header)/alba/[formId]/_components/Applications';
+import ApplicationDetail from '@/app/(with-main-header)/myapply/[formId]/_components/ApplicationDetail';
 
 const mock = {
   applicantId: 0,
@@ -61,6 +63,11 @@ const MyApplyPage = async ({
           </div>
         </div>
       </div>
+      <section className="relative mt-10 before:content-[''] before:absolute before:left-1/2 before:-translate-x-1/2 before:w-screen before:h-2 before:bg-line-100">
+        <div className="lg:w-[45%]">
+          <ApplicationDetail formId={formId} />
+        </div>
+      </section>
     </div>
   );
 };

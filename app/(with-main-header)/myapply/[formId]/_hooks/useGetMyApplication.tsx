@@ -2,11 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getMyApplication } from '@/services/application';
 import { Application } from '@/types/application';
 
-type useGetMyApplicationProps = {
-  formId: number;
-};
-
-const useGetMyApplication = ({ formId }: useGetMyApplicationProps) => {
+const useGetMyApplication = (formId: number) => {
   return useQuery<Application>({
     queryKey: ['myApplication', formId],
     queryFn: () =>
