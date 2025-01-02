@@ -7,10 +7,10 @@ import { useParams } from 'next/navigation';
 import LikeButton from './_components/LikeButton';
 import { useUserStore } from '@/store/user';
 import EditDropdown from './_components/EditDropdown';
-import { deleteTalk } from '@/services/albatalk';
 import { useRouter } from 'next/navigation';
 import { EditDropdownAction } from '@/types/albatalk';
 import useGetPostDetail from './_hooks/useGetPostDetail';
+import useDeleteTalk from './_hooks/useDeleteTalk';
 
 // TODO: RSC 대응하도록 API 고쳐지면 수정!
 // const AlbatalkDetail = async ({
@@ -25,7 +25,7 @@ const AlbatalkDetail = () => {
   const { talkId: talkIdStr } = useParams();
   const talkId = Number(talkIdStr);
   const router = useRouter();
-
+  const { mutate: deleteMutation } = useDeleteTalk(talkId);
   const { data: post } = useGetPostDetail({ talkId });
   const user = useUserStore((state) => state.user);
 
@@ -33,12 +33,7 @@ const AlbatalkDetail = () => {
     if (action === 'edit') {
       router.push(`/edittalk/${talkId}`);
     } else if (action === 'delete') {
-      try {
-        await deleteTalk(talkId);
-        router.replace('/albatalk');
-      } catch (error) {
-        console.error('Error delete talk:', error);
-      }
+      deleteMutation();
     }
   };
 
