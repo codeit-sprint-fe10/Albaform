@@ -1,10 +1,8 @@
 'use client';
 
 import useGetMyApplication from '@/app/(with-main-header)/myapply/[formId]/_hooks/useGetMyApplication';
-import {
-  convertMonthsToYearsAndMonths,
-  formatDateTimeWithLetters,
-} from '@/utils/dateFormatter';
+import { convertMonthsToYearsAndMonths } from '@/utils/dateFormatter';
+import DownloadIcon from '@/public/icons/download.svg';
 
 type ApplicationDetailProps = {
   formId: number;
@@ -38,28 +36,33 @@ const ApplicationDetail = ({ formId }: ApplicationDetailProps) => {
         제출 내용
       </h3>
       <div className="font-regular text-md text-black-400 lg:text-2xl">
-        <p className="flex justify-between items-center py-4 lg:py-8 border-b border-line-100">
+        <div className="flex justify-between items-center py-4 lg:py-8 border-b border-line-100">
           <span className="text-black-100">이름</span>
-          <span>{mock.name}</span>
-        </p>
-        <p className="flex justify-between items-center py-4 lg:py-8 border-b border-line-100">
+          <p>{mock.name}</p>
+        </div>
+        <div className="flex justify-between items-center py-4 lg:py-8 border-b border-line-100">
           <span className="text-black-100">연락처</span>
-          <span>{mock.phoneNumber}</span>
-        </p>
-        <p className="flex justify-between items-center py-4 lg:py-8 border-b border-line-100">
+          <p>{mock.phoneNumber}</p>
+        </div>
+        <div className="flex justify-between items-center py-4 lg:py-8 border-b border-line-100">
           <span className="text-black-100">경력</span>
-          <span>{convertMonthsToYearsAndMonths(mock.experienceMonths)}</span>
-        </p>
-        <p className="flex justify-between items-center py-4 lg:py-8">
+          <p>{convertMonthsToYearsAndMonths(mock.experienceMonths)}</p>
+        </div>
+        <div className="py-4 lg:py-8 flex flex-col gap-4">
           <span className="text-black-100">이력서</span>
-          <span>엥?</span>
-        </p>
-        <p className="flex flex-col gap-4 py-4 lg:py-8">
+          <div className="flex gap-6 justify-between items-center p-4 bg-background-200 rounded-lg">
+            <p className="flex-1 lg:text-xl text-black-400">
+              {mock.resumeName}
+            </p>
+            <DownloadIcon className="w-6 h-6 lg:w-9 lg:h-9" />
+          </div>
+        </div>
+        <div className="flex flex-col gap-4 py-4 lg:py-8">
           <span className="text-black-100">자기소개</span>
-          <span className="p-4 border border-line-100 rounded-lg lg:text-xl">
+          <p className="p-4 border border-line-100 rounded-lg lg:text-xl">
             {mock.introduction}
-          </span>
-        </p>
+          </p>
+        </div>
       </div>
     </div>
   );
