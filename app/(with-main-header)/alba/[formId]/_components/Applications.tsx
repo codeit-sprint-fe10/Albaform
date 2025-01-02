@@ -34,7 +34,7 @@ const Applications = ({ formId }: ApplicationsProps) => {
     useGetApplications({ formId, searchParams });
 
   return (
-    <div>
+    <div className="py-10 w-full">
       <h3 className="text-black-500 font-2lg font-semibold lg:text-3xl">
         지원 현황
       </h3>
@@ -73,26 +73,30 @@ const Applications = ({ formId }: ApplicationsProps) => {
         </div>
       </div>
       <div className="text-black-400 text-md font-regular lg:text-xl">
-        <InfiniteScroll
-          hasNextPage={hasNextPage}
-          isLoading={isFetchingNextPage}
-          loadNextPage={fetchNextPage}
-          loader={<p>Loading applications...</p>}
-        >
-          {data?.pages.map((page) =>
-            page.data.map((application) => (
-              <div
-                key={application.applicantId}
-                className="grid grid-cols-4 gap-4 border-b border-line-100 py-6"
-              >
-                <div>{application.name}</div>
-                <div>{application.phoneNumber}</div>
-                <div>{application.experienceMonths}</div>
-                <div>{applicationStatus[application.status]}</div>
-              </div>
-            )),
-          )}
-        </InfiniteScroll>
+        {data?.pages.length ? (
+          <InfiniteScroll
+            hasNextPage={hasNextPage}
+            isLoading={isFetchingNextPage}
+            loadNextPage={fetchNextPage}
+            loader={<p>Loading applications...</p>}
+          >
+            {data.pages.map((page) =>
+              page.data.map((application) => (
+                <div
+                  key={application.applicantId}
+                  className="grid grid-cols-4 gap-4 border-b border-line-100 py-6"
+                >
+                  <div>{application.name}</div>
+                  <div>{application.phoneNumber}</div>
+                  <div>{application.experienceMonths}</div>
+                  <div>{applicationStatus[application.status]}</div>
+                </div>
+              )),
+            )}
+          </InfiniteScroll>
+        ) : (
+          <div className="text-center pt-6 text-gray-500">지원자 없음</div>
+        )}
       </div>
     </div>
   );

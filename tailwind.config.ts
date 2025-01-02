@@ -20,6 +20,7 @@ const tailwindConfig = {
       lg: ['16px', '26px'],
       md: ['14px', '24px'],
       sm: ['13px', '22px'],
+      '2sm': ['12px', '20px'],
       xs: ['12px', '18px'],
     },
     fontWeight: {

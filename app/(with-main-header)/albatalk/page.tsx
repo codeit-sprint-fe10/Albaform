@@ -47,6 +47,8 @@ const Albatalk = () => {
       }),
     placeholderData: keepPreviousData,
     enabled: !!cursorHistory.length,
+    staleTime: 20 * 1000,
+    gcTime: 3 * 60 * 1000,
   });
 
   const isFirstPage = cursorHistory.length === 1;

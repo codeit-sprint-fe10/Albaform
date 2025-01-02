@@ -5,10 +5,10 @@ import TermsSection from '@/app/(with-main-header)/alba/[formId]/_components/Ter
 import ContactSection from '@/app/(with-main-header)/alba/[formId]/_components/ContactSection';
 import AlertSection from '@/app/(with-main-header)/alba/[formId]/_components/AlertSection';
 import DescriptionSection from '@/app/(with-main-header)/alba/[formId]/_components/DescriptionSection';
-import FixedActions from '@/app/(with-main-header)/alba/[formId]/_components/FixedActions';
+import FloatingActions from '@/app/(with-main-header)/alba/[formId]/_components/FloatingActions';
 import ApplicationActions from '@/app/(with-main-header)/alba/[formId]/_components/ApplicationActions';
 import Carousel from '@/app/(with-main-header)/alba/[formId]/_components/Carousel';
-import Applications from '@/app/(with-main-header)/alba/[formId]/_components/Applications';
+import { getAlbaDetail } from '@/services/alba';
 
 const mock = {
   isPublic: true,
@@ -51,44 +51,62 @@ const AlbaFormIdPage = async ({
   params: Promise<{ formId: number }>;
 }) => {
   const { formId } = await params;
-  console.log(formId); // TODO api 호출 후 제거
+  const albaDetail = await getAlbaDetail(formId);
 
   return (
-    <>
-      <div>
-        <div className="-mx-6 md:-mx-[72px] flex justify-center">
-          <div className="w-full -mx-6">
-            <Carousel imageUrls={mock.imageUrls} />
+    <div>
+      <div className="-mx-6 md:-mx-[72px] xl:mx-0 flex justify-center">
+        {albaDetail.imageUrls?.length && (
+          <div className="w-full">
+            <Carousel imageUrls={albaDetail.imageUrls} />
           </div>
-        </div>
-        <div>
-          <AlertSection applyCount={mock.applyCount} />
-          <div className="mt-8 md:mt-[80px]">
-            <SummarySection {...mock} />
-          </div>
-          <div className="mt-8 md:mt-10">
-            <TermsSection {...mock} />
-          </div>
-          <div className="mt-8">
-            <ContactSection {...mock} />
-          </div>
-          <div className="mt-8">
-            <DescriptionSection description={mock.description} />
-          </div>
-        </div>
-        <div className="mt-8">
-          <Requirements {...mock} />
-        </div>
-        <div className="mt-8">
-          <Location location={mock.location} />
-        </div>
-        <div className="mt-10 mb-[30px]">
-          <ApplicationActions formId={formId} />
-        </div>
-        <FixedActions isScrapped={mock.isScrapped} id={formId} />
+        )}
       </div>
-      <Applications formId={formId} />
-    </>
+      <div className="relative">
+        <div className="flex flex-col lg:flex-row justify-between lg:gap-36">
+          <div className="lg:basis-1/2">
+            <div>
+              <AlertSection applyCount={albaDetail.applyCount} />
+              <div className="mt-8 md:mt-[80px]">
+                <SummarySection {...albaDetail} />
+              </div>
+              <div className="mt-8 md:mt-10 lg:hidden">
+                <TermsSection {...albaDetail} />
+              </div>
+              <div className="mt-8 lg:hidden">
+                <ContactSection {...albaDetail} />
+              </div>
+              <div className="mt-8">
+                <DescriptionSection description={albaDetail.description} />
+              </div>
+            </div>
+            <div className="mt-8">
+              <Location location={albaDetail.location} />
+            </div>
+            <FloatingActions isScrapped={albaDetail.isScrapped} id={formId} />
+          </div>
+          <div className="lg:basis-1/2">
+            <div className="lg:flex flex-col">
+              <div className="hidden mt-8 md:mt-10 lg:block">
+                <TermsSection {...albaDetail} />
+              </div>
+              <div className="hidden mt-8 lg:block">
+                <ContactSection {...albaDetail} />
+              </div>
+              <div className="mt-8 lg:order-2">
+                <Requirements {...albaDetail} />
+              </div>
+              <div className="mt-10 mb-[30px] lg:order-1">
+                <ApplicationActions formId={formId} />
+              </div>
+              {/*<div>*/}
+              {/*  <OwnerSection formId={formId} />*/}
+              {/*</div>*/}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 

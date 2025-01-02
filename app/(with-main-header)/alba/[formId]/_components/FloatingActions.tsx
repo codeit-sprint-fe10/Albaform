@@ -5,9 +5,9 @@ import Image from 'next/image';
 import { postAlbaScrap } from '@/services/alba';
 import { useState } from 'react';
 
-type FixedActionsProps = Pick<Alba, 'id' | 'isScrapped'>;
+type FloatingActionsProps = Pick<Alba, 'id' | 'isScrapped'>;
 
-const FixedActions = ({ id, isScrapped }: FixedActionsProps) => {
+const FloatingActions = ({ id, isScrapped }: FloatingActionsProps) => {
   const [isActiveScrapped, setIsActiveScrapped] = useState(isScrapped);
 
   const handleScrapClick = async () => {
@@ -17,7 +17,7 @@ const FixedActions = ({ id, isScrapped }: FixedActionsProps) => {
   };
 
   return (
-    <aside className="fixed bottom-10 right-4 flex flex-col">
+    <aside className="fixed bottom-10 right-4 flex flex-col z-10">
       <button type="button" onClick={handleScrapClick} aria-label="스크랩하기">
         <Image
           src={`/icons/bookmark-circle-${isActiveScrapped ? 'active' : 'inactive'}.svg`}
@@ -40,4 +40,4 @@ const FixedActions = ({ id, isScrapped }: FixedActionsProps) => {
   );
 };
 
-export default FixedActions;
+export default FloatingActions;

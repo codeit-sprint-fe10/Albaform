@@ -94,3 +94,31 @@ export const LOCATION = {
     error: '위치 등록에 문제가 발생했습니다',
   },
 } as const;
+
+export const STEP_1_FIELDS = [
+  'title',
+  'description',
+  'recruitmentEndDate',
+  'recruitmentStartDate',
+  'imageUrls',
+];
+
+export const STEP_2_FIELDS = [
+  'numberOfPositions',
+  'gender',
+  'education',
+  'age',
+  'preferred',
+];
+
+export const STEP_3_FIELDS = [
+  'location',
+  'workStartTime',
+  'workEndTime',
+  'hourlyWage',
+  'isNegotiableWorkDays',
+  'isPublic',
+  'workDays',
+  'workEndDate',
+  'workStartDate',
+];

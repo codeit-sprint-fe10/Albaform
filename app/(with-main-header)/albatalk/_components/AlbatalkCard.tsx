@@ -28,7 +28,6 @@ const AlbatalkCard = ({
   return (
     <div className="relative w-full h-[210px] lg:h-[280px] p-6 border rounded-2xl">
       <Link href={`/albatalk/${talkId}`}>
-        <KebabIcon className="absolute w-6 h-6 right-2 top-4 lg:right-5" />
         <div className="flex flex-col h-[162px] lg:h-[232px] gap-6">
           <div className="flex lg:h-44 flex-col gap-2">
             <div className="max-w-80 text-black-400 font-semibold text-lg overflow-hidden lg:text-2lg">

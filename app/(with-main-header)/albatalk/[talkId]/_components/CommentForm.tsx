@@ -17,7 +17,6 @@ const CommentForm = ({
     try {
       setIsLoading(true);
       await postComment(id, { content: comment });
-      console.log(id, comment);
       setComment('');
       onCommentPosted();
       setIsLoading(false);

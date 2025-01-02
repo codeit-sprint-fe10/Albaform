@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import {
   addMonths,
   format,
@@ -8,13 +9,24 @@ import {
   isSameDay,
   isWithinInterval,
 } from '@/utils/date';
-import Image from 'next/image';
+import { DateFieldName } from '@/types/form';
+import { useFormContext } from 'react-hook-form';
 
 interface DateRangePickerProps {
-  onChange?: (range: { startDate: Date | null; endDate: Date | null }) => void;
+  setValue: (name: DateFieldName, value: string) => void;
+  startDateName: DateFieldName;
+  endDateName: DateFieldName;
+  defaultStartDate: string;
+  defaultEndDate: string;
 }
 
-const DateRangePicker = ({ onChange }: DateRangePickerProps) => {
+const DateRangePicker = ({
+  setValue,
+  startDateName,
+  endDateName,
+  defaultStartDate,
+  defaultEndDate,
+}: DateRangePickerProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenUp, setIsOpenUp] = useState(false);
   const [currentDate, setCurrentDate] = useState<Date>(new Date());
@@ -22,32 +34,30 @@ const DateRangePicker = ({ onChange }: DateRangePickerProps) => {
   const [endDate, setEndDate] = useState<Date | null>(null);
   const [hoverDate, setHoverDate] = useState<Date | null>(null);
   const datePickerRef = useRef<HTMLDivElement | null>(null);
+  const { trigger, register } = useFormContext();
 
   const handleDayClick = (day: Date) => {
     if (!startDate || endDate) {
       setStartDate(day);
       setEndDate(null);
-      onChange?.({
-        startDate: day,
-        endDate: null,
-      });
+      setValue(startDateName, day.toISOString());
+      setValue(endDateName, '');
+      trigger(startDateName);
+      trigger(endDateName);
       return;
     }
 
     if (day < startDate) {
       setStartDate(day);
-      onChange?.({
-        startDate: day,
-        endDate: null,
-      });
+      setValue(startDateName, day.toISOString());
+      trigger(startDateName);
       return;
     }
 
     setEndDate(day);
-    onChange?.({
-      startDate: startDate && !endDate ? day : startDate,
-      endDate: day,
-    });
+    setValue(endDateName, day.toISOString());
+    trigger(endDateName);
+    setIsOpen(false);
   };
 
   const handleDayMouseEnter = (day: Date) => {
@@ -188,6 +198,15 @@ const DateRangePicker = ({ onChange }: DateRangePickerProps) => {
     };
   }, [isOpen]);
 
+  useEffect(() => {
+    if (defaultStartDate) {
+      setStartDate(new Date(defaultStartDate));
+    }
+    if (defaultEndDate) {
+      setEndDate(new Date(defaultEndDate));
+    }
+  }, [defaultStartDate, defaultEndDate]);
+
   return (
     <div className="relative" ref={datePickerRef}>
       <button
@@ -244,7 +263,7 @@ const DateRangePicker = ({ onChange }: DateRangePickerProps) => {
                 src="/icons/chevron-left.svg"
                 width={24}
                 height={24}
-                alt="다음음"
+                alt="다음달"
                 className="lg:w-9 lg:h-9"
               />
             </button>
@@ -264,6 +283,14 @@ const DateRangePicker = ({ onChange }: DateRangePickerProps) => {
           </div>
         </div>
       )}
+      <input
+        className="hidden"
+        {...register(startDateName, { required: 'Start date is required' })}
+      />
+      <input
+        className="hidden"
+        {...register(endDateName, { required: 'End date is required' })}
+      />
     </div>
   );
 };

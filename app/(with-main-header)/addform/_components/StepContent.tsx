@@ -1,38 +1,30 @@
 'use client';
 
-import { PostFormBody } from '@/types/form';
+import { Ref, useImperativeHandle } from 'react';
+import { useFormContext } from 'react-hook-form';
 import RecruitmentDetails from './RecruitmentDetails';
 import RecruitmentRequirements from './RecruitmentRequirements';
 import WorkingConditions from './WorkingConditions';
-import { FormProps } from './FormNavigator';
-import { UseFormHandleSubmit } from 'react-hook-form';
+import { PostFormBody } from '@/types/form';
 
-interface StepContentProps extends FormProps {
+interface StepContentProps {
   currentStep: number;
-  handleSubmit: UseFormHandleSubmit<PostFormBody>;
+  onSubmit: (data: PostFormBody) => void;
+  ref: Ref<unknown> | undefined;
 }
 
-const StepContent = ({
-  currentStep,
-  register,
-  setValue,
-  handleSubmit,
-}: StepContentProps) => {
-  const onSubmit = (data: PostFormBody) => {
-    console.log(data);
-  };
+const StepContent = ({ currentStep, onSubmit, ref }: StepContentProps) => {
+  const { handleSubmit } = useFormContext<PostFormBody>();
+
+  useImperativeHandle(ref, () => ({
+    submit: handleSubmit(onSubmit),
+  }));
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="py-8 lg:py-12">
-      {currentStep === 1 && (
-        <RecruitmentDetails register={register} setValue={setValue} />
-      )}
-      {currentStep === 2 && (
-        <RecruitmentRequirements register={register} setValue={setValue} />
-      )}
-      {currentStep === 3 && (
-        <WorkingConditions register={register} setValue={setValue} />
-      )}
+      <RecruitmentDetails isVisible={currentStep === 1} />
+      <RecruitmentRequirements isVisible={currentStep === 2} />
+      <WorkingConditions isVisible={currentStep === 3} />
     </form>
   );
 };

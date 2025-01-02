@@ -32,6 +32,8 @@ const CommentList = ({
         pageSize: pageSize,
       }),
     placeholderData: keepPreviousData,
+    staleTime: 10 * 1000,
+    gcTime: 2 * 60 * 1000,
   });
   //TODO: 로딩중일때 UI 필요
   //TODO: 댓글 없을때 UI 추가 필요

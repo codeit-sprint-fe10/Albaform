@@ -1,8 +1,8 @@
 import { Alba } from '@/types/alba';
 
-type SectinoDescriptionProps = Pick<Alba, 'description'>;
+type DescriptionSectionProps = Pick<Alba, 'description'>;
 
-const DescriptionSection = ({ description }: SectinoDescriptionProps) => {
+const DescriptionSection = ({ description }: DescriptionSectionProps) => {
   return (
     <section>
       <p className="text-black-400 font-regular text-lg lg:text-2xl whitespace-pre-wrap">

@@ -1,17 +1,23 @@
+import { useFormContext, Controller } from 'react-hook-form';
 import Label from '@/components/Label';
 import DateRangePicker from '@/components/DateRangePicker';
 import CheckboxInput from './input/CheckboxInput';
-import { FormProps } from './FormNavigator';
 import DaysInput from './input/DaysInput';
 import LocationInput from './input/LocationInput';
 import Input from './input/Input';
 import DropdownInput from './input/DropdownInput';
 import { TIME_OPTIONS } from '@/constants/dropdown';
+import { PostFormBody } from '@/types/form';
 import ClockIcon from '@/public/icons/clock.svg';
 
-const WorkingConditions = ({ register, setValue }: FormProps) => {
+const WorkingConditions = ({ isVisible }: { isVisible: boolean }) => {
+  const { register, setValue, getValues, control } =
+    useFormContext<PostFormBody>();
+
   return (
-    <fieldset className="flex flex-col gap-8 lg:gap-[52px]">
+    <fieldset
+      className={`flex flex-col gap-8 lg:gap-[52px] ${!isVisible && 'hidden'}`}
+    >
       <div>
         <Label
           id="location"
@@ -19,36 +25,69 @@ const WorkingConditions = ({ register, setValue }: FormProps) => {
           className="mb-3 lg:mb-4"
           required
         />
-        <LocationInput setValue={setValue} />
+        <Controller
+          name="location"
+          control={control}
+          rules={{ required: 'This field is required' }}
+          render={({ field }) => (
+            <LocationInput
+              name={field.name}
+              value={getValues('location')}
+              onChange={field.onChange}
+            />
+          )}
+        />
       </div>
       <div>
         <Label label="근무 기간" className="mb-3 lg:mb-4" required />
-        <DateRangePicker />
+        <DateRangePicker
+          setValue={setValue}
+          startDateName="workStartDate"
+          endDateName="workEndDate"
+          defaultStartDate={getValues('workStartDate')}
+          defaultEndDate={getValues('workEndDate')}
+        />
       </div>
       <div>
         <Label label="근무 시간" className="mb-3 lg:mb-4" required />
         <div className="flex justify-between lg:justify-normal lg:gap-9">
-          <DropdownInput
+          <Controller
             name="workStartTime"
-            options={TIME_OPTIONS}
-            widthStyle="w-[150px] lg:w-[210px]"
-            paddingStyle="p-3.5"
-            register={register('workStartTime')}
-            icon={
-              <ClockIcon className="w-[13px] h-[13px] lg:w-5 lg:h-5 text-gray-200 " />
-            }
-            type="time"
+            control={control}
+            rules={{ required: 'This field is required' }}
+            render={({ field }) => (
+              <DropdownInput
+                options={TIME_OPTIONS}
+                name={field.name}
+                value={getValues('workStartTime')}
+                onChange={field.onChange}
+                widthStyle="w-[150px] lg:w-[210px]"
+                paddingStyle="p-3.5"
+                icon={
+                  <ClockIcon className="w-[13px] h-[13px] lg:w-5 lg:h-5 text-gray-200 " />
+                }
+                type="time"
+              />
+            )}
           />
-          <DropdownInput
+          <Controller
             name="workEndTime"
-            options={TIME_OPTIONS}
-            widthStyle="w-[150px] lg:w-[210px]"
-            paddingStyle="p-3.5"
-            register={register('workEndTime')}
-            icon={
-              <ClockIcon className="w-[13px] h-[13px] lg:w-5 lg:h-5 text-gray-200 " />
-            }
-            type="time"
+            control={control}
+            rules={{ required: 'This field is required' }}
+            render={({ field }) => (
+              <DropdownInput
+                options={TIME_OPTIONS}
+                name={field.name}
+                value={getValues('workEndTime')}
+                onChange={field.onChange}
+                widthStyle="w-[150px] lg:w-[210px]"
+                paddingStyle="p-3.5"
+                icon={
+                  <ClockIcon className="w-[13px] h-[13px] lg:w-5 lg:h-5 text-gray-200 " />
+                }
+                type="time"
+              />
+            )}
           />
         </div>
       </div>
@@ -65,8 +104,11 @@ const WorkingConditions = ({ register, setValue }: FormProps) => {
         <Label id="hourlyWage" label="시급" className="mb-3 lg:mb-4" required />
         <Input
           name="hourlyWage"
+          type="number"
           className="p-3.5 lg:py-4"
-          register={register('hourlyWage')}
+          register={register('hourlyWage', {
+            required: 'hourlyWage is required',
+          })}
         />
       </div>
       <div>

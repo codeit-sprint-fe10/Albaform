@@ -3,7 +3,7 @@ import { formatFullDateTime } from '@/utils/dateFormatter';
 import Image from 'next/image';
 import { Alba } from '@/types/alba';
 
-type SectionFirstProps = Pick<
+type SummarySectionProps = Pick<
   Alba,
   | 'isPublic'
   | 'createdAt'
@@ -22,7 +22,7 @@ const SummarySection = ({
   title,
   scrapCount,
   applyCount,
-}: SectionFirstProps) => {
+}: SummarySectionProps) => {
   return (
     <section>
       <div className="flex items-center justify-between">
@@ -39,7 +39,7 @@ const SummarySection = ({
           {storeName}
         </span>
         <span className="text-gray-400 font-medium text-sm lg:text-xl ml-2.5 lg:ml-4">
-          {location} ・ 경력무관
+          {JSON.parse(location).address}
         </span>
       </div>
       <h2 className="font-semibold text-black-500 text-xl lg:text-3xl mt-3 lg:mt-4">

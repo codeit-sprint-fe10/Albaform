@@ -6,12 +6,12 @@ import Image from 'next/image';
 import { postImage } from '@/services/image';
 
 interface FileInputProps {
-  setValue: (name: 'imageUrls', value: string[] | null) => void;
-  imageUrls?: string[];
+  setValue: (name: 'imageUrls', value: string[]) => void;
+  imageUrls: string[];
 }
 
 const FileInput = ({ setValue, imageUrls }: FileInputProps) => {
-  const [previews, setPreviews] = useState<string[]>([]);
+  const [previews, setPreviews] = useState<string[]>(imageUrls);
   const allowedTypes = ['image/png', 'image/jpeg'];
   const name = 'imageUrls';
 
@@ -21,24 +21,18 @@ const FileInput = ({ setValue, imageUrls }: FileInputProps) => {
     if (file) {
       if (!allowedTypes.includes(file.type)) return;
       const newImage = await postImage(file);
-      setPreviews((previousPreviews) => {
-        const newImages = [...previousPreviews, newImage];
-        setValue(name, newImages);
-        return newImages;
-      });
+      const newImages = [...previews, newImage];
+      setPreviews(newImages);
+      setValue(name, newImages);
     }
 
     event.target.value = '';
   };
 
-  const handleRemoveClick = (preview: string) => {
-    setPreviews((previousPreviews) => {
-      const newImages = previousPreviews.filter(
-        (previousPreview) => previousPreview !== preview,
-      );
-      setValue(name, newImages);
-      return newImages;
-    });
+  const handleRemoveClick = (targetPreview: string) => {
+    const newImages = previews.filter((preview) => preview !== targetPreview);
+    setPreviews(newImages);
+    setValue(name, newImages);
   };
 
   useEffect(() => {
