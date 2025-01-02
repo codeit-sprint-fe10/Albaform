@@ -107,3 +107,13 @@ export const FORM_ORDERBY_OPTIONS = [
   { key: 'mostApplied', label: '지원자 많은순' },
   { key: 'mostScrapped', label: '스크랩 많은순' },
 ];
+
+export const MENU_APPLICANT_OPTIONS = [
+  { key: 'application', label: '지원하기' },
+  { key: 'scrap', label: '스크랩하기' },
+];
+
+export const MENU_OWNER_OPTIONS = [
+  { key: 'modify', label: '수정하기' },
+  { key: 'delete', label: '삭제하기' },
+];

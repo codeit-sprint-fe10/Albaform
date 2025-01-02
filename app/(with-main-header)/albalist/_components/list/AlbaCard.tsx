@@ -2,11 +2,11 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { FormDataProps } from '@/types/form';
 import { isWithinInterval } from '@/utils/date';
+import { calculateDDay } from '@/utils/dDayCalculator';
 import { formatDateWithSpace } from '@/utils/dateFormatter';
 import PrivateAlbaCard from './PrivateAlbaCard';
-import { calculateDDay } from '@/utils/dDayCalculator';
 import Badge from '@/components/Badge';
-import Dropdown from '../Dropdown';
+import MenuDropdown from '../filter/MenuDropdown';
 
 interface AlbaCardProps {
   form: FormDataProps;
@@ -45,7 +45,7 @@ const AlbaCard = ({ form }: AlbaCardProps) => {
     <Link
       href={`/alba/${form.id}`}
       className={
-        'group flex-grow flex flex-col gap-3 lg:gap-6 ' +
+        'group flex flex-col gap-3 lg:gap-6 ' +
         'rounded-xl lg:rounded-2xl hover:shadow-lg transition duration-200'
       }
     >
@@ -75,7 +75,7 @@ const AlbaCard = ({ form }: AlbaCardProps) => {
             {recruitPeriod}
           </span>
         </div>
-        {/* <Dropdown type="menu" /> */}
+        <MenuDropdown formId={form.id} />
       </div>
       <h3
         className={

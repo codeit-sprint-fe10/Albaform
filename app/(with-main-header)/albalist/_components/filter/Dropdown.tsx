@@ -1,7 +1,8 @@
 'use client';
 
-import { FocusEvent, useRef, useState } from 'react';
+import { FocusEvent, MouseEvent, useRef, useState } from 'react';
 import ArrowIcon from '@/public/icons/chevron-down.svg';
+import KebabIcon from '@/public/icons/kebab.svg';
 
 export interface OptionProps {
   key: string | boolean | undefined;
@@ -9,7 +10,7 @@ export interface OptionProps {
 }
 
 interface DropdownProps {
-  type: 'filter' | 'sort';
+  type: 'filter' | 'sort' | 'menu';
   options: OptionProps[];
   onSelect: (option: OptionProps) => void;
 }
@@ -23,7 +24,9 @@ const Dropdown = ({ type, options, onSelect }: DropdownProps) => {
     if (!dropdownRef.current?.contains(event.relatedTarget)) setIsOpen(false);
   };
 
-  const handleSelectClick = () => {
+  const handleSelectClick = (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
     setIsOpen((prev) => !prev);
   };
 
@@ -36,6 +39,7 @@ const Dropdown = ({ type, options, onSelect }: DropdownProps) => {
   const divStyle = {
     filter: 'relative w-[88px] lg:w-32',
     sort: 'relative w-24 lg:w-36',
+    menu: 'relative w-6 h-6 lg:w-9 lg:h-9',
   };
 
   const selectStyle = {
@@ -50,6 +54,7 @@ const Dropdown = ({ type, options, onSelect }: DropdownProps) => {
     sort:
       'flex items-center justify-end gap-[2px] lg:gap-1 w-full h-[30px] lg:h-[42px] ' +
       'py-[6px] text-xs lg:text-lg font-semibold text-black-300',
+    menu: 'hover:contrast-0 transition duration-200',
   };
 
   const arrowColor = {
@@ -64,6 +69,9 @@ const Dropdown = ({ type, options, onSelect }: DropdownProps) => {
     sort:
       'absolute top-[calc(100%+5px)] lg:top-[calc(100%+7px)] z-10 w-full ' +
       'border rounded-lg border-line-100 bg-background-100 shadow-md',
+    menu:
+      'absolute top-[calc(100%+2px)] lg:top-[calc(100%+4px)] right-0 z-10 w-20 lg:w-32 ' +
+      'border rounded-lg border-line-100 bg-background-100 shadow-md',
   };
 
   const optionStyle = {
@@ -71,6 +79,10 @@ const Dropdown = ({ type, options, onSelect }: DropdownProps) => {
       'w-full py-2 lg:py-3 bg-gray-50 hover:bg-orange-50 text-xs lg:text-2lg ' +
       'lg:font-medium text-black-100 hover:text-orange-300 transition duration-200',
     sort:
+      'w-full py-[5px] rounded-lg border-[3px] lg:border-[7px] border-gray-50 ' +
+      'bg-gray-50 hover:bg-orange-50 text-xs lg:text-lg font-medium hover:font-semibold ' +
+      'text-gray-400 hover:text-black-400 transition duration-200',
+    menu:
       'w-full py-[5px] rounded-lg border-[3px] lg:border-[7px] border-gray-50 ' +
       'bg-gray-50 hover:bg-orange-50 text-xs lg:text-lg font-medium hover:font-semibold ' +
       'text-gray-400 hover:text-black-400 transition duration-200',
@@ -87,14 +99,25 @@ const Dropdown = ({ type, options, onSelect }: DropdownProps) => {
         onClick={handleSelectClick}
         className={selectStyle[type]}
       >
-        {selectedOption.label}
-        <ArrowIcon
-          alt=""
-          width={16}
-          height={16}
-          color={arrowColor[type]}
-          className="lg:w-6 lg:h-6"
-        />
+        {type === 'menu' ? (
+          <KebabIcon
+            alt="메뉴 버튼"
+            width={24}
+            height={24}
+            className="lg:w-9 lg:h-9"
+          />
+        ) : (
+          <>
+            {selectedOption.label}
+            <ArrowIcon
+              alt=""
+              width={16}
+              height={16}
+              color={arrowColor[type]}
+              className="lg:w-6 lg:h-6"
+            />
+          </>
+        )}
       </button>
       {isOpen && (
         <ul className={ulStyle[type]}>
