@@ -25,9 +25,7 @@ export const getPosts = async (
   }
 };
 
-export const getPostDetail = async (
-  id: number,
-): Promise<GetPostDetailResponse> => {
+export const getPostDetail = async (id: number) => {
   try {
     const response = await instance.get<GetPostDetailResponse>(`/posts/${id}`);
     return response.data;
@@ -37,12 +35,20 @@ export const getPostDetail = async (
   }
 };
 
-export const getComments = async (
-  params: GetCommentsParameters,
-): Promise<GetCommentsResponse> => {
+export const getComments = async ({
+  talkId,
+  params,
+}: GetCommentsParameters) => {
   try {
+    const { page, pageSize } = params;
     const response = await instance.get<GetCommentsResponse>(
-      `/posts/${params.id}/comments`,
+      `/posts/${talkId}/comments`,
+      {
+        params: {
+          page,
+          pageSize,
+        },
+      },
     );
     return response.data;
   } catch (error) {
@@ -79,5 +85,16 @@ export const deleteTalk = async (id: number) => {
 };
 export const patchTalk = async (id: number, body: PostTalkBody) => {
   const response = await instance.patch<PostTalkResponse>(`/posts/${id}`, body);
+  return response.data;
+};
+export const deleteComment = async (id: number) => {
+  const response = await instance.delete(`/comments/${id}`);
+  return response.data;
+};
+export const patchComment = async (id: number, body: PostCommentBody) => {
+  const response = await instance.patch<PostCommentResponse>(
+    `/comments/${id}`,
+    body,
+  );
   return response.data;
 };

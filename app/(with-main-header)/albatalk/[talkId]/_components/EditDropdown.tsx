@@ -26,7 +26,7 @@ const EditDropdown = ({ onAction }: EditDropdownProps) => {
   return (
     <div className="relative">
       <button
-        className="px-4 py-2 bg-white rounded-md flex items-center justify-between gap-3 cursor-pointer"
+        className="bg-white rounded-md flex items-center justify-between gap-3 cursor-pointer"
         onClick={handleDropdownToggle}
       >
         <KebabIcon className="w-6 h-6 lg:w-9 lg:h-9" />

@@ -7,14 +7,15 @@ import Input from './_components/Input';
 import FileInput from './_components/FileInput';
 import Label from '@/components/Label';
 import Button from '@/components/Button';
-import { getPostDetail, patchTalk, postTalk } from '@/services/albatalk';
-import { GetPostDetailResponse, PostTalkBody } from '@/types/albatalk';
-import { useQuery } from '@tanstack/react-query';
+import { PostTalkBody } from '@/types/albatalk';
 import { useEffect } from 'react';
+import usePatchTalk from './_hooks/usePatchTalk';
+import useGetPostDetail from '../../albatalk/[talkId]/_hooks/useGetPostDetail';
 
 const EditTalk = () => {
   const { talkId: talkIdStr } = useParams();
   const talkId = Number(talkIdStr);
+  const { data: post } = useGetPostDetail(talkId);
   const router = useRouter();
   const {
     register,
@@ -23,41 +24,34 @@ const EditTalk = () => {
     formState: { errors },
   } = useForm<PostTalkBody>({ mode: 'onTouched' });
 
-  const {
-    data: post,
-    isLoading,
-    isError,
-  } = useQuery<GetPostDetailResponse>({
-    queryKey: ['talk', talkId],
-    queryFn: () => getPostDetail(talkId),
-  });
   useEffect(() => {
     if (post) {
       setValue('title', post.title);
       setValue('content', post.content);
       setValue('imageUrl', post.imageUrl);
     }
-  }, [post, setValue]);
+  }, [post]);
 
-  const onSubmit: SubmitHandler<PostTalkBody> = async (data, event) => {
-    event?.preventDefault();
-    try {
-      const response = await patchTalk(talkId, data);
-      router.push(`/albatalk/${response.id}`);
-    } catch (error) {
-      console.error('Error editing talk:', error);
-    }
+  const { mutate } = usePatchTalk();
+  const onSubmit: SubmitHandler<PostTalkBody> = (data) => {
+    mutate(
+      { talkId, data },
+      {
+        onSuccess: () => router.push(`/albatalk/${talkId}`),
+      },
+    );
   };
 
   const handleCancel = () => {
     router.push(`/albatalk/${talkId}`);
   };
+
   return (
     <div className="flex flex-col gap-9 mt-4 md:mt-6 lg:my-[40px]">
       <div className="flex flex-col gap-4">
         <div className="py-4 md:py-6 lg:py-10 border-b border-gray-400">
           <h1 className="text-black-400 text-2lg md:text-xl lg:text-2xl font-semibold">
-            글쓰기
+            수정하기
           </h1>
         </div>
         <form method="post" onSubmit={handleSubmit(onSubmit)}>
@@ -89,7 +83,7 @@ const EditTalk = () => {
             <FileInput setValue={setValue} imageUrl={post?.imageUrl} />
           </div>
 
-          <div className="flex flex-col mt-9 gap-2 md:mt-0 md:flex-row md:relative md:justify-end md:bottom-[702px] lg:bottom-[869px] ">
+          <div className="flex flex-col mt-9 gap-2 md:mt-0 md:flex-row md:relative md:justify-end md:bottom-[685px] lg:bottom-[862px] ">
             <Button
               design="outlined"
               content="취소"

@@ -41,11 +41,12 @@ export interface GetPostDetailResponse {
   isLiked: boolean;
 }
 export interface GetCommentsParameters {
-  id: number;
-  page: number;
-  pageSize: number;
+  talkId: number;
+  params: {
+    page: number;
+    pageSize: number;
+  };
 }
-
 export interface Comment {
   id: number;
   content: string;
@@ -90,3 +91,4 @@ export interface PostTalkResponse {
 }
 
 export type EditDropdownAction = 'edit' | 'delete';
+export type SortOrder = 'mostRecent' | 'mostLiked' | 'mostCommented';

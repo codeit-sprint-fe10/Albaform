@@ -1,5 +1,4 @@
 'use client';
-import KebabIcon from '@/public/icons/kebab.svg';
 import CommentIcon from '@/public/icons/comment.svg';
 import LikeIcon from '@/public/icons/like.svg';
 import Image from 'next/image';

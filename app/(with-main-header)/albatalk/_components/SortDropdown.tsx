@@ -1,11 +1,10 @@
 'use client';
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { SortOrder } from '@/types/albatalk';
 
 interface SortDropdownProps {
-  sortOrder: 'mostRecent' | 'mostLiked' | 'mostCommented';
-  setSortOrder: React.Dispatch<
-    React.SetStateAction<'mostRecent' | 'mostLiked' | 'mostCommented'>
-  >;
+  sortOrder: SortOrder;
+  setSortOrder: React.Dispatch<React.SetStateAction<SortOrder>>;
 }
 
 const SortDropdown = ({ sortOrder, setSortOrder }: SortDropdownProps) => {
@@ -21,9 +20,7 @@ const SortDropdown = ({ sortOrder, setSortOrder }: SortDropdownProps) => {
     setIsDropdownOpen((prevState) => !prevState);
   };
 
-  const handleSortOrderChange = (
-    selectedOrder: 'mostRecent' | 'mostLiked' | 'mostCommented',
-  ) => {
+  const handleSortOrderChange = (selectedOrder: SortOrder) => {
     setSortOrder(selectedOrder);
     setIsDropdownOpen(false);
   };

@@ -2,13 +2,17 @@
 import { useState } from 'react';
 import Button from '@/components/Button';
 import Form from 'next/form';
-import useCreateComment from '../_hooks/useCreateComment';
+import usePatchComment from '../_hooks/usePatchComment';
+
 type CommentFormProps = {
   id: number;
+  content: string;
+  onCancel?: () => void;
 };
-const CommentForm = ({ id }: CommentFormProps) => {
-  const [comment, setComment] = useState('');
-  const { mutate, isPending } = useCreateComment();
+
+const EditCommentForm = ({ id, content, onCancel }: CommentFormProps) => {
+  const [comment, setComment] = useState(content);
+  const { mutate, isPending } = usePatchComment();
   const handleSubmit = () => {
     if (!comment.trim()) {
       alert('댓글을 입력해주세요.');
@@ -17,7 +21,9 @@ const CommentForm = ({ id }: CommentFormProps) => {
     mutate(
       { id, content: comment },
       {
-        onSuccess: () => setComment(''),
+        onSuccess: () => {
+          onCancel?.();
+        },
       },
     );
   };
@@ -34,8 +40,15 @@ const CommentForm = ({ id }: CommentFormProps) => {
           ></textarea>
         </div>
         <div className="flex justify-end">
-          <div className="w-[108px] lg:w-[214px]">
+          <div className="flex gap-4 w-[214px]">
             <Button type="submit" content={'등록하기'} disabled={isPending} />
+            <Button
+              type="button"
+              design="outlined"
+              content={'취소하기'}
+              disabled={isPending}
+              onClick={onCancel}
+            />
           </div>
         </div>
       </div>
@@ -43,4 +56,4 @@ const CommentForm = ({ id }: CommentFormProps) => {
   );
 };
 
-export default CommentForm;
+export default EditCommentForm;
