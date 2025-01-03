@@ -70,7 +70,7 @@ const AlbaCard = ({ alba }: AlbaCardProps) => {
           }
         />
       )}
-      <div className="flex items-center justify-between px-1">
+      <div className="flex items-center justify-between px-2 lg:px-3">
         <div className="flex items-center gap-2 lg:gap-3">
           <Badge value={publicBadgeValue} />
           <Badge value={recruitBadgeValue} />
@@ -82,7 +82,7 @@ const AlbaCard = ({ alba }: AlbaCardProps) => {
       </div>
       <h3
         className={
-          'h-[52px] lg:h-16 px-1 line-clamp-2 text-2lg lg:text-xl ' +
+          'h-[52px] lg:h-16 px-2 lg:px-3 line-clamp-2 text-2lg lg:text-xl ' +
           'font-semibold text-black-500 group-hover:underline'
         }
       >
