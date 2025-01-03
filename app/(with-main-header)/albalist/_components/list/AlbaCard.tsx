@@ -49,10 +49,10 @@ const AlbaCard = ({ alba }: AlbaCardProps) => {
         'rounded-xl lg:rounded-2xl hover:shadow-lg transition duration-200'
       }
     >
-      {alba.imageUrls && alba.imageUrls[0] ? (
+      {alba.imageUrls[0] ? (
         <Image
           src={alba.imageUrls[0]}
-          alt={`알바폼이미지-${alba.title}`}
+          alt={`알바폼 이미지 - ${alba.title}`}
           width={469}
           height={312}
           quality={100}
@@ -61,7 +61,7 @@ const AlbaCard = ({ alba }: AlbaCardProps) => {
       ) : (
         <Image
           src="/icons/empty-form.svg"
-          alt="대체이미지"
+          alt="대체 이미지"
           width={469}
           height={312}
           className={
