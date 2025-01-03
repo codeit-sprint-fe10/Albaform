@@ -25,9 +25,7 @@ export const getPosts = async (
   }
 };
 
-export const getPostDetail = async (
-  id: number,
-): Promise<GetPostDetailResponse> => {
+export const getPostDetail = async (id: number) => {
   try {
     const response = await instance.get<GetPostDetailResponse>(`/posts/${id}`);
     return response.data;
@@ -40,7 +38,7 @@ export const getPostDetail = async (
 export const getComments = async ({
   talkId,
   params,
-}: GetCommentsParameters): Promise<GetCommentsResponse> => {
+}: GetCommentsParameters) => {
   try {
     const { page, pageSize } = params;
     const response = await instance.get<GetCommentsResponse>(

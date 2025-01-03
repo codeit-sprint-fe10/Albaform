@@ -83,7 +83,7 @@ const EditTalk = () => {
             <FileInput setValue={setValue} imageUrl={post?.imageUrl} />
           </div>
 
-          <div className="flex flex-col mt-9 gap-2 md:mt-0 md:flex-row md:relative md:justify-end md:bottom-[702px] lg:bottom-[869px] ">
+          <div className="flex flex-col mt-9 gap-2 md:mt-0 md:flex-row md:relative md:justify-end md:bottom-[685px] lg:bottom-[862px] ">
             <Button
               design="outlined"
               content="취소"

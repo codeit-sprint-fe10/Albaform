@@ -21,7 +21,9 @@ const EditCommentForm = ({ id, content, onCancel }: CommentFormProps) => {
     mutate(
       { id, content: comment },
       {
-        onSuccess: () => setComment(''),
+        onSuccess: () => {
+          onCancel?.();
+        },
       },
     );
   };

@@ -2,23 +2,23 @@ import { useState } from 'react';
 import { useQuery, keepPreviousData } from '@tanstack/react-query';
 import { getPosts } from '@/services/albatalk';
 import { GetPostsResponse } from '@/types/albatalk';
+import { SortOrder } from '@/types/albatalk';
 
 interface UseGetPostsParams {
   pageLimit: number;
   searchTerm: string;
-  sortOrder: 'mostRecent' | 'mostLiked' | 'mostCommented';
-  currentCursor: number;
+  sortOrder: SortOrder;
 }
 
 const useGetPosts = ({
   pageLimit,
   searchTerm,
   sortOrder,
-  currentCursor,
 }: UseGetPostsParams) => {
   const [cursorHistory, setCursorHistory] = useState([0]);
 
-  currentCursor = cursorHistory.at(-1) ?? 0;
+  const currentCursor = cursorHistory.at(-1) ?? 0;
+
   const { data, isLoading, error } = useQuery<GetPostsResponse>({
     queryKey: ['posts', { pageLimit, searchTerm, sortOrder, currentCursor }],
     queryFn: () =>

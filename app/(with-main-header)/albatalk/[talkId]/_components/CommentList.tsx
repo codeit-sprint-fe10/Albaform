@@ -16,13 +16,14 @@ type CommentListProps = {
   onUpdateTotalItemCount: (count: number) => void;
 };
 
+const PAGE_LIMIT = 5;
+
 const CommentList = ({ talkId, onUpdateTotalItemCount }: CommentListProps) => {
   const user = useUserStore((state) => state.user);
   const [editingCommentId, setEditingCommentId] = useState<number | null>(null);
   const [initialComment, setInitialComment] = useState('');
   const { mutate: deleteComment } = useDeleteComment();
 
-  const PAGE_LIMIT = 5;
   const {
     data,
     fetchNextPage,

@@ -5,13 +5,12 @@ import Pagination from './_components/Pagination';
 import SearchBar from './_components/SearchBar';
 import WriteButton from './_components/WriteButton';
 import useGetPosts from './_hooks/useGetPosts';
+import { SortOrder } from '@/types/albatalk';
 
 const Albatalk = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [cursorHistory, setCursorHistory] = useState([0]);
-  const [sortOrder, setSortOrder] = useState<
-    'mostRecent' | 'mostLiked' | 'mostCommented'
-  >('mostRecent');
+  const [sortOrder, setSortOrder] = useState<SortOrder>('mostRecent');
   const [pageLimit, setPageLimit] = useState(6);
 
   useEffect(() => {
@@ -43,7 +42,6 @@ const Albatalk = () => {
     pageLimit,
     searchTerm,
     sortOrder,
-    currentCursor: 0,
   });
 
   //TODO: 게시물 로딩중일때 UI 추가 필요

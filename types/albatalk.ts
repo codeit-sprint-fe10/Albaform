@@ -91,3 +91,4 @@ export interface PostTalkResponse {
 }
 
 export type EditDropdownAction = 'edit' | 'delete';
+export type SortOrder = 'mostRecent' | 'mostLiked' | 'mostCommented';

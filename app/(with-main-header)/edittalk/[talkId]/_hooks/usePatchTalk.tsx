@@ -9,8 +9,8 @@ const usePatchTalk = () => {
     mutationFn: ({ talkId, data }: { talkId: number; data: PostTalkBody }) => {
       return patchTalk(talkId, data);
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['talk'] });
+    onSuccess: (talkId) => {
+      queryClient.invalidateQueries({ queryKey: ['talk', talkId] });
     },
     onError: (error) => {
       console.error('Error editing talk:', error);

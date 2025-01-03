@@ -21,7 +21,7 @@ const CommentItem = ({ comment, userId, onAction }: CommentItemProps) => {
               <div className="relative w-4 h-4 lg:w-6 lg:h-6">
                 <Image
                   src={comment.writer.imageUrl || '/icons/profile.svg'}
-                  alt="user profile"
+                  alt={`${comment.writer.nickname}'s profile`}
                   fill
                   className="border border-none rounded-3xl"
                 />
