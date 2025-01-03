@@ -5,8 +5,8 @@ import { PropsWithChildren, useEffect, useRef } from 'react';
 type directionType = 'top' | 'bottom' | 'right' | 'left';
 
 interface AnimatedItemProps {
-  delay: number;
-  direction: directionType;
+  delay?: number;
+  direction?: directionType;
   className?: string;
 }
 
