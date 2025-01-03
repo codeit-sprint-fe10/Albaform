@@ -73,7 +73,7 @@ const AnimatedItem = ({
   return (
     <div
       ref={itemRef}
-      className={`animate-item opacity-0 ${getTranslateClass(direction)} transition-all duration-500 ${className}`}
+      className={`opacity-0 ${getTranslateClass(direction)} transition-all duration-500 ${className}`}
       data-delay={delay}
       data-direction={direction}
     >
