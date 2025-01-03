@@ -2,15 +2,15 @@
 
 import { PropsWithChildren, useEffect, useRef } from 'react';
 
-type directionType = 'top' | 'bottom' | 'right' | 'left';
+type DirectionType = 'top' | 'bottom' | 'right' | 'left';
 
 interface AnimatedItemProps {
   delay?: number;
-  direction?: directionType;
+  direction?: DirectionType;
   className?: string;
 }
 
-const getTranslateClass = (direction: directionType) => {
+const getTranslateClass = (direction: DirectionType) => {
   if (direction === 'left') {
     return '-translate-x-1/2';
   }
