@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { AlbaDataProps } from '@/types/alba';
+import { AlbaCardType } from '@/types/alba';
 import { isWithinInterval } from '@/utils/date';
 import { calculateDDay } from '@/utils/dDayCalculator';
 import { formatDateWithSpace } from '@/utils/dateFormatter';
@@ -9,7 +9,7 @@ import Badge from '@/components/Badge';
 import MenuDropdown from '../filter/MenuDropdown';
 
 interface AlbaCardProps {
-  alba: AlbaDataProps;
+  alba: AlbaCardType;
 }
 
 const AlbaCard = ({ alba }: AlbaCardProps) => {

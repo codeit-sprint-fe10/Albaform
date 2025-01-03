@@ -12,7 +12,7 @@ const PrivateAlbaCard = () => {
       >
         <Image
           src="/icons/private.svg"
-          alt="비공개알바폼"
+          alt="비공개 알바폼"
           width={80}
           height={80}
           className="lg:w-[120px] lg:h-[120px]"
@@ -21,7 +21,7 @@ const PrivateAlbaCard = () => {
           비공개 처리된 알바폼이에요
         </span>
       </div>
-      <AlbaCardSkeleton />
+      <AlbaCardSkeleton isPulse={false} />
     </div>
   );
 };

@@ -109,7 +109,7 @@ export const ALBA_ORDERBY_OPTIONS = [
 ];
 
 export const MENU_APPLICANT_OPTIONS = [
-  { key: 'application', label: '지원하기' },
+  { key: 'apply', label: '지원하기' },
   { key: 'scrap', label: '스크랩하기' },
 ];
 

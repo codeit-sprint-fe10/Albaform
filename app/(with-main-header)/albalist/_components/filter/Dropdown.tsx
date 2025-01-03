@@ -4,15 +4,15 @@ import { FocusEvent, MouseEvent, useRef, useState } from 'react';
 import ArrowIcon from '@/public/icons/chevron-down.svg';
 import KebabIcon from '@/public/icons/kebab.svg';
 
-export interface OptionProps {
+export interface Option {
   key: string | boolean | undefined;
   label: string;
 }
 
 interface DropdownProps {
   type: 'filter' | 'sort' | 'menu';
-  options: OptionProps[];
-  onSelect: (option: OptionProps) => void;
+  options: Option[];
+  onSelect: (option: Option) => void;
 }
 
 const Dropdown = ({ type, options, onSelect }: DropdownProps) => {
@@ -20,17 +20,19 @@ const Dropdown = ({ type, options, onSelect }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
+  const handleDropdownClick = (event: MouseEvent<HTMLDivElement>) => {
+    event.preventDefault();
+  };
+
   const handleDropdownBlur = (event: FocusEvent<HTMLDivElement>) => {
     if (!dropdownRef.current?.contains(event.relatedTarget)) setIsOpen(false);
   };
 
-  const handleSelectClick = (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    event.stopPropagation();
+  const handleSelectClick = () => {
     setIsOpen((prev) => !prev);
   };
 
-  const handleOptionClick = (option: OptionProps) => {
+  const handleOptionClick = (option: Option) => {
     setSelectedOption(option);
     onSelect(option);
     setIsOpen(false);
@@ -91,6 +93,7 @@ const Dropdown = ({ type, options, onSelect }: DropdownProps) => {
   return (
     <div
       ref={dropdownRef}
+      onClick={handleDropdownClick}
       onBlur={handleDropdownBlur}
       className={divStyle[type]}
     >

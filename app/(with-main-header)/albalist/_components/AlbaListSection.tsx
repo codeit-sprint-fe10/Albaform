@@ -4,8 +4,7 @@ import { useEffect } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useInView } from 'react-intersection-observer';
 import { getAlbas } from '@/services/alba';
-import { GetAlbasResponse } from '@/types/alba';
-import { FilterProps } from '../page';
+import { AlbasFilterType, GetAlbasResponse } from '@/types/alba';
 import AlbaCard from './list/AlbaCard';
 import AlbaListEmpty from './list/AlbaListEmpty';
 import AlbaCardSkeleton from './list/AlbaCardSkeleton';
@@ -22,7 +21,7 @@ const AlbaCardSkeletons = () =>
     ));
 
 interface AlbaListSectionProps {
-  filter: FilterProps;
+  filter: AlbasFilterType;
   isPublic: boolean | undefined;
 }
 

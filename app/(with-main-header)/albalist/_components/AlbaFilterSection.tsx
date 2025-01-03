@@ -1,7 +1,6 @@
 import { Dispatch, FormEvent, SetStateAction } from 'react';
-import { FilterProps } from '../page';
-import { AlbasOrderBy } from '@/types/alba';
-import Dropdown, { OptionProps } from './filter/Dropdown';
+import { AlbasFilterType, AlbasOrderBy } from '@/types/alba';
+import Dropdown, { Option } from './filter/Dropdown';
 import SearchInput from './filter/SearchInput';
 import {
   ALBA_ORDERBY_OPTIONS,
@@ -10,7 +9,7 @@ import {
 } from '@/constants/dropdown';
 
 interface AlbaFilterSectionProps {
-  setFilter: Dispatch<SetStateAction<FilterProps>>;
+  setFilter: Dispatch<SetStateAction<AlbasFilterType>>;
   setIsPublic: Dispatch<SetStateAction<boolean | undefined>>;
 }
 
@@ -27,18 +26,18 @@ const AlbaFilterSection = ({
     setFilter((prev) => ({ ...prev, keyword }));
   };
 
-  const handleIsPublicSelect = (option: OptionProps) => {
+  const handleIsPublicSelect = (option: Option) => {
     setIsPublic(option.key as boolean | undefined);
   };
 
-  const handleIsRecruitingSelect = (option: OptionProps) => {
+  const handleIsRecruitingSelect = (option: Option) => {
     setFilter((prev) => ({
       ...prev,
       isRecruiting: option.key as boolean | undefined,
     }));
   };
 
-  const handleOrderBySelect = (option: OptionProps) => {
+  const handleOrderBySelect = (option: Option) => {
     setFilter((prev) => ({
       ...prev,
       orderBy: option.key as AlbasOrderBy,

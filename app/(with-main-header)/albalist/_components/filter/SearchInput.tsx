@@ -14,7 +14,8 @@ const SearchInput = ({ onUpdate }: SearchInputProps) => {
     setValue(e.target.value.slice(0, 20));
   };
 
-  const handleInputKeyUp = (e: KeyboardEvent<HTMLInputElement>) => {
+  const handleInputKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.nativeEvent.isComposing) return;
     if (e.key === 'Enter') onUpdate(value);
   };
 
@@ -26,7 +27,7 @@ const SearchInput = ({ onUpdate }: SearchInputProps) => {
     <div className="relative">
       <input
         onChange={handleInputChange}
-        onKeyUp={handleInputKeyUp}
+        onKeyDown={handleInputKeyDown}
         value={value}
         placeholder="어떤 알바를 찾고 있나요?"
         className={

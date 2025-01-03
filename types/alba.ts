@@ -12,22 +12,28 @@ export interface GetAlbasParameters {
   isRecruiting?: boolean;
 }
 
-export interface AlbaDataProps {
-  id: number;
-  title: string;
-  recruitmentStartDate: string;
-  recruitmentEndDate: string;
-  imageUrls: string[] | null;
-  applyCount: number;
-  scrapCount: number;
-  isPublic: boolean;
-  createdAt: string;
-  updatedAt: string;
-}
+export type AlbasFilterType = Pick<
+  GetAlbasParameters,
+  'orderBy' | 'keyword' | 'isRecruiting'
+>;
+
+export type AlbaCardType = Pick<
+  Alba,
+  | 'id'
+  | 'title'
+  | 'recruitmentStartDate'
+  | 'recruitmentEndDate'
+  | 'imageUrls'
+  | 'applyCount'
+  | 'scrapCount'
+  | 'isPublic'
+  | 'createdAt'
+  | 'updatedAt'
+>;
 
 export interface GetAlbasResponse {
   nextCursor: number | null;
-  data: AlbaDataProps[];
+  data: AlbaCardType[];
 }
 
 export interface PostAlbaBody {

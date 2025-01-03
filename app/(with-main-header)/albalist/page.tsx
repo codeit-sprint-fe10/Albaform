@@ -2,18 +2,13 @@
 
 import { useState } from 'react';
 import { useUserStore } from '@/store/user';
-import { GetAlbasParameters } from '@/types/alba';
+import { AlbasFilterType } from '@/types/alba';
 import { UserRole } from '@/types/user';
 import AlbaFilterSection from './_components/AlbaFilterSection';
 import AlbaListSection from './_components/AlbaListSection';
 import WriteFAB from './_components/WriteFAB';
 
-export type FilterProps = Pick<
-  GetAlbasParameters,
-  'orderBy' | 'keyword' | 'isRecruiting'
->;
-
-const initialFilter: FilterProps = {
+const initialFilter: AlbasFilterType = {
   orderBy: 'mostRecent',
   keyword: undefined,
   isRecruiting: undefined,
@@ -21,7 +16,7 @@ const initialFilter: FilterProps = {
 
 const AlbaListPage = () => {
   const user = useUserStore((state) => state.user);
-  const [filter, setFilter] = useState<FilterProps>(initialFilter);
+  const [filter, setFilter] = useState<AlbasFilterType>(initialFilter);
   const [isPublic, setIsPublic] = useState<boolean>();
 
   return (

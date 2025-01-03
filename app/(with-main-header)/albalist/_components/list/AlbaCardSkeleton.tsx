@@ -1,6 +1,15 @@
-const AlbaCardSkeleton = () => {
+interface AlbaCardSkeletonProps {
+  isPulse?: boolean;
+}
+
+const AlbaCardSkeleton = ({ isPulse = true }: AlbaCardSkeletonProps) => {
+  const pulseStyle = isPulse ? 'animate-pulse' : '';
   return (
-    <div className="animate-pulse flex flex-col gap-3 lg:gap-6 rounded-xl lg:rounded-2xl">
+    <div
+      className={
+        'flex flex-col gap-3 lg:gap-6 rounded-xl lg:rounded-2xl ' + pulseStyle
+      }
+    >
       <div className="w-full aspect-[3/2] rounded-xl lg:rounded-2xl bg-gray-100 " />
       <div className="flex items-center gap-2 lg:gap-3 h-8 lg:h-[38px] px-1">
         <div className="w-9 h-full rounded bg-gray-100" />
