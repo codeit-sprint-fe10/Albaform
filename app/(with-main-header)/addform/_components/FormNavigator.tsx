@@ -8,8 +8,8 @@ import FormDropdown from './FormDropdown';
 import StepContent from './StepContent';
 import Button from '@/components/Button';
 import { useTemporarySave } from '@/hooks/useTemporarySave';
-import { PostFormBody } from '@/types/form';
-import { postForm } from '@/services/form';
+import { PostAlbaBody } from '@/types/alba';
+import { postAlba } from '@/services/alba';
 import { STEP_1_FIELDS, STEP_2_FIELDS, STEP_3_FIELDS } from '@/constants/form';
 
 const FormNavigator = () => {
@@ -20,7 +20,7 @@ const FormNavigator = () => {
     tab2: false,
     tab3: false,
   });
-  const methods = useForm<PostFormBody>({
+  const methods = useForm<PostAlbaBody>({
     defaultValues: {
       imageUrls: [],
       workDays: [],
@@ -40,7 +40,7 @@ const FormNavigator = () => {
   );
 
   const mutation = useMutation({
-    mutationFn: postForm,
+    mutationFn: postAlba,
     onSuccess: () => {
       //TODO
     },
@@ -54,7 +54,7 @@ const FormNavigator = () => {
     saveData(currentValues);
   };
 
-  const handleSubmit = (data: PostFormBody) => {
+  const handleSubmit = (data: PostAlbaBody) => {
     clearData();
     mutation.mutate(data);
   };

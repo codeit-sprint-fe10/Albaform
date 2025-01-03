@@ -10,10 +10,10 @@ import {
   NUMBER_OF_POSITION_OPTIONS,
   PREFERRED_OPTIONS,
 } from '@/constants/dropdown';
-import { PostFormBody } from '@/types/form';
+import { PostAlbaBody } from '@/types/alba';
 
 const RecruitmentRequirements = ({ isVisible }: { isVisible: boolean }) => {
-  const { getValues, control } = useFormContext<PostFormBody>();
+  const { getValues, control } = useFormContext<PostAlbaBody>();
 
   return (
     <fieldset

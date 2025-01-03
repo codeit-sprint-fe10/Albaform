@@ -7,12 +7,12 @@ import LocationInput from './input/LocationInput';
 import Input from './input/Input';
 import DropdownInput from './input/DropdownInput';
 import { TIME_OPTIONS } from '@/constants/dropdown';
-import { PostFormBody } from '@/types/form';
+import { PostAlbaBody } from '@/types/alba';
 import ClockIcon from '@/public/icons/clock.svg';
 
 const WorkingConditions = ({ isVisible }: { isVisible: boolean }) => {
   const { register, setValue, getValues, control } =
-    useFormContext<PostFormBody>();
+    useFormContext<PostAlbaBody>();
 
   return (
     <fieldset

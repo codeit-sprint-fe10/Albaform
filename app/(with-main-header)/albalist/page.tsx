@@ -2,14 +2,14 @@
 
 import { useState } from 'react';
 import { useUserStore } from '@/store/user';
-import { GetFormsParameters } from '@/types/form';
+import { GetAlbasParameters } from '@/types/alba';
 import { UserRole } from '@/types/user';
 import AlbaFilterSection from './_components/AlbaFilterSection';
 import AlbaListSection from './_components/AlbaListSection';
 import WriteFAB from './_components/WriteFAB';
 
 export type FilterProps = Pick<
-  GetFormsParameters,
+  GetAlbasParameters,
   'orderBy' | 'keyword' | 'isRecruiting'
 >;
 

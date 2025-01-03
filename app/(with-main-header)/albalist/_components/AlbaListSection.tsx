@@ -3,8 +3,8 @@
 import { useEffect } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useInView } from 'react-intersection-observer';
-import { getForms } from '@/services/form';
-import { GetFormsResponse } from '@/types/form';
+import { getAlbas } from '@/services/alba';
+import { GetAlbasResponse } from '@/types/alba';
 import { FilterProps } from '../page';
 import AlbaCard from './list/AlbaCard';
 import AlbaListEmpty from './list/AlbaListEmpty';
@@ -29,10 +29,10 @@ interface AlbaListSectionProps {
 const AlbaListSection = ({ filter, isPublic }: AlbaListSectionProps) => {
   const { ref, inView } = useInView({ threshold: 0 });
   const { data, fetchNextPage, isLoading, isFetchingNextPage, hasNextPage } =
-    useInfiniteQuery<GetFormsResponse>({
+    useInfiniteQuery<GetAlbasResponse>({
       queryKey: ['forms', filter],
       queryFn: ({ pageParam }) =>
-        getForms({ limit: LIMIT, cursor: pageParam as number, ...filter }),
+        getAlbas({ limit: LIMIT, cursor: pageParam as number, ...filter }),
       initialPageParam: 0,
       getNextPageParam: (lastPage) => lastPage.nextCursor,
     });
@@ -41,10 +41,10 @@ const AlbaListSection = ({ filter, isPublic }: AlbaListSectionProps) => {
     if (inView && !isFetchingNextPage && hasNextPage) fetchNextPage();
   }, [inView, isFetchingNextPage, hasNextPage, fetchNextPage]);
 
-  let forms = data?.pages.flatMap((page) => page.data);
+  let albas = data?.pages.flatMap((page) => page.data);
 
   if (isPublic !== undefined) {
-    forms = forms?.filter((form) => form.isPublic === isPublic);
+    albas = albas?.filter((alba) => alba.isPublic === isPublic);
   }
 
   return (
@@ -57,12 +57,12 @@ const AlbaListSection = ({ filter, isPublic }: AlbaListSectionProps) => {
       >
         {isLoading ? (
           <AlbaCardSkeletons />
-        ) : forms?.length === 0 ? (
+        ) : albas?.length === 0 ? (
           <AlbaListEmpty />
         ) : (
-          forms?.map((form) => (
-            <li key={form.id} className="w-[min(100%,360px)] lg:w-[469px]">
-              <AlbaCard form={form} />
+          albas?.map((alba) => (
+            <li key={alba.id} className="w-[min(100%,360px)] lg:w-[469px]">
+              <AlbaCard alba={alba} />
             </li>
           ))
         )}

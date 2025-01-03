@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { FormDataProps } from '@/types/form';
+import { AlbaDataProps } from '@/types/alba';
 import { isWithinInterval } from '@/utils/date';
 import { calculateDDay } from '@/utils/dDayCalculator';
 import { formatDateWithSpace } from '@/utils/dateFormatter';
@@ -9,29 +9,29 @@ import Badge from '@/components/Badge';
 import MenuDropdown from '../filter/MenuDropdown';
 
 interface AlbaCardProps {
-  form: FormDataProps;
+  alba: AlbaDataProps;
 }
 
-const AlbaCard = ({ form }: AlbaCardProps) => {
-  if (!form.isPublic) return <PrivateAlbaCard />;
+const AlbaCard = ({ alba }: AlbaCardProps) => {
+  if (!alba.isPublic) return <PrivateAlbaCard />;
 
-  const publicBadgeValue = form.isPublic ? '공개' : '비공개';
+  const publicBadgeValue = alba.isPublic ? '공개' : '비공개';
 
   const recruitBadgeValue = isWithinInterval(new Date(), {
-    start: new Date(form.recruitmentStartDate),
-    end: new Date(form.recruitmentEndDate),
+    start: new Date(alba.recruitmentStartDate),
+    end: new Date(alba.recruitmentEndDate),
   })
     ? '모집 중'
     : '모집 마감';
 
   const recruitPeriod =
-    formatDateWithSpace(form.recruitmentStartDate).concat(' ~ ') +
-    formatDateWithSpace(form.recruitmentEndDate);
+    formatDateWithSpace(alba.recruitmentStartDate).concat(' ~ ') +
+    formatDateWithSpace(alba.recruitmentEndDate);
 
   const recruitDDay =
-    calculateDDay(form.recruitmentEndDate) < 0
+    calculateDDay(alba.recruitmentEndDate) < 0
       ? '모집 마감'
-      : `마감 D-${calculateDDay(form.recruitmentEndDate)}`;
+      : `마감 D-${calculateDDay(alba.recruitmentEndDate)}`;
 
   const leftBarStyle =
     'before:absolute before:left-[0px] before:inset-y-0 ' +
@@ -43,16 +43,16 @@ const AlbaCard = ({ form }: AlbaCardProps) => {
 
   return (
     <Link
-      href={`/alba/${form.id}`}
+      href={`/alba/${alba.id}`}
       className={
         'group flex flex-col gap-3 lg:gap-6 ' +
         'rounded-xl lg:rounded-2xl hover:shadow-lg transition duration-200'
       }
     >
-      {form.imageUrls && form.imageUrls[0] ? (
+      {alba.imageUrls && alba.imageUrls[0] ? (
         <Image
-          src={form.imageUrls[0]}
-          alt={`알바폼이미지-${form.title}`}
+          src={alba.imageUrls[0]}
+          alt={`알바폼이미지-${alba.title}`}
           width={469}
           height={312}
           quality={100}
@@ -78,7 +78,7 @@ const AlbaCard = ({ form }: AlbaCardProps) => {
             {recruitPeriod}
           </span>
         </div>
-        <MenuDropdown formId={form.id} />
+        <MenuDropdown albaId={alba.id} />
       </div>
       <h3
         className={
@@ -86,7 +86,7 @@ const AlbaCard = ({ form }: AlbaCardProps) => {
           'font-semibold text-black-500 group-hover:underline'
         }
       >
-        {form.title}
+        {alba.title}
       </h3>
       <div
         className={
@@ -94,9 +94,9 @@ const AlbaCard = ({ form }: AlbaCardProps) => {
           'border-line-200 text-center text-xs lg:text-lg text-black-200'
         }
       >
-        <div>지원자 {form.applyCount}명</div>
+        <div>지원자 {alba.applyCount}명</div>
         <div className={`relative ${leftBarStyle} ${rightBarStyle}`}>
-          스크랩 {form.scrapCount}명
+          스크랩 {alba.scrapCount}명
         </div>
         <div>{recruitDDay}</div>
       </div>

@@ -17,7 +17,7 @@ const OwnerSection = ({ formId }: OwnerSectionProps) => {
 
   return (
     <>
-      <section className="relative mt-10 before:content-[''] before:absolute before:-mx-4 before:w-screen before:-ml-[calc((100vw-100%)/2)] before:h-2 before:bg-line-100">
+      <section className="relative mt-10 before:content-[''] before:absolute before:left-1/2 before:-translate-x-1/2 before:w-screen before:h-2 before:bg-line-100">
         <Applications formId={formId} />
       </section>
       <section className="py-4">

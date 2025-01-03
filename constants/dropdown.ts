@@ -101,7 +101,7 @@ export const RECRUIT_OPTIONS = [
   { key: false, label: '모집 마감' },
 ];
 
-export const FORM_ORDERBY_OPTIONS = [
+export const ALBA_ORDERBY_OPTIONS = [
   { key: 'mostRecent', label: '최신순' },
   { key: 'highestWage', label: '시급 높은순' },
   { key: 'mostApplied', label: '지원자 많은순' },

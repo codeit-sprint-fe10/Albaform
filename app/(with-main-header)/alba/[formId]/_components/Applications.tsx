@@ -9,6 +9,7 @@ import useGetApplications from '@/app/(with-main-header)/alba/[formId]/_hooks/us
 import InfiniteScroll from '@/components/InfiniteScroll';
 import useToggleOrderBy from '@/app/(with-main-header)/alba/[formId]/_hooks/useToggleOrderBy';
 import Image from 'next/image';
+import Link from 'next/link';
 
 type ApplicationsProps = {
   formId: number;
@@ -34,7 +35,7 @@ const Applications = ({ formId }: ApplicationsProps) => {
     useGetApplications({ formId, searchParams });
 
   return (
-    <div className="py-10 w-full">
+    <div className="py-14 lg:py-28 w-full">
       <h3 className="text-black-500 font-2lg font-semibold lg:text-3xl">
         지원 현황
       </h3>
@@ -86,7 +87,11 @@ const Applications = ({ formId }: ApplicationsProps) => {
                   key={application.applicantId}
                   className="grid grid-cols-4 gap-4 border-b border-line-100 py-6"
                 >
-                  <div>{application.name}</div>
+                  <div>
+                    <Link href={`/applications/${formId}/${application.id}`}>
+                      {application.name}
+                    </Link>
+                  </div>
                   <div>{application.phoneNumber}</div>
                   <div>{application.experienceMonths}</div>
                   <div>{applicationStatus[application.status]}</div>

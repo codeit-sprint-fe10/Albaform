@@ -7,14 +7,14 @@ import {
 } from '@/constants/dropdown';
 import Dropdown, { OptionProps } from './Dropdown';
 
-const MenuDropdown = ({ formId }: { formId: number }) => {
+const MenuDropdown = ({ albaId }: { albaId: number }) => {
   const user = useUserStore((state) => state.user);
   const { push } = useRouter();
 
   const handleDropdownSelect = (option: OptionProps) => {
     switch (option.key) {
       case 'apply':
-        push(`/apply/${formId}`);
+        push(`/apply/${albaId}`);
         break;
       case 'scrap':
         // open ScrapModal
