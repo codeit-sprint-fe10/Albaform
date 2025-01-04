@@ -13,6 +13,7 @@ const tailwindConfig = {
       xl: '1600px',
     },
     fontSize: {
+      '4xl': ['56px', '80px'],
       '3xl': ['32px', '42px'],
       '2xl': ['24px', '32px'],
       xl: ['20px', '32px'],
@@ -60,6 +61,10 @@ const tailwindConfig = {
         400: '#E18C05',
       },
       blue: {
+        50: '#DCE6FF',
+        60: '#8C9ECC',
+        70: '#4672E1',
+        80: '#3A5497',
         100: '#535779',
         200: '#3E415B',
         300: '#2A2C3D',
