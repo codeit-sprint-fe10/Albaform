@@ -18,7 +18,7 @@ const LandingPage = () => {
 
   return (
     <>
-      <div className=" fixed top-0 w-full border-b border-solid border-line-100 bg-gray-50 z-50">
+      <div className="fixed top-0 w-full border-b border-solid border-line-100 bg-gray-50 z-50">
         <div className="px-6 md:px-[72px] lg:max-w-container m-auto">
           <MainHeader />
         </div>
