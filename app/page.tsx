@@ -13,9 +13,12 @@ import card0401Image from '@/public/images/landing-card-0401.png';
 import card0402Image from '@/public/images/landing-card-0402.png';
 
 const LandingPage = () => {
+  const cardStyle =
+    'flex flex-col md:flex-row justify-between w-full max-w-[1140px] h-[60dvh] max-h-[344px] md:max-h-80 lg:max-h-[640px] rounded-2xl pt-6 pl-6 md:pt-9 md:pl-9 lg:pl-[70px] lg:pt-[73px]';
+
   return (
     <>
-      <div className="fixed top-0 w-full border-b border-solid border-line-100 bg-gray-50 z-50">
+      <div className=" fixed top-0 w-full border-b border-solid border-line-100 bg-gray-50 z-50">
         <div className="px-6 md:px-[72px] lg:max-w-container m-auto">
           <MainHeader />
         </div>
@@ -72,7 +75,7 @@ const LandingPage = () => {
         </section>
         <section className="max-w-[1140px] px-6 md:px-[87px] lg:px-0 mx-auto">
           <div className="flex justify-center items-center h-dvh">
-            <div className="flex flex-col md:flex-row justify-between w-full max-w-[1140px] h-[60dvh] bg-blue-50 rounded-2xl pt-6 pl-6 md:pt-9 md:pl-9 lg:pl-[70px] lg:pt-[73px]">
+            <div className={`${cardStyle} bg-blue-50`}>
               <div>
                 <AnimatedItem delay={200} direction="left">
                   <h3 className="font-bold text-xl md:text-2xl lg:text-[48px] lg:leading-[58px] text-blue-80 mb-2 md:mb-5 lg:mb-10 whitespace-nowrap">
@@ -88,7 +91,7 @@ const LandingPage = () => {
                 </AnimatedItem>
               </div>
               <div className="relative flex justify-end md:justify-normal md:items-end pr-2">
-                <div className="absolute right-52 md:bottom-20 md:right-full z-10">
+                <div className="absolute bottom-5 right-52 md:bottom-24 md:right-full lg:bottom-36 z-10">
                   <AnimatedItem delay={300} direction="top">
                     <div className="relative w-[73px] h-[120px] md:w-[91px] md:h-[150px] lg:w-[182px] lg:h-[299px]">
                       <Image
@@ -101,7 +104,7 @@ const LandingPage = () => {
                   </AnimatedItem>
                 </div>
                 <AnimatedItem delay={100} direction="right">
-                  <div className="relative w-[203px] h-[223px] lg:w-[404px] lg:h-[446px] ">
+                  <div className="relative w-[203px] h-[223px] lg:w-[372px] lg:h-[416px] ">
                     <Image
                       src={card0101Image}
                       fill
@@ -114,7 +117,7 @@ const LandingPage = () => {
             </div>
           </div>
           <div className="flex justify-center items-center h-dvh">
-            <div className="flex flex-col md:flex-row justify-between w-full max-w-[1140px] h-[60dvh] bg-blue-70 rounded-2xl pt-6 pl-6 md:pt-9 md:pl-9 lg:pl-[70px] lg:pt-[73px]">
+            <div className={`${cardStyle} bg-blue-70`}>
               <div>
                 <AnimatedItem delay={200} direction="left">
                   <h3 className="font-bold text-xl md:text-2xl lg:text-[48px] lg:leading-[58px] text-gray-50 mb-2 md:mb-5 lg:mb-10 whitespace-nowrap">
@@ -156,7 +159,7 @@ const LandingPage = () => {
             </div>
           </div>
           <div className="flex justify-center items-center h-dvh">
-            <div className="flex flex-col md:flex-row justify-between w-full max-w-[1140px] h-[60dvh] bg-orange-50 rounded-2xl pt-6 pl-6 md:pt-9 md:pl-9 lg:pl-[70px] lg:pt-[73px]">
+            <div className={`${cardStyle} bg-orange-50`}>
               <div>
                 <AnimatedItem delay={200} direction="left">
                   <h3 className="font-bold text-xl md:text-2xl lg:text-[48px] lg:leading-[58px] text-orange-300 mb-2 md:mb-5 lg:mb-10 whitespace-nowrap">
@@ -200,7 +203,7 @@ const LandingPage = () => {
             </div>
           </div>
           <div className="flex justify-center items-center h-dvh">
-            <div className="flex flex-col md:flex-row justify-between w-full max-w-[1140px] h-[60dvh] bg-orange-300 rounded-2xl pt-6 pl-6 md:pt-9 md:pl-9 lg:pl-[70px] lg:pt-[73px]">
+            <div className={`${cardStyle} bg-orange-300`}>
               <div>
                 <AnimatedItem delay={200} direction="left">
                   <h3 className="font-bold text-xl md:text-2xl lg:text-[48px] lg:leading-[58px] text-orange-50 mb-2 md:mb-5 lg:mb-10 whitespace-nowrap">
