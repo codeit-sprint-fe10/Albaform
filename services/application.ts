@@ -3,7 +3,24 @@ import {
   Application,
   GetApplicationsParameters,
   GetApplicationsResponse,
+  PostApplicationBody,
+  PostApplicationResponse,
 } from '@/types/application';
+
+export const postApplication = async ({
+  formId,
+  body,
+}: {
+  formId: number;
+  body: PostApplicationBody;
+}) => {
+  const response = await instance.post<PostApplicationResponse>(
+    `/forms/${formId}/applications`,
+    body,
+  );
+
+  return response.data;
+};
 
 export const getApplications = async ({
   formId,

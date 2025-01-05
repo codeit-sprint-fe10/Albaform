@@ -25,6 +25,18 @@ export interface Application {
   id: number;
 }
 
+export type PostApplicationBody = Pick<
+  Application,
+  | 'name'
+  | 'phoneNumber'
+  | 'experienceMonths'
+  | 'resumeId'
+  | 'resumeName'
+  | 'introduction'
+> & { password: string };
+
+export type PostApplicationResponse = Application;
+
 export interface GetApplicationsResponse {
   nextCursor: number;
   data: Application[];
