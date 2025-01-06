@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect } from 'react';
+import useDetectDevice from '@/hooks/useDetectDevice';
 
 interface ModalProps {
   dialogRef: React.RefObject<HTMLDialogElement>;
@@ -19,6 +20,8 @@ const Modal = ({
   onClose,
   children,
 }: ModalProps) => {
+  const { isMobile } = useDetectDevice();
+
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       // dialog는 기본적으로 esc onClose를 제공하지만 dim close가 되지 않을경우 esc close처리 제외
@@ -34,7 +37,7 @@ const Modal = ({
   return (
     <dialog
       ref={dialogRef}
-      className={`rounded-xl bg-white shadow-3xl open:animate-slideIn open:backdrop:animate-fadeIn backdrop:bg-black-500 backdrop:bg-opacity-50 ${blurDim ? 'backdrop:backdrop-blur-sm' : ''}`}
+      className={`${isMobile ? 'mt-auto mb-0 w-full max-w-[100%]' : ''} rounded-t-xl md:rounded-xl bg-white shadow-3xl open:animate-slideIn open:backdrop:animate-fadeIn backdrop:bg-black-500 backdrop:bg-opacity-50 ${blurDim ? 'backdrop:backdrop-blur-sm' : ''}`}
       onClick={allowDimClose ? onClose : undefined}
     >
       <div className="p-6" onClick={(e) => e.stopPropagation()}>
