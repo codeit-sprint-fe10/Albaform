@@ -1,9 +1,9 @@
 import { instance } from './axiosInstance';
-import { GetMyPostsResponse, GetMyPostsParameters } from '@/types/mypage';
+import { GetPostsResponse, GetPostsParameters } from '@/types/albatalk';
 
-export const getMyPosts = async (params: GetMyPostsParameters) => {
+export const getMyPosts = async (params: GetPostsParameters) => {
   try {
-    const response = await instance.get<GetMyPostsResponse>('/posts', {
+    const response = await instance.get<GetPostsResponse>('/posts', {
       params,
     });
     return response.data;

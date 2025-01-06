@@ -1,4 +1,4 @@
-import { useInfiniteQuery, keepPreviousData } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { getMyPosts } from '@/services/mypage';
 import { SortOrder } from '@/types/mypage';
 
@@ -21,7 +21,6 @@ const useGetMyPosts = ({ pageLimit, sortOrder }: UseGetPostsParams) => {
     queryFn,
     getNextPageParam: (lastPage) => lastPage.nextCursor,
     initialPageParam: 0,
-    placeholderData: keepPreviousData,
   });
 };
 

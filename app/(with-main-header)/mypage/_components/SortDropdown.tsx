@@ -7,14 +7,14 @@ interface SortDropdownProps {
   setSortOrder: React.Dispatch<React.SetStateAction<SortOrder>>;
 }
 
+const SORT_OPTIONS = [
+  { key: 'mostRecent', label: '최신순' },
+  { key: 'mostLiked', label: '좋아요순' },
+  { key: 'mostCommented', label: '댓글 많은순' },
+] as const;
+
 const SortDropdown = ({ sortOrder, setSortOrder }: SortDropdownProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
-  const SORT_OPTIONS = [
-    { key: 'mostRecent', label: '최신순' },
-    { key: 'mostLiked', label: '좋아요순' },
-    { key: 'mostCommented', label: '댓글 많은순' },
-  ] as const;
 
   const handleDropdownToggle = () => {
     setIsDropdownOpen((prevState) => !prevState);

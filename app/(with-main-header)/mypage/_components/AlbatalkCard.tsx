@@ -43,11 +43,7 @@ const AlbatalkCard = ({
                 <div className="flex gap-2 items-center">
                   <div className="w-6 h-6 rounded-3xl relative">
                     <Image
-                      src={
-                        writer && writer.imageUrl
-                          ? writer.imageUrl
-                          : '/icons/profile.svg'
-                      }
+                      src={writer?.imageUrl || '/icons/profile.svg'}
                       alt="user profile"
                       fill
                       className="border border-none rounded-3xl"
