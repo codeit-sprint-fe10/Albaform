@@ -11,9 +11,7 @@ import {
   PostTalkResponse,
 } from '@/types/albatalk';
 
-export const getPosts = async (
-  params: GetPostsParameters,
-): Promise<GetPostsResponse> => {
+export const getPosts = async (params: GetPostsParameters) => {
   try {
     const response = await instance.get<GetPostsResponse>('/posts', {
       params,

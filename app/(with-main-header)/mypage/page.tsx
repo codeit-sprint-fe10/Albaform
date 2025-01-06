@@ -1,9 +1,14 @@
 'use client';
+import { useState } from 'react';
+import { SortOrder } from '@/types/albatalk';
 import Tap from './_components/Tap';
 import SortDropdown from './_components/SortDropdown';
 import KebabIcon from '@/public/icons/kebab.svg';
+import MyPostList from './_components/MyPostList';
 
 const Mypage = () => {
+  const [sortOrder, setSortOrder] = useState<SortOrder>('mostRecent');
+
   return (
     <div className="w-full flex flex-col">
       <div className="w-full flex flex-col gap-6 items-center justify-center mt-4 lg:mt-10">
@@ -18,9 +23,10 @@ const Mypage = () => {
         <div className="w-full flex flex-col gap-2">
           <Tap />
           <div className="w-full flex justify-end">
-            <SortDropdown />
+            <SortDropdown sortOrder={sortOrder} />
           </div>
         </div>
+        <MyPostList sortOrder={sortOrder} />
       </div>
     </div>
   );

@@ -24,7 +24,7 @@ export interface GetPostsResponse {
 export interface GetPostsParameters {
   cursor: number;
   limit: number;
-  orderBy?: 'mostRecent' | 'mostCommented' | 'mostLiked';
+  orderBy?: SortOrder;
   keyword?: string;
 }
 
