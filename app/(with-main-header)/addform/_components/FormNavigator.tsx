@@ -28,7 +28,7 @@ const FormNavigator = () => {
       isPublic: false,
     },
   });
-  const { getData, saveData, clearData } = useTemporarySave();
+  const { getData, saveData, clearData } = useTemporarySave<PostAlbaBody>();
   const formRef = useRef<{ submit: () => void | null }>(null);
   const fieldGroups: Record<string, string[]> = useMemo(
     () => ({
