@@ -140,6 +140,22 @@ const ApplyForm = () => {
         error={errors.experienceMonths}
       />
       <FormField
+        name="introduction"
+        label="자기소개"
+        placeholder={INTRODUCTION.message.placeholder}
+        register={register('introduction', {
+          required: {
+            value: true,
+            message: INTRODUCTION.message.required,
+          },
+          maxLength: {
+            value: INTRODUCTION.format.maxLength,
+            message: INTRODUCTION.message.maxLength,
+          },
+        })}
+        error={errors.introduction}
+      />
+      <FormField
         name="password"
         label="비밀번호"
         comment="* 지원내역 확인에 사용됩니다."

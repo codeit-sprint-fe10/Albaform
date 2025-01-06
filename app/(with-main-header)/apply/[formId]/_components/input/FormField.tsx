@@ -43,6 +43,18 @@ const FormField = ({
         </>
       );
       break;
+    case 'introduction':
+      Input = (
+        <textarea
+          id={name}
+          rows={4}
+          maxLength={200}
+          placeholder={placeholder}
+          {...register}
+          className={`${inputStyle} resize-none custom-scrollbar`}
+        />
+      );
+      break;
     default:
       Input = (
         <input
@@ -50,7 +62,7 @@ const FormField = ({
           id={name}
           placeholder={placeholder}
           {...register}
-          className={`mb-1 ${inputStyle} before:content-[*]`}
+          className={`mb-1 ${inputStyle}`}
         />
       );
   }
