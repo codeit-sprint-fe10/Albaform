@@ -11,7 +11,7 @@ const Tab = () => {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto rounded-lg">
+    <div className="w-full md:w-[315px] rounded-lg">
       <div className="w-full p-[6px] bg-background-200 rounded-lg">
         <div className="relative flex items-center justify-center">
           {TAB_OPTIONS.map(({ key, label }) => (

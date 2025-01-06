@@ -10,8 +10,8 @@ const Mypage = () => {
   const [sortOrder, setSortOrder] = useState<SortOrder>('mostRecent');
 
   return (
-    <div className="w-full flex flex-col">
-      <div className="w-full flex flex-col gap-6 items-center justify-center mt-4 lg:mt-10">
+    <div className="w-full flex flex-col items-center">
+      <div className="w-full  max-w-container-md flex flex-col gap-6 items-center justify-center mt-4 lg:mt-10">
         <div className="w-full flex justify-between items-center">
           <h1 className="text-black-500 text-xl lg:text-3xl text-left font-semibold">
             마이페이지
@@ -23,7 +23,7 @@ const Mypage = () => {
         <div className="w-full flex flex-col gap-2">
           <Tap />
           <div className="w-full flex justify-end">
-            <SortDropdown sortOrder={sortOrder} />
+            <SortDropdown sortOrder={sortOrder} setSortOrder={setSortOrder} />
           </div>
         </div>
         <MyPostList sortOrder={sortOrder} />

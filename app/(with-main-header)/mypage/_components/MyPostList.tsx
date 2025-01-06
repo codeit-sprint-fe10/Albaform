@@ -28,19 +28,29 @@ const MyPostList = ({ sortOrder }: { sortOrder: SortOrder }) => {
           loadNextPage={fetchNextPage}
           loader={<p>Loading applications...</p>}
         >
-          {data?.pages.map((page) =>
-            page.data.map((post) => (
-              <AlbatalkCard
-                key={post.id}
-                title={post.title}
-                content={post.content}
-                writer={post.writer}
-                createdAt={post.createdAt}
-                commentCount={post.commentCount}
-                likeCount={post.likeCount}
-                talkId={post.id}
-              />
-            )),
+          {data?.pages.map(({ data: posts }) =>
+            posts.map(
+              ({
+                id,
+                title,
+                content,
+                writer,
+                createdAt,
+                commentCount,
+                likeCount,
+              }) => (
+                <AlbatalkCard
+                  key={id}
+                  title={title}
+                  content={content}
+                  writer={writer}
+                  createdAt={createdAt}
+                  commentCount={commentCount}
+                  likeCount={likeCount}
+                  talkId={id}
+                />
+              ),
+            ),
           )}
         </InfiniteScroll>
       </div>
