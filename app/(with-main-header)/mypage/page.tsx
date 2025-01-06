@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { SortOrder } from '@/types/albatalk';
-import Tap from './_components/Tap';
+import Tab from './_components/Tab';
 import SortDropdown from './_components/SortDropdown';
 import KebabIcon from '@/public/icons/kebab.svg';
 import MyPostList from './_components/MyPostList';
@@ -21,7 +21,7 @@ const Mypage = () => {
           </button>
         </div>
         <div className="w-full flex flex-col gap-2">
-          <Tap />
+          <Tab />
           <div className="w-full flex justify-end">
             <SortDropdown sortOrder={sortOrder} setSortOrder={setSortOrder} />
           </div>
