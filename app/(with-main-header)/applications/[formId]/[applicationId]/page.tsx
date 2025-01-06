@@ -3,8 +3,8 @@ import Carousel from '@/app/(with-main-header)/alba/[formId]/_components/Carouse
 import SummarySection from '@/app/(with-main-header)/alba/[formId]/_components/SummarySection';
 import DescriptionSection from '@/app/(with-main-header)/alba/[formId]/_components/DescriptionSection';
 import { ApplicationStatusType } from '@/types/application';
-import ApplicationStatusSection from '@/app/(with-main-header)/myapply/[formId]/_components/owner/ApplicationStatusSection';
-import ApplicationDetail from '@/app/(with-main-header)/myapply/[formId]/_components/owner/ApplicationDetail';
+import ApplicationStatusSection from '@/app/(with-main-header)/applications/[formId]/[applicationId]/_components/ApplicationStatusSection';
+import ApplicationDetail from '@/app/(with-main-header)/applications/[formId]/[applicationId]/_components/ApplicationDetail';
 
 const mock = {
   applicantId: 0,

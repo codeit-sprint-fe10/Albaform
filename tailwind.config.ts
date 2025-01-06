@@ -80,6 +80,28 @@ const tailwindConfig = {
       },
       error: '#FC4100',
     },
+    extend: {
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0%' },
+          '100%': { opacity: '100%' },
+        },
+        slideIn: {
+          '0%': {
+            transform: 'translateY(50px)',
+            opacity: '0',
+          },
+          '100%': {
+            transform: 'translateY(0)',
+            opacity: '1',
+          },
+        },
+      },
+      animation: {
+        fadeIn: 'fadeIn 0.5s ease-in-out',
+        slideIn: 'slideIn 0.5s ease forwards',
+      },
+    },
   },
   plugins: [
     function ({ addUtilities, theme }: PluginAPI) {

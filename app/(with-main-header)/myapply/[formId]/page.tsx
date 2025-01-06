@@ -2,10 +2,9 @@ import { getAlbaDetail } from '@/services/alba';
 import Carousel from '@/app/(with-main-header)/alba/[formId]/_components/Carousel';
 import SummarySection from '@/app/(with-main-header)/alba/[formId]/_components/SummarySection';
 import DescriptionSection from '@/app/(with-main-header)/alba/[formId]/_components/DescriptionSection';
-import ApplicationStatusSection from '@/app/(with-main-header)/myapply/[formId]/_components/applicant/ApplicationStatusSection';
+import ApplicationStatusSection from '@/app/(with-main-header)/myapply/[formId]/_components/ApplicationStatusSection';
 import { ApplicationStatusType } from '@/types/application';
-import Applications from '@/app/(with-main-header)/alba/[formId]/_components/Applications';
-import ApplicationDetail from '@/app/(with-main-header)/myapply/[formId]/_components/applicant/ApplicationDetail';
+import ApplicationDetail from '@/app/(with-main-header)/myapply/[formId]/_components/ApplicationDetail';
 
 const mock = {
   applicantId: 0,
