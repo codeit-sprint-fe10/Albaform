@@ -10,6 +10,7 @@ import ApplicationActions from '@/app/(with-main-header)/alba/[formId]/_componen
 import Carousel from '@/app/(with-main-header)/alba/[formId]/_components/Carousel';
 import { getAlbaDetail } from '@/services/alba';
 import RecruitmentClosedModal from '@/app/(with-main-header)/alba/[formId]/_components/RecruitmentClosedModal';
+import { isBeforeToday } from '@/utils/date';
 
 const AlbaFormIdPage = async ({
   params,
@@ -72,7 +73,8 @@ const AlbaFormIdPage = async ({
           </div>
         </div>
       </div>
-      <RecruitmentClosedModal />
+      {/*{isBeforeToday(albaDetail.recruitmentEndDate) && (*/}
+      {isBeforeToday('2024-10-10') && <RecruitmentClosedModal />}
     </div>
   );
 };

@@ -28,3 +28,7 @@ export const isWithinInterval = (
 ): boolean => {
   return date >= start && date <= end;
 };
+
+export const isBeforeToday = (date: string) => {
+  return new Date(date).getTime() < new Date().getTime();
+};
