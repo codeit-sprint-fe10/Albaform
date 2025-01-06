@@ -23,7 +23,7 @@ const Tab = () => {
                     ? 'text-blue-600 bg-gray-50 shadow-sm font-semibold'
                     : 'text-gray-400 font-medium'
                 }`}
-              onClick={() => handleTabClick(key)}
+              // onClick={() => handleTabClick(key)}
             >
               {label}
             </button>
