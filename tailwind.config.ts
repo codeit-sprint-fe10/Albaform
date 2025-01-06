@@ -36,6 +36,7 @@ const tailwindConfig = {
     },
     minWidth: {
       container: '320px',
+      modal: '350px',
     },
     colors: {
       black: {

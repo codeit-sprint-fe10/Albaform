@@ -37,10 +37,13 @@ const Modal = ({
   return (
     <dialog
       ref={dialogRef}
-      className={`${isMobile ? 'mt-auto mb-0 w-full max-w-[100%]' : ''} rounded-t-xl md:rounded-xl bg-white shadow-3xl open:animate-slideIn open:backdrop:animate-fadeIn backdrop:bg-black-500 backdrop:bg-opacity-50 ${blurDim ? 'backdrop:backdrop-blur-sm' : ''}`}
+      className={`${isMobile ? 'mt-auto mb-0 w-full max-w-[100%]' : ''} rounded-t-xl md:min-w-modal md:rounded-xl bg-white shadow-3xl open:animate-slideIn open:backdrop:animate-fadeIn backdrop:bg-black-500 backdrop:bg-opacity-50 ${blurDim ? 'backdrop:backdrop-blur-sm' : ''}`}
       onClick={allowDimClose ? onClose : undefined}
     >
-      <div className="p-6" onClick={(e) => e.stopPropagation()}>
+      <div
+        className="p-6 lg:px-10 lg:py-8"
+        onClick={(e) => e.stopPropagation()}
+      >
         {hasCloseButton && (
           <button
             className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
