@@ -19,9 +19,13 @@ const MyPostList = ({ sortOrder }: { sortOrder: SortOrder }) => {
     sortOrder: sortOrder,
   });
 
+  const isEmpty = data && data.pages.every((page) => page.data.length === 0);
+
   return (
     <div className="flex w-full max-w-container-md">
-      {data && (
+      {isEmpty ? (
+        <EmptyPosts />
+      ) : (
         <div className="w-full flex flex-col gap-4 lg:grid lg:grid-cols-3 lg:gap-6 lg:gap-y-12">
           <InfiniteScroll
             hasNextPage={hasNextPage}
@@ -29,7 +33,7 @@ const MyPostList = ({ sortOrder }: { sortOrder: SortOrder }) => {
             loadNextPage={fetchNextPage}
             loader={<p>Loading applications...</p>}
           >
-            {data.pages.map(({ data: posts }) =>
+            {data?.pages.map(({ data: posts }) =>
               posts.map(
                 ({
                   id,
@@ -56,7 +60,6 @@ const MyPostList = ({ sortOrder }: { sortOrder: SortOrder }) => {
           </InfiniteScroll>
         </div>
       )}
-      <EmptyPosts />
     </div>
   );
 };
