@@ -1,67 +1,95 @@
-import type { UseFormRegisterReturn, FieldError } from 'react-hook-form';
+import type { FieldError, UseFormRegisterReturn } from 'react-hook-form';
+import {
+  FieldName,
+  CommonFieldName,
+  CustomFieldName,
+  CustomSetValue,
+  CustomSetError,
+  CustomClearErrors,
+} from '@/types/form';
+import ResumeInput from './ResumeInput';
 import VisibilityInput from './VisibilityInput';
 
-interface FormFieldProps {
-  name: string;
+interface DefaultFieldParam<N extends FieldName> {
+  name: N;
   label: string;
-  comment?: string;
   placeholder: string;
-  register: UseFormRegisterReturn;
+  comment?: string;
+  required?: true;
   error?: FieldError;
 }
 
-const FormField = ({
-  name,
-  label,
-  comment,
-  placeholder,
-  register,
-  error,
-}: FormFieldProps) => {
-  const requiredStyle = !register.required
+interface CommonFieldParam extends DefaultFieldParam<CommonFieldName> {
+  register: UseFormRegisterReturn;
+}
+
+interface CustomFieldParam extends DefaultFieldParam<CustomFieldName> {
+  setValue: CustomSetValue<CustomFieldName>;
+  setError: CustomSetError<CustomFieldName>;
+  clearErrors: CustomClearErrors<CustomFieldName>;
+}
+
+type FormFieldProps = CommonFieldParam | CustomFieldParam;
+
+const FormField = (props: FormFieldProps) => {
+  const requiredStyle = props.required
     ? "after:content-['*'] after:inline after:ml-1 after:text-orange-300"
     : '';
   const inputStyle =
     'p-[14px] rounded-lg bg-background-200 border outline-none ' +
-    `${error ? 'border-error' : 'border-background-200 focus:border-orange-300'} ` +
+    `${props.error ? 'border-error' : 'border-background-200 focus:border-orange-300'} ` +
     'text-lg lg:text-xl text-black-400 placeholder:text-gray-400 transition duration-200';
   const errorStyle =
     'h-[22px] lg:h-[26px] mr-2 lg:mr-3 ' +
     'text-right text-sm lg:text-lg text-error font-medium';
 
   let Input;
-  switch (name) {
-    case 'password':
+  switch (props.name) {
+    case 'resumeId':
+    case 'resumeName':
       Input = (
-        <>
-          <VisibilityInput
-            id={name}
-            placeholder={placeholder}
-            {...register}
-            className={`w-full ${inputStyle}`}
-          />
-        </>
+        <ResumeInput
+          placeholder={props.placeholder}
+          setValue={props.setValue}
+          setError={props.setError}
+          clearErrors={props.clearErrors}
+          className={`w-full ${inputStyle} underline placeholder-shown:no-underline`}
+        />
       );
       break;
     case 'introduction':
       Input = (
         <textarea
-          id={name}
+          id={props.name}
           rows={4}
           maxLength={200}
-          placeholder={placeholder}
-          {...register}
+          placeholder={props.placeholder}
+          {...props.register}
           className={`${inputStyle} resize-none custom-scrollbar`}
         />
       );
+      break;
+    case 'password':
+      Input = (
+        <>
+          <VisibilityInput
+            id={props.name}
+            placeholder={props.placeholder}
+            {...props.register}
+            className={`w-full ${inputStyle}`}
+          />
+        </>
+      );
+      break;
+    case 'location':
       break;
     default:
       Input = (
         <input
           type="text"
-          id={name}
-          placeholder={placeholder}
-          {...register}
+          id={props.name}
+          placeholder={props.placeholder}
+          {...props.register}
           className={`mb-1 ${inputStyle}`}
         />
       );
@@ -70,18 +98,16 @@ const FormField = ({
   return (
     <>
       <label
-        htmlFor={name}
+        htmlFor={props.name}
         className={`mb-2 ml-2 lg:ml-3 text-md lg:text-xl font-medium ${requiredStyle}`}
       >
-        {label}
+        {props.label}
       </label>
       {Input}
-      {comment && (
-        <span className="ml-2 text-xs text-gray-400">
-          * 지원내역 확인에 사용됩니다.
-        </span>
+      {props.comment && (
+        <span className="ml-2 text-xs text-gray-400">{props.comment}</span>
       )}
-      <span className={errorStyle}>{error?.message}</span>
+      <span className={errorStyle}>{props.error?.message}</span>
     </>
   );
 };

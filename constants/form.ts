@@ -110,9 +110,10 @@ export const EXPERIENCE_MONTHS = {
 
 export const RESUME = {
   message: {
-    placeholder: '이력서 업로드하기',
+    placeholder: '이력서 제출하기',
     required: '이력서는 필수 제출입니다.',
-    error: '이력서 등록에 문제가 발생했습니다',
+    extension: 'PDF 또는 WORD 파일만 가능합니다.',
+    error: '이력서 제출에 문제가 발생했습니다',
   },
 } as const;
 

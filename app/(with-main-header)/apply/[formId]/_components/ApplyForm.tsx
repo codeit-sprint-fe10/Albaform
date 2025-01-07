@@ -1,76 +1,86 @@
 'use client';
 
-import Button from '@/components/Button';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import FormField from './input/FormField';
-import {
-  EXPERIENCE_MONTHS,
-  INTRODUCTION,
-  NAME,
-  PASSWORD,
-  PHONE_NUMBER,
-  RESUME,
-} from '@/constants/form';
-import { useParams, useRouter } from 'next/navigation';
-import { useTemporarySave } from '@/hooks/useTemporarySave';
 import { useEffect } from 'react';
 import { useMutation } from '@tanstack/react-query';
+import { useParams, useRouter } from 'next/navigation';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { postApplication } from '@/services/application';
-import { AxiosError } from 'axios';
+import { useTemporarySave } from '@/hooks/useTemporarySave';
+import {
+  NAME,
+  PHONE_NUMBER,
+  EXPERIENCE_MONTHS,
+  RESUME,
+  INTRODUCTION,
+  PASSWORD,
+} from '@/constants/form';
+import {
+  CustomFieldName,
+  CustomSetValue,
+  CustomSetError,
+  CustomClearErrors,
+} from '@/types/form';
+import Button from '@/components/Button';
+import FormField from './input/FormField';
 
-type ApplyFormData = Record<
-  | 'name'
-  | 'phoneNumber'
-  | 'experienceMonths'
-  | 'resumeId'
-  | 'resumeName'
-  | 'introduction'
-  | 'password',
-  string
->;
+const defaultValues = {
+  name: '',
+  phoneNumber: '',
+  experienceMonths: '',
+  resumeId: '',
+  resumeName: '',
+  introduction: '',
+  password: '',
+} as const;
+
+type ApplyFormFields = typeof defaultValues;
 
 const ApplyForm = () => {
   const { formId } = useParams();
   const { replace } = useRouter();
-  const { getData, saveData, clearData } = useTemporarySave<ApplyFormData>();
+  const { getData, saveData, clearData } = useTemporarySave<ApplyFormFields>();
 
   const {
     handleSubmit,
     register,
+    setValue,
+    setError,
+    clearErrors,
     getValues,
     reset,
     formState: { isValid, errors, isDirty },
-  } = useForm<ApplyFormData>({ mode: 'onTouched' });
+  } = useForm<ApplyFormFields>({ mode: 'onTouched', defaultValues });
 
-  const { mutate, isPending } = useMutation({
-    mutationFn: postApplication,
-    onSuccess: () => {
-      clearData();
-      window.alert('알바폼에 지원했습니다!');
-      replace(`/myapply/${formId}`);
-    },
-    onError: (error: AxiosError<{ message: string }>) => {
-      window.alert('지원 중에 오류가 발생했습니다.');
-      console.dir(error);
-      window.location.reload();
-    },
-  });
+  const { mutate, isPending } = useMutation({ mutationFn: postApplication });
 
-  const formSubmit: SubmitHandler<ApplyFormData> = async (data, event) => {
+  const formSubmit: SubmitHandler<ApplyFormFields> = async (data, event) => {
     event?.preventDefault();
-    const experienceMonths = Number(data.experienceMonths);
-    const resumeId = Number(data.resumeId);
-
-    mutate({
-      formId: Number(formId),
-      body: { ...data, experienceMonths, resumeId },
-    });
+    mutate(
+      {
+        formId: Number(formId),
+        body: {
+          ...data,
+          experienceMonths: Number(data.experienceMonths),
+          resumeId: Number(data.resumeId),
+        },
+      },
+      {
+        onSuccess: () => {
+          clearData();
+          window.alert('알바폼에 지원했습니다!');
+          replace(`/myapply/${formId}`);
+        },
+        onError: () => {
+          window.alert('지원 중에 오류가 발생했습니다.');
+          window.location.reload();
+        },
+      },
+    );
   };
 
   const handleTempButtonClick = () => {
     saveData(getValues());
     window.alert('지원서를 임시 저장했습니다.');
-    console.log(errors);
   };
 
   useEffect(() => {
@@ -78,11 +88,15 @@ const ApplyForm = () => {
     if (data) reset(data, { keepDefaultValues: true });
   }, [getData, reset]);
 
+  useEffect(() => {
+    console.log(getValues());
+  });
+
   return (
     <form
       method="post"
       onSubmit={handleSubmit(formSubmit)}
-      className="flex flex-col"
+      className="flex flex-col mb-8 lg:mb-12"
     >
       <FormField
         name="name"
@@ -97,6 +111,7 @@ const ApplyForm = () => {
           pattern: { value: NAME.format.regExp, message: NAME.message.pattern },
         })}
         error={errors.name}
+        required
       />
       <FormField
         name="phoneNumber"
@@ -118,6 +133,7 @@ const ApplyForm = () => {
           },
         })}
         error={errors.phoneNumber}
+        required
       />
       <FormField
         name="experienceMonths"
@@ -138,6 +154,17 @@ const ApplyForm = () => {
           },
         })}
         error={errors.experienceMonths}
+        required
+      />
+      <FormField
+        name="resumeId"
+        label="이력서"
+        placeholder={RESUME.message.placeholder}
+        setValue={setValue as CustomSetValue<CustomFieldName>}
+        setError={setError as CustomSetError<CustomFieldName>}
+        clearErrors={clearErrors as CustomClearErrors<CustomFieldName>}
+        error={errors.resumeId}
+        required
       />
       <FormField
         name="introduction"
@@ -154,6 +181,7 @@ const ApplyForm = () => {
           },
         })}
         error={errors.introduction}
+        required
       />
       <FormField
         name="password"
@@ -176,14 +204,15 @@ const ApplyForm = () => {
           },
         })}
         error={errors.password}
+        required
       />
-      <div className="grid grid-rows-2 lg:grid-cols-2 gap-2 mt-4 lg:mt-8">
+      <div className="grid grid-rows-2 lg:grid-rows-none lg:grid-cols-2 gap-2 mt-4 lg:mt-8">
         <Button
           type="button"
           onClick={handleTempButtonClick}
           content="임시 저장"
           design="outlined"
-          disabled={!isDirty}
+          disabled={!isDirty || isPending}
         />
         <Button
           type="submit"
