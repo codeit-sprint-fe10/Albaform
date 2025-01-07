@@ -7,7 +7,7 @@ export type AlbasOrderBy =
 export interface GetAlbasParameters {
   orderBy: AlbasOrderBy;
   limit: number;
-  cursor: number;
+  cursor?: number;
   keyword?: string;
   isRecruiting?: boolean;
 }
@@ -94,3 +94,12 @@ export type DropdownFieldName =
   | 'preferred'
   | 'workStartTime'
   | 'workEndTime';
+
+export interface GetMyCreatedAlbasParameters extends GetAlbasParameters {
+  isPublic?: boolean;
+}
+
+export type MyAlbasFilterType = Pick<
+  GetMyCreatedAlbasParameters,
+  'orderBy' | 'keyword' | 'isRecruiting' | 'isPublic'
+>;

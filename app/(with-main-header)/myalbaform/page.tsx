@@ -1,5 +1,11 @@
+import MyAlbas from './_components/MyAlbas';
+
 const Page = () => {
-  return <div>myalbaform</div>;
+  return (
+    <div>
+      <MyAlbas />
+    </div>
+  );
 };
 
 export default Page;

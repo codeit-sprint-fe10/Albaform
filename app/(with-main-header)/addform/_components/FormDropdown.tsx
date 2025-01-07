@@ -56,6 +56,8 @@ const FormDropdown = ({
             </div>
             {isSelected && (
               <DownIcon
+                width={24}
+                height={24}
                 className={`text-gray-50 transition-transform duration-300 ${isOpen ? 'rotate-180' : 'rotate-0'}`}
               />
             )}
