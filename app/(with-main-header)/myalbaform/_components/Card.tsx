@@ -20,13 +20,13 @@ const Card = ({
     end: new Date(recruitmentEndDate),
   })
     ? '모집 중'
-    : '모집 마감';
+    : '마감';
 
   const period = `${format(new Date(recruitmentStartDate), 'yyyy. MM. dd')} ~ ${format(new Date(recruitmentEndDate), 'yyyy. MM. dd')}`;
 
   const dDay =
     calculateDDay(recruitmentEndDate) < 0
-      ? '모집 마감'
+      ? '마감'
       : `마감 D-${calculateDDay(recruitmentEndDate)}`;
 
   const rightBarStyle =
