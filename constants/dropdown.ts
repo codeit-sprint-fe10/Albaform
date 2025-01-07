@@ -117,3 +117,9 @@ export const MENU_OWNER_OPTIONS = [
   { key: 'modify', label: '수정하기' },
   { key: 'delete', label: '삭제하기' },
 ];
+
+export const TAB_OPTIONS = [
+  { key: 'posts', label: '내가 쓴 글' },
+  { key: 'comments', label: '내가 쓴 댓글' },
+  { key: 'scraps', label: '스크랩' },
+];
