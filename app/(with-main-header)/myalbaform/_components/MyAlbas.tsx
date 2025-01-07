@@ -6,6 +6,7 @@ import Card from './Card';
 import AlbaCardSkeleton from '../../albalist/_components/list/AlbaCardSkeleton';
 import useGetMyCreatedAlbas from '../_hooks/useGetMyCreatedAlbas';
 import { GetMyCreatedAlbasParameters } from '@/types/alba';
+import EmptyAlba from './EmptyAlba';
 
 const PAGE_LIMIT = 6;
 
@@ -30,23 +31,23 @@ const MyAlbas = () => {
     <ul className="grid gap-8 md:gap-y-12 md:gap-x-6 lg:gap-y-16 md:grid-cols-[repeat(auto-fit,_327px)] lg:grid-cols-[repeat(auto-fit,_469px)] justify-center place-items-center pb-10">
       {isLoading ? (
         <AlbaCardSkeletons />
+      ) : data?.pages.length ? (
+        <InfiniteScroll
+          hasNextPage={hasNextPage}
+          isLoading={isFetchingNextPage}
+          loadNextPage={fetchNextPage}
+          loader={<AlbaCardSkeletons />}
+        >
+          {data.pages.map((page) =>
+            page.data.map((myAlba) => (
+              <li key={myAlba.id}>
+                <Card {...myAlba} />
+              </li>
+            )),
+          )}
+        </InfiniteScroll>
       ) : (
-        data?.pages.length && (
-          <InfiniteScroll
-            hasNextPage={hasNextPage}
-            isLoading={isFetchingNextPage}
-            loadNextPage={fetchNextPage}
-            loader={<AlbaCardSkeletons />}
-          >
-            {data.pages.map((page) =>
-              page.data.map((myAlba) => (
-                <li key={myAlba.id}>
-                  <Card {...myAlba} />
-                </li>
-              )),
-            )}
-          </InfiniteScroll>
-        )
+        <EmptyAlba />
       )}
     </ul>
   );
