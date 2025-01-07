@@ -6,6 +6,7 @@ import Image from 'next/image';
 
 interface ModalProps {
   dialogRef: React.RefObject<HTMLDialogElement>;
+  title?: string;
   allowDimClose?: boolean;
   blurDim?: boolean;
   hasCloseButton?: boolean;
@@ -15,6 +16,7 @@ interface ModalProps {
 
 const Modal = ({
   dialogRef,
+  title,
   allowDimClose = true,
   blurDim = false,
   hasCloseButton = true,
@@ -45,6 +47,7 @@ const Modal = ({
         className="p-6 lg:px-10 lg:py-8"
         onClick={(e) => e.stopPropagation()}
       >
+        {title && <h3>{title}</h3>}
         {hasCloseButton && (
           <button
             className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
