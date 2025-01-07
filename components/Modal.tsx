@@ -2,6 +2,7 @@
 
 import React, { useEffect } from 'react';
 import useDetectDevice from '@/hooks/useDetectDevice';
+import Image from 'next/image';
 
 interface ModalProps {
   dialogRef: React.RefObject<HTMLDialogElement>;
@@ -37,7 +38,7 @@ const Modal = ({
   return (
     <dialog
       ref={dialogRef}
-      className={`${isMobile ? 'mt-auto mb-0 w-full max-w-[100%]' : ''} rounded-t-xl md:min-w-modal md:rounded-xl bg-white shadow-3xl open:animate-slideIn open:backdrop:animate-fadeIn backdrop:bg-black-500 backdrop:bg-opacity-50 ${blurDim ? 'backdrop:backdrop-blur-sm' : ''}`}
+      className={`${isMobile ? 'mt-auto mb-0 w-full max-w-[100%]' : ''} rounded-t-xl md:min-w-[350px] lg:min-w-[450px] md:rounded-xl bg-white shadow-3xl open:animate-slideIn open:backdrop:animate-fadeIn backdrop:bg-black-500 backdrop:bg-opacity-50 ${blurDim ? 'backdrop:backdrop-blur-sm' : ''}`}
       onClick={allowDimClose ? onClose : undefined}
     >
       <div
@@ -48,8 +49,15 @@ const Modal = ({
           <button
             className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
             onClick={onClose}
+            aria-label="닫기"
           >
-            ×
+            <Image
+              src="/icons/x.svg"
+              width={24}
+              height={24}
+              alt="닫기"
+              className="lg:w-9 lg:h-9"
+            />
           </button>
         )}
         {children}

@@ -73,8 +73,10 @@ const AlbaFormIdPage = async ({
           </div>
         </div>
       </div>
-      {/*{isBeforeToday(albaDetail.recruitmentEndDate) && (*/}
-      {isBeforeToday('2024-10-10') && <RecruitmentClosedModal />}
+      {/*{isBeforeToday('2024-10-10') && <RecruitmentClosedModal />}*/}
+      {isBeforeToday(albaDetail.recruitmentEndDate) && (
+        <RecruitmentClosedModal />
+      )}
     </div>
   );
 };

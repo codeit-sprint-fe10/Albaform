@@ -7,11 +7,7 @@ import RecruitmentClosedIcon from '@/public/icons/recruitment-closed.svg';
 import Button from '@/components/Button';
 import { useRouter } from 'next/navigation';
 
-type RecruitmentClosedModalProps = {
-  formId?: number;
-};
-
-const RecruitmentClosedModal = ({}: RecruitmentClosedModalProps) => {
+const RecruitmentClosedModal = () => {
   const { dialogRef, openModal, closeModal } = useModal();
   const { push } = useRouter();
 
