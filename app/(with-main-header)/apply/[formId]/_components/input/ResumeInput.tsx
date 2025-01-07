@@ -11,8 +11,8 @@ import {
   CustomClearErrors,
 } from '@/types/form';
 import UploadIcon from '@/public/icons/upload.svg';
-import RemoveIcon from '@/public/icons/x-circle.svg';
 import { useFormContext } from 'react-hook-form';
+import Image from 'next/image';
 
 const availableType = [
   'application/pdf',
@@ -127,20 +127,24 @@ const ResumeInput = ({
         <button
           type="button"
           onClick={handleRemoveClick}
-          className="absolute top-[calc(50%-12px)] right-[14px]"
+          className="absolute top-[calc(50%-12px)] lg:top-[calc(50%-18px)] right-[14px]"
         >
-          <RemoveIcon
-            aria-label="이력서 제거하기"
-            className="w-6 lg:w-9 h-6 lg:h-9"
+          <Image
+            src="/icons/x-circle.svg"
+            width={24}
+            height={24}
+            alt="이력서 제거하기"
+            className="lg:w-9 lg:h-9"
           />
         </button>
       ) : (
         <label
           htmlFor="resumeId"
-          className="absolute top-[calc(50%-12px)] right-[14px] cursor-pointer"
+          className="absolute top-[calc(50%-12px)] lg:top-[calc(50%-18px)] right-[14px] cursor-pointer"
         >
           <UploadIcon
             aria-label="이력서 제출하기"
+            color="#999999"
             className="w-6 lg:w-9 h-6 lg:h-9"
           />
         </label>
