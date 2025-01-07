@@ -1,6 +1,7 @@
 import { useRef } from 'react';
+import type { UseModalReturnType } from '@/types/useModal';
 
-const useModal = () => {
+const useModal = (): UseModalReturnType => {
   const dialogRef = useRef<HTMLDialogElement>(null!);
 
   const openModal = () => {

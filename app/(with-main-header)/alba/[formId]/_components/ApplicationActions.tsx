@@ -4,6 +4,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Button from '@/components/Button';
 import { useRouter } from 'next/navigation';
+import useModal from '@/hooks/useModal';
+import CheckMyApplicationModal from '@/app/(with-main-header)/alba/[formId]/_components/CheckMyApplicationModal';
 
 type ApplicationActionsProps = {
   formId: number;
@@ -11,8 +13,12 @@ type ApplicationActionsProps = {
 
 const ApplicationActions = ({ formId }: ApplicationActionsProps) => {
   const { push } = useRouter();
+
+  const { dialogRef, openModal, closeModal } = useModal();
+
   const handleMyApplicationOnClick = () => {
-    push(`/myapply/${formId}`);
+    // push(`/myapply/${formId}`);
+    openModal();
   };
 
   return (
@@ -36,6 +42,7 @@ const ApplicationActions = ({ formId }: ApplicationActionsProps) => {
         iconUrl="/icons/note.svg"
         design="outlined"
       />
+      <CheckMyApplicationModal dialogRef={dialogRef} closeModal={closeModal} />
     </div>
   );
 };

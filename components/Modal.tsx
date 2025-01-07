@@ -16,7 +16,7 @@ interface ModalProps {
 
 const Modal = ({
   dialogRef,
-  title,
+  title = '',
   allowDimClose = true,
   blurDim = false,
   hasCloseButton = true,
@@ -47,22 +47,26 @@ const Modal = ({
         className="p-6 lg:px-10 lg:py-8"
         onClick={(e) => e.stopPropagation()}
       >
-        {title && <h3>{title}</h3>}
-        {hasCloseButton && (
-          <button
-            className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
-            onClick={onClose}
-            aria-label="닫기"
-          >
-            <Image
-              src="/icons/x.svg"
-              width={24}
-              height={24}
-              alt="닫기"
-              className="lg:w-9 lg:h-9"
-            />
-          </button>
-        )}
+        <div className="relative">
+          <h3 className="font-semibold text-black-400 text-2lg lg:text-3xl">
+            {title}
+          </h3>
+          {hasCloseButton && (
+            <button
+              className="absolute top-0 right-0 text-gray-500"
+              onClick={onClose}
+              aria-label="닫기"
+            >
+              <Image
+                src="/icons/x.svg"
+                width={24}
+                height={24}
+                alt="닫기"
+                className="lg:w-9 lg:h-9"
+              />
+            </button>
+          )}
+        </div>
         {children}
       </div>
     </dialog>
