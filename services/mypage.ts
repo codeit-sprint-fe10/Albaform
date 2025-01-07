@@ -3,7 +3,7 @@ import { GetPostsResponse, GetPostsParameters } from '@/types/albatalk';
 
 export const getMyPosts = async (params: GetPostsParameters) => {
   try {
-    const response = await instance.get<GetPostsResponse>('/posts', {
+    const response = await instance.get<GetPostsResponse>('users/me/posts', {
       params,
     });
     return response.data;

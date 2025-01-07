@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Writer } from '@/types/albatalk';
 import { formatDate } from '@/utils/dateFormatter';
+
 interface AlbatalkCardProps {
   title: string;
   content: string;
