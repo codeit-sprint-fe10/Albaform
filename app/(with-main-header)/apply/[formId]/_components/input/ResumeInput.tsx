@@ -2,7 +2,7 @@
 
 import { AxiosError } from 'axios';
 import { useMutation } from '@tanstack/react-query';
-import { useState, ChangeEvent, InputHTMLAttributes } from 'react';
+import { useState, ChangeEvent, InputHTMLAttributes, useEffect } from 'react';
 import { postResume } from '@/services/file';
 import { RESUME } from '@/constants/form';
 import {
@@ -32,7 +32,10 @@ const ResumeInput = ({
   clearErrors,
   ...props
 }: ResumeInputProps) => {
-  const {} = useFormContext();
+  const {
+    formState: { isDirty },
+    getValues,
+  } = useFormContext();
   const [name, setName] = useState('');
   const { mutateAsync, isPending } = useMutation({
     mutationFn: postResume,
@@ -94,6 +97,10 @@ const ResumeInput = ({
       message: RESUME.message.required,
     });
   };
+
+  useEffect(() => {
+    if (isDirty) setName(getValues('resumeName'));
+  }, [isDirty, setName, getValues]);
 
   return (
     <div className="relative">
