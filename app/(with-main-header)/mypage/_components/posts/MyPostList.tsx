@@ -1,8 +1,8 @@
 import InfiniteScroll from '@/components/InfiniteScroll';
 import AlbatalkCard from './AlbatalkCard';
-import useGetMyPosts from '../_hooks/useGetMyPosts';
+import useGetMyPosts from '../../_hooks/useGetMyPosts';
 import { SortOrder } from '@/types/albatalk';
-import EmptyPosts from './EmptyPosts';
+import EmptyPosts from '../EmptyPosts';
 
 const PAGE_LIMIT = 6;
 

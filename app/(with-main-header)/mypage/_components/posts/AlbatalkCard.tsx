@@ -9,7 +9,7 @@ import { formatDate } from '@/utils/dateFormatter';
 import EditDropdown from './EditDropdown';
 import { EditDropdownAction } from '@/types/albatalk';
 import { useRouter } from 'next/navigation';
-import useDeleteTalk from '../_hooks/useDeleteTalk';
+import useDeleteTalk from '../../_hooks/useDeleteTalk';
 
 interface AlbatalkCardProps {
   title: string;
@@ -49,10 +49,10 @@ const AlbatalkCard = ({
       <Link href={`/albatalk/${talkId}`} className="block">
         <div className="flex flex-col h-[162px] lg:h-[232px] gap-6">
           <div className="flex lg:h-44 flex-col gap-2">
-            <div className="max-w-80 text-black-400 font-semibold text-lg overflow-hidden lg:text-2lg line-clamp-1">
+            <div className="max-w-80 text-black-400 font-semibold text-lg lg:text-2lg line-clamp-1">
               {title}
             </div>
-            <div className="max-w-80 h-[80px] text-gray-500 font-regular text-md overflow-hidden lg:text-lg line-clamp-3">
+            <div className="max-w-80 h-[80px] text-gray-500 font-regular text-md lg:text-lg line-clamp-3">
               {content}
             </div>
           </div>
