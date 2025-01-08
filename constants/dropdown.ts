@@ -1,3 +1,5 @@
+import { OPTIONS } from './cookies';
+
 export const NUMBER_OF_POSITION_OPTIONS = [
   { key: '0', label: '0' },
   { key: '1', label: '1' },
@@ -122,4 +124,15 @@ export const TAB_OPTIONS = [
   { key: 'posts', label: '내가 쓴 글' },
   { key: 'comments', label: '내가 쓴 댓글' },
   { key: 'scraps', label: '스크랩' },
+];
+
+export const SORT_OPTIONS = [
+  { key: 'mostRecent', label: '최신순' },
+  { key: 'mostLiked', label: '좋아요순' },
+  { key: 'mostCommented', label: '댓글 많은순' },
+];
+
+export const TALK_OPTIONS = [
+  { key: 'edit', label: '수정하기' },
+  { key: 'delete', label: '삭제하기' },
 ];

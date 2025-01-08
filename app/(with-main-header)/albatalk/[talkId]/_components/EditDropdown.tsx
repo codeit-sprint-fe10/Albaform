@@ -2,14 +2,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import KebabIcon from '@/public/icons/kebab.svg';
 import { EditDropdownAction } from '@/types/albatalk';
+import { TALK_OPTIONS } from '@/constants/dropdown';
 
 interface EditDropdownProps {
   onAction: (action: EditDropdownAction) => void;
 }
-const OPTIONS = [
-  { key: 'edit', label: '수정하기' },
-  { key: 'delete', label: '삭제하기' },
-] as const;
 
 const EditDropdown = ({ onAction }: EditDropdownProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -53,7 +50,7 @@ const EditDropdown = ({ onAction }: EditDropdownProps) => {
 
       {isDropdownOpen && (
         <div className="absolute top-[calc(100%+4px)] right-4 w-20 lg:w-32 px-2 py-3 bg-gray-50 border border-gray-100 rounded-lg shadow-lg z-10">
-          {OPTIONS.map((option) => (
+          {TALK_OPTIONS.map((option) => (
             <div
               key={option.key}
               className="w-full text-gray-400 font-regular lg:px-4 py-2 text-center text-xs lg:text-lg rounded-lg hover:font-semibold cursor-pointer hover:bg-orange-50 hover:text-black-400"

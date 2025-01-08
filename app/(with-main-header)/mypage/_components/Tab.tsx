@@ -23,6 +23,8 @@ const Tab = ({ activeTab, onTabChange }: TabProps) => {
                     : 'text-gray-400 font-medium'
                 }`}
               onClick={() => onTabChange(key)}
+              aria-selected={activeTab === key}
+              role="tab"
             >
               {label}
             </button>

@@ -1,3 +1,5 @@
+import { SORT_OPTIONS, TALK_OPTIONS } from '@/constants/dropdown';
+
 export interface Writer {
   imageUrl: string;
   nickname: string;
@@ -90,5 +92,5 @@ export interface PostTalkResponse {
   isLiked: boolean;
 }
 
-export type EditDropdownAction = 'edit' | 'delete';
-export type SortOrder = 'mostRecent' | 'mostLiked' | 'mostCommented';
+export type EditDropdownAction = (typeof TALK_OPTIONS)[number]['key'];
+export type SortOrder = (typeof SORT_OPTIONS)[number]['key'];
