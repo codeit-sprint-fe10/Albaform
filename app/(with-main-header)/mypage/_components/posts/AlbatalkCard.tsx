@@ -10,6 +10,7 @@ import EditDropdown from './EditDropdown';
 import { EditDropdownAction } from '@/types/albatalk';
 import { useRouter } from 'next/navigation';
 import useDeleteTalk from '../../_hooks/useDeleteTalk';
+import { formatCount } from '@/utils/count';
 
 interface AlbatalkCardProps {
   title: string;
@@ -52,7 +53,7 @@ const AlbatalkCard = ({
             <div className="max-w-80 text-black-400 font-semibold text-lg lg:text-2lg line-clamp-1">
               {title}
             </div>
-            <div className="max-w-80 h-[80px] text-gray-500 font-regular text-md lg:text-lg line-clamp-3">
+            <div className="max-w-80 h-[78px] text-gray-500 font-regular text-md lg:text-lg line-clamp-3 md:h-[77px]">
               {content}
             </div>
           </div>
@@ -69,7 +70,7 @@ const AlbatalkCard = ({
                       className="object-cover"
                     />
                   </div>
-                  <span className="max-w-40 text-gray-500 text-xs md:text-md lg:text-lg font-regular truncate">
+                  <span className="max-w-container-xs lg:max-w-container-xxs text-gray-500 text-xs md:text-md lg:text-lg font-regular truncate">
                     {writer?.nickname}
                   </span>
                 </div>
@@ -83,13 +84,13 @@ const AlbatalkCard = ({
                 <div className="flex gap-1 items-center">
                   <CommentIcon className="w-6 h-6 lg:w-9 lg:h-9" />
                   <span className="text-gray-500 text-xs md:text-md lg:text-lg font-regular">
-                    {commentCount}
+                    {formatCount(commentCount)}
                   </span>
                 </div>
                 <div className="flex gap-1 items-center">
                   <LikeIcon className="w-6 h-6 lg:w-9 lg:h-9 text-gray-100" />
                   <span className="text-gray-500 text-xs md:text-md lg:text-lg font-regular">
-                    {likeCount}
+                    {formatCount(likeCount)}
                   </span>
                 </div>
               </div>

@@ -17,7 +17,7 @@ const Mypage = () => {
       case 'posts':
         return <MyPostList sortOrder={sortOrder} />;
       case 'comments':
-        return <MyCommentList sortOrder={sortOrder} />;
+        return <MyCommentList />;
       default:
         return null;
     }
@@ -25,7 +25,7 @@ const Mypage = () => {
 
   return (
     <div className="w-full flex flex-col items-center">
-      <div className="w-full  max-w-container-md flex flex-col gap-6 items-center justify-center mt-4 lg:mt-10">
+      <div className="w-full max-w-container-md flex flex-col gap-6 items-center justify-center mt-4 lg:mt-10">
         <div className="w-full flex justify-between items-center">
           <h1 className="text-black-500 text-xl lg:text-3xl text-left font-semibold">
             마이페이지
@@ -36,9 +36,11 @@ const Mypage = () => {
         </div>
         <div className="w-full flex flex-col gap-2">
           <Tab activeTab={activeTab} onTabChange={setActiveTab} />
-          <div className="w-full flex justify-end">
-            <SortDropdown sortOrder={sortOrder} setSortOrder={setSortOrder} />
-          </div>
+          {activeTab === 'posts' && (
+            <div className="w-full flex justify-end">
+              <SortDropdown sortOrder={sortOrder} setSortOrder={setSortOrder} />
+            </div>
+          )}
         </div>
         {renderContent()}
       </div>

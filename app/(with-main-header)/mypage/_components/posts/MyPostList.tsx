@@ -3,6 +3,7 @@ import AlbatalkCard from './AlbatalkCard';
 import useGetMyPosts from '../../_hooks/useGetMyPosts';
 import { SortOrder } from '@/types/albatalk';
 import EmptyPosts from '../EmptyPosts';
+import Loader from '@/components/Loader';
 
 const PAGE_LIMIT = 6;
 
@@ -21,6 +22,13 @@ const MyPostList = ({ sortOrder }: { sortOrder: SortOrder }) => {
 
   const isEmpty = data && data.pages.every((page) => page.data.length === 0);
 
+  if (isLoading) {
+    return (
+      <div className="flex w-full justify-center items-center min-h-[200px]">
+        <Loader />
+      </div>
+    );
+  }
   return (
     <div className="flex w-full max-w-container-md">
       {isEmpty ? (
@@ -31,7 +39,7 @@ const MyPostList = ({ sortOrder }: { sortOrder: SortOrder }) => {
             hasNextPage={hasNextPage}
             isLoading={isFetchingNextPage}
             loadNextPage={fetchNextPage}
-            loader={<p>Loading applications...</p>}
+            loader={<Loader />}
           >
             {data?.pages.map(({ data: posts }) =>
               posts.map(
