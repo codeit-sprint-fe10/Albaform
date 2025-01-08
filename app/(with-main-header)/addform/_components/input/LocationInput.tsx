@@ -1,8 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useFormContext } from 'react-hook-form';
+import { useState } from 'react';
+import Script from 'next/script';
 import Image from 'next/image';
+import { useFormContext } from 'react-hook-form';
 import Input from './Input';
 
 interface LocationInputProps {
@@ -39,14 +40,17 @@ const LocationInput = ({ name, value = '', onChange }: LocationInputProps) => {
     }).open();
   };
 
-  useEffect(() => {
-    if (kakao) {
-      kakao.maps.load(() => {});
-    }
-  }, []);
-
   return (
     <div>
+      <Script
+        src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"
+        strategy="lazyOnload"
+      />
+      <Script
+        src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_API_KEY}&libraries=services&autoload=false`}
+        strategy="lazyOnload"
+        onLoad={() => kakao.maps.load(() => {})}
+      />
       <Input
         name={name}
         placeholder="위치를 입력해주세요."
