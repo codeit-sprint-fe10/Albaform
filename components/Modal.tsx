@@ -61,7 +61,7 @@ const Modal = ({
                 src="/icons/x.svg"
                 width={24}
                 height={24}
-                alt="닫기"
+                alt=""
                 className="lg:w-9 lg:h-9"
               />
             </button>

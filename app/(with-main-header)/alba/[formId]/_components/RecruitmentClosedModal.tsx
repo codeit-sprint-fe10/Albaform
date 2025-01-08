@@ -13,7 +13,7 @@ const RecruitmentClosedModal = () => {
 
   useEffect(() => {
     openModal();
-  });
+  }, []);
 
   return (
     <Modal
@@ -23,7 +23,7 @@ const RecruitmentClosedModal = () => {
       blurDim={true}
       hasCloseButton={false}
     >
-      <section className="flex flex-col gap-6 m-auto">
+      <section className="flex flex-col gap-6">
         <div className="m-auto">
           <RecruitmentClosedIcon className="w-20 h-20 lg:w-[120px] lg:h-[120px]" />
         </div>
