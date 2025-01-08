@@ -25,10 +25,10 @@ const MyAlbas = () => {
     useGetMyCreatedAlbas({ limit: PAGE_LIMIT, ...searchParams });
 
   return (
-    <ul className="grid gap-8 md:gap-y-12 md:gap-x-6 lg:gap-y-16 md:grid-cols-[repeat(auto-fit,_327px)] lg:grid-cols-[repeat(auto-fit,_469px)] justify-center place-items-center pb-10">
+    <ul className="grid gap-8 md:gap-y-12 md:gap-x-6 lg:gap-y-16 md:grid-cols-[repeat(auto-fit,_327px)] lg:grid-cols-[repeat(auto-fit,_469px)] justify-center place-items-center mb-[34px] md:mb-[114px] lg:mb-[108px]">
       {isLoading ? (
         <AlbaCardSkeletons />
-      ) : data?.pages.length ? (
+      ) : data?.pages.length && data?.pages[0].data.length ? (
         <InfiniteScroll
           hasNextPage={hasNextPage}
           isLoading={isFetchingNextPage}
