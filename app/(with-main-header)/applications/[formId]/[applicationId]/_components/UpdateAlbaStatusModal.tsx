@@ -39,7 +39,7 @@ const UpdateAlbaStatusModal = ({
           return (
             <label
               key={key}
-              className={`p-3.5 flex justify-between items-center border rounded-lg cursor-pointer ${isSelected ? 'border-orange-300 bg-orange-50' : 'border-line-100'} `}
+              className={`p-3.5 flex justify-between items-center border rounded-lg cursor-pointer transition-all duration-300 ${isSelected ? 'border-orange-300 bg-orange-50' : 'border-line-100'} `}
               onClick={() => handleChange(key)}
             >
               <span>{label}</span>
