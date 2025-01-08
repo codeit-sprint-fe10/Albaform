@@ -5,7 +5,7 @@ import WriteButton from './_components/WriteButton';
 
 const Page = () => {
   return (
-    <div className="mb-[9px] md:mb-3.5 lg:mb-14">
+    <div className="mb-[34px] md:mb-[134px] lg:mb-[106px]">
       <SearchBar />
       <SearchFilters />
       <MyAlbas />
