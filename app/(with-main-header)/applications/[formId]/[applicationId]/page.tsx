@@ -5,6 +5,7 @@ import DescriptionSection from '@/app/(with-main-header)/alba/[formId]/_componen
 import { ApplicationStatusType } from '@/types/application';
 import ApplicationStatusSection from '@/app/(with-main-header)/applications/[formId]/[applicationId]/_components/ApplicationStatusSection';
 import ApplicationDetail from '@/app/(with-main-header)/applications/[formId]/[applicationId]/_components/ApplicationDetail';
+import { getApplication } from '@/services/application';
 
 const mock = {
   applicantId: 0,
