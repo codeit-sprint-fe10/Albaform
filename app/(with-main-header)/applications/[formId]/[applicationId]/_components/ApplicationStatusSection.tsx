@@ -5,7 +5,7 @@ import { formatDateTimeWithLetters } from '@/utils/dateFormatter';
 import InfoIcon from '@/public/icons/info.svg';
 import CloseIcon from '@/public/icons/x-thin.svg';
 import { useState } from 'react';
-import UpdateAlbaStatusModal from '@/app/(with-main-header)/applications/[formId]/[applicationId]/_components/UpdateAlbaStatusModal';
+import UpdateApplicationStatusModal from '@/app/(with-main-header)/applications/[formId]/[applicationId]/_components/UpdateApplicationStatusModal';
 import useModal from '@/hooks/useModal';
 import EditIcon from '@/public/icons/edit.svg';
 
@@ -48,7 +48,7 @@ const ApplicationStatusSection = ({
           <CloseIcon className="w-6 h-6 lg:w-9 lg:h-9" />
         </button>
       </div>
-      <UpdateAlbaStatusModal
+      <UpdateApplicationStatusModal
         applicationId={applicationId}
         dialogRef={dialogRef}
         closeModal={closeModal}
