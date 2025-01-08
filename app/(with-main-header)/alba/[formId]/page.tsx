@@ -11,6 +11,7 @@ import Carousel from '@/app/(with-main-header)/alba/[formId]/_components/Carouse
 import { getAlbaDetail } from '@/services/alba';
 import RecruitmentClosedModal from '@/app/(with-main-header)/alba/[formId]/_components/RecruitmentClosedModal';
 import { isBeforeToday } from '@/utils/date';
+import OwnerSection from '@/app/(with-main-header)/alba/[formId]/_components/OwnerSection';
 
 const AlbaFormIdPage = async ({
   params,

@@ -41,3 +41,7 @@ export const getMyCreatedAlbas = async (
 
   return response.data;
 };
+
+export const deleteAlba = async (formId: number) => {
+  await instance.delete(`/forms/${formId}`);
+};

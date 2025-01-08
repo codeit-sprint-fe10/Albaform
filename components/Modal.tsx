@@ -48,9 +48,11 @@ const Modal = ({
         onClick={(e) => e.stopPropagation()}
       >
         <div className="relative">
-          <h3 className="font-semibold text-black-400 text-2lg lg:text-3xl">
-            {title}
-          </h3>
+          {title && (
+            <h3 className="font-semibold text-black-400 text-2lg lg:text-3xl">
+              {title}
+            </h3>
+          )}
           {hasCloseButton && (
             <button
               className="absolute top-0 right-0 text-gray-500"
