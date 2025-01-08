@@ -47,7 +47,7 @@ const Modal = ({
         className="p-6 lg:px-10 lg:py-8"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="relative">
+        <div className={`relative ${hasCloseButton ? '' : 'text-center'}`}>
           {title && (
             <h3 className="font-semibold text-black-400 text-2lg lg:text-3xl">
               {title}

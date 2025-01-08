@@ -56,6 +56,7 @@ const ApplicationPage = async ({
           <div className="lg:basis-1/2">
             <div className="mt-10 lg:mt-0">
               <ApplicationStatusSection
+                id={applicationId}
                 createdAt={mock.createdAt}
                 status={mock.status as ApplicationStatusType}
               />

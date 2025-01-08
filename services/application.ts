@@ -1,6 +1,7 @@
 import { instance } from '@/services/axiosInstance';
 import {
   Application,
+  ApplicationStatusType,
   GetApplicationsParameters,
   GetApplicationsResponse,
 } from '@/types/application';
@@ -33,6 +34,21 @@ export const getApplication = async (applicationId: number) => {
 export const getMyApplication = async ({ formId }: { formId: number }) => {
   const response = await instance.get<Application>(
     `/forms/${formId}/my-application`,
+  );
+
+  return response.data;
+};
+
+export const patchApplicationStatus = async ({
+  applicationId,
+  status,
+}: {
+  applicationId: number;
+  status: ApplicationStatusType;
+}) => {
+  const response = await instance.patch<Application>(
+    `/applications/${applicationId}`,
+    { status },
   );
 
   return response.data;
