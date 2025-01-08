@@ -28,7 +28,7 @@ const AlbatalkDetail = () => {
   const talkId = Number(talkIdStr);
   const router = useRouter();
   const { mutate: deleteMutation } = useDeleteTalk(talkId);
-  const { data: post } = useGetPostDetail(talkId);
+  const { data: post, isLoading } = useGetPostDetail(talkId);
   const user = useUserStore((state) => state.user);
   const [totalItemCount, setTotalItemCount] = useState(post?.commentCount || 0);
 
@@ -46,7 +46,7 @@ const AlbatalkDetail = () => {
 
   return (
     <div className="w-full flex flex-col">
-      {!post && (
+      {isLoading && (
         <div className="flex h-screen items-center justify-center ">
           <Loader />
         </div>

@@ -1,4 +1,5 @@
 'use client';
+
 import React, { useState, useEffect, useRef } from 'react';
 import KebabIcon from '@/public/icons/kebab.svg';
 import { EditDropdownAction } from '@/types/albatalk';
@@ -6,6 +7,7 @@ import { EditDropdownAction } from '@/types/albatalk';
 interface EditDropdownProps {
   onAction: (action: EditDropdownAction) => void;
 }
+
 const OPTIONS = [
   { key: 'edit', label: '수정하기' },
   { key: 'delete', label: '삭제하기' },

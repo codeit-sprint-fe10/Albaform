@@ -26,6 +26,7 @@ const MyCommentList = () => {
       </div>
     );
   }
+
   return (
     <div className="flex w-full max-w-container-md">
       <div className="w-full flex flex-col gap-4 lg:grid lg:grid-cols-3 lg:gap-6 lg:gap-y-12">
@@ -37,8 +38,15 @@ const MyCommentList = () => {
             loader={<Loader />}
           >
             {data?.pages.map((page) =>
-              page.data.map((comment) => (
-                <CommentCard key={comment.id} comment={comment} />
+              page.data.map(({ id, post, content, createdAt, updatedAt }) => (
+                <CommentCard
+                  key={id}
+                  id={id}
+                  post={post}
+                  content={content}
+                  createdAt={createdAt}
+                  updatedAt={updatedAt}
+                />
               )),
             )}
           </InfiniteScroll>

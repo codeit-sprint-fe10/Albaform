@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { SortOrder } from '@/types/albatalk';
 import { SORT_OPTIONS } from '@/constants/dropdown';
+
 interface SortDropdownProps {
   sortOrder: SortOrder;
   setSortOrder: React.Dispatch<React.SetStateAction<SortOrder>>;

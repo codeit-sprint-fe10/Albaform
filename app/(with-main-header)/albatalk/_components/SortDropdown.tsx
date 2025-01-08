@@ -1,4 +1,5 @@
 'use client';
+
 import { useState } from 'react';
 import { SortOrder } from '@/types/albatalk';
 import { SORT_OPTIONS } from '@/constants/dropdown';

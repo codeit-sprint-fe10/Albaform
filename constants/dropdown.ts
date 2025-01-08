@@ -1,5 +1,3 @@
-import { OPTIONS } from './cookies';
-
 export const NUMBER_OF_POSITION_OPTIONS = [
   { key: '0', label: '0' },
   { key: '1', label: '1' },
