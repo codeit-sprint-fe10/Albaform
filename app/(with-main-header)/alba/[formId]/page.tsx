@@ -67,13 +67,11 @@ const AlbaFormIdPage = async ({
               <div className="mt-10 mb-[30px] lg:order-1">
                 <ApplicationActions formId={formId} />
               </div>
-              {/*<div>*/}
-              {/*  <OwnerSection formId={formId} />*/}
-              {/*</div>*/}
             </div>
           </div>
         </div>
       </div>
+      {/*<OwnerSection formId={formId} />*/}
       {isBeforeToday(albaDetail.recruitmentEndDate) && (
         <RecruitmentClosedModal />
       )}
