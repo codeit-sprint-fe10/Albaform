@@ -9,7 +9,7 @@ type TermsDetailProps = {
 const TermsDetail = ({ title, value, iconUrl }: TermsDetailProps) => {
   return (
     <div className="rounded-lg border border-line-100 lg:border-none p-2 lg:p-6 flex gap-2 lg:gap-6">
-      <div className="rounded-full w-9 h-9 bg-line-100 flex items-center justify-center lg:w-[56px] lg:h-[56px]">
+      <div className="flex-shrink-0 rounded-full w-9 h-9 bg-line-100 flex items-center justify-center lg:w-[56px] lg:h-[56px]">
         <Image
           src={iconUrl}
           alt="terms icon"

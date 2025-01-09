@@ -57,9 +57,10 @@ const CheckMyApplicationModal = ({
     >
       <section>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <fieldset>
+          <fieldset className="flex flex-col gap-4 py-4 mt-4">
             <InputField
-              name="name"
+              id="name"
+              label="이름"
               placeholder={NAME.message.placeholder}
               register={register('name', {
                 required: { value: true, message: NAME.message.required },
@@ -75,7 +76,8 @@ const CheckMyApplicationModal = ({
               error={errors.name}
             />
             <InputField
-              name="phoneNumber"
+              id="phoneNumber"
+              label="전화번호"
               placeholder={PHONE_NUMBER.message.placeholder}
               register={register('phoneNumber', {
                 required: {
@@ -98,7 +100,8 @@ const CheckMyApplicationModal = ({
               error={errors.phoneNumber}
             />
             <PrivateInputField
-              name="password"
+              id="password"
+              label="비밀번호"
               placeholder={PASSWORD.message.placeholder}
               register={register('password', {
                 required: { value: true, message: PASSWORD.message.required },
@@ -110,7 +113,9 @@ const CheckMyApplicationModal = ({
               error={errors.password}
             />
           </fieldset>
-          <Button content="지원 내역 상세보기" type="submit" />
+          <div className="mt-6 lg:mt-7">
+            <Button content="지원 내역 상세보기" type="submit" />
+          </div>
         </form>
       </section>
     </Modal>
