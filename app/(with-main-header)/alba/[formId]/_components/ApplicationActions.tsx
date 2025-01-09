@@ -6,19 +6,24 @@ import Button from '@/components/Button';
 import { useRouter } from 'next/navigation';
 import useModal from '@/hooks/useModal';
 import CheckMyApplicationModal from '@/app/(with-main-header)/alba/[formId]/_components/CheckMyApplicationModal';
+import { useUserStore } from '@/store/user';
 
 type ApplicationActionsProps = {
   formId: number;
 };
 
 const ApplicationActions = ({ formId }: ApplicationActionsProps) => {
+  const user = useUserStore((state) => state.user);
   const { push } = useRouter();
 
   const { dialogRef, openModal, closeModal } = useModal();
 
   const handleMyApplicationOnClick = () => {
-    // push(`/myapply/${formId}`);
-    openModal();
+    if (user) {
+      push(`/myapply/${formId}`);
+    } else {
+      openModal();
+    }
   };
 
   return (
@@ -42,7 +47,11 @@ const ApplicationActions = ({ formId }: ApplicationActionsProps) => {
         iconUrl="/icons/note.svg"
         design="outlined"
       />
-      <CheckMyApplicationModal dialogRef={dialogRef} closeModal={closeModal} />
+      <CheckMyApplicationModal
+        dialogRef={dialogRef}
+        closeModal={closeModal}
+        formId={formId}
+      />
     </div>
   );
 };

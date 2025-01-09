@@ -4,6 +4,7 @@ import {
   ApplicationStatusType,
   GetApplicationsParameters,
   GetApplicationsResponse,
+  GetGuestApplicationsBody,
 } from '@/types/application';
 
 export const getApplications = async ({
@@ -34,6 +35,21 @@ export const getApplication = async (applicationId: number) => {
 export const getMyApplication = async ({ formId }: { formId: number }) => {
   const response = await instance.get<Application>(
     `/forms/${formId}/my-application`,
+  );
+
+  return response.data;
+};
+
+export const getGuestApplication = async ({
+  formId,
+  body,
+}: {
+  formId: number;
+  body: GetGuestApplicationsBody;
+}) => {
+  const response = await instance.post<Application>(
+    `/forms/${formId}/my-application/verify`,
+    body,
   );
 
   return response.data;
