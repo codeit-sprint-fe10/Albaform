@@ -1,3 +1,5 @@
+'use client';
+
 import { applicationStatus } from '@/types/application';
 import { formatDateTimeWithLetters } from '@/utils/dateFormatter';
 import useGetMyApplication from '@/app/(with-main-header)/myapply/[formId]/_hooks/useGetMyApplication';
