@@ -20,6 +20,8 @@ const ApplicationStatusSection = ({
   status,
 }: ApplicationStatusSectionProps) => {
   const [showTooltip, setShowTooltip] = useState(true);
+  const [currentStatus, setCurrentStatus] = useState(status); // 상태변경 Modal에서 상태변경 api호출후 변경된값으로 리렌더링을 하기위해 사용
+
   const { dialogRef, openModal, closeModal } = useModal();
 
   return (
@@ -34,7 +36,7 @@ const ApplicationStatusSection = ({
             <span className="text-black-100">진행상태</span>
             <EditIcon className="w-6 h-6 lg:w-9 lg:h-9 text-gray-100" />
           </button>
-          <span>{applicationStatus[status]}</span>
+          <span>{applicationStatus[currentStatus]}</span>
         </p>
       </section>
       <div
@@ -52,6 +54,8 @@ const ApplicationStatusSection = ({
         applicationId={applicationId}
         dialogRef={dialogRef}
         closeModal={closeModal}
+        status={currentStatus}
+        setStatus={setCurrentStatus}
       />
     </>
   );

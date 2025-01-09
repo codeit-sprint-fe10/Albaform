@@ -6,10 +6,12 @@ import { applicationStatus, ApplicationStatusType } from '@/types/application';
 import RadioIcon from '@/app/(with-main-header)/applications/[formId]/[applicationId]/_components/RadioIcon';
 import Button from '@/components/Button';
 import { useForm } from 'react-hook-form';
+import { patchApplicationStatus } from '@/services/application';
 
 interface UpdateApplicationStatusProps extends UseModalProps {
   applicationId: number;
   status?: ApplicationStatusType;
+  setStatus: (value: ApplicationStatusType) => void;
 }
 
 const UpdateApplicationStatusModal = ({
@@ -17,6 +19,7 @@ const UpdateApplicationStatusModal = ({
   closeModal,
   applicationId,
   status = 'INTERVIEW_PENDING',
+  setStatus,
 }: UpdateApplicationStatusProps) => {
   const { register, handleSubmit, watch } = useForm({
     defaultValues: {
@@ -26,9 +29,16 @@ const UpdateApplicationStatusModal = ({
 
   const selectedStatus = watch('status');
 
-  const onSubmit = (data: { status: ApplicationStatusType }) => {
-    console.log('Selected status:', data.status);
-    closeModal();
+  const onSubmit = async (data: { status: ApplicationStatusType }) => {
+    try {
+      const toBeStatus = data.status;
+      await patchApplicationStatus({ applicationId, status: toBeStatus });
+      setStatus(toBeStatus);
+      closeModal();
+    } catch (error) {
+      console.error(error);
+      alert('상태 변경 실패!');
+    }
   };
 
   return (
