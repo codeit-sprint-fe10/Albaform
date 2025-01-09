@@ -27,19 +27,20 @@ const authPaths = [
 ];
 
 const middleware = (request: NextRequest) => {
-  // const userRole = request.cookies.get('user_role')?.value || 'GUEST';
-  // const paths = denyPaths[userRole as 'APPLICANT' | 'OWNER' | 'GUEST'];
-  // const nextPath = request.nextUrl.pathname;
-  //
-  // if (nextPath.includes('signup') || nextPath.includes('signin')) {
-  //   if (!authPaths.includes(nextPath)) {
-  //     return NextResponse.redirect(new URL('/', request.url));
-  //   }
-  // }
-  //
-  // if (paths.some((path) => nextPath.startsWith(path))) {
-  //   return NextResponse.redirect(new URL('/', request.url));
-  // }
+  const userRole = request.cookies.get('user_role')?.value || 'GUEST';
+  const paths = denyPaths[userRole as 'APPLICANT' | 'OWNER' | 'GUEST'];
+  const nextPath = request.nextUrl.pathname;
+
+  if (paths.some((path) => nextPath.startsWith(path)))
+    if (nextPath.includes('signup') || nextPath.includes('signin')) {
+      if (!authPaths.includes(nextPath)) {
+        return NextResponse.redirect(new URL('/', request.url));
+      }
+    }
+
+  if (paths.some((path) => nextPath.startsWith(path))) {
+    return NextResponse.redirect(new URL('/', request.url));
+  }
 
   return NextResponse.next();
 };
@@ -48,16 +49,16 @@ export default middleware;
 
 export const config = {
   matcher: [
-    // '/signup/:path',
-    // '/oauth/signup/:path*',
-    // '/signin/:path',
-    // '/addform',
-    // '/apply/:path',
-    // '/myapply/:path',
-    // '/applications/:path',
-    // '/myalbaform',
-    // '/albatalk/:path',
-    // '/addtalk',
-    // '/mypage',
+    '/signup/:path',
+    '/oauth/signup/:path*',
+    '/signin/:path',
+    '/addform',
+    '/apply/:path',
+    '/myapply/:path',
+    '/applications/:path',
+    '/myalbaform',
+    '/albatalk/:path',
+    '/addtalk',
+    '/mypage',
   ],
 };
