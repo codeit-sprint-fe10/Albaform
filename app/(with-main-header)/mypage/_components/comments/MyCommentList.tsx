@@ -38,15 +38,8 @@ const MyCommentList = () => {
             loader={<Loader />}
           >
             {data?.pages.map((page) =>
-              page.data.map(({ id, post, content, createdAt, updatedAt }) => (
-                <CommentCard
-                  key={id}
-                  id={id}
-                  post={post}
-                  content={content}
-                  createdAt={createdAt}
-                  updatedAt={updatedAt}
-                />
+              page.data.map((comment) => (
+                <CommentCard key={comment.id} {...comment} />
               )),
             )}
           </InfiniteScroll>

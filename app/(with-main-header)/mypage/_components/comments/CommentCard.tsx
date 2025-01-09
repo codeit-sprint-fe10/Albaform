@@ -3,7 +3,7 @@ import { Comment } from '@/types/mypage';
 import { formatDate } from '@/utils/dateFormatter';
 import Link from 'next/link';
 
-const CommentCard = ({ id, post, content, createdAt, updatedAt }: Comment) => {
+const CommentCard = ({ post, content, createdAt }: Comment) => {
   return (
     <Link href={`/albatalk/${post.id}`}>
       <div className="relative w-full h-[210px] md:h-[184px] lg:h-[264px] p-6 border rounded-2xl hover:border-gray-300 transition-colors">
