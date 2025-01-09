@@ -31,12 +31,11 @@ const middleware = (request: NextRequest) => {
   const paths = denyPaths[userRole as 'APPLICANT' | 'OWNER' | 'GUEST'];
   const nextPath = request.nextUrl.pathname;
 
-  if (paths.some((path) => nextPath.startsWith(path)))
-    if (nextPath.includes('signup') || nextPath.includes('signin')) {
-      if (!authPaths.includes(nextPath)) {
-        return NextResponse.redirect(new URL('/', request.url));
-      }
+  if (nextPath.includes('signup') || nextPath.includes('signin')) {
+    if (!authPaths.includes(nextPath)) {
+      return NextResponse.redirect(new URL('/', request.url));
     }
+  }
 
   if (paths.some((path) => nextPath.startsWith(path))) {
     return NextResponse.redirect(new URL('/', request.url));
