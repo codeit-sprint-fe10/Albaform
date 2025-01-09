@@ -5,7 +5,7 @@ import useGetMyPosts from '../../_hooks/useGetMyPosts';
 import { SortOrder } from '@/types/albatalk';
 import EmptyPosts from '../EmptyPosts';
 import Loader from '@/components/Loader';
-import SortDropdown from '../SortDropdown';
+import SortDropdown from './SortDropdown';
 
 const PAGE_LIMIT = 6;
 
