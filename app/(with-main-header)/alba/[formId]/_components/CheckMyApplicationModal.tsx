@@ -7,6 +7,7 @@ import Button from '@/components/Button';
 import { GetGuestApplicationsBody } from '@/types/application';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
+import { NAME, PASSWORD, PHONE_NUMBER } from '@/constants/form';
 
 interface CheckMyApplicationModalProps extends UseModalProps {
   formId: number;
@@ -51,7 +52,18 @@ const CheckMyApplicationModal = ({
             <input
               type="text"
               id="name"
-              {...register('name', { required: 'Name is required' })}
+              placeholder={NAME.message.placeholder}
+              {...register('name', {
+                required: { value: true, message: NAME.message.required },
+                maxLength: {
+                  value: NAME.format.maxLength,
+                  message: NAME.message.maxLength,
+                },
+                pattern: {
+                  value: NAME.format.regExp,
+                  message: NAME.message.pattern,
+                },
+              })}
             />
             {errors.name && <span>{errors.name.message}</span>}
           </div>
@@ -60,8 +72,24 @@ const CheckMyApplicationModal = ({
             <input
               type="text"
               id="phoneNumber"
+              placeholder={PHONE_NUMBER.message.placeholder}
               {...register('phoneNumber', {
-                required: 'Phone number is required',
+                required: {
+                  value: true,
+                  message: PHONE_NUMBER.message.required,
+                },
+                minLength: {
+                  value: PHONE_NUMBER.format.minLength,
+                  message: PHONE_NUMBER.message.minLength,
+                },
+                maxLength: {
+                  value: PHONE_NUMBER.format.maxLength,
+                  message: PHONE_NUMBER.message.maxLength,
+                },
+                pattern: {
+                  value: PHONE_NUMBER.format.regExp,
+                  message: PHONE_NUMBER.message.pattern,
+                },
               })}
             />
             {errors.phoneNumber && <span>{errors.phoneNumber.message}</span>}
@@ -71,7 +99,14 @@ const CheckMyApplicationModal = ({
             <input
               type="password"
               id="password"
-              {...register('password', { required: 'Password is required' })}
+              placeholder={PASSWORD.message.placeholder}
+              {...register('password', {
+                required: { value: true, message: PASSWORD.message.required },
+                minLength: {
+                  value: PASSWORD.format.minLength,
+                  message: PASSWORD.message.minLength,
+                },
+              })}
             />
             {errors.password && <span>{errors.password.message}</span>}
           </div>
