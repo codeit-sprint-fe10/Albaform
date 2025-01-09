@@ -9,6 +9,7 @@ import { EditDropdownAction } from '@/types/albatalk';
 import { useUserStore } from '@/store/user';
 import EditCommentForm from './EditCommentForm';
 import EmptyComment from './EmptyComment';
+import Loader from '@/components/Loader';
 
 type CommentListProps = {
   talkId: number;
@@ -26,6 +27,7 @@ const CommentList = ({ talkId, onUpdateTotalItemCount }: CommentListProps) => {
 
   const {
     data,
+    isLoading,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
@@ -51,6 +53,13 @@ const CommentList = ({ talkId, onUpdateTotalItemCount }: CommentListProps) => {
     }
   };
 
+  if (isLoading) {
+    return (
+      <div className="flex w-full justify-center items-center min-h-[200px]">
+        <Loader />
+      </div>
+    );
+  }
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-4">
@@ -66,14 +75,13 @@ const CommentList = ({ talkId, onUpdateTotalItemCount }: CommentListProps) => {
       ) : (
         <CommentForm id={talkId} />
       )}
-
       <div className="flex flex-col gap-8 mt-4">
         {totalItemCount ? (
           <InfiniteScroll
             hasNextPage={hasNextPage}
             isLoading={isFetchingNextPage}
             loadNextPage={fetchNextPage}
-            loader={<p>Loading comments...</p>}
+            loader={<Loader />}
           >
             {data?.pages.map((page) =>
               page.data.map((comment) => (

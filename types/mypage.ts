@@ -1,32 +1,36 @@
-export type TabKey = 'posts' | 'comments' | 'scraps';
+import { SORT_OPTIONS, TAB_OPTIONS } from '@/constants/dropdown';
 
-export type SortOrder = 'mostRecent' | 'mostLiked' | 'mostCommented';
+export type TabKey = (typeof TAB_OPTIONS)[number]['key'];
 
-export interface Writer {
-  imageUrl: string;
-  nickname: string;
-  id: number;
+export type SortOrder = (typeof SORT_OPTIONS)[number]['key'];
+
+export interface TabOption {
+  key: TabKey;
+  label: string;
+}
+
+export interface GetCommentsParameters {
+  page: number;
+  pageSize: number;
 }
 
 export interface Post {
-  writer: Writer;
-  updatedAt: string;
-  createdAt: string;
-  commentCount: number;
-  likeCount: number;
-  imageUrl: string;
-  content: string;
-  title: string;
   id: number;
+  title: string;
+  content: string;
 }
 
-export interface GetMyPostsResponse {
-  nextCursor: number;
-  data: Post[];
+export interface Comment {
+  id: number;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+  post: Post;
 }
 
-export interface GetMyPostsParameters {
-  cursor: number;
-  limit: number;
-  orderBy?: SortOrder;
+export interface GetCommentsResponse {
+  data: Comment[];
+  totalItemCount: number;
+  currentPage: number;
+  totalPages: number;
 }

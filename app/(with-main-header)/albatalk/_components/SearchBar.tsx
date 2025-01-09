@@ -2,7 +2,7 @@
 import React, { ChangeEvent } from 'react';
 import SearchIcon from '@/public/icons/search.svg';
 import SortDropdown from './SortDropdown';
-import { SortOrder } from '@/types/sort';
+import { SortOrder } from '@/types/albatalk';
 
 interface SearchBarProps {
   searchTerm: string;

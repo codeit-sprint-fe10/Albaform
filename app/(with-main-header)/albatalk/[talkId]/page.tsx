@@ -12,6 +12,7 @@ import { useRouter } from 'next/navigation';
 import { EditDropdownAction } from '@/types/albatalk';
 import useGetPostDetail from './_hooks/useGetPostDetail';
 import useDeleteTalk from './_hooks/useDeleteTalk';
+import Loader from '@/components/Loader';
 
 // TODO: RSC 대응하도록 API 고쳐지면 수정!
 // const AlbatalkDetail = async ({
@@ -27,7 +28,7 @@ const AlbatalkDetail = () => {
   const talkId = Number(talkIdStr);
   const router = useRouter();
   const { mutate: deleteMutation } = useDeleteTalk(talkId);
-  const { data: post } = useGetPostDetail(talkId);
+  const { data: post, isLoading } = useGetPostDetail(talkId);
   const user = useUserStore((state) => state.user);
   const [totalItemCount, setTotalItemCount] = useState(post?.commentCount || 0);
 
@@ -45,6 +46,11 @@ const AlbatalkDetail = () => {
 
   return (
     <div className="w-full flex flex-col">
+      {isLoading && (
+        <div className="flex h-screen items-center justify-center ">
+          <Loader />
+        </div>
+      )}
       {post && (
         <div className="items-center justify-center mt-4 lg:mt-10">
           <div className="flex flex-col gap-16">
@@ -98,7 +104,12 @@ const AlbatalkDetail = () => {
               {post.imageUrl && (
                 <div className="flex justify-center items-center">
                   <div className="relative flex w-64 h-40 md:w-80 md:h-80">
-                    <Image src={post.imageUrl} alt="post image" fill />
+                    <Image
+                      src={post.imageUrl}
+                      alt="post image"
+                      fill
+                      className="rounded-lg"
+                    />
                   </div>
                 </div>
               )}

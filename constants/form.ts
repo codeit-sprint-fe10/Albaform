@@ -68,7 +68,7 @@ export const PHONE_NUMBER = {
     maxLength: 11,
   },
   message: {
-    placeholder: '전화번호를 입력해 주세요.',
+    placeholder: '전화번호를 숫자로 입력해 주세요.',
     required: '전화번호는 필수 입력입니다.',
     minLength: '전화번호는 최소 9자 이상입니다.',
     maxLength: '전화번호는 최대 11자 이하입니다.',
@@ -92,6 +92,39 @@ export const LOCATION = {
     placeholder: '가게 위치를 설정해 주세요.',
     required: '가게 이름은 필수 설정입니다.',
     error: '위치 등록에 문제가 발생했습니다',
+  },
+} as const;
+
+export const EXPERIENCE_MONTHS = {
+  format: {
+    regExp: /^[0-9]+$/,
+    maxLength: 3,
+  },
+  message: {
+    placeholder: '경력을 개월 수로 입력해 주세요.',
+    required: '경력은 필수 입력입니다.',
+    maxLength: '경력은 최대 3자 이하입니다.',
+    pattern: '경력은 숫자만 가능합니다.',
+  },
+} as const;
+
+export const RESUME = {
+  message: {
+    placeholder: '이력서 제출하기',
+    required: '이력서는 필수 제출입니다.',
+    extension: 'PDF 또는 WORD 파일만 가능합니다.',
+    error: '이력서 제출에 문제가 발생했습니다',
+  },
+} as const;
+
+export const INTRODUCTION = {
+  format: {
+    maxLength: 200,
+  },
+  message: {
+    placeholder: '자기소개를 200자 이하로 입력해 주세요.',
+    required: '자기소개는 필수 입력입니다.',
+    maxLength: '자기소개는 최대 200자 이하입니다.',
   },
 } as const;
 

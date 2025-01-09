@@ -1,15 +1,14 @@
 'use client';
-import { useState } from 'react';
+
 import { TabKey } from '@/types/mypage';
 import { TAB_OPTIONS } from '@/constants/dropdown';
 
-const Tab = () => {
-  const [activeTab, setActiveTab] = useState<TabKey>('posts');
+interface TabProps {
+  activeTab: TabKey;
+  onTabChange: (tab: TabKey) => void;
+}
 
-  const handleTabClick = (key: TabKey) => {
-    setActiveTab(key);
-  };
-
+const Tab = ({ activeTab, onTabChange }: TabProps) => {
   return (
     <div className="w-full md:w-[315px] rounded-lg">
       <div className="w-full p-[6px] bg-background-200 rounded-lg">
@@ -23,7 +22,9 @@ const Tab = () => {
                     ? 'text-blue-600 bg-gray-50 shadow-sm font-semibold'
                     : 'text-gray-400 font-medium'
                 }`}
-              // onClick={() => handleTabClick(key)}
+              onClick={() => onTabChange(key)}
+              aria-selected={activeTab === key}
+              role="tab"
             >
               {label}
             </button>

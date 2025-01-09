@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { ChangeEvent, useState } from 'react';
 import Image from 'next/image';
 import { postImage } from '@/services/image';
+import UploadIcon from '@/public/icons/upload.svg';
 
 interface FileInputProps {
   setValue: (name: 'imageUrl', value: string | null) => void;
@@ -48,12 +49,9 @@ const FileInput = ({ setValue, imageUrl }: FileInputProps) => {
         {!preview && (
           <label htmlFor={name}>
             <div className="inline-flex flex-col gap-2 w-40 h-40 lg:w-60 lg:h-60 justify-center items-center bg-background-200 rounded-lg cursor-pointer p-7 lg:p-10">
-              <Image
-                src="/icons/upload.svg"
-                alt="이미지 업로드"
-                width={24}
-                height={24}
-                className="lg:w-9 lg:h-9"
+              <UploadIcon
+                aria-label="이미지 업로드"
+                className="w-6 lg:w-9 h-6 lg:h-9"
               />
               <div className="text-md lg:text-lg text-gray-500">
                 이미지 넣기

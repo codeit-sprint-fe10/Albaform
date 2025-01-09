@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 const EmptyAlba = () => {
   return (
-    <div className="flex flex-col justify-center items-center gap-6 lg:gap-8 h-dvh">
+    <div className="flex flex-col justify-center items-center gap-6 lg:gap-8 h-[50dvh]">
       <Image
         src="/icons/empty-form.svg"
         width={80}

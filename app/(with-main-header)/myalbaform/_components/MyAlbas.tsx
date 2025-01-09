@@ -1,12 +1,11 @@
 'use client';
 
-import { useState } from 'react';
 import InfiniteScroll from '@/components/InfiniteScroll';
 import Card from './Card';
 import AlbaCardSkeleton from '../../albalist/_components/list/AlbaCardSkeleton';
-import useGetMyCreatedAlbas from '../_hooks/useGetMyCreatedAlbas';
-import { GetMyCreatedAlbasParameters } from '@/types/alba';
 import EmptyAlba from './EmptyAlba';
+import useGetMyCreatedAlbas from '../_hooks/useGetMyCreatedAlbas';
+import useMyalbaformStore from '@/store/myalbaform';
 
 const PAGE_LIMIT = 6;
 
@@ -20,18 +19,16 @@ const AlbaCardSkeletons = () =>
     ));
 
 const MyAlbas = () => {
-  const [searchParams, setSearchParams] = useState<GetMyCreatedAlbasParameters>(
-    { limit: PAGE_LIMIT, orderBy: 'mostRecent' },
-  );
+  const searchParams = useMyalbaformStore((state) => state.searchParams);
 
   const { data, fetchNextPage, isLoading, isFetchingNextPage, hasNextPage } =
-    useGetMyCreatedAlbas(searchParams);
+    useGetMyCreatedAlbas({ limit: PAGE_LIMIT, ...searchParams });
 
   return (
-    <ul className="grid gap-8 md:gap-y-12 md:gap-x-6 lg:gap-y-16 md:grid-cols-[repeat(auto-fit,_327px)] lg:grid-cols-[repeat(auto-fit,_469px)] justify-center place-items-center pb-10">
+    <ul className="grid gap-8 md:gap-y-12 md:gap-x-6 lg:gap-y-16 md:grid-cols-[repeat(auto-fit,_327px)] lg:grid-cols-[repeat(auto-fit,_469px)] justify-center place-items-center">
       {isLoading ? (
         <AlbaCardSkeletons />
-      ) : data?.pages.length ? (
+      ) : data?.pages.length && data?.pages[0].data.length ? (
         <InfiniteScroll
           hasNextPage={hasNextPage}
           isLoading={isFetchingNextPage}

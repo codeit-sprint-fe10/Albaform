@@ -122,4 +122,15 @@ export const TAB_OPTIONS = [
   { key: 'posts', label: '내가 쓴 글' },
   { key: 'comments', label: '내가 쓴 댓글' },
   { key: 'scraps', label: '스크랩' },
-];
+] as const;
+
+export const SORT_OPTIONS = [
+  { key: 'mostRecent', label: '최신순' },
+  { key: 'mostLiked', label: '좋아요순' },
+  { key: 'mostCommented', label: '댓글 많은순' },
+] as const;
+
+export const TALK_OPTIONS = [
+  { key: 'edit', label: '수정하기' },
+  { key: 'delete', label: '삭제하기' },
+] as const;

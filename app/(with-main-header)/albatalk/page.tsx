@@ -6,6 +6,7 @@ import SearchBar from './_components/SearchBar';
 import WriteButton from './_components/WriteButton';
 import useGetPosts from './_hooks/useGetPosts';
 import { SortOrder } from '@/types/albatalk';
+import Loader from '@/components/Loader';
 
 const Albatalk = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -44,7 +45,6 @@ const Albatalk = () => {
     sortOrder,
   });
 
-  //TODO: 게시물 로딩중일때 UI 추가 필요
   return (
     <div className="w-full flex flex-col">
       <SearchBar
@@ -58,27 +58,33 @@ const Albatalk = () => {
       <div className="w-full flex flex-col items-center justify-center mt-4 lg:mt-10">
         <div className="flex w-full max-w-container-md">
           <div className="w-full flex flex-col gap-4 lg:grid lg:grid-cols-3 lg:gap-6 lg:gap-y-12">
-            {data?.data.map(
-              ({
-                id,
-                title,
-                content,
-                writer,
-                createdAt,
-                commentCount,
-                likeCount,
-              }) => (
-                <AlbatalkCard
-                  key={id}
-                  title={title}
-                  content={content}
-                  writer={writer}
-                  createdAt={createdAt}
-                  commentCount={commentCount}
-                  likeCount={likeCount}
-                  talkId={id}
-                />
-              ),
+            {isLoading ? (
+              <div className="w-full flex items-center justify-center">
+                <Loader />
+              </div>
+            ) : (
+              data?.data.map(
+                ({
+                  id,
+                  title,
+                  content,
+                  writer,
+                  createdAt,
+                  commentCount,
+                  likeCount,
+                }) => (
+                  <AlbatalkCard
+                    key={id}
+                    title={title}
+                    content={content}
+                    writer={writer}
+                    createdAt={createdAt}
+                    commentCount={commentCount}
+                    likeCount={likeCount}
+                    talkId={id}
+                  />
+                ),
+              )
             )}
           </div>
         </div>

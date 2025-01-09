@@ -1,13 +1,13 @@
-import { PostAlbaBody } from '@/types/alba';
+import { useCallback } from 'react';
 
-export const useTemporarySave = () => {
-  const getData = (): PostAlbaBody | null => {
+export const useTemporarySave = <T>() => {
+  const getData = useCallback((): T | null => {
     if (typeof window === 'undefined') return null;
     const storedData = localStorage.getItem('tempData');
     return storedData ? JSON.parse(storedData) : null;
-  };
+  }, []);
 
-  const saveData = (currentValues: PostAlbaBody) => {
+  const saveData = (currentValues: T) => {
     localStorage.setItem('tempData', JSON.stringify(currentValues));
   };
 

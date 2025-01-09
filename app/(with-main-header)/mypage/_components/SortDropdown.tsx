@@ -1,17 +1,12 @@
 'use client';
 import { useState } from 'react';
 import { SortOrder } from '@/types/albatalk';
+import { SORT_OPTIONS } from '@/constants/dropdown';
 
 interface SortDropdownProps {
   sortOrder: SortOrder;
   setSortOrder: React.Dispatch<React.SetStateAction<SortOrder>>;
 }
-
-const SORT_OPTIONS = [
-  { key: 'mostRecent', label: '최신순' },
-  { key: 'mostLiked', label: '좋아요순' },
-  { key: 'mostCommented', label: '댓글 많은순' },
-] as const;
 
 const SortDropdown = ({ sortOrder, setSortOrder }: SortDropdownProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
