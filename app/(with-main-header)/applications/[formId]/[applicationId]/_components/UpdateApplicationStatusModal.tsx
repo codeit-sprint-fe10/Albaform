@@ -18,7 +18,7 @@ const UpdateApplicationStatusModal = ({
   applicationId,
   status = 'INTERVIEW_PENDING',
 }: UpdateApplicationStatusProps) => {
-  const { register, handleSubmit, setValue, watch } = useForm({
+  const { register, handleSubmit, watch } = useForm({
     defaultValues: {
       status,
     },
@@ -56,9 +56,6 @@ const UpdateApplicationStatusModal = ({
                   type="radio"
                   value={key}
                   checked={selectedStatus === key}
-                  onChange={() =>
-                    setValue('status', key as ApplicationStatusType)
-                  }
                   className="hidden"
                 />
                 <RadioIcon isSelected={isSelected} />
