@@ -7,17 +7,19 @@ import { TabKey } from '@/types/mypage';
 import KebabIcon from '@/public/icons/kebab.svg';
 import MyPostList from './_components/posts/MyPostList';
 import MyCommentList from './_components/comments/MyCommentList';
+import MyScrapList from './_components/scraps/MyScrapList';
 
 const Mypage = () => {
-  const [sortOrder, setSortOrder] = useState<SortOrder>('mostRecent');
   const [activeTab, setActiveTab] = useState<TabKey>('posts');
 
   const renderContent = () => {
     switch (activeTab) {
       case 'posts':
-        return <MyPostList sortOrder={sortOrder} />;
+        return <MyPostList />;
       case 'comments':
         return <MyCommentList />;
+      case 'scraps':
+        return <MyScrapList />;
       default:
         return null;
     }
@@ -36,13 +38,9 @@ const Mypage = () => {
         </div>
         <div className="w-full flex flex-col gap-2">
           <Tab activeTab={activeTab} onTabChange={setActiveTab} />
-          {activeTab === 'posts' && (
-            <div className="w-full flex justify-end">
-              <SortDropdown sortOrder={sortOrder} setSortOrder={setSortOrder} />
-            </div>
-          )}
+
+          {renderContent()}
         </div>
-        {renderContent()}
       </div>
     </div>
   );

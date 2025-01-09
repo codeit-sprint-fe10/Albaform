@@ -37,11 +37,11 @@ const SortDropdown = ({ sortOrder, setSortOrder }: SortDropdownProps) => {
       </button>
 
       {isDropdownOpen && (
-        <div className="absolute top-[calc(100%+4px)] right-[calc(100%)+2px] lg:right-0 w-20 lg:w-32 px-2 py-3 bg-gray-50 border border-gray-100 rounded-lg shadow-lg z-10">
+        <div className="absolute z-20 top-[calc(100%+4px)] right-[calc(100%)+2px] lg:right-0 w-20 lg:w-32 px-2 py-3 bg-gray-50 border border-gray-100 rounded-lg shadow-lg z-10">
           {SORT_OPTIONS.map((option) => (
             <div
               key={option.key}
-              className={`w-full text-gray-400 font-regular lg:px-4 py-2 text-center text-xs lg:text-lg rounded-lg hover:font-semibold cursor-pointer hover:bg-orange-50 hover:text-black-400 ${
+              className={`w-full bg-gray-50 text-gray-400 font-regular lg:px-4 py-2 text-center text-xs lg:text-lg rounded-lg hover:font-semibold cursor-pointer hover:bg-orange-50 hover:text-black-400 ${
                 sortOrder === option.key ? 'bg-blue-500 text-white' : ''
               }`}
               onClick={() => handleSortOrderChange(option.key)}
