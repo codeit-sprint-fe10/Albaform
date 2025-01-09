@@ -1,15 +1,17 @@
 'use client';
 
 import { useTemporarySave } from '@/hooks/useTemporarySave';
+import { useRouter } from 'next/navigation';
 import ApplyForm from './_components/ApplyForm';
 
 const ApplyPage = () => {
   const { clearData } = useTemporarySave();
+  const { back } = useRouter();
 
   const handleButtonClick = () => {
     window.alert('지원서 작성을 취소했습니다.');
     clearData();
-    window.history.back();
+    back();
   };
 
   return (

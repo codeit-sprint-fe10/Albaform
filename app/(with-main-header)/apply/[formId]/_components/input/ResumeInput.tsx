@@ -1,9 +1,8 @@
 'use client';
 
+import { useState, useEffect, InputHTMLAttributes, ChangeEvent } from 'react';
 import { AxiosError } from 'axios';
-import { useMutation } from '@tanstack/react-query';
-import { useState, ChangeEvent, InputHTMLAttributes, useEffect } from 'react';
-import { postResume } from '@/services/file';
+import { usePostResume } from '../../_hook/useTanstackQuery';
 import { RESUME } from '@/constants/form';
 import {
   CustomSetValue,
@@ -37,9 +36,7 @@ const ResumeInput = ({
     getValues,
   } = useFormContext();
   const [name, setName] = useState('');
-  const { mutateAsync, isPending } = useMutation({
-    mutationFn: postResume,
-  });
+  const { mutateAsync, isPending } = usePostResume();
 
   const resetResume = () => {
     setValue('resumeId', '', { shouldDirty: true });

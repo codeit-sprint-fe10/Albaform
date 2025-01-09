@@ -1,10 +1,9 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useMutation } from '@tanstack/react-query';
 import { useParams, useRouter } from 'next/navigation';
 import { useForm, SubmitHandler, FormProvider } from 'react-hook-form';
-import { postApplication } from '@/services/application';
+import { usePostApplication } from '../_hook/useTanstackQuery';
 import { useTemporarySave } from '@/hooks/useTemporarySave';
 import {
   NAME,
@@ -36,7 +35,7 @@ const defaultValues = {
 type ApplyFormFields = typeof defaultValues;
 
 const ApplyForm = () => {
-  const { formId } = useParams();
+  const formId = Number(useParams()['formId']);
   const { replace } = useRouter();
   const { getData, saveData, clearData } = useTemporarySave<ApplyFormFields>();
 
@@ -56,13 +55,13 @@ const ApplyForm = () => {
     formState: { isValid, errors, isDirty },
   } = methods;
 
-  const { mutate, isPending } = useMutation({ mutationFn: postApplication });
+  const { mutate, isPending } = usePostApplication();
 
   const formSubmit: SubmitHandler<ApplyFormFields> = async (data, event) => {
     event?.preventDefault();
     mutate(
       {
-        formId: Number(formId),
+        formId: formId,
         body: {
           ...data,
           experienceMonths: Number(data.experienceMonths),
@@ -77,6 +76,7 @@ const ApplyForm = () => {
         },
         onError: () => {
           window.alert('지원 중에 오류가 발생했습니다.');
+          saveData(getValues());
           window.location.reload();
         },
       },
@@ -92,10 +92,6 @@ const ApplyForm = () => {
     const data = getData();
     if (data) reset(data, { keepDefaultValues: true });
   }, [getData, reset]);
-
-  useEffect(() => {
-    console.log(getValues());
-  });
 
   return (
     <FormProvider {...methods}>

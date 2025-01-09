@@ -2,26 +2,23 @@
 
 import { useEffect, type ReactNode } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { useQuery } from '@tanstack/react-query';
-import { getAlbaDetail } from '@/services/alba';
+import {
+  useGetAlbaDetail,
+  useGetMyApplication,
+} from './_hook/useTanstackQuery';
 import Loader from './_components/Loader';
-import { getMyApplication } from '@/services/application';
+import { isWithinInterval } from '@/utils/date';
 
 const Layout = ({ children }: { children: ReactNode }) => {
-  const { formId } = useParams();
+  const formId = Number(useParams()['formId']);
   const { replace } = useRouter();
-
-  const { isLoading: isValidLoading, error } = useQuery({
-    queryKey: ['forms', formId],
-    queryFn: () => getAlbaDetail(Number(formId)),
-    retry: 1,
-  });
-
-  const { isLoading: isDuplicateLoading, data } = useQuery({
-    queryKey: ['my-application', formId],
-    queryFn: () => getMyApplication({ formId: Number(formId) }),
-    retry: 1,
-  });
+  const {
+    isLoading: isValidLoading,
+    data: albaData,
+    error,
+  } = useGetAlbaDetail(formId);
+  const { isLoading: isDuplicateLoading, data: applicationData } =
+    useGetMyApplication(formId);
 
   useEffect(() => {
     if (error) {
@@ -31,11 +28,23 @@ const Layout = ({ children }: { children: ReactNode }) => {
   }, [error, replace]);
 
   useEffect(() => {
-    if (data?.id) {
+    if (albaData) {
+      const start = new Date(albaData.recruitmentStartDate);
+      const end = new Date(albaData.recruitmentEndDate);
+
+      if (!isWithinInterval(new Date(), { start, end })) {
+        window.alert('현재 지원 기간이 아닙니다.');
+        replace('/albalist');
+      }
+    }
+  }, [albaData, replace]);
+
+  useEffect(() => {
+    if (applicationData?.id) {
       window.alert('이미 지원한 알바폼입니다.');
       replace('/albalist');
     }
-  }, [data, replace]);
+  }, [applicationData, replace]);
 
   if (isValidLoading || isDuplicateLoading)
     return <Loader className="mt-24 lg:mt-32" />;
