@@ -32,6 +32,12 @@ export const postAlbaScrap = async (formId: number) => {
   return response.data.isScrapped;
 };
 
+export const deleteAlbaScrap = async (formId: number) => {
+  const response = await instance.delete<Alba>(`/forms/${formId}/scrap`);
+
+  return response.data.isScrapped;
+};
+
 export const getMyCreatedAlbas = async (
   params: GetMyCreatedAlbasParameters,
 ) => {
