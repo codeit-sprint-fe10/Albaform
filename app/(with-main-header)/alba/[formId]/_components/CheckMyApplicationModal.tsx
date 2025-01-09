@@ -8,10 +8,18 @@ import { GetGuestApplicationsBody } from '@/types/application';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { NAME, PASSWORD, PHONE_NUMBER } from '@/constants/form';
+import InputField from '@/app/(with-main-header)/alba/[formId]/_components/input/InputField';
+import PrivateInputField from '@/app/(with-main-header)/alba/[formId]/_components/input/PrivateInputField';
 
 interface CheckMyApplicationModalProps extends UseModalProps {
   formId: number;
 }
+
+const INITIAL_STATE = {
+  name: '',
+  phoneNumber: '',
+  password: '',
+};
 
 const CheckMyApplicationModal = ({
   dialogRef,
@@ -25,12 +33,9 @@ const CheckMyApplicationModal = ({
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<GetGuestApplicationsBody>({
-    defaultValues: {
-      name: '',
-      phoneNumber: '',
-      password: '',
-    },
+    defaultValues: INITIAL_STATE,
   });
 
   const onSubmit = (data: GetGuestApplicationsBody) => {
@@ -38,22 +43,25 @@ const CheckMyApplicationModal = ({
     push(`/myapply/${formId}`);
   };
 
+  const onClose = () => {
+    reset();
+    closeModal();
+  };
+
   return (
     <Modal
       dialogRef={dialogRef}
-      onClose={closeModal}
+      onClose={onClose}
       title="내 지원 내역 확인하기"
       hasCloseButton={true}
     >
       <section>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div>
-            <label htmlFor="name">Name:</label>
-            <input
-              type="text"
-              id="name"
+          <fieldset>
+            <InputField
+              name="name"
               placeholder={NAME.message.placeholder}
-              {...register('name', {
+              register={register('name', {
                 required: { value: true, message: NAME.message.required },
                 maxLength: {
                   value: NAME.format.maxLength,
@@ -64,16 +72,12 @@ const CheckMyApplicationModal = ({
                   message: NAME.message.pattern,
                 },
               })}
+              error={errors.name}
             />
-            {errors.name && <span>{errors.name.message}</span>}
-          </div>
-          <div>
-            <label htmlFor="phoneNumber">Phone Number:</label>
-            <input
-              type="text"
-              id="phoneNumber"
+            <InputField
+              name="phoneNumber"
               placeholder={PHONE_NUMBER.message.placeholder}
-              {...register('phoneNumber', {
+              register={register('phoneNumber', {
                 required: {
                   value: true,
                   message: PHONE_NUMBER.message.required,
@@ -91,25 +95,21 @@ const CheckMyApplicationModal = ({
                   message: PHONE_NUMBER.message.pattern,
                 },
               })}
+              error={errors.phoneNumber}
             />
-            {errors.phoneNumber && <span>{errors.phoneNumber.message}</span>}
-          </div>
-          <div>
-            <label htmlFor="password">Password:</label>
-            <input
-              type="password"
-              id="password"
+            <PrivateInputField
+              name="password"
               placeholder={PASSWORD.message.placeholder}
-              {...register('password', {
+              register={register('password', {
                 required: { value: true, message: PASSWORD.message.required },
                 minLength: {
                   value: PASSWORD.format.minLength,
                   message: PASSWORD.message.minLength,
                 },
               })}
+              error={errors.password}
             />
-            {errors.password && <span>{errors.password.message}</span>}
-          </div>
+          </fieldset>
           <Button content="지원 내역 상세보기" type="submit" />
         </form>
       </section>
