@@ -1,21 +1,20 @@
-import { MyAlbasFilterType } from '@/types/alba';
 import { create } from 'zustand';
+import { MyScrapsFilterType } from '@/types/mypage';
 
 interface MyScrapsState {
-  searchParams: MyAlbasFilterType;
-  setSearchParams: (newSearchParams: Partial<MyAlbasFilterType>) => void;
+  scrapParams: MyScrapsFilterType;
+  setScrapParams: (newScrapParams: Partial<MyScrapsFilterType>) => void;
 }
 
 const useMyScrapsStore = create<MyScrapsState>((set) => ({
-  searchParams: {
-    keyword: undefined,
+  scrapParams: {
     orderBy: 'mostRecent',
     isPublic: undefined,
     isRecruiting: undefined,
   },
-  setSearchParams: (newSearchParams) =>
+  setScrapParams: (newScrapParams) =>
     set((state) => ({
-      searchParams: { ...state.searchParams, ...newSearchParams },
+      scrapParams: { ...state.scrapParams, ...newScrapParams },
     })),
 }));
 

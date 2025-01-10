@@ -1,6 +1,11 @@
+import { GetAlbasResponse, GetMyCreatedAlbasParameters } from '@/types/alba';
 import { instance } from './axiosInstance';
 import { GetPostsResponse, GetPostsParameters } from '@/types/albatalk';
-import { GetCommentsParameters, GetCommentsResponse } from '@/types/mypage';
+import {
+  GetCommentsParameters,
+  GetCommentsResponse,
+  GetMyScrapsParameters,
+} from '@/types/mypage';
 
 export const getMyPosts = async (params: GetPostsParameters) => {
   try {
@@ -24,7 +29,18 @@ export const getMyComments = async (params: GetCommentsParameters) => {
     );
     return response.data;
   } catch (error) {
-    console.error('Error fetching posts:', error);
+    console.error('Error fetching comments:', error);
     throw error;
+  }
+};
+
+export const getMyScraps = async (params: GetMyScrapsParameters) => {
+  try {
+    const response = await instance.get<GetAlbasResponse>('users/me/scrap', {
+      params,
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching scraps:', error);
   }
 };

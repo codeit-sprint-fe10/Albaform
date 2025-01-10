@@ -134,3 +134,8 @@ export const TALK_OPTIONS = [
   { key: 'edit', label: '수정하기' },
   { key: 'delete', label: '삭제하기' },
 ] as const;
+
+export const SCRAP_OPTIONS = [
+  { key: 'apply', label: '지원하기' },
+  { key: 'cancel', label: '스크랩취소' },
+];

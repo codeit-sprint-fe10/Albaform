@@ -19,7 +19,7 @@ interface AlbatalkCardProps {
   createdAt: string;
   commentCount: number;
   likeCount: number;
-  talkId: number;
+  id: number;
 }
 
 const AlbatalkCard = ({
@@ -29,14 +29,14 @@ const AlbatalkCard = ({
   createdAt,
   commentCount,
   likeCount,
-  talkId,
+  id,
 }: AlbatalkCardProps) => {
   const router = useRouter();
-  const { mutate: deleteMutation } = useDeleteTalk(talkId);
+  const { mutate: deleteMutation } = useDeleteTalk(id);
 
   const handleAction = async (action: EditDropdownAction) => {
     if (action === 'edit') {
-      router.push(`/edittalk/${talkId}`);
+      router.push(`/edittalk/${id}`);
     } else if (action === 'delete') {
       deleteMutation();
     }
@@ -47,7 +47,7 @@ const AlbatalkCard = ({
       <div className="absolute right-6">
         <EditDropdown onAction={handleAction} />
       </div>
-      <Link href={`/albatalk/${talkId}`} className="block">
+      <Link href={`/albatalk/${id}`} className="block">
         <div className="flex flex-col h-[162px] lg:h-[232px] gap-6">
           <div className="flex lg:h-44 flex-col gap-2">
             <div className="max-w-80 text-black-400 font-semibold text-lg lg:text-2lg line-clamp-1">

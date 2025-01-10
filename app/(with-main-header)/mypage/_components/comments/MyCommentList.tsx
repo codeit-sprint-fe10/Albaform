@@ -1,4 +1,4 @@
-import EmptyPosts from '../EmptyPosts';
+import Empty from '../Empty';
 import InfiniteScroll from '@/components/InfiniteScroll';
 import CommentCard from './CommentCard';
 import useGetMyComments from '../../_hooks/useGetMyComments';
@@ -44,7 +44,7 @@ const MyCommentList = () => {
             )}
           </InfiniteScroll>
         ) : (
-          <EmptyPosts />
+          <Empty type="comment" />
         )}
       </div>
     </div>

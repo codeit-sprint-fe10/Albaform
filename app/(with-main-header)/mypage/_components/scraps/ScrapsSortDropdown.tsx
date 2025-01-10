@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import DownIcon from '@/public/icons/chevron-down.svg';
+import useMyScrapsStore from '@/store/myscraps';
 
 interface Option {
   key: string | boolean | undefined;
@@ -16,6 +17,7 @@ interface DropdownProps {
 const ScrapsSortDropdown = ({ name, options }: DropdownProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(options[0]);
+  const setScrapParams = useMyScrapsStore((state) => state.setScrapParams);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
   const buttonStyle =
@@ -39,6 +41,7 @@ const ScrapsSortDropdown = ({ name, options }: DropdownProps) => {
       : 'font-regular text-xs lg:text-2lg text-black-100 hover:text-orange-300 py-2 px-2.5 lg:py-[13px] lg:px-4';
 
   const handleOptionClick = (option: Option) => {
+    setScrapParams({ [name]: option.key });
     setSelectedOption(option);
     setIsDropdownOpen(false);
   };
@@ -78,7 +81,7 @@ const ScrapsSortDropdown = ({ name, options }: DropdownProps) => {
 
       {isDropdownOpen && (
         <div
-          className={`absolute top-[calc(100%+6px)] lg:top-[calc(100%+8px)] right-0 border bg-gray-50 shadow-md z-10 overflow-hidden ${dropDownStyle}`}
+          className={`absolute top-[calc(100%+6px)] lg:top-[calc(100%+8px)] right-0 border bg-gray-50 shadow-md z-40 overflow-hidden ${dropDownStyle}`}
         >
           {options.map((option) => (
             <div

@@ -1,4 +1,5 @@
 import { SORT_OPTIONS, TAB_OPTIONS } from '@/constants/dropdown';
+import { AlbasOrderBy, GetAlbasParameters } from './alba';
 
 export type TabKey = (typeof TAB_OPTIONS)[number]['key'];
 
@@ -34,3 +35,16 @@ export interface GetCommentsResponse {
   currentPage: number;
   totalPages: number;
 }
+
+export interface GetMyScrapsParameters {
+  orderBy: AlbasOrderBy;
+  limit: number;
+  cursor?: number;
+  isRecruiting?: boolean;
+  isPublic?: boolean;
+}
+
+export type MyScrapsFilterType = Pick<
+  GetMyScrapsParameters,
+  'orderBy' | 'isRecruiting' | 'isPublic'
+>;
