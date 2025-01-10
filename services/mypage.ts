@@ -46,7 +46,6 @@ export const getMyScraps = async (params: GetMyScrapsParameters) => {
 };
 
 export const deleteScrap = async (id: number) => {
-  const response = await instance.delete(`/forms/${id}`);
-  console.log(response);
+  const response = await instance.delete(`/forms/${id}/scrap`);
   return response.data;
 };
