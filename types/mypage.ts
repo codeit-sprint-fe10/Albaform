@@ -1,4 +1,8 @@
-import { SORT_OPTIONS, TAB_OPTIONS } from '@/constants/dropdown';
+import {
+  MYPAGE_OPTIONS,
+  SORT_OPTIONS,
+  TAB_OPTIONS,
+} from '@/constants/dropdown';
 import { AlbasOrderBy, GetAlbasParameters } from './alba';
 
 export type TabKey = (typeof TAB_OPTIONS)[number]['key'];
@@ -48,3 +52,5 @@ export type MyScrapsFilterType = Pick<
   GetMyScrapsParameters,
   'orderBy' | 'isRecruiting' | 'isPublic'
 >;
+
+export type MypageOption = (typeof MYPAGE_OPTIONS)[number]['key'];

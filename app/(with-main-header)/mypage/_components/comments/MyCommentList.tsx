@@ -28,7 +28,7 @@ const MyCommentList = () => {
   }
 
   return (
-    <div className="flex w-full max-w-container-md">
+    <div className="flex w-full max-w-container-md mt-8">
       <div className="w-full flex flex-col gap-4 lg:grid lg:grid-cols-3 lg:gap-6 lg:gap-y-12">
         {totalItemCount ? (
           <InfiniteScroll

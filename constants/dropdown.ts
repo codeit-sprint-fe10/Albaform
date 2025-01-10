@@ -139,3 +139,8 @@ export const SCRAP_OPTIONS = [
   { key: 'apply', label: '지원하기' },
   { key: 'cancel', label: '스크랩취소' },
 ];
+
+export const MYPAGE_OPTIONS = [
+  { key: 'editInfo', label: '내 정보 수정' },
+  { key: 'updatePassword', label: '비밀번호 변경' },
+] as const;
