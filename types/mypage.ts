@@ -1,11 +1,11 @@
 import {
   MYPAGE_OPTIONS,
   SORT_OPTIONS,
-  TAB_OPTIONS,
+  TAB_OPTIONS_APPLICANT,
 } from '@/constants/dropdown';
-import { AlbasOrderBy, GetAlbasParameters } from './alba';
+import { AlbasOrderBy } from './alba';
 
-export type TabKey = (typeof TAB_OPTIONS)[number]['key'];
+export type TabKey = (typeof TAB_OPTIONS_APPLICANT)[number]['key'];
 
 export type SortOrder = (typeof SORT_OPTIONS)[number]['key'];
 

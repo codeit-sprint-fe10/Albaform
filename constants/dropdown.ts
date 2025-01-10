@@ -118,10 +118,15 @@ export const MENU_OWNER_OPTIONS = [
   { key: 'delete', label: '삭제하기' },
 ];
 
-export const TAB_OPTIONS = [
+export const TAB_OPTIONS_APPLICANT = [
   { key: 'posts', label: '내가 쓴 글' },
   { key: 'comments', label: '내가 쓴 댓글' },
   { key: 'scraps', label: '스크랩' },
+] as const;
+
+export const TAB_OPTIONS_OWNER = [
+  { key: 'posts', label: '내가 쓴 글' },
+  { key: 'comments', label: '내가 쓴 댓글' },
 ] as const;
 
 export const SORT_OPTIONS = [

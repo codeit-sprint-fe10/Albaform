@@ -1,3 +1,5 @@
+'use client';
+
 import ScrapsSortDropdown from './ScrapsSortDropdown';
 import {
   PUBLIC_OPTIONS,

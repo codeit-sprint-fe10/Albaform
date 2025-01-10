@@ -1,3 +1,5 @@
+'use client';
+
 import InfiniteScroll from '@/components/InfiniteScroll';
 import Filters from './Filters';
 import ScrapCard from './ScrapCard';
@@ -12,7 +14,7 @@ const MyScrapList = () => {
   const scrapParams = useMyScrapsStore((state) => state.scrapParams);
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useGetMyScraps({ pageLimit: PAGE_LIMIT, ...scrapParams });
-  console.log(scrapParams);
+
   return (
     <div>
       <Filters />

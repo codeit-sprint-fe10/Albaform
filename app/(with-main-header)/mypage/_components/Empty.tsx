@@ -1,3 +1,5 @@
+'use client';
+
 import NoCommentIcon from '@/public/icons/no-comment.svg';
 
 interface EmptyProps {

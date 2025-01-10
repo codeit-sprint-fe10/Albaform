@@ -1,10 +1,8 @@
 'use client';
+
 import { useState } from 'react';
-import { SortOrder } from '@/types/albatalk';
 import Tab from './_components/Tab';
-import SortDropdown from './_components/posts/SortDropdown';
 import { TabKey } from '@/types/mypage';
-import KebabIcon from '@/public/icons/kebab.svg';
 import MyPostList from './_components/posts/MyPostList';
 import MyCommentList from './_components/comments/MyCommentList';
 import MyScrapList from './_components/scraps/MyScrapList';
