@@ -59,7 +59,7 @@ const MenuDropdown = ({ id }: { id: number }) => {
         />
       </button>
       {isDropdownVisible && (
-        <ul className="absolute -left-32 w-auto border border-line-100 bg-gray-50 rounded-lg shadow-md z-10">
+        <ul className="absolute -left-24 lg:-left-32 w-auto border border-line-100 bg-gray-50 rounded-lg shadow-md z-10">
           {SCRAP_OPTIONS.map((option) => (
             <li
               key={option.key}
