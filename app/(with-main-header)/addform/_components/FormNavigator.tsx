@@ -3,16 +3,18 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 import FormTabs from './FormTabs';
 import FormDropdown from './FormDropdown';
 import StepContent from './StepContent';
 import Button from '@/components/Button';
 import { useTemporarySave } from '@/hooks/useTemporarySave';
 import { PostAlbaBody } from '@/types/alba';
-import { postAlba } from '@/services/alba';
+import { postAlba, patchAlba, getAlbaDetail } from '@/services/alba';
 import { STEP_1_FIELDS, STEP_2_FIELDS, STEP_3_FIELDS } from '@/constants/form';
+import { filterToPostAlbaBody } from '@/utils/filter';
 
-const FormNavigator = () => {
+const FormNavigator = ({ formId }: { formId?: number }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [formKey, setFormKey] = useState(1);
   const [tabStatuses, setTabStatuses] = useState<Record<string, boolean>>({
@@ -30,6 +32,8 @@ const FormNavigator = () => {
   });
   const { getData, saveData, clearData } = useTemporarySave<PostAlbaBody>();
   const formRef = useRef<{ submit: () => void | null }>(null);
+  const router = useRouter();
+  const defaultValues = methods.getValues();
   const fieldGroups: Record<string, string[]> = useMemo(
     () => ({
       tab1: STEP_1_FIELDS,
@@ -39,10 +43,24 @@ const FormNavigator = () => {
     [],
   );
 
+  const formFn = async ({
+    formId,
+    body,
+  }: {
+    formId?: number;
+    body: PostAlbaBody;
+  }) => {
+    if (formId) {
+      return await patchAlba(formId, body);
+    }
+    clearData();
+    return await postAlba(body);
+  };
+
   const mutation = useMutation({
-    mutationFn: postAlba,
-    onSuccess: () => {
-      //TODO
+    mutationFn: formFn,
+    onSuccess: (data) => {
+      router.replace(`/alba/${data.id}`);
     },
     onError: (error: Error) => {
       //TODO
@@ -55,40 +73,48 @@ const FormNavigator = () => {
   };
 
   const handleSubmit = (data: PostAlbaBody) => {
-    clearData();
-    mutation.mutate(data);
+    mutation.mutate({ formId, body: data });
   };
 
   useEffect(() => {
-    const storedData = getData();
-    const defaultValues = methods.getValues();
+    const loadData = async () => {
+      let storedData;
+      if (formId) {
+        const response = await getAlbaDetail(formId);
+        storedData = filterToPostAlbaBody(response);
+      } else {
+        storedData = getData();
+      }
 
-    if (storedData) {
-      methods.reset(storedData);
+      if (storedData) {
+        methods.reset(storedData);
 
-      const newTabStatuses: Record<string, boolean> = {};
-      Object.entries(fieldGroups).forEach(([tab, fields]) => {
-        newTabStatuses[tab] = fields.some((field) => {
-          const storedValue = storedData[field as keyof typeof storedData];
-          const defaultValue =
-            defaultValues[field as keyof typeof defaultValues];
+        const newTabStatuses: Record<string, boolean> = {};
+        Object.entries(fieldGroups).forEach(([tab, fields]) => {
+          newTabStatuses[tab] = fields.some((field) => {
+            const storedValue = storedData[field as keyof typeof storedData];
+            const defaultValue =
+              defaultValues[field as keyof typeof defaultValues];
 
-          if (Array.isArray(storedValue)) {
-            return storedValue.length !== 0 && storedValue !== defaultValue;
-          }
+            if (Array.isArray(storedValue)) {
+              return storedValue.length !== 0 && storedValue !== defaultValue;
+            }
 
-          return (
-            storedValue !== null &&
-            storedValue !== '' &&
-            storedValue !== defaultValue
-          );
+            return (
+              storedValue !== null &&
+              storedValue !== '' &&
+              storedValue !== defaultValue
+            );
+          });
         });
-      });
 
-      setFormKey((prev) => prev + 1);
-      setTabStatuses(newTabStatuses);
-    }
-  }, []);
+        setFormKey((prev) => prev + 1);
+        setTabStatuses(newTabStatuses);
+      }
+    };
+
+    loadData();
+  }, [formId]);
 
   useEffect(() => {
     const subscription = methods.watch((values) => {
@@ -119,14 +145,16 @@ const FormNavigator = () => {
             />
           </div>
           <div className="absolute top-[calc(100%)] left-1/2 -translate-x-1/2 lg:translate-x-0 flex flex-col gap-2.5 w-full px-6 lg:px-0 py-2.5 lg:py-0 lg:static">
-            <Button
-              design="outlined"
-              content="임시 저장"
-              onClick={handleTemporarySave}
-            />
+            {!formId && (
+              <Button
+                design="outlined"
+                content="임시 저장"
+                onClick={handleTemporarySave}
+              />
+            )}
             <Button
               type="submit"
-              content="등록 하기"
+              content={formId ? '수정하기' : '등록하기'}
               onClick={() => formRef.current?.submit()}
               disabled={!methods.formState.isValid}
             />
@@ -134,12 +162,12 @@ const FormNavigator = () => {
         </aside>
         <div className="flex justify-between items-center">
           <h2 className="font-semibold text-xl lg:text-3xl text-black-500 py-6 lg:py-10">
-            알바폼 만들기
+            알바폼 {formId ? '수정하기' : '만들기'}
           </h2>
           <button
             type="button"
             className="bg-gray-100 rounded-lg font-semibold text-md lg:text-xl text-gray-50 py-2 px-3.5 lg:py-3 lg:px-6"
-            onClick={clearData}
+            onClick={() => router.back()}
           >
             작성취소
           </button>

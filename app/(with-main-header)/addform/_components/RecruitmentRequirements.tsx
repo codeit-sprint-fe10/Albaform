@@ -29,6 +29,7 @@ const RecruitmentRequirements = ({ isVisible }: { isVisible: boolean }) => {
           render={({ field }) => (
             <DropdownInput
               options={NUMBER_OF_POSITION_OPTIONS}
+              type="number"
               name={field.name}
               value={field.value}
               onChange={field.onChange}

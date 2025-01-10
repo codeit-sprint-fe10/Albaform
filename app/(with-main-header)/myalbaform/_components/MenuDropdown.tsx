@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { MENU_OWNER_OPTIONS } from '@/constants/dropdown';
 
@@ -9,11 +10,15 @@ interface Option {
   label: string;
 }
 
-const MenuDropdown = () => {
+const MenuDropdown = ({ id }: { id: number }) => {
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const router = useRouter();
 
   const handleOptionClick = (option: Option) => {
+    if (option.key === 'modify') {
+      router.push(`/alba/${id}/edit`);
+    }
     setIsDropdownVisible(false);
   };
 
@@ -34,7 +39,13 @@ const MenuDropdown = () => {
   }, []);
 
   return (
-    <div className="relative" ref={dropdownRef}>
+    <div
+      className="relative"
+      ref={dropdownRef}
+      onClick={(event) => {
+        event.preventDefault();
+      }}
+    >
       <button
         type="button"
         className="block"

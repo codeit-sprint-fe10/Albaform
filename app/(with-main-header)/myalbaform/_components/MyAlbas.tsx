@@ -28,7 +28,7 @@ const MyAlbas = () => {
     <ul className="grid gap-8 md:gap-y-12 md:gap-x-6 lg:gap-y-16 md:grid-cols-[repeat(auto-fit,_327px)] lg:grid-cols-[repeat(auto-fit,_469px)] justify-center place-items-center">
       {isLoading ? (
         <AlbaCardSkeletons />
-      ) : data?.pages.length && data?.pages[0].data.length ? (
+      ) : data?.pages?.[0]?.data?.length ? (
         <InfiniteScroll
           hasNextPage={hasNextPage}
           isLoading={isFetchingNextPage}

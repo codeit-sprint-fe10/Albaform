@@ -112,7 +112,10 @@ const DateRangePicker = ({
     return (
       <>
         {weeks.map((week, weekIndex) => (
-          <div key={weekIndex} className="flex overflow-hidden rounded-full">
+          <div
+            key={weekIndex}
+            className="flex max-w-[560px] overflow-hidden rounded-full"
+          >
             {week.map((day) => {
               const isSelected =
                 isSameDay(day, startDate) || isSameDay(day, endDate);
@@ -138,7 +141,7 @@ const DateRangePicker = ({
                   onClick={() => handleDayClick(day)}
                   onMouseEnter={() => handleDayMouseEnter(day)}
                   onMouseLeave={handleDayMouseLeave}
-                  className={`relative w-11 lg:w-16 flex items-center justify-center text-sm font-medium lg:text-xl
+                  className={`relative w-11 lg:w-auto flex items-center justify-center text-sm font-medium lg:text-xl lg:px-5
                     ${isCurrentMonth && !isSelected && 'text-black-400'}
                     ${!isCurrentMonth && !isSelected && 'text-gray-100'}
                     ${
@@ -229,7 +232,7 @@ const DateRangePicker = ({
       </button>
       {isOpen && (
         <div
-          className={`absolute left-0 border-[0.5px] w-full bg-gray-50 rounded-lg shadow-md px-[9px] pb-4 lg:px-3.5 lg:pb-6 z-10 ${isOpenUp ? 'bottom-[calc(100%+4px)]' : 'top-[calc(100%+4px)]'}`}
+          className={`absolute left-0 border-[0.5px] lg:w-[640px] bg-gray-50 rounded-lg shadow-md px-[9px] pb-4 lg:px-9 lg:pb-6 z-10 ${isOpenUp ? 'bottom-[calc(100%+4px)]' : 'top-[calc(100%+4px)]'}`}
         >
           <div className="relative flex justify-between items-center py-3 px-3.5 lg:py-3 my-2 lg:mt-6 lg:mb-0">
             <button type="button" onClick={() => setIsOpen(false)}>
@@ -268,7 +271,7 @@ const DateRangePicker = ({
               />
             </button>
           </div>
-          <div className="flex">
+          <div className="flex lg:justify-around max-w-[560px]">
             {['일', '월', '화', '수', '목', '금', '토'].map((day) => (
               <div
                 key={day}

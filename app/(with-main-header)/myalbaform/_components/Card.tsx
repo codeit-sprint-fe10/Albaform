@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import Image from 'next/image';
 import { AlbaCardType } from '@/types/alba';
 import { format, isWithinInterval } from '@/utils/date';
@@ -33,7 +34,10 @@ const Card = ({
     'after:absolute after:top-1/2 after:-translate-y-1/2 after:right-0 after:w-[1px] after:h-3.5 after:bg-line-100';
 
   return (
-    <div className="max-w-[327px] lg:max-w-[477px]">
+    <Link
+      href={`alba/${id}`}
+      className="block max-w-[327px] lg:max-w-[477px] hover:-translate-y-2.5 transition duration-200"
+    >
       <Image
         src={imageUrls[0] || '/icons/empty-form.svg'}
         alt={`${title} 이미지`}
@@ -51,7 +55,7 @@ const Card = ({
             {period}
           </div>
         </div>
-        <MenuDropdown />
+        <MenuDropdown id={id} />
       </div>
       <h3 className="h-[52px] lg:h-16 font-semibold text-2lg lg:text-xl text-black-500 mb-6 lg:mb-8">
         {title}
@@ -65,7 +69,7 @@ const Card = ({
         </div>
         <div className="flex-1 flex justify-center">{dDay}</div>
       </div>
-    </div>
+    </Link>
   );
 };
 

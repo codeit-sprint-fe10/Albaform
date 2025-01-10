@@ -29,7 +29,7 @@ const DropdownInput = ({
   widthStyle = 'w-full',
   paddingStyle = 'py-[9px] px-6 lg:py-3.5 lg:px-8',
   icon,
-  type,
+  type = 'text',
 }: DropdownProps) => {
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const [selectedOption, setSelectedOption] = useState<string | number | null>(
@@ -69,58 +69,57 @@ const DropdownInput = ({
   }, []);
 
   return (
-    <div className="relative" ref={dropdownRef}>
-      <button
-        type="button"
-        className={`flex items-center gap-2 lg:gap-4 font-regular text-lg lg:text-xl bg-background-200 text-black-400 placeholder:text-gray-400 rounded-lg ${paddingStyle} ${widthStyle}`}
-        onClick={() => setIsDropdownVisible((prev) => !prev)}
-      >
-        {icon}
-        <div className="flex justify-between items-center flex-1">
-          {selectedOption ? (
-            selectedOption
-          ) : (
-            <span className="text-gray-200">선택</span>
-          )}
-          <Image
-            src="/icons/drop-menu.svg"
-            width={36}
-            height={36}
-            alt="드롭다운"
-            className={`transition-transform duration-300 ${isDropdownVisible ? 'rotate-180' : 'rotate-0'} ${type && 'w-6 h-6 lg:w-9 lg:h-9'}`}
-          />
-        </div>
-      </button>
-
-      {isDropdownVisible && (
-        <div
-          className={`absolute top-[calc(100%+4px)] w-full bg-gray-50 rounded-lg shadow-md z-10 pr-[1px] ${widthStyle}`}
+    <>
+      <div className="relative" ref={dropdownRef}>
+        <button
+          type="button"
+          className={`flex items-center gap-2 lg:gap-4 font-regular text-lg lg:text-xl bg-background-200 text-black-400 placeholder:text-gray-400 rounded-lg ${paddingStyle} ${widthStyle}`}
+          onClick={() => setIsDropdownVisible((prev) => !prev)}
         >
-          <ul className="max-h-[160px] lg:max-h-[200px] font-regular text-lg lg:text-xl text-black-100 overflow-y-auto custom-scrollbar">
-            {options.map((option) => {
-              return (
-                <li
-                  key={option.key}
-                  onClick={() => handleOptionClick(option)}
-                  className="py-3.5 px-6 lg:py-4 lg:px-8 cursor-pointer hover:bg-orange-50"
-                >
-                  {option.label}
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      )}
+          {icon}
+          <div className="flex justify-between items-center flex-1">
+            {selectedOption ?? <span className="text-gray-200">선택</span>}
+            <Image
+              src="/icons/drop-menu.svg"
+              width={36}
+              height={36}
+              alt="드롭다운"
+              className={`transition-transform duration-300 ${isDropdownVisible ? 'rotate-180' : 'rotate-0'} ${type && 'w-6 h-6 lg:w-9 lg:h-9'}`}
+            />
+          </div>
+        </button>
+
+        {isDropdownVisible && (
+          <div
+            className={`absolute top-[calc(100%+4px)] w-full bg-gray-50 rounded-lg shadow-md z-10 pr-[1px] ${widthStyle}`}
+          >
+            <ul className="max-h-[160px] lg:max-h-[200px] font-regular text-lg lg:text-xl text-black-100 overflow-y-auto custom-scrollbar">
+              {options.map((option) => {
+                return (
+                  <li
+                    key={option.key}
+                    onClick={() => handleOptionClick(option)}
+                    className="py-3.5 px-6 lg:py-4 lg:px-8 cursor-pointer hover:bg-orange-50"
+                  >
+                    {option.label}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        )}
+      </div>
       {selectedOption === '직접입력' && (
         <div className="mt-3 lg:mt-4">
           <Input
+            type={type}
             name={name}
             className="p-3.5 lg:py-4"
             onChange={(e) => handleCustomInputChange(e.target.value)}
           />
         </div>
       )}
-    </div>
+    </>
   );
 };
 

@@ -20,6 +20,14 @@ export const postAlba = async (body: PostAlbaBody) => {
   return response.data;
 };
 
+export const patchAlba = async (formId: number, body: PostAlbaBody) => {
+  const response = await instance.patch<PostAlbaResponse>(
+    `/forms/${formId}`,
+    body,
+  );
+  return response.data;
+};
+
 export const getAlbaDetail = async (formId: number) => {
   const response = await instance.get<Alba>(`/forms/${formId}`);
 
