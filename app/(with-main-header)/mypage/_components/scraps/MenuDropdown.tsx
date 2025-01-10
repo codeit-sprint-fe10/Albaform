@@ -3,18 +3,28 @@
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { SCRAP_OPTIONS } from '@/constants/dropdown';
+import { useRouter } from 'next/navigation';
+import useDeleteScrap from '../../_hooks/useDeleteScrap';
 
 interface Option {
   key: string;
   label: string;
 }
 
-const MenuDropdown = () => {
+const MenuDropdown = ({ id }: { id: number }) => {
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const router = useRouter();
+  const { mutate: deleteMutation, isPending } = useDeleteScrap(id);
 
   const handleOptionClick = (option: Option) => {
     setIsDropdownVisible(false);
+
+    if (option.key === 'apply') {
+      router.push(`/apply/${id}`);
+    } else if (option.key === 'cancel') {
+      deleteMutation();
+    }
   };
 
   const handleOutsideClick = (e: MouseEvent) => {
@@ -34,7 +44,7 @@ const MenuDropdown = () => {
   }, []);
 
   return (
-    <div className="relative" ref={dropdownRef}>
+    <div className="relative z-20" ref={dropdownRef}>
       <button
         type="button"
         className="block"
@@ -49,7 +59,7 @@ const MenuDropdown = () => {
         />
       </button>
       {isDropdownVisible && (
-        <ul className="absolute top-[calc(100%+6px)] lg:top-[calc(100%+9px)] right-0 w-auto border border-line-100 bg-gray-50 rounded-lg shadow-md z-10">
+        <ul className="absolute -left-32 w-auto border border-line-100 bg-gray-50 rounded-lg shadow-md z-10">
           {SCRAP_OPTIONS.map((option) => (
             <li
               key={option.key}

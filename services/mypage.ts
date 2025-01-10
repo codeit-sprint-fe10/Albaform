@@ -44,3 +44,9 @@ export const getMyScraps = async (params: GetMyScrapsParameters) => {
     console.error('Error fetching scraps:', error);
   }
 };
+
+export const deleteScrap = async (id: number) => {
+  const response = await instance.delete(`/forms/${id}`);
+  console.log(response);
+  return response.data;
+};
