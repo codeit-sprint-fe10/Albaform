@@ -25,6 +25,7 @@ jobs:
             npm install
             echo "NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=${{ secrets.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY }}" >> .env
             echo "NEXT_PUBLIC_KAKAO_API_KEY=${{ secrets.NEXT_PUBLIC_KAKAO_API_KEY }}" >> .env
+            echo "NEXT_PUBLIC_KAKAO_SHARE_API=${{ secrets.NEXT_PUBLIC_KAKAO_SHARE_API }}" >> .env
             npm run build
             pm2 restart all
 

@@ -35,7 +35,7 @@ const Modal = ({
 
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, []);
+  }, [allowDimClose]);
 
   return (
     <dialog

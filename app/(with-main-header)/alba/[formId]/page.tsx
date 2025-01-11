@@ -51,7 +51,7 @@ const AlbaFormIdPage = async ({
             <div className="mt-8">
               <Location location={albaDetail.location} />
             </div>
-            <FloatingActions isScrapped={albaDetail.isScrapped} id={formId} />
+            <FloatingActions {...albaDetail} id={formId} />
           </div>
           <div className="lg:basis-1/2">
             <div className="lg:flex flex-col">
@@ -71,7 +71,7 @@ const AlbaFormIdPage = async ({
           </div>
         </div>
       </div>
-      {/*<OwnerSection formId={formId} />*/}
+      <OwnerSection formId={formId} />
       {isBeforeToday(albaDetail.recruitmentEndDate) && (
         <RecruitmentClosedModal />
       )}
