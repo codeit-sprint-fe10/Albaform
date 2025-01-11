@@ -9,6 +9,10 @@ export const applicationStatus = {
 
 export type ApplicationStatusType = keyof typeof applicationStatus;
 
+export const DEFAULT_APPLICATION_STATUS = Object.keys(
+  applicationStatus,
+)[1] as ApplicationStatusType;
+
 export type orderByType = (typeof orderByTypes)[number];
 
 export interface Application {

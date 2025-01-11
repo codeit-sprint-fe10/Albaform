@@ -2,7 +2,11 @@
 
 import Modal from '@/components/Modal';
 import { UseModalProps } from '@/types/useModal';
-import { applicationStatus, ApplicationStatusType } from '@/types/application';
+import {
+  applicationStatus,
+  ApplicationStatusType,
+  DEFAULT_APPLICATION_STATUS,
+} from '@/types/application';
 import RadioIcon from '@/app/(with-main-header)/applications/[formId]/[applicationId]/_components/RadioIcon';
 import Button from '@/components/Button';
 import { useForm } from 'react-hook-form';
@@ -18,7 +22,7 @@ const UpdateApplicationStatusModal = ({
   dialogRef,
   closeModal,
   applicationId,
-  status = 'INTERVIEW_PENDING',
+  status = DEFAULT_APPLICATION_STATUS,
   setStatus,
 }: UpdateApplicationStatusProps) => {
   const { register, handleSubmit, watch } = useForm({

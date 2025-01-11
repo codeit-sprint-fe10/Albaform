@@ -1,6 +1,9 @@
 'use client';
 
-import { Application, applicationStatus } from '@/types/application';
+import {
+  applicationStatus,
+  DEFAULT_APPLICATION_STATUS,
+} from '@/types/application';
 import { formatDateTimeWithLetters } from '@/utils/dateFormatter';
 import InfoIcon from '@/public/icons/info.svg';
 import CloseIcon from '@/public/icons/x-thin.svg';
@@ -8,28 +11,34 @@ import { useState } from 'react';
 import UpdateApplicationStatusModal from '@/app/(with-main-header)/applications/[formId]/[applicationId]/_components/UpdateApplicationStatusModal';
 import useModal from '@/hooks/useModal';
 import EditIcon from '@/public/icons/edit.svg';
-
-type ApplicationStatusSectionProps = Pick<
-  Application,
-  'id' | 'createdAt' | 'status'
->;
+import useGetMyApplication from '@/app/(with-main-header)/myapply/[formId]/_hooks/useGetMyApplication';
 
 const ApplicationStatusSection = ({
-  id: applicationId,
-  createdAt,
-  status,
-}: ApplicationStatusSectionProps) => {
+  formId,
+  applicationId,
+}: {
+  formId: number;
+  applicationId: number;
+}) => {
+  const { data } = useGetMyApplication(formId);
+
   const [showTooltip, setShowTooltip] = useState(true);
-  const [currentStatus, setCurrentStatus] = useState(status); // 상태변경 Modal에서 상태변경 api호출후 변경된값으로 리렌더링을 하기위해 사용
+  const [currentStatus, setCurrentStatus] = useState(
+    data?.status || DEFAULT_APPLICATION_STATUS,
+  ); // 상태변경 Modal에서 상태변경 api호출후 변경된값으로 리렌더링을 하기위해 사용
 
   const { dialogRef, openModal, closeModal } = useModal();
+
+  if (!data) {
+    return null;
+  }
 
   return (
     <>
       <section className="font-regular text-md text-black-400 lg:text-xl lg:p-6 lg:bg-background-100 lg:rounded-lg lg:border lg:border-line-100">
         <p className="flex justify-between items-center py-4 border-b border-line-100">
           <span className="text-black-100">지원일시</span>
-          <span>{formatDateTimeWithLetters(createdAt)}</span>
+          <span>{formatDateTimeWithLetters(data.createdAt)}</span>
         </p>
         <p className="flex justify-between items-center py-4 border-b border-line-100 lg:border-none">
           <button onClick={openModal} className="flex items-center gap-1">
