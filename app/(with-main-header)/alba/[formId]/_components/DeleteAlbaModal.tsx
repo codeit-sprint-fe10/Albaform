@@ -6,15 +6,19 @@ import React from 'react';
 import Button from '@/components/Button';
 import { deleteAlba } from '@/services/alba';
 import DeleteAlbaModalIcon from '@/public/icons/delete-alba.svg';
+import { useRouter } from 'next/navigation';
 
 interface DeleteModalProps extends UseModalProps {
   formId: number;
 }
 
 const DeleteModal = ({ dialogRef, closeModal, formId }: DeleteModalProps) => {
+  const { replace } = useRouter();
+
   const handleOnDelete = async () => {
     try {
       await deleteAlba(formId);
+      replace('/albalist');
     } catch {
       alert('삭제 실패');
     }

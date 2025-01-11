@@ -8,12 +8,13 @@ const useGetMyApplication = (formId: number) => {
   const user = useUserStore((state) => state.user);
   const guest = useGuestStore((state) => state.guest);
 
-  const queryFn = user
-    ? () =>
-        getMyApplication({
-          formId,
-        })
-    : () => getGuestApplication({ formId, body: guest });
+  const queryFn = () => {
+    if (user) {
+      return getMyApplication({ formId });
+    }
+
+    return getGuestApplication({ formId, body: guest });
+  };
 
   return useQuery<Application>({
     queryKey: ['myApplication', formId],
