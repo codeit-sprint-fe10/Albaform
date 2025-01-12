@@ -7,6 +7,7 @@ import { calculateDDay } from '@/utils/dDayCalculator';
 import Badge from '@/components/Badge';
 import MenuDropdown from './MenuDropdown';
 import Link from 'next/link';
+import Private from './Private';
 
 const ScrapCard = ({
   id,
@@ -63,19 +64,7 @@ const ScrapCard = ({
               imageUrls[0] ? 'object-cover' : 'object-none'
             }`}
           />
-          {!isPublic && (
-            <div className="absolute top-0 left-0 z-20 flex flex-col justify-center items-center w-full h-full backdrop-blur-sm bg-black-400/50 rounded-xl lg:rounded-2xl">
-              <Image
-                src="/icons/private.svg"
-                width={80}
-                height={80}
-                alt="비공개"
-              />
-              <div className="text-md text-gray-50">
-                비공개 처리된 알바폼이에요
-              </div>
-            </div>
-          )}
+          {!isPublic && <Private />}
 
           <div className="flex justify-between items-center mb-4 lg:mb-6">
             <div className="flex items-center gap-2">
