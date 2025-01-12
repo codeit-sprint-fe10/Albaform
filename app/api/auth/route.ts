@@ -1,16 +1,19 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { cookies } from 'next/headers';
-import { NAMES, OPTIONS } from '@/constants/cookies';
+import { COOKIE_NAMES, COOKIE_OPTIONS } from '@/constants/api';
+
+type VarName = keyof typeof COOKIE_NAMES;
 
 export const GET = async () => {
   const cookieStore = await cookies();
-  const resBody = Object.entries(NAMES).reduce(
+
+  const resBody = Object.entries(COOKIE_NAMES).reduce(
     (acc, [varName, cooName]) => {
-      acc[varName] = cookieStore.get(cooName)?.value || null;
+      acc[varName as VarName] = cookieStore.get(cooName)?.value || null;
       return acc;
     },
-    {} as Record<string, string | null>,
+    {} as Record<VarName, string | null>,
   );
 
   return NextResponse.json(resBody, { status: 200 });
@@ -18,9 +21,10 @@ export const GET = async () => {
 
 export const POST = async (request: NextRequest) => {
   const cookieStore = await cookies();
-  const reqBody: Record<string, string> = await request.json();
-  Object.entries(NAMES).forEach(([varName, cooName]) => {
-    cookieStore.set(cooName, reqBody[varName], OPTIONS);
+
+  const reqBody: Record<VarName, string> = await request.json();
+  Object.entries(COOKIE_NAMES).forEach(([varName, cooName]) => {
+    cookieStore.set(cooName, reqBody[varName as VarName], COOKIE_OPTIONS);
   });
 
   return NextResponse.json({ message: 'Cookies added' }, { status: 200 });
@@ -28,9 +32,10 @@ export const POST = async (request: NextRequest) => {
 
 export const PATCH = async (request: NextRequest) => {
   const cookieStore = await cookies();
-  const reqBody: Record<string, string> = await request.json();
+
+  const reqBody: Record<VarName, string> = await request.json();
   Object.entries(reqBody).forEach(([varName, value]) => {
-    cookieStore.set(NAMES[varName as keyof typeof NAMES], value, OPTIONS);
+    cookieStore.set(COOKIE_NAMES[varName as VarName], value, COOKIE_OPTIONS);
   });
 
   return NextResponse.json({ message: 'Cookies modified' }, { status: 200 });
@@ -38,7 +43,8 @@ export const PATCH = async (request: NextRequest) => {
 
 export const DELETE = async () => {
   const cookieStore = await cookies();
-  Object.values(NAMES).forEach((cooName) => {
+
+  Object.values(COOKIE_NAMES).forEach((cooName) => {
     cookieStore.delete(cooName);
   });
 
