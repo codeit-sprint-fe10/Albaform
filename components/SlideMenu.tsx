@@ -30,6 +30,7 @@ const SlideMenu = ({ isOpen, onClose }: SlideMenuProps) => {
   const handleLogoutClick = async () => {
     await signOut();
     onClose();
+    alert('로그아웃 성공');
   };
 
   return (
