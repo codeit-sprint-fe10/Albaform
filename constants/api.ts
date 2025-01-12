@@ -6,14 +6,15 @@ export const FE_BASE_URL =
     : 'http://localhost:3000';
 
 export const NON_AUTH_APIS = [
-  { method: 'post', url: '/auth' },
-  { method: 'post', url: '/oauth' },
-  { method: 'get', url: '/posts' },
-  { method: 'get', url: '/posts/' },
-  { method: 'get', url: '/forms' },
-  { method: 'get', url: '/forms/' },
-  { method: 'post', url: '/resume' },
-  { method: 'post', url: 'application' },
+  { method: 'post', regExp: /^\/auth/ },
+  { method: 'post', regExp: /^\/oauth/ },
+  { method: 'get', regExp: /^\/posts$/ },
+  { method: 'get', regExp: /^\/posts\/[0-9]+$/ },
+  { method: 'get', regExp: /^\/forms$/ },
+  { method: 'get', regExp: /^\/forms\/[0-9]+$/ },
+  { method: 'post', regExp: /^\/resume\/upload$/ },
+  { method: 'post', regExp: /^\/forms\/[0-9]+\/applications$/ },
+  { method: 'post', regExp: /^\/forms\/[0-9]+\/my-application\/verify$/ },
 ] as const;
 
 export const COOKIE_NAMES = {

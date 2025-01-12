@@ -21,7 +21,7 @@ export const FEInstance = axios.create({
 instance.interceptors.request.use(async (config) => {
   if (
     NON_AUTH_APIS.some(
-      (api) => config.method === api.method && config.url === api.url,
+      (api) => config.method === api.method && api.regExp.test(config.url!),
     )
   ) {
     return config;
