@@ -4,6 +4,8 @@ import Image from 'next/image';
 import MypageIcon from '@/public/icons/mypage.svg';
 import LogoutIcon from '@/public/icons/logout.svg';
 import { useRouter } from 'next/navigation';
+import { useAuth } from '@/hooks/useAuth';
+import { useUserStore } from '@/store/user';
 
 interface SlideMenuProps {
   isOpen: boolean;
@@ -11,15 +13,22 @@ interface SlideMenuProps {
 }
 
 const SlideMenu = ({ isOpen, onClose }: SlideMenuProps) => {
+  const user = useUserStore((state) => state.user);
+
   const { push } = useRouter();
+  const { signOut } = useAuth();
 
   const handleMyPageClick = () => {
     push('/mypage');
     onClose();
   };
 
-  const handleLogoutClick = () => {
-    // TODO: logout 로직 추가
+  const handleLoginClick = () => {
+    push('/signin/applicant');
+  };
+
+  const handleLogoutClick = async () => {
+    await signOut();
     onClose();
   };
 
@@ -55,10 +64,7 @@ const SlideMenu = ({ isOpen, onClose }: SlideMenuProps) => {
                 className="flex items-center gap-4"
                 onClick={handleMyPageClick}
               >
-                <MypageIcon
-                  aria-label="마이페이지 아이콘"
-                  className="w-6 lg:w-9 h-6 lg:h-9"
-                />
+                <MypageIcon className="w-6 lg:w-9 h-6 lg:h-9" />
                 마이페이지
               </button>
             </li>
@@ -66,15 +72,12 @@ const SlideMenu = ({ isOpen, onClose }: SlideMenuProps) => {
               <button
                 type="button"
                 className="flex items-center gap-3"
-                onClick={handleLogoutClick}
+                onClick={user ? handleLogoutClick : handleLoginClick}
               >
                 <div className="m-1.5 lg:m-2">
-                  <LogoutIcon
-                    aria-label="로그아웃 아이콘"
-                    className="w-4 lg:w-6 h-4 lg:h-6"
-                  />
+                  <LogoutIcon className="w-4 lg:w-6 h-4 lg:h-6" />
                 </div>
-                로그아웃
+                {user ? '로그아웃' : '로그인'}
               </button>
             </li>
           </ul>
