@@ -62,13 +62,13 @@ const Mypage = () => {
                 onClick={() => openProfileModal()}
                 design="solid"
                 content="내 정보 수정"
-                className="lg:w-[150px]"
+                sizeClass="w-[180px] h-[58px]"
               />
               <Button
                 onClick={() => openPasswordModal()}
                 design="outlined"
                 content="비밀번호 변경"
-                className="lg:w-[150px]"
+                sizeClass="w-[180px] h-[58px]"
               />
             </div>
             <div className="flex lg:hidden gap-3">
