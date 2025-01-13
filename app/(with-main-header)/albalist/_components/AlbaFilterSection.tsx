@@ -47,7 +47,7 @@ const AlbaFilterSection = ({
   return (
     <form
       onSubmit={handleFormSubmit}
-      className="fixed top-[50px] z-50 md:top-[69px] lg:top-[92px] left-0 w-full bg-gray-50"
+      className="fixed top-[50px] z-40 md:top-[69px] lg:top-[92px] left-0 w-full bg-gray-50"
     >
       <div
         className={

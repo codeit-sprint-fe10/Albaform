@@ -117,7 +117,7 @@ const Dropdown = ({ type, options, onSelect }: DropdownProps) => {
               width={16}
               height={16}
               color={arrowColor[type]}
-              className="lg:w-6 lg:h-6"
+              className={`lg:w-6 lg:h-6 ${isOpen ? 'rotate-180' : ''} transition duration-200`}
             />
           </>
         )}

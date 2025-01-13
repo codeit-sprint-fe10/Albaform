@@ -4,6 +4,7 @@ import Link from 'next/link';
 import IconMenu from '/public/icons/menu.svg';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
+import { useUserStore } from '@/store/user';
 import SlideMenu from '@/components/SlideMenu';
 import useSideMenu from '@/hooks/useSideMenu';
 
@@ -15,6 +16,7 @@ const NAV_LINKS = [
 
 const MainHeader = () => {
   const pathname = usePathname();
+  const user = useUserStore((state) => state.user);
   const { isSideMenuOpen, toggleSideMenu, closeSideMenu } = useSideMenu();
 
   return (
@@ -46,14 +48,30 @@ const MainHeader = () => {
           </Link>
         ))}
       </nav>
-      <button
-        type="button"
-        aria-label="사이드 메뉴 버튼"
-        onClick={toggleSideMenu}
-      >
-        <IconMenu />
-      </button>
-      <SlideMenu isOpen={isSideMenuOpen} onClose={closeSideMenu} />
+      {user !== undefined &&
+        (user ? (
+          <>
+            <button
+              type="button"
+              aria-label="사이드 메뉴 버튼"
+              onClick={toggleSideMenu}
+            >
+              <IconMenu />
+            </button>
+            <SlideMenu isOpen={isSideMenuOpen} onClose={closeSideMenu} />
+          </>
+        ) : (
+          <Link
+            href="/signin/applicant"
+            className={
+              'px-3 lg:px-4 py-[2px] lg:py-1 rounded-md lg:rounded-lg ' +
+              'bg-orange-300 hover:bg-orange-200 text-md md:text-lg lg:text-xl ' +
+              'font-medium text-gray-50 transition duration-200'
+            }
+          >
+            로그인
+          </Link>
+        ))}
     </header>
   );
 };
