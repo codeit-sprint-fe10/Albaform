@@ -7,6 +7,8 @@ import {
   PostApplicationBody,
   PostApplicationResponse,
   GetGuestApplicationsBody,
+  GetMyAppliedAlbasParameters,
+  GetMyAppliedAlbasResponse,
 } from '@/types/application';
 
 export const postApplication = async ({
@@ -82,6 +84,19 @@ export const patchApplicationStatus = async ({
   const response = await instance.patch<Application>(
     `/applications/${applicationId}`,
     { status },
+  );
+
+  return response.data;
+};
+
+export const getMyAppliedAlbas = async (
+  params: GetMyAppliedAlbasParameters,
+) => {
+  const response = await instance.get<GetMyAppliedAlbasResponse>(
+    '/users/me/applications',
+    {
+      params,
+    },
   );
 
   return response.data;

@@ -134,7 +134,7 @@ const FormNavigator = ({ formId }: { formId?: number }) => {
     <FormProvider {...methods}>
       <div
         key={formKey}
-        className="relative w-[375px] lg:w-auto lg:max-w-[640px] mx-auto lg:mx-0 px-6 lg:px-0 lg:ml-[600px]"
+        className="relative w-[375px] lg:w-auto lg:max-w-[640px] mx-auto lg:mx-0 px-6 lg:px-0 lg:ml-[640px]"
       >
         <aside className="flex flex-col justify-between bg-background-200 rounded-3xl lg:fixed lg:top-32 lg:left-36 lg:w-[452px] lg:h-[80vh] lg:p-10">
           <div className="hidden lg:block">

@@ -101,6 +101,14 @@ export const RECRUIT_OPTIONS = [
   { key: false, label: '모집 마감' },
 ];
 
+export const APPLICATION_OPTION = [
+  { key: undefined, label: '전체' },
+  { key: 'REJECTED', label: '거절' },
+  { key: 'INTERVIEW_PENDING', label: '면접 대기' },
+  { key: 'INTERVIEW_COMPLETED', label: '면접 완료' },
+  { key: 'HIRED', label: '채용 완료' },
+];
+
 export const ALBA_ORDERBY_OPTIONS = [
   { key: 'mostRecent', label: '최신순' },
   { key: 'highestWage', label: '시급 높은순' },

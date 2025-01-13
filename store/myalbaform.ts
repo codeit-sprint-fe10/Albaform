@@ -1,22 +1,31 @@
-import { MyAlbasFilterType } from '@/types/alba';
 import { create } from 'zustand';
+import { MyCreatedAlbasFilterType } from '@/types/alba';
+import { MyAppliedAlbasFilterType } from '@/types/application';
 
-interface MyalbafromState {
-  searchParams: MyAlbasFilterType;
-  setSearchParams: (newSearchParams: Partial<MyAlbasFilterType>) => void;
+interface searchParamsState<T> {
+  searchParams: T;
+  setSearchParams: (newSearchParams: Partial<T>) => void;
 }
 
-const useMyalbaformStore = create<MyalbafromState>((set) => ({
-  searchParams: {
+const createSearchParamsStore = <T>(initialParams: T) =>
+  create<searchParamsState<T>>((set) => ({
+    searchParams: initialParams,
+    setSearchParams: (newSearchParams) =>
+      set((state) => ({
+        searchParams: { ...state.searchParams, ...newSearchParams },
+      })),
+  }));
+
+export const useMyCreatedAlbaformStore =
+  createSearchParamsStore<MyCreatedAlbasFilterType>({
     keyword: undefined,
     orderBy: 'mostRecent',
     isPublic: undefined,
     isRecruiting: undefined,
-  },
-  setSearchParams: (newSearchParams) =>
-    set((state) => ({
-      searchParams: { ...state.searchParams, ...newSearchParams },
-    })),
-}));
+  });
 
-export default useMyalbaformStore;
+export const useMyAppliedAlbaformStore =
+  createSearchParamsStore<MyAppliedAlbasFilterType>({
+    keyword: undefined,
+    status: undefined,
+  });

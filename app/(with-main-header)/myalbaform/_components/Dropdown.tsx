@@ -1,8 +1,12 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import useMyalbaformStore from '@/store/myalbaform';
+import {
+  useMyCreatedAlbaformStore,
+  useMyAppliedAlbaformStore,
+} from '@/store/myalbaform';
 import DownIcon from '@/public/icons/chevron-down.svg';
+import { checkOwner } from '@/utils/auth';
 
 interface Option {
   key: string | boolean | undefined;
@@ -18,8 +22,14 @@ const Dropdown = ({ name, options }: DropdownProps) => {
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const [selectedOption, setSelectedOption] = useState(options[0]);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
-  const setSearchParams = useMyalbaformStore((state) => state.setSearchParams);
+  const createdStore = useMyCreatedAlbaformStore(
+    (state) => state.setSearchParams,
+  );
+  const appliedStore = useMyAppliedAlbaformStore(
+    (state) => state.setSearchParams,
+  );
 
+  const setSearchParams = checkOwner() ? createdStore : appliedStore;
   const buttonStyle =
     name === 'orderBy'
       ? 'gap-0.5 lg:gap-1 font-semibold text-2sm lg:text-lg text-black-300'

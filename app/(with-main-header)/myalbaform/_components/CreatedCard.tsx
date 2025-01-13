@@ -1,12 +1,13 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { AlbaCardType } from '@/types/alba';
-import { format, isWithinInterval } from '@/utils/date';
+import { format } from '@/utils/date';
 import { calculateDDay } from '@/utils/dDayCalculator';
 import Badge from '@/components/Badge';
 import MenuDropdown from './MenuDropdown';
+import { getRecruitingStatus } from '@/utils/card';
 
-const Card = ({
+const CreatedCard = ({
   id,
   title,
   isPublic,
@@ -16,12 +17,10 @@ const Card = ({
   scrapCount,
   applyCount,
 }: AlbaCardType) => {
-  const status = isWithinInterval(new Date(), {
-    start: new Date(recruitmentStartDate),
-    end: new Date(recruitmentEndDate),
-  })
-    ? '모집 중'
-    : '마감';
+  const recruitingStatus = getRecruitingStatus(
+    recruitmentStartDate,
+    recruitmentEndDate,
+  );
 
   const period = `${format(new Date(recruitmentStartDate), 'yyyy. MM. dd')} ~ ${format(new Date(recruitmentEndDate), 'yyyy. MM. dd')}`;
 
@@ -50,14 +49,14 @@ const Card = ({
       <div className="flex justify-between items-center mb-4 lg:mb-6">
         <div className="flex items-center gap-2">
           <Badge value={isPublic ? '공개' : '비공개'} />
-          <Badge value={status} />
+          <Badge value={recruitingStatus} />
           <div className="font-regular text-md text-black-100 lg:ml-3">
             {period}
           </div>
         </div>
         <MenuDropdown id={id} />
       </div>
-      <h3 className="h-[52px] lg:h-16 font-semibold text-2lg lg:text-xl text-black-500 mb-6 lg:mb-8">
+      <h3 className="h-[52px] lg:h-16 font-semibold text-2lg lg:text-xl text-black-500 mb-6 lg:mb-8 line-clamp-2">
         {title}
       </h3>
       <div className="flex border border-line-100 rounded-xl lg:rounded-2xl font-regular text-xs lg:text-lg text-black-200 py-2.5 lg:py-3">
@@ -73,4 +72,4 @@ const Card = ({
   );
 };
 
-export default Card;
+export default CreatedCard;
