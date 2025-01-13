@@ -10,9 +10,9 @@ import Button from '@/components/Button';
 import { PostTalkBody } from '@/types/albatalk';
 import { useEffect } from 'react';
 import usePatchTalk from './_hooks/usePatchTalk';
-import useGetPostDetail from '../../albatalk/[talkId]/_hooks/useGetPostDetail';
+import useGetPostDetail from '../_hooks/useGetPostDetail';
 
-const EditTalk = () => {
+const Edit = () => {
   const { talkId: talkIdStr } = useParams();
   const talkId = Number(talkIdStr);
   const { data: post } = useGetPostDetail(talkId);
@@ -102,4 +102,4 @@ const EditTalk = () => {
   );
 };
 
-export default EditTalk;
+export default Edit;
