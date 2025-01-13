@@ -2,15 +2,39 @@
 
 import { useState } from 'react';
 import Tab from './_components/Tab';
-import { TabKey } from '@/types/mypage';
+import { MypageOption, TabKey } from '@/types/mypage';
 import MyPostList from './_components/posts/MyPostList';
 import MyCommentList from './_components/comments/MyCommentList';
 import MyScrapList from './_components/scraps/MyScrapList';
 import Dropdown from './_components/Dropdown';
 import Button from '@/components/Button';
+import useModal from '@/hooks/useModal';
+import ProfileModal from './_components/ProfileModal';
+import PasswordModal from './_components/PasswordModal';
 
 const Mypage = () => {
   const [activeTab, setActiveTab] = useState<TabKey>('posts');
+  const {
+    dialogRef: profileModalRef,
+    openModal: openProfileModal,
+    closeModal: closeProfileModal,
+  } = useModal();
+  const {
+    dialogRef: passwordModalRef,
+    openModal: openPasswordModal,
+    closeModal: closePasswordModal,
+  } = useModal();
+
+  const handleOptionClick = (key: MypageOption) => {
+    switch (key) {
+      case 'editInfo':
+        openProfileModal();
+        break;
+      case 'updatePassword':
+        openPasswordModal();
+        break;
+    }
+  };
 
   const renderContent = () => {
     switch (activeTab) {
@@ -35,20 +59,29 @@ const Mypage = () => {
           <div>
             <div className="hidden lg:flex gap-3">
               <Button
+                onClick={() => openProfileModal()}
                 design="solid"
                 content="내 정보 수정"
                 className="lg:w-[150px]"
               />
               <Button
+                onClick={() => openPasswordModal()}
                 design="outlined"
                 content="비밀번호 변경"
                 className="lg:w-[150px]"
               />
             </div>
-            <div className="flex lg:hidden">
-              {/* TODO: 모달구현 
-              <Dropdown />  */}
+            <div className="flex lg:hidden gap-3">
+              <Dropdown onAction={handleOptionClick} />
             </div>
+            <ProfileModal
+              dialogRef={profileModalRef}
+              closeModal={closeProfileModal}
+            />
+            <PasswordModal
+              dialogRef={passwordModalRef}
+              closeModal={closePasswordModal}
+            />
           </div>
         </div>
         <div className="w-full flex flex-col gap-2">
