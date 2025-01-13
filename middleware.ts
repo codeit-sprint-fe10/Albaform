@@ -11,6 +11,7 @@ const denyPaths = {
     '/myalbaform',
     '/albatalk',
     '/addtalk',
+    '/edit',
     '/mypage',
   ],
 } as const;
@@ -37,7 +38,7 @@ const middleware = (request: NextRequest) => {
     }
   }
 
-  if (paths.some((path) => nextPath.startsWith(path))) {
+  if (paths.some((path) => nextPath.includes(path))) {
     return NextResponse.redirect(new URL('/', request.url));
   }
 
@@ -52,12 +53,14 @@ export const config = {
     '/oauth/signup/:path*',
     '/signin/:path',
     '/addform',
+    '/alba/:path/edit',
     '/apply/:path',
     '/myapply/:path',
-    '/applications/:path',
+    '/applications/:path*',
     '/myalbaform',
     '/albatalk/:path',
     '/addtalk',
+    '/albatalk/:path/edit',
     '/mypage',
   ],
 };

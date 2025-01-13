@@ -6,8 +6,18 @@ import { SortOrder } from '@/types/albatalk';
 import Empty from '../Empty';
 import Loader from '@/components/Loader';
 import SortDropdown from './SortDropdown';
+import AlbatalkCardSkeleton from './AlbatalkCardSkeleton';
 
 const PAGE_LIMIT = 6;
+
+const AlbaCardSkeletons = () =>
+  Array(PAGE_LIMIT)
+    .fill(0)
+    .map((_, idx) => (
+      <div key={idx} className="w-full lg:w-[384px]">
+        <AlbatalkCardSkeleton />
+      </div>
+    ));
 
 const MyPostList = () => {
   const [sortOrder, setSortOrder] = useState<SortOrder>('mostRecent');
@@ -23,34 +33,36 @@ const MyPostList = () => {
     sortOrder: sortOrder,
   });
 
-  if (isLoading) {
-    return (
-      <div className="flex w-full justify-center items-center min-h-[200px]">
-        <Loader />
-      </div>
-    );
-  }
   return (
     <div className="flex w-full max-w-container-md justify-center">
       <div className="w-full flex flex-col gap-4">
         <div className="w-full flex justify-end">
           <SortDropdown sortOrder={sortOrder} setSortOrder={setSortOrder} />
         </div>
-        {data?.pages[0].data.length ? (
+
+        {isLoading ? (
           <div className="w-full flex flex-col gap-4 lg:grid lg:grid-cols-3 lg:gap-6 lg:gap-y-12">
-            <InfiniteScroll
-              hasNextPage={hasNextPage}
-              isLoading={isFetchingNextPage}
-              loadNextPage={fetchNextPage}
-              loader={<Loader />}
-            >
+            <AlbaCardSkeletons />
+          </div>
+        ) : data?.pages[0]?.data?.length ? (
+          <InfiniteScroll
+            hasNextPage={hasNextPage}
+            isLoading={isFetchingNextPage}
+            loadNextPage={fetchNextPage}
+            loader={
+              <div className="mt-3">
+                <Loader />
+              </div>
+            }
+          >
+            <div className="w-full flex flex-col gap-4 lg:grid lg:grid-cols-3 lg:gap-6 lg:gap-y-12">
               {data.pages.map((page) =>
                 page.data.map((post) => (
                   <AlbatalkCard key={post.id} {...post} />
                 )),
               )}
-            </InfiniteScroll>
-          </div>
+            </div>
+          </InfiniteScroll>
         ) : (
           <div className="flex justify-center">
             <Empty type="post" />

@@ -36,7 +36,7 @@ const AlbatalkCard = ({
 
   const handleAction = async (action: EditDropdownAction) => {
     if (action === 'edit') {
-      router.push(`/edittalk/${id}`);
+      router.push(`/albatalk/${id}/edit`);
     } else if (action === 'delete') {
       deleteMutation();
     }

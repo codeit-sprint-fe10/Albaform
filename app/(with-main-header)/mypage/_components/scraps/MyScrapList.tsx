@@ -7,8 +7,18 @@ import useGetMyScraps from '../../_hooks/useGetMyScraps';
 import useMyScrapsStore from '@/store/myscraps';
 import Loader from '@/components/Loader';
 import Empty from '../Empty';
+import ScrapCardSkeleton from './ScrapCardSkeleton';
 
 const PAGE_LIMIT = 6;
+
+const ScrapCardSkeletons = () =>
+  Array(PAGE_LIMIT)
+    .fill(0)
+    .map((_, idx) => (
+      <div key={idx} className="w-full lg:w-[384px]">
+        <ScrapCardSkeleton />
+      </div>
+    ));
 
 const MyScrapList = () => {
   const scrapParams = useMyScrapsStore((state) => state.scrapParams);
@@ -18,21 +28,29 @@ const MyScrapList = () => {
   return (
     <div>
       <Filters />
-      {data?.pages[0]?.data.length ? (
+      {isLoading ? (
         <div className="w-full flex flex-col items-center gap-4 lg:grid lg:grid-cols-3 lg:gap-6 lg:gap-y-12">
-          <InfiniteScroll
-            hasNextPage={hasNextPage}
-            isLoading={isFetchingNextPage}
-            loadNextPage={fetchNextPage}
-            loader={<Loader />}
-          >
+          <ScrapCardSkeletons />
+        </div>
+      ) : data?.pages[0]?.data.length ? (
+        <InfiniteScroll
+          hasNextPage={hasNextPage}
+          isLoading={isFetchingNextPage}
+          loadNextPage={fetchNextPage}
+          loader={
+            <div className="mt-9">
+              <Loader />
+            </div>
+          }
+        >
+          <div className="w-full flex flex-col items-center gap-4 lg:grid lg:grid-cols-3 lg:gap-6 lg:gap-y-12">
             {data.pages.map((page) =>
               page?.data.map((scrap) => (
                 <ScrapCard key={scrap.id} {...scrap} />
               )),
             )}
-          </InfiniteScroll>
-        </div>
+          </div>
+        </InfiniteScroll>
       ) : (
         <Empty type="scrap" />
       )}
