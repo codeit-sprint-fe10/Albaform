@@ -1,23 +1,23 @@
 'use client';
 
-import { useEffect, type ReactNode } from 'react';
+import { useEffect, PropsWithChildren } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import {
   useGetAlbaDetail,
   useGetMyApplication,
-} from './_hook/useTanstackQuery';
-import Loader from './_components/Loader';
+} from './_hooks/useTanstackQuery';
+import Loader from '@/components/Loader';
 import { isWithinInterval } from '@/utils/date';
 
-const Layout = ({ children }: { children: ReactNode }) => {
+const Layout = ({ children }: PropsWithChildren) => {
   const formId = Number(useParams()['formId']);
   const { replace } = useRouter();
   const {
-    isLoading: isValidLoading,
+    isLoading: albaIsLoading,
     data: albaData,
     error,
   } = useGetAlbaDetail(formId);
-  const { isLoading: isDuplicateLoading, data: applicationData } =
+  const { isLoading: applicationIsLoading, data: applicationData } =
     useGetMyApplication(formId);
 
   useEffect(() => {
@@ -33,7 +33,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
       const end = new Date(albaData.recruitmentEndDate);
 
       if (!isWithinInterval(new Date(), { start, end })) {
-        window.alert('현재 지원 기간이 아닙니다.');
+        window.alert('현재 모집 기간이 아닙니다.');
         replace('/albalist');
       }
     }
@@ -46,7 +46,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
     }
   }, [applicationData, replace]);
 
-  if (isValidLoading || isDuplicateLoading)
+  if (albaIsLoading || applicationIsLoading)
     return <Loader className="mt-24 lg:mt-32" />;
   return <>{children}</>;
 };

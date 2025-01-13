@@ -1,68 +1,87 @@
-import type { UseFormRegisterReturn, FieldError } from 'react-hook-form';
+import type { FieldError, UseFormRegisterReturn } from 'react-hook-form';
+import { FieldName, CommonFieldName, CustomFieldName } from '@/types/form';
 import VisibilityInput from './VisibilityInput';
 import LocationInput from './LocationInput';
-import { User } from '@/types/user';
+import ResumeInput from './ResumeInput';
 
-interface DefaultField {
+interface DefaultFieldParam<Name extends FieldName> {
+  name: Name;
   label: string;
   placeholder: string;
+  comment?: string;
+  required?: true;
   error?: FieldError;
+  design: 'solid' | 'outlined';
 }
 
-interface LocationField extends DefaultField {
-  name: keyof Pick<User, 'location'>;
-  setValue: (name: 'location', value: string) => void;
-  setError: (
-    name: 'location',
-    error: { type: string; message: string },
-  ) => void;
-  clearErrors: (name: 'location') => void;
-}
-
-interface OtherField extends DefaultField {
-  name: keyof Omit<User, 'location'> | 'passwordConfirmation';
+interface CommonFieldParam extends DefaultFieldParam<CommonFieldName> {
   register: UseFormRegisterReturn;
 }
 
-type FormFieldProps = LocationField | OtherField;
+type CustomFieldParam = DefaultFieldParam<CustomFieldName>;
+
+type FormFieldProps = CommonFieldParam | CustomFieldParam;
 
 const FormField = (props: FormFieldProps) => {
+  const requiredStyle = props.required
+    ? "after:content-['*'] after:inline after:ml-1 after:text-orange-300"
+    : '';
   const inputStyle =
-    'p-[14px] rounded-lg border ' +
-    `${props.error ? 'border-error' : 'border-gray-200 focus:border-orange-300'} ` +
-    'outline-none text-lg lg:text-xl placeholder:text-gray-400 transition duration-200';
+    `p-[14px] rounded-lg ${props.design === 'solid' ? 'bg-background-200' : ''} border outline-none ` +
+    `${props.error ? 'border-error' : `border-${props.design === 'solid' ? 'background' : 'gray'}-200 focus:border-orange-300`} ` +
+    'text-lg lg:text-xl text-black-400 placeholder:text-gray-400 transition duration-200';
   const errorStyle =
     'h-[22px] lg:h-[26px] mr-2 lg:mr-3 ' +
     'text-right text-sm lg:text-lg text-error font-medium';
 
   let Input;
   switch (props.name) {
-    case 'location':
-      Input = (
-        <LocationInput
-          setValue={props.setValue}
-          setError={props.setError}
-          clearErrors={props.clearErrors}
-          placeholder={props.placeholder}
-          className={`w-full pl-[52px] lg:pl-16 ${inputStyle} cursor-pointer`}
-        />
-      );
-      break;
     case 'password':
     case 'passwordConfirmation':
       Input = (
-        <VisibilityInput
+        <>
+          <VisibilityInput
+            id={props.name}
+            placeholder={props.placeholder}
+            {...props.register}
+            className={`w-full ${inputStyle}`}
+          />
+        </>
+      );
+      break;
+    case 'location':
+      Input = (
+        <LocationInput
+          placeholder={props.placeholder}
+          className={`w-full ${inputStyle} cursor-pointer p-[14px] lg:p-[14px]`}
+        />
+      );
+      break;
+    case 'resumeId':
+    case 'resumeName':
+      Input = (
+        <ResumeInput
+          placeholder={props.placeholder}
+          className={`w-full ${inputStyle} underline placeholder-shown:no-underline`}
+        />
+      );
+      break;
+    case 'introduction':
+      Input = (
+        <textarea
           id={props.name}
+          rows={4}
+          maxLength={200}
           placeholder={props.placeholder}
           {...props.register}
-          className={`w-full ${inputStyle}`}
+          className={`${inputStyle} resize-none custom-scrollbar`}
         />
       );
       break;
     default:
       Input = (
         <input
-          type={props.name === 'email' ? 'email' : 'text'}
+          type="text"
           id={props.name}
           placeholder={props.placeholder}
           {...props.register}
@@ -75,11 +94,14 @@ const FormField = (props: FormFieldProps) => {
     <>
       <label
         htmlFor={props.name}
-        className="mb-2 ml-2 lg:ml-3 text-md lg:text-xl"
+        className={`mb-2 ml-2 lg:ml-3 text-md lg:text-xl font-medium ${requiredStyle}`}
       >
         {props.label}
       </label>
       {Input}
+      {props.comment && (
+        <span className="ml-2 text-xs text-gray-400">{props.comment}</span>
+      )}
       <span className={errorStyle}>{props.error?.message}</span>
     </>
   );

@@ -1,9 +1,10 @@
 'use client';
 
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { useState } from 'react';
 import { AxiosError } from 'axios';
-import { UserRole, UserRoleLowerCase } from '@/types/user';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { useAuth } from '@/hooks/useAuth';
+import { UserRole, UserRoleLowerCase } from '@/types/user';
 import { EMAIL, PASSWORD, PASSWORD_CONFIRMATION, NAME } from '@/constants/form';
 import FormField from '../../../_components/FormField';
 import Button from '@/components/Button';
@@ -21,6 +22,7 @@ interface SignUpFormSectionProps {
 }
 
 const SignUpFormSection = ({ userRole, onSubmit }: SignUpFormSectionProps) => {
+  const [isFetching, setIsFetching] = useState(false);
   const { signUp, signIn } = useAuth();
   const {
     register,
@@ -31,6 +33,7 @@ const SignUpFormSection = ({ userRole, onSubmit }: SignUpFormSectionProps) => {
   } = useForm<SignUpFormData>({ mode: 'onTouched' });
 
   const signUpSubmit: SubmitHandler<SignUpFormData> = async (data, event) => {
+    setIsFetching(true);
     event?.preventDefault();
 
     try {
@@ -55,6 +58,7 @@ const SignUpFormSection = ({ userRole, onSubmit }: SignUpFormSectionProps) => {
       if (message?.includes('이메일')) setError('email', { message });
       else window.alert('오류가 발생했습니다.\n확인 후 다시 시도해 주세요.');
     }
+    setIsFetching(false);
   };
 
   return (
@@ -80,6 +84,7 @@ const SignUpFormSection = ({ userRole, onSubmit }: SignUpFormSectionProps) => {
             },
           })}
           error={errors.email}
+          design="outlined"
         />
         <FormField
           name="password"
@@ -101,6 +106,7 @@ const SignUpFormSection = ({ userRole, onSubmit }: SignUpFormSectionProps) => {
             },
           })}
           error={errors.password}
+          design="outlined"
         />
         <FormField
           name="passwordConfirmation"
@@ -118,6 +124,7 @@ const SignUpFormSection = ({ userRole, onSubmit }: SignUpFormSectionProps) => {
             },
           })}
           error={errors.passwordConfirmation}
+          design="outlined"
         />
         <FormField
           name="name"
@@ -135,11 +142,12 @@ const SignUpFormSection = ({ userRole, onSubmit }: SignUpFormSectionProps) => {
             },
           })}
           error={errors.name}
+          design="outlined"
         />
         <Button
           type="submit"
           content="다음"
-          disabled={!isValid}
+          disabled={!isValid || isFetching}
           className="mt-8 lg:mt-12"
         ></Button>
       </form>

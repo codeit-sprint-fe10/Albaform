@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useForm, SubmitHandler, FormProvider } from 'react-hook-form';
-import { usePostApplication } from '../_hook/useTanstackQuery';
+import { usePostApplication } from '../_hooks/useTanstackQuery';
 import { useTemporarySave } from '@/hooks/useTemporarySave';
 import {
   NAME,
@@ -13,14 +13,8 @@ import {
   INTRODUCTION,
   PASSWORD,
 } from '@/constants/form';
-import {
-  CustomFieldName,
-  CustomSetValue,
-  CustomSetError,
-  CustomClearErrors,
-} from '@/types/form';
 import Button from '@/components/Button';
-import FormField from './input/FormField';
+import FormField from '@/app/(with-auth-header)/_components/FormField';
 
 const defaultValues = {
   name: '',
@@ -44,17 +38,6 @@ const ApplyForm = () => {
     defaultValues,
   });
 
-  const {
-    handleSubmit,
-    register,
-    setValue,
-    setError,
-    clearErrors,
-    getValues,
-    reset,
-    formState: { isValid, errors, isDirty },
-  } = methods;
-
   const { mutate, isPending } = usePostApplication();
 
   const formSubmit: SubmitHandler<ApplyFormFields> = async (data, event) => {
@@ -76,7 +59,7 @@ const ApplyForm = () => {
         },
         onError: () => {
           window.alert('지원 중에 오류가 발생했습니다.');
-          saveData(getValues());
+          saveData(methods.getValues());
           window.location.reload();
         },
       },
@@ -84,27 +67,27 @@ const ApplyForm = () => {
   };
 
   const handleTempButtonClick = () => {
-    saveData(getValues());
+    saveData(methods.getValues());
     window.alert('지원서를 임시 저장했습니다.');
   };
 
   useEffect(() => {
     const data = getData();
-    if (data) reset(data, { keepDefaultValues: true });
-  }, [getData, reset]);
+    if (data) methods.reset(data, { keepDefaultValues: true });
+  }, [getData, methods]);
 
   return (
     <FormProvider {...methods}>
       <form
         method="post"
-        onSubmit={handleSubmit(formSubmit)}
+        onSubmit={methods.handleSubmit(formSubmit)}
         className="flex flex-col mb-8 lg:mb-12"
       >
         <FormField
           name="name"
           label="이름"
           placeholder={NAME.message.placeholder}
-          register={register('name', {
+          register={methods.register('name', {
             required: { value: true, message: NAME.message.required },
             maxLength: {
               value: NAME.format.maxLength,
@@ -115,14 +98,15 @@ const ApplyForm = () => {
               message: NAME.message.pattern,
             },
           })}
-          error={errors.name}
+          error={methods.formState.errors.name}
           required
+          design="solid"
         />
         <FormField
           name="phoneNumber"
           label="전화번호"
           placeholder={PHONE_NUMBER.message.placeholder}
-          register={register('phoneNumber', {
+          register={methods.register('phoneNumber', {
             required: { value: true, message: PHONE_NUMBER.message.required },
             minLength: {
               value: PHONE_NUMBER.format.minLength,
@@ -137,14 +121,15 @@ const ApplyForm = () => {
               message: PHONE_NUMBER.message.pattern,
             },
           })}
-          error={errors.phoneNumber}
+          error={methods.formState.errors.phoneNumber}
           required
+          design="solid"
         />
         <FormField
           name="experienceMonths"
           label="경력(개월 수)"
           placeholder={EXPERIENCE_MONTHS.message.placeholder}
-          register={register('experienceMonths', {
+          register={methods.register('experienceMonths', {
             required: {
               value: true,
               message: EXPERIENCE_MONTHS.message.required,
@@ -158,24 +143,23 @@ const ApplyForm = () => {
               message: EXPERIENCE_MONTHS.message.pattern,
             },
           })}
-          error={errors.experienceMonths}
+          error={methods.formState.errors.experienceMonths}
           required
+          design="solid"
         />
         <FormField
           name="resumeId"
           label="이력서"
           placeholder={RESUME.message.placeholder}
-          setValue={setValue as CustomSetValue<CustomFieldName>}
-          setError={setError as CustomSetError<CustomFieldName>}
-          clearErrors={clearErrors as CustomClearErrors<CustomFieldName>}
-          error={errors.resumeId}
+          error={methods.formState.errors.resumeId}
           required
+          design="solid"
         />
         <FormField
           name="introduction"
           label="자기소개"
           placeholder={INTRODUCTION.message.placeholder}
-          register={register('introduction', {
+          register={methods.register('introduction', {
             required: {
               value: true,
               message: INTRODUCTION.message.required,
@@ -185,15 +169,16 @@ const ApplyForm = () => {
               message: INTRODUCTION.message.maxLength,
             },
           })}
-          error={errors.introduction}
+          error={methods.formState.errors.introduction}
           required
+          design="solid"
         />
         <FormField
           name="password"
           label="비밀번호"
           comment="* 지원내역 확인에 사용됩니다."
           placeholder={PASSWORD.message.placeholder}
-          register={register('password', {
+          register={methods.register('password', {
             required: { value: true, message: PASSWORD.message.required },
             minLength: {
               value: PASSWORD.format.minLength,
@@ -208,8 +193,9 @@ const ApplyForm = () => {
               message: PASSWORD.message.pattern,
             },
           })}
-          error={errors.password}
+          error={methods.formState.errors.password}
           required
+          design="solid"
         />
         <div className="grid grid-rows-2 lg:grid-rows-none lg:grid-cols-2 gap-2 mt-4 lg:mt-8">
           <Button
@@ -217,13 +203,13 @@ const ApplyForm = () => {
             onClick={handleTempButtonClick}
             content="임시 저장"
             design="outlined"
-            disabled={!isDirty || isPending}
+            disabled={!methods.formState.isDirty || isPending}
           />
           <Button
             type="submit"
             content="작성 완료"
             design="solid"
-            disabled={!isValid || isPending}
+            disabled={!methods.formState.isValid || isPending}
           />
         </div>
       </form>

@@ -1,24 +1,20 @@
 'use client';
 
-import { InputHTMLAttributes, useEffect, useState } from 'react';
+import { useState } from 'react';
+import Script from 'next/script';
 import Image from 'next/image';
+import { useFormContext } from 'react-hook-form';
+import { CustomFieldName } from '@/types/form';
 import { LOCATION } from '@/constants/form';
 
-interface LocationInputProps extends InputHTMLAttributes<HTMLInputElement> {
-  setValue: (name: 'location', value: string) => void;
-  setError: (
-    name: 'location',
-    error: { type: string; message: string },
-  ) => void;
-  clearErrors: (name: 'location') => void;
+interface LocationInputProps {
+  placeholder: string;
+  className: string;
 }
 
-const LocationInput = ({
-  setValue,
-  setError,
-  clearErrors,
-  ...props
-}: LocationInputProps) => {
+const LocationInput = ({ placeholder, className }: LocationInputProps) => {
+  const { setValue, setError, clearErrors } =
+    useFormContext<Record<CustomFieldName, string>>();
   const [address, setAddress] = useState('');
 
   const handleInputClick = () => {
@@ -52,35 +48,49 @@ const LocationInput = ({
     }).open();
   };
 
-  useEffect(() => {
-    if (kakao.maps) {
-      kakao.maps.load(() => {});
-    }
-  }, []);
-
   return (
-    <div className="relative mb-1">
-      <input
-        type="text"
-        id="location"
-        name="location"
-        value={address}
-        onClick={handleInputClick}
-        readOnly
-        required
-        {...props}
+    <>
+      <Script
+        src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"
+        strategy="lazyOnload"
       />
-      <Image
-        src="/icons/pin-solid.svg"
-        width={0}
-        height={0}
-        alt=""
-        className={
-          'absolute top-[calc(50%-12px)] lg:top-[calc(50%-18px)] left-[14px] ' +
-          'w-6 lg:w-9 h-6 lg:h-9'
+      <Script
+        src={
+          `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_API_KEY}` +
+          `&libraries=services&autoload=false`
         }
+        strategy="lazyOnload"
+        onLoad={() => kakao.maps.load(() => {})}
       />
-    </div>
+      <div className="relative mb-1">
+        <input
+          type="text"
+          id="location"
+          name="location"
+          value={address}
+          placeholder={placeholder}
+          onClick={handleInputClick}
+          readOnly
+          required
+          className={`${className} cursor-pointer indent-5 lg:indent-9`}
+        />
+        <label
+          htmlFor="location"
+          className={
+            'absolute top-[calc(50%-12px)] lg:top-[calc(50%-18px)] ' +
+            'left-2 lg:left-[10px] cursor-pointer'
+          }
+        >
+          <Image
+            src="/icons/pin-solid.svg"
+            width={24}
+            height={24}
+            alt=""
+            className="lg:w-9 lg:h-9"
+          />
+        </label>
+      </div>
+    </>
   );
 };
 

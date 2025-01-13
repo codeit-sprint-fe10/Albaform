@@ -1,19 +1,21 @@
 'use client';
 
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { AxiosError } from 'axios';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { User } from '@/types/user';
 import { useAuth } from '@/hooks/useAuth';
 import { EMAIL, PASSWORD } from '@/constants/form';
 import FormField from '../../../_components/FormField';
 import Button from '@/components/Button';
-import { AxiosError } from 'axios';
 
 type SignInFormData = Pick<User, 'email' | 'password'>;
 
 const SignInFormSection = () => {
   const { replace } = useRouter();
   const { signIn } = useAuth();
+  const [isFetching, setIsFetching] = useState(false);
   const {
     register,
     handleSubmit,
@@ -22,6 +24,7 @@ const SignInFormSection = () => {
   } = useForm<SignInFormData>({ mode: 'onTouched' });
 
   const signInSubmit: SubmitHandler<SignInFormData> = async (data, event) => {
+    setIsFetching(true);
     event?.preventDefault();
 
     try {
@@ -37,6 +40,7 @@ const SignInFormSection = () => {
       else if (message?.includes('비밀번호')) setError('password', { message });
       else window.alert('오류가 발생했습니다.\n확인 후 다시 시도해 주세요.');
     }
+    setIsFetching(false);
   };
 
   return (
@@ -58,6 +62,7 @@ const SignInFormSection = () => {
             },
           })}
           error={errors.email}
+          design="outlined"
         />
         <FormField
           name="password"
@@ -71,11 +76,12 @@ const SignInFormSection = () => {
             },
           })}
           error={errors.password}
+          design="outlined"
         />
         <Button
           type="submit"
           content="로그인 하기"
-          disabled={!isValid}
+          disabled={!isValid || isFetching}
           className="mt-8 lg:mt-12"
         ></Button>
       </form>

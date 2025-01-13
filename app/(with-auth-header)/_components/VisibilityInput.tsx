@@ -1,7 +1,6 @@
 'use client';
 
-import { useState } from 'react';
-import type { InputHTMLAttributes } from 'react';
+import { useState, InputHTMLAttributes } from 'react';
 import Image from 'next/image';
 
 type VisibilityInputProps = InputHTMLAttributes<HTMLInputElement>;

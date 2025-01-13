@@ -1,42 +1,36 @@
 'use client';
 
-import { useState, useEffect, InputHTMLAttributes, ChangeEvent } from 'react';
-import { AxiosError } from 'axios';
-import { usePostResume } from '../../_hook/useTanstackQuery';
-import { RESUME } from '@/constants/form';
-import {
-  CustomSetValue,
-  CustomSetError,
-  CustomClearErrors,
-} from '@/types/form';
-import UploadIcon from '@/public/icons/upload.svg';
-import { useFormContext } from 'react-hook-form';
+import { useState, useEffect, ChangeEvent } from 'react';
 import Image from 'next/image';
+import { useMutation } from '@tanstack/react-query';
+import { useFormContext } from 'react-hook-form';
+import { AxiosError } from 'axios';
+import { postResume } from '@/services/file';
+import { CustomFieldName } from '@/types/form';
+import { RESUME } from '@/constants/form';
+import UploadIcon from '@/public/icons/upload.svg';
 
-const availableType = [
+const allowedTypes = [
   'application/pdf',
   'application/msword',
   'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
 ];
 
-interface ResumeInputProps extends InputHTMLAttributes<HTMLInputElement> {
-  setValue: CustomSetValue<'resumeId' | 'resumeName'>;
-  setError: CustomSetError<'resumeId' | 'resumeName'>;
-  clearErrors: CustomClearErrors<'resumeId' | 'resumeName'>;
+interface ResumeInputProps {
+  placeholder: string;
+  className: string;
 }
 
-const ResumeInput = ({
-  setValue,
-  setError,
-  clearErrors,
-  ...props
-}: ResumeInputProps) => {
+const ResumeInput = ({ placeholder, className }: ResumeInputProps) => {
   const {
-    formState: { isDirty },
     getValues,
-  } = useFormContext();
+    formState: { isDirty },
+    setValue,
+    setError,
+    clearErrors,
+  } = useFormContext<Record<CustomFieldName, string>>();
   const [name, setName] = useState('');
-  const { mutateAsync, isPending } = usePostResume();
+  const { mutateAsync, isPending } = useMutation({ mutationFn: postResume });
 
   const resetResume = () => {
     setValue('resumeId', '', { shouldDirty: true });
@@ -56,7 +50,7 @@ const ResumeInput = ({
       return;
     }
 
-    if (!availableType.includes(file.type)) {
+    if (!allowedTypes.includes(file.type)) {
       resetResume();
       setError('resumeId', {
         type: 'custom',
@@ -105,10 +99,10 @@ const ResumeInput = ({
         name="resumeName"
         type="text"
         value={name}
-        placeholder={props.placeholder}
+        placeholder={placeholder}
         readOnly
         disabled
-        className={props.className}
+        className={className}
       />
       <label htmlFor="resumeId" className="absolute inset-0 cursor-pointer" />
       <input

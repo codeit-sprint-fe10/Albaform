@@ -1,8 +1,7 @@
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { getAlbaDetail } from '@/services/alba';
 import { getMyApplication, postApplication } from '@/services/application';
-import { postResume } from '@/services/file';
 import { PostApplicationBody } from '@/types/application';
-import { useMutation, useQuery } from '@tanstack/react-query';
 
 export const useGetAlbaDetail = (formId: number) =>
   useQuery({
@@ -28,5 +27,3 @@ export const usePostApplication = () =>
       body: PostApplicationBody;
     }) => postApplication({ formId, body }),
   });
-
-export const usePostResume = () => useMutation({ mutationFn: postResume });
