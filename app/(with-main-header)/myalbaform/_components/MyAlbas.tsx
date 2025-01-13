@@ -56,7 +56,7 @@ const MyAlbas = ({ isOwner }: { isOwner: boolean }) => {
     );
 
   return (
-    <ul className="flex flex-wrap justify-center gap-8 md:gap-y-12 md:gap-x-6 lg:gap-y-16 w-full">
+    <ul className="flex flex-wrap justify-center gap-8 md:gap-y-12 md:gap-x-6 lg:gap-y-16">
       {isLoading ? (
         <AlbaCardSkeletons isOwner={isOwner} />
       ) : data?.pages?.[0]?.data?.length ? (
