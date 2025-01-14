@@ -8,6 +8,7 @@ import { NICKNAME, PHONE_NUMBER, STORE_NAME, LOCATION } from '@/constants/form';
 import { UserRoleLowerCase } from '@/types/user';
 import FormField from '../../../_components/FormField';
 import Button from '@/components/Button';
+import ProfileImageInput from '@/app/(with-auth-header)/_components/ProfileImageInput';
 
 interface InformationFormData {
   nickname: string;
@@ -53,6 +54,7 @@ const InformationFormSection = ({ userRole }: InformationFormSectionProps) => {
           onSubmit={methods.handleSubmit(InformationSubmit)}
           className="flex flex-col"
         >
+          <ProfileImageInput />
           <FormField
             name="nickname"
             label="닉네임"
