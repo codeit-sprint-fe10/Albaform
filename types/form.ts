@@ -9,9 +9,11 @@ type Field = User &
     newPassword: string;
     passwordConfirmation: string;
   };
-type CommonField = Omit<Field, 'location' | 'resumeId' | 'resumeName'>;
-type CustomField = Pick<Field, 'location' | 'resumeId' | 'resumeName'>;
 
 export type FieldName = keyof Field;
-export type CommonFieldName = keyof CommonField;
-export type CustomFieldName = keyof CustomField;
+export type CommonFieldName = keyof Omit<Field, CustomFieldName>;
+export type CustomFieldName =
+  | 'imageUrl'
+  | 'location'
+  | 'resumeId'
+  | 'resumeName';

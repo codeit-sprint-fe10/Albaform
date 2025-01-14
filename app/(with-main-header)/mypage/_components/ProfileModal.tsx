@@ -1,7 +1,14 @@
+'use client';
+
 import { UseModalProps } from '@/types/useModal';
 import Modal from '@/components/Modal';
+import ProfileForm from './form/ProfileForm';
+import { useUserStore } from '@/store/user';
 
 const ProfileModal = ({ dialogRef, closeModal }: UseModalProps) => {
+  const user = useUserStore((state) => state.user);
+
+  if (!user) return;
   return (
     <Modal
       dialogRef={dialogRef}
@@ -9,7 +16,7 @@ const ProfileModal = ({ dialogRef, closeModal }: UseModalProps) => {
       title="프로필 수정"
       hasCloseButton={false}
     >
-      프로필 수정
+      <ProfileForm closeModal={closeModal} user={user} />
     </Modal>
   );
 };

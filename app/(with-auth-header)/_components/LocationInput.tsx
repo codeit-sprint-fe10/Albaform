@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Script from 'next/script';
 import Image from 'next/image';
 import { useFormContext } from 'react-hook-form';
@@ -13,8 +13,9 @@ interface LocationInputProps {
 }
 
 const LocationInput = ({ placeholder, className }: LocationInputProps) => {
-  const { setValue, setError, clearErrors } =
+  const { setValue, setError, clearErrors, getValues } =
     useFormContext<Record<CustomFieldName, string>>();
+  const location = getValues('location');
   const [address, setAddress] = useState('');
 
   const handleInputClick = () => {
@@ -47,6 +48,10 @@ const LocationInput = ({ placeholder, className }: LocationInputProps) => {
       },
     }).open();
   };
+
+  useEffect(() => {
+    if (location) setAddress(JSON.parse(location).address);
+  }, [location]);
 
   return (
     <>

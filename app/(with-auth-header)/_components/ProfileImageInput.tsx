@@ -1,16 +1,19 @@
 'use client';
 
-import { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent, useEffect } from 'react';
 import Image from 'next/image';
 import { useFormContext } from 'react-hook-form';
 import { postImage } from '@/services/image';
 import { useMutation } from '@tanstack/react-query';
+import { CustomFieldName } from '@/types/form';
 
 const allowedTypes = ['image/png', 'image/jpeg'];
 
 const ProfileImageInput = () => {
-  const { setValue } = useFormContext();
-  const [imageUrl, setImageUrl] = useState<string | null>();
+  const { setValue, getValues } =
+    useFormContext<Record<CustomFieldName, string>>();
+  const imageUrl = getValues('imageUrl');
+  const [previewUrl, setPreviewUrl] = useState<string>();
   const { mutateAsync, isPending } = useMutation({ mutationFn: postImage });
 
   const handleChange = async (event: ChangeEvent<HTMLInputElement>) => {
@@ -19,7 +22,7 @@ const ProfileImageInput = () => {
     if (file) {
       if (!allowedTypes.includes(file.type)) return;
       const newImageUrl = await mutateAsync(file);
-      setImageUrl(newImageUrl);
+      setPreviewUrl(newImageUrl);
       setValue('imageUrl', newImageUrl);
     }
 
@@ -27,9 +30,13 @@ const ProfileImageInput = () => {
   };
 
   const handleRemoveClick = () => {
-    setImageUrl(null);
-    setValue('imageUrl', null);
+    setPreviewUrl('');
+    setValue('imageUrl', '');
   };
+
+  useEffect(() => {
+    if (imageUrl) setPreviewUrl(imageUrl);
+  }, [imageUrl]);
 
   return (
     <div className="relative m-auto">
@@ -41,13 +48,13 @@ const ProfileImageInput = () => {
         }
       >
         <Image
-          src={imageUrl ? imageUrl : '/icons/profile.svg'}
+          src={previewUrl ? previewUrl : '/icons/profile.svg'}
           alt="프로필 이미지"
           fill
           className="rounded-full"
         />
       </label>
-      {imageUrl ? (
+      {previewUrl ? (
         <button
           onClick={handleRemoveClick}
           className={

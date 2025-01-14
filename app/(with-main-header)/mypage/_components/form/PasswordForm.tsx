@@ -54,7 +54,7 @@ const PasswordForm = ({ closeModal }: PasswordFormProps) => {
     <form
       method="post"
       onSubmit={handleSubmit(signUpSubmit)}
-      className="flex flex-col mt-8 lg:mt-12"
+      className="flex flex-col md:w-[312px] lg:w-[640px] mt-8 lg:mt-12"
     >
       <FormField
         name="currentPassword"
