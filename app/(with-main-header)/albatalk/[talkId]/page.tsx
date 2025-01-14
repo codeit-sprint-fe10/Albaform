@@ -1,4 +1,5 @@
 'use client';
+
 import { useState } from 'react';
 import CommentIcon from '@/public/icons/comment.svg';
 import Image from 'next/image';
@@ -13,15 +14,6 @@ import { EditDropdownAction } from '@/types/albatalk';
 import useGetPostDetail from './_hooks/useGetPostDetail';
 import useDeleteTalk from './_hooks/useDeleteTalk';
 import Loader from '@/components/Loader';
-
-// TODO: RSC 대응하도록 API 고쳐지면 수정!
-// const AlbatalkDetail = async ({
-//   params,
-// }: {
-//   params: Promise<{ talkId: number }>;
-// }) => {
-//   const { talkId } = await params;
-//   const post = await getPostDetail(talkId);
 
 const AlbatalkDetail = () => {
   const { talkId: talkIdStr } = useParams();

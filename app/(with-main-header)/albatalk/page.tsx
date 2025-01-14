@@ -1,4 +1,5 @@
 'use client';
+
 import { useState, useEffect } from 'react';
 import AlbatalkCard from './_components/AlbatalkCard';
 import Pagination from './_components/Pagination';
@@ -6,13 +7,22 @@ import SearchBar from './_components/SearchBar';
 import WriteButton from './_components/WriteButton';
 import useGetPosts from './_hooks/useGetPosts';
 import { SortOrder } from '@/types/albatalk';
-import Loader from '@/components/Loader';
+import AlbatalkCardSkeleton from './_components/AlbatalkCardSkeleton';
 
 const Albatalk = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [cursorHistory, setCursorHistory] = useState([0]);
   const [sortOrder, setSortOrder] = useState<SortOrder>('mostRecent');
   const [pageLimit, setPageLimit] = useState(6);
+
+  const AlbatalkCardSkeletons = () =>
+    Array(pageLimit)
+      .fill(0)
+      .map((_, idx) => (
+        <div key={idx} className="w-full lg:w-[384px]">
+          <AlbatalkCardSkeleton />
+        </div>
+      ));
 
   useEffect(() => {
     const updatePageLimit = () => {
@@ -59,32 +69,9 @@ const Albatalk = () => {
         <div className="flex w-full max-w-container-md">
           <div className="w-full flex flex-col gap-4 lg:grid lg:grid-cols-3 lg:gap-6 lg:gap-y-12">
             {isLoading ? (
-              <div className="w-full flex items-center justify-center">
-                <Loader />
-              </div>
+              <AlbatalkCardSkeletons />
             ) : (
-              data?.data.map(
-                ({
-                  id,
-                  title,
-                  content,
-                  writer,
-                  createdAt,
-                  commentCount,
-                  likeCount,
-                }) => (
-                  <AlbatalkCard
-                    key={id}
-                    title={title}
-                    content={content}
-                    writer={writer}
-                    createdAt={createdAt}
-                    commentCount={commentCount}
-                    likeCount={likeCount}
-                    talkId={id}
-                  />
-                ),
-              )
+              data?.data.map((post) => <AlbatalkCard key={post.id} {...post} />)
             )}
           </div>
         </div>

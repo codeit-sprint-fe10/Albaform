@@ -1,4 +1,5 @@
 'use client';
+
 import CommentIcon from '@/public/icons/comment.svg';
 import LikeIcon from '@/public/icons/like.svg';
 import Image from 'next/image';
@@ -14,7 +15,7 @@ interface AlbatalkCardProps {
   createdAt: string;
   commentCount: number;
   likeCount: number;
-  talkId: number;
+  id: number;
 }
 
 const AlbatalkCard = ({
@@ -24,11 +25,11 @@ const AlbatalkCard = ({
   createdAt,
   commentCount,
   likeCount,
-  talkId,
+  id,
 }: AlbatalkCardProps) => {
   return (
     <div className="relative w-full h-[210px] lg:h-[280px] p-6 border rounded-2xl">
-      <Link href={`/albatalk/${talkId}`}>
+      <Link href={`/albatalk/${id}`}>
         <div className="flex flex-col h-[162px] lg:h-[232px] gap-6">
           <div className="flex lg:h-44 flex-col gap-2">
             <div className="max-w-80 text-black-400 font-semibold text-lg lg:text-2lg line-clamp-1">
