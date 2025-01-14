@@ -58,3 +58,46 @@ export interface GetGuestApplicationsBody {
   phoneNumber: string;
   password: string;
 }
+
+export interface GetMyAppliedAlbasParameters {
+  cursor?: number;
+  limit: number;
+  status?: ApplicationStatusType;
+  keyword?: string;
+}
+
+interface AppliedApplication {
+  id: number;
+  resumeId: number;
+  resumeName: string;
+  status: ApplicationStatusType;
+  createdAt: string;
+  updatedAt: string;
+  form: {
+    id: number;
+    title: string;
+    description: string;
+    recruitmentStartDate: string;
+    recruitmentEndDate: string;
+    owner: {
+      id: number;
+      storeName: string;
+      imageUrl: string | null;
+    };
+  };
+}
+
+export type ApplicationCardType = Pick<
+  AppliedApplication,
+  'id' | 'resumeId' | 'resumeName' | 'status' | 'createdAt' | 'form'
+>;
+
+export interface GetMyAppliedAlbasResponse {
+  data: ApplicationCardType[];
+  nextCursor: number | null;
+}
+
+export type MyAppliedAlbasFilterType = Pick<
+  GetMyAppliedAlbasParameters,
+  'keyword' | 'status'
+>;

@@ -5,7 +5,7 @@ export type AlbasOrderBy =
   | 'mostScrapped';
 
 export interface GetAlbasParameters {
-  orderBy: AlbasOrderBy;
+  orderBy?: AlbasOrderBy;
   limit: number;
   cursor?: number;
   keyword?: string;
@@ -99,7 +99,7 @@ export interface GetMyCreatedAlbasParameters extends GetAlbasParameters {
   isPublic?: boolean;
 }
 
-export type MyAlbasFilterType = Pick<
+export type MyCreatedAlbasFilterType = Pick<
   GetMyCreatedAlbasParameters,
   'orderBy' | 'keyword' | 'isRecruiting' | 'isPublic'
 >;

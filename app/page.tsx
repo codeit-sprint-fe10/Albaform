@@ -14,7 +14,7 @@ import card0402Image from '@/public/images/landing-card-0402.png';
 
 const LandingPage = () => {
   const cardStyle =
-    'flex flex-col md:flex-row justify-between w-full max-w-[1140px] h-[60dvh] max-h-[344px] md:max-h-80 lg:max-h-[640px] rounded-2xl pt-6 pl-6 md:pt-9 md:pl-9 lg:pl-[70px] lg:pt-[73px]';
+    'flex flex-col md:flex-row justify-between w-full max-w-[1140px] h-[80dvh] max-h-[344px] md:max-h-80 lg:max-h-[640px] rounded-2xl pt-6 pl-6 md:pt-9 md:pl-9 lg:pl-[70px] lg:pt-[73px]';
 
   return (
     <>
@@ -134,7 +134,7 @@ const LandingPage = () => {
               </div>
               <div className="relative flex justify-end md:justify-normal md:items-end">
                 <div className="absolute bottom-1 right-0 md:bottom-14 md:right-2 lg:bottom-5 z-10">
-                  <AnimatedItem delay={500} direction="top">
+                  <AnimatedItem delay={500} direction="right">
                     <div className="relative w-[247px] h-[203px] md:w-[325px] md:y-[248px] lg:w-[651px] lg:h-[496px]">
                       <Image
                         src={card0202Image}

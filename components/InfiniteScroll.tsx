@@ -31,7 +31,7 @@ const InfiniteScroll = ({
   return (
     <>
       {children}
-      {isLoading ? loader : <div ref={ref} />}
+      {isLoading ? loader : <div ref={ref} className="w-full" />}
     </>
   );
 };

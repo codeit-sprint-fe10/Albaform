@@ -1,11 +1,21 @@
 'use client';
 
 import { KeyboardEvent } from 'react';
-import useMyalbaformStore from '@/store/myalbaform';
+import {
+  useMyCreatedAlbaformStore,
+  useMyAppliedAlbaformStore,
+} from '@/store/myalbaform';
 import SearchIcon from '@/public/icons/search.svg';
 
-const SearchBar = () => {
-  const setSearchParams = useMyalbaformStore((state) => state.setSearchParams);
+const SearchBar = ({ isOwner }: { isOwner: boolean }) => {
+  const createdStore = useMyCreatedAlbaformStore(
+    (state) => state.setSearchParams,
+  );
+  const appliedStore = useMyAppliedAlbaformStore(
+    (state) => state.setSearchParams,
+  );
+
+  const setSearchParams = isOwner ? createdStore : appliedStore;
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
@@ -28,7 +38,9 @@ const SearchBar = () => {
             alt="검색바"
           />
           <input
-            placeholder="검색어로 조회해보세요."
+            placeholder={
+              isOwner ? '검색어로 조회해보세요.' : '어떤 알바를 찾고 계세요?'
+            }
             className="w-full md:w-5/6 rounded-2xl lg:rounded-3xl outline-none bg-background-200 text-lg lg:text-xl text-black-400 placeholder:text-gray-400 py-3.5 pr-[17px] pl-[46px] lg:py-4 lg:pr-6 lg:pl-[68px]"
             onKeyDown={handleKeyDown}
           />

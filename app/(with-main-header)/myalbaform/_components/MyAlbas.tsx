@@ -1,44 +1,79 @@
 'use client';
 
 import InfiniteScroll from '@/components/InfiniteScroll';
-import Card from './Card';
+import CreatedCard from './CreatedCard';
+import AppliedCard from './AppliedCard';
+import useGetMyAlbas from '../_hooks/useGetMyCreatedAlbas';
+import {
+  useMyAppliedAlbaformStore,
+  useMyCreatedAlbaformStore,
+} from '@/store/myalbaform';
 import AlbaCardSkeleton from '../../albalist/_components/list/AlbaCardSkeleton';
 import EmptyAlba from './EmptyAlba';
-import useGetMyCreatedAlbas from '../_hooks/useGetMyCreatedAlbas';
-import useMyalbaformStore from '@/store/myalbaform';
+import { getMyCreatedAlbas } from '@/services/alba';
+import { getMyAppliedAlbas } from '@/services/application';
+import {
+  AlbaCardType,
+  GetAlbasResponse,
+  GetMyCreatedAlbasParameters,
+} from '@/types/alba';
+import {
+  ApplicationCardType,
+  GetMyAppliedAlbasParameters,
+  GetMyAppliedAlbasResponse,
+} from '@/types/application';
+import AppliedCardSkeleton from './AppliedCardSkeleton';
 
 const PAGE_LIMIT = 6;
 
-const AlbaCardSkeletons = () =>
+const AlbaCardSkeletons = ({ isOwner }: { isOwner: boolean }) =>
   Array(PAGE_LIMIT)
     .fill(0)
     .map((_, idx) => (
-      <li key={idx} className="w-[min(100%,360px)] lg:w-[469px]">
-        <AlbaCardSkeleton />
+      <li
+        key={idx}
+        className={isOwner ? 'w-[min(100%,327px)] lg:w-[477px]' : ''}
+      >
+        {isOwner ? <AlbaCardSkeleton /> : <AppliedCardSkeleton />}
       </li>
     ));
 
-const MyAlbas = () => {
-  const searchParams = useMyalbaformStore((state) => state.searchParams);
+export type QueryParameters =
+  | GetMyCreatedAlbasParameters
+  | GetMyAppliedAlbasParameters;
+export type QueryResponse = GetAlbasResponse | GetMyAppliedAlbasResponse;
+
+const MyAlbas = ({ isOwner }: { isOwner: boolean }) => {
+  const createdStore = useMyCreatedAlbaformStore((state) => state.searchParams);
+  const appliedStore = useMyAppliedAlbaformStore((state) => state.searchParams);
+
+  const searchParams = isOwner ? createdStore : appliedStore;
 
   const { data, fetchNextPage, isLoading, isFetchingNextPage, hasNextPage } =
-    useGetMyCreatedAlbas({ limit: PAGE_LIMIT, ...searchParams });
+    useGetMyAlbas<QueryParameters, QueryResponse>(
+      { limit: PAGE_LIMIT, ...searchParams },
+      isOwner ? getMyCreatedAlbas : getMyAppliedAlbas,
+    );
 
   return (
-    <ul className="grid gap-8 md:gap-y-12 md:gap-x-6 lg:gap-y-16 md:grid-cols-[repeat(auto-fit,_327px)] lg:grid-cols-[repeat(auto-fit,_469px)] justify-center place-items-center">
+    <ul className="flex flex-wrap justify-center gap-8 md:gap-y-12 md:gap-x-6 lg:gap-y-16">
       {isLoading ? (
-        <AlbaCardSkeletons />
+        <AlbaCardSkeletons isOwner={isOwner} />
       ) : data?.pages?.[0]?.data?.length ? (
         <InfiniteScroll
           hasNextPage={hasNextPage}
           isLoading={isFetchingNextPage}
           loadNextPage={fetchNextPage}
-          loader={<AlbaCardSkeletons />}
+          loader={<AlbaCardSkeletons isOwner={isOwner} />}
         >
           {data.pages.map((page) =>
             page.data.map((myAlba) => (
               <li key={myAlba.id}>
-                <Card {...myAlba} />
+                {isOwner ? (
+                  <CreatedCard {...(myAlba as AlbaCardType)} />
+                ) : (
+                  <AppliedCard {...(myAlba as ApplicationCardType)} />
+                )}
               </li>
             )),
           )}
