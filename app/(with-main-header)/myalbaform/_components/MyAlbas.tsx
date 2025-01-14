@@ -23,6 +23,7 @@ import {
   GetMyAppliedAlbasResponse,
 } from '@/types/application';
 import AppliedCardSkeleton from './AppliedCardSkeleton';
+import useDeleteAlba from '../_hooks/useDeleteAlba';
 
 const PAGE_LIMIT = 6;
 
@@ -54,6 +55,12 @@ const MyAlbas = ({ isOwner }: { isOwner: boolean }) => {
       { limit: PAGE_LIMIT, ...searchParams },
       isOwner ? getMyCreatedAlbas : getMyAppliedAlbas,
     );
+  const { mutate: deleteAlba } = useDeleteAlba<QueryParameters>({
+    limit: PAGE_LIMIT,
+    ...searchParams,
+  });
+
+  const handleDelete = (id: number) => deleteAlba(id);
 
   return (
     <ul className="flex flex-wrap justify-center gap-8 md:gap-y-12 md:gap-x-6 lg:gap-y-16">
@@ -70,7 +77,10 @@ const MyAlbas = ({ isOwner }: { isOwner: boolean }) => {
             page.data.map((myAlba) => (
               <li key={myAlba.id}>
                 {isOwner ? (
-                  <CreatedCard {...(myAlba as AlbaCardType)} />
+                  <CreatedCard
+                    onDelete={handleDelete}
+                    {...(myAlba as AlbaCardType)}
+                  />
                 ) : (
                   <AppliedCard {...(myAlba as ApplicationCardType)} />
                 )}

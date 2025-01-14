@@ -1,6 +1,4 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { getMyCreatedAlbas } from '@/services/alba';
-import { GetMyCreatedAlbasParameters } from '@/types/alba';
 
 type InfiniteQueryParams<T> = T & { cursor?: number };
 type InfiniteQueryResponse<R> = R & { nextCursor: number | null };

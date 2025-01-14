@@ -7,6 +7,10 @@ import Badge from '@/components/Badge';
 import MenuDropdown from './MenuDropdown';
 import { getRecruitingStatus } from '@/utils/card';
 
+interface CreatedCardProps extends AlbaCardType {
+  onDelete: (id: number) => void;
+}
+
 const CreatedCard = ({
   id,
   title,
@@ -16,7 +20,8 @@ const CreatedCard = ({
   recruitmentEndDate,
   scrapCount,
   applyCount,
-}: AlbaCardType) => {
+  onDelete,
+}: CreatedCardProps) => {
   const recruitingStatus = getRecruitingStatus(
     recruitmentStartDate,
     recruitmentEndDate,
@@ -54,7 +59,7 @@ const CreatedCard = ({
             {period}
           </div>
         </div>
-        <MenuDropdown id={id} />
+        <MenuDropdown id={id} onDelete={onDelete} />
       </div>
       <h3 className="h-[52px] lg:h-16 font-semibold text-2lg lg:text-xl text-black-500 mb-6 lg:mb-8 line-clamp-2">
         {title}
