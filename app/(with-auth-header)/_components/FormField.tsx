@@ -37,6 +37,8 @@ const FormField = (props: FormFieldProps) => {
   let Input;
   switch (props.name) {
     case 'password':
+    case 'currentPassword':
+    case 'newPassword':
     case 'passwordConfirmation':
       Input = (
         <>

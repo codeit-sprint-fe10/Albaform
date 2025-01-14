@@ -1,5 +1,6 @@
 import { UseModalProps } from '@/types/useModal';
 import Modal from '@/components/Modal';
+import PasswordForm from './form/PasswordForm';
 
 const PasswordModal = ({ dialogRef, closeModal }: UseModalProps) => {
   return (
@@ -9,7 +10,7 @@ const PasswordModal = ({ dialogRef, closeModal }: UseModalProps) => {
       title="비밀번호 변경"
       hasCloseButton={false}
     >
-      비밀번호 변경
+      <PasswordForm closeModal={closeModal} />
     </Modal>
   );
 };
