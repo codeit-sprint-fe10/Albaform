@@ -28,7 +28,7 @@ const FormField = (props: FormFieldProps) => {
     : '';
   const inputStyle =
     `p-[14px] rounded-lg ${props.design === 'solid' ? 'bg-background-200' : ''} border outline-none ` +
-    `${props.error ? 'border-error' : `border-${props.design === 'solid' ? 'background' : 'gray'}-200 focus:border-orange-300`} ` +
+    `${props.error ? 'border-error' : `${props.design === 'solid' ? 'border-background-200' : 'border-gray-200'} focus:border-orange-300`} ` +
     'text-lg lg:text-xl text-black-400 placeholder:text-gray-400 transition duration-200';
   const errorStyle =
     'h-[22px] lg:h-[26px] mr-2 lg:mr-3 ' +
@@ -86,7 +86,7 @@ const FormField = (props: FormFieldProps) => {
           type="text"
           id={props.name}
           placeholder={props.placeholder}
-          {...props.register}
+          {...(props as CommonFieldParam).register}
           className={`mb-1 ${inputStyle}`}
         />
       );
