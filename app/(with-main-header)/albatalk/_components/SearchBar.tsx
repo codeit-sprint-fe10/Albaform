@@ -34,7 +34,7 @@ const SearchBar = ({
       setSearchTerm(debouncedValue);
       setCursorHistory([0]);
     }
-  }, [debouncedValue, searchTerm, setSearchTerm, setCursorHistory]);
+  }, [debouncedValue, searchTerm]);
 
   return (
     <div className="flex justify-center md:border-b-2">
