@@ -1,5 +1,3 @@
-'use client';
-
 const CommentCardSkeleton = () => {
   return (
     <div className="relative w-full h-[210px] md:h-[184px] lg:h-[264px] p-6 border rounded-2xl bg-gray-100 animate-pulse">

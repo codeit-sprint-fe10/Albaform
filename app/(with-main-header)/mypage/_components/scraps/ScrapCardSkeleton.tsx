@@ -1,5 +1,3 @@
-'use client';
-
 const ScrapCardSkeleton = () => {
   const rightBarStyle =
     'after:absolute after:top-1/2 after:-translate-y-1/2 after:right-0 after:w-[1px] after:h-3.5 after:bg-line-100';

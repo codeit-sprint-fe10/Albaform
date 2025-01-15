@@ -1,5 +1,3 @@
-'use client';
-
 const AlbatalkCardSkeleton = () => {
   return (
     <div className="relative w-full h-[210px] lg:h-[280px] p-6 border rounded-2xl bg-gray-100 animate-pulse">
