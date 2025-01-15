@@ -2,21 +2,13 @@ import { Dispatch, FormEvent, SetStateAction } from 'react';
 import { AlbasFilterType, AlbasOrderBy } from '@/types/alba';
 import Dropdown, { Option } from './filter/Dropdown';
 import SearchInput from './filter/SearchInput';
-import {
-  ALBA_ORDERBY_OPTIONS,
-  PUBLIC_OPTIONS,
-  RECRUIT_OPTIONS,
-} from '@/constants/dropdown';
+import { ALBA_ORDERBY_OPTIONS, RECRUIT_OPTIONS } from '@/constants/dropdown';
 
 interface AlbaFilterSectionProps {
   setFilter: Dispatch<SetStateAction<AlbasFilterType>>;
-  setIsPublic: Dispatch<SetStateAction<boolean | undefined>>;
 }
 
-const AlbaFilterSection = ({
-  setFilter,
-  setIsPublic,
-}: AlbaFilterSectionProps) => {
+const AlbaFilterSection = ({ setFilter }: AlbaFilterSectionProps) => {
   const handleFormSubmit = (e: FormEvent) => {
     e.preventDefault();
   };
@@ -24,10 +16,6 @@ const AlbaFilterSection = ({
   const handleInputUpdate = (value: string) => {
     const keyword = value ? value : undefined;
     setFilter((prev) => ({ ...prev, keyword }));
-  };
-
-  const handleIsPublicSelect = (option: Option) => {
-    setIsPublic(option.key as boolean | undefined);
   };
 
   const handleIsRecruitingSelect = (option: Option) => {
@@ -63,18 +51,11 @@ const AlbaFilterSection = ({
           'md:px-[72px] lg:px-[max(72px,calc((100%-1456px)/2))]'
         }
       >
-        <div className="flex items-center gap-3 lg:gap-4">
-          <Dropdown
-            type="filter"
-            options={PUBLIC_OPTIONS}
-            onSelect={handleIsPublicSelect}
-          />
-          <Dropdown
-            type="filter"
-            options={RECRUIT_OPTIONS}
-            onSelect={handleIsRecruitingSelect}
-          />
-        </div>
+        <Dropdown
+          type="filter"
+          options={RECRUIT_OPTIONS}
+          onSelect={handleIsRecruitingSelect}
+        />
         <Dropdown
           type="sort"
           options={ALBA_ORDERBY_OPTIONS}

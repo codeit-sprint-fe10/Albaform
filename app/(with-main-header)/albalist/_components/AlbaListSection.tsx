@@ -22,10 +22,9 @@ const AlbaCardSkeletons = () =>
 
 interface AlbaListSectionProps {
   filter: AlbasFilterType;
-  isPublic: boolean | undefined;
 }
 
-const AlbaListSection = ({ filter, isPublic }: AlbaListSectionProps) => {
+const AlbaListSection = ({ filter }: AlbaListSectionProps) => {
   const { ref, inView } = useInView({ threshold: 0 });
   const { data, fetchNextPage, isLoading, isFetchingNextPage, hasNextPage } =
     useInfiniteQuery<GetAlbasResponse>({
@@ -40,11 +39,7 @@ const AlbaListSection = ({ filter, isPublic }: AlbaListSectionProps) => {
     if (inView && !isFetchingNextPage && hasNextPage) fetchNextPage();
   }, [inView, isFetchingNextPage, hasNextPage, fetchNextPage]);
 
-  let albas = data?.pages.flatMap((page) => page.data);
-
-  if (isPublic !== undefined) {
-    albas = albas?.filter((alba) => alba.isPublic === isPublic);
-  }
+  const albas = data?.pages.flatMap((page) => page.data);
 
   return (
     <>

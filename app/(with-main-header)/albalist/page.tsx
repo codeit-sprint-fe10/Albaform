@@ -17,13 +17,12 @@ const initialFilter: AlbasFilterType = {
 const AlbaListPage = () => {
   const user = useUserStore((state) => state.user);
   const [filter, setFilter] = useState<AlbasFilterType>(initialFilter);
-  const [isPublic, setIsPublic] = useState<boolean>();
 
   return (
     <>
       <h1 className="sr-only">알바폼 목록</h1>
-      <AlbaFilterSection setFilter={setFilter} setIsPublic={setIsPublic} />
-      <AlbaListSection filter={filter} isPublic={isPublic} />
+      <AlbaFilterSection setFilter={setFilter} />
+      <AlbaListSection filter={filter} />
       {user?.role === UserRole.owner && <WriteFAB />}
     </>
   );
