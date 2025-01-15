@@ -55,7 +55,7 @@ const MyAlbas = ({ isOwner }: { isOwner: boolean }) => {
       { limit: PAGE_LIMIT, ...searchParams },
       isOwner ? getMyCreatedAlbas : getMyAppliedAlbas,
     );
-  const { mutate: deleteAlba } = useDeleteAlba<QueryParameters>({
+  const { mutate: deleteAlba } = useDeleteAlba({
     limit: PAGE_LIMIT,
     ...searchParams,
   });

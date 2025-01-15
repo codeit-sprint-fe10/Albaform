@@ -111,17 +111,14 @@ const FormNavigator = ({ formId }: { formId?: number }) => {
       setFormKey((prev) => prev + 1);
       setTabStatuses(newTabStatuses);
     },
-    [defaultValues, fieldGroups],
+    [fieldGroups],
   );
 
   useEffect(() => {
-    if (!formId) {
-      const storeData = getData();
-      if (storeData) {
-        openModal();
-      }
+    if (!formId && getData()) {
+      openModal();
     }
-  }, [formId, getData, openModal]);
+  }, [formId]);
 
   useEffect(() => {
     if (isContinueWriting) {

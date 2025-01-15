@@ -1,11 +1,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { deleteAlba } from '@/services/alba';
+import { GetMyCreatedAlbasParameters } from '@/types/alba';
 
-type InfiniteQueryParams<T> = T & { cursor?: number };
-
-const useDeleteAlba = <T extends object>(
-  searchParams: InfiniteQueryParams<T>,
-) => {
+const useDeleteAlba = (searchParams: GetMyCreatedAlbasParameters) => {
   const queryClient = useQueryClient();
 
   return useMutation({
