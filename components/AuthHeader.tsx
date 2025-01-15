@@ -4,7 +4,7 @@ import RoleNav from './RoleNav';
 
 const AuthHeader = () => {
   const headerStyle =
-    'fixed top-0 flex items-center justify-center md:justify-between ' +
+    'fixed top-0 z-50 flex items-center justify-center md:justify-between ' +
     'w-full h-[54px] md:h-[60px] lg:h-[88px] md:px-[max(72px,calc((100%-1600px)/2))] ' +
     'bg-gray-50 border-b border-line-100';
 

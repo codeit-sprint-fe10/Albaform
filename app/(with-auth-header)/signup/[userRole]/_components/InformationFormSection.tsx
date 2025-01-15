@@ -1,14 +1,15 @@
 'use client';
 
-import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useMutation } from '@tanstack/react-query';
 import { useForm, SubmitHandler, FormProvider } from 'react-hook-form';
 import { patchMe } from '@/services/user';
-import { NICKNAME, PHONE_NUMBER, STORE_NAME, LOCATION } from '@/constants/form';
 import { UserRoleLowerCase } from '@/types/user';
-import FormField from '../../../_components/FormField';
+import { NICKNAME, PHONE_NUMBER, STORE_NAME, LOCATION } from '@/constants/form';
 import Button from '@/components/Button';
-import ProfileImageInput from '@/app/(with-auth-header)/_components/ProfileImageInput';
+import FormField from '../../../_components/FormField';
+import ProfileImageInput from '../../../_components/ProfileImageInput';
+import { useUserStore } from '@/store/user';
 
 interface InformationFormData {
   nickname: string;
@@ -24,7 +25,8 @@ interface InformationFormSectionProps {
 }
 
 const InformationFormSection = ({ userRole }: InformationFormSectionProps) => {
-  const [isFetching, setIsFetching] = useState(false);
+  const { isPending, mutateAsync } = useMutation({ mutationFn: patchMe });
+  const setUser = useUserStore((state) => state.setUser);
   const { replace } = useRouter();
   const methods = useForm<InformationFormData>({ mode: 'onTouched' });
 
@@ -32,18 +34,16 @@ const InformationFormSection = ({ userRole }: InformationFormSectionProps) => {
     data,
     event,
   ) => {
-    setIsFetching(true);
     event?.preventDefault();
 
     try {
-      await patchMe(data);
-
+      const updatedData = await mutateAsync(data);
+      setUser(updatedData);
       window.alert('추가 정보를 등록했습니다!\n즐거운 알바폼 되세요.');
       replace('/');
     } catch {
       window.alert('오류가 발생했습니다.\n확인 후 다시 시도해 주세요.');
     }
-    setIsFetching(false);
   };
 
   return (
@@ -151,7 +151,7 @@ const InformationFormSection = ({ userRole }: InformationFormSectionProps) => {
           <Button
             type="submit"
             content="시작하기"
-            disabled={!methods.formState.isValid || isFetching}
+            disabled={!methods.formState.isValid || isPending}
             className="mt-8 lg:mt-12"
           ></Button>
         </form>

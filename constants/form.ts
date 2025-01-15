@@ -27,6 +27,15 @@ export const PASSWORD = {
   },
 } as const;
 
+export const PASSWORD_EDIT = {
+  message: {
+    currentPlaceholder: '현재 비밀번호를 입력해 주세요.',
+    newPlaceholder: '새로운 비밀번호를 입력해 주세요.',
+    confirmationPlaceholder: '새로운 비밀번호를 한 번 더 입력해 주세요.',
+    equal: '기존 비밀번호와 다른 값을 입력해 주세요.',
+  },
+};
+
 export const PASSWORD_CONFIRMATION = {
   message: {
     placeholder: '비밀번호를 한 번 더 입력해 주세요.',
@@ -37,7 +46,7 @@ export const PASSWORD_CONFIRMATION = {
 
 export const NAME = {
   format: {
-    regExp: /^[a-zA-Z가-힣\s]+$/,
+    regExp: /^[a-zA-Z가-힣 ]+$/,
     maxLength: 20,
   },
   message: {
@@ -50,14 +59,14 @@ export const NAME = {
 
 export const NICKNAME = {
   format: {
-    regExp: /^[a-zA-Z가-힣\s]+$/,
+    regExp: /^[a-zA-Z가-힣0-9 ]+$/,
     maxLength: 20,
   },
   message: {
     placeholder: '닉네임을 입력해 주세요.',
     required: '닉네임은 필수 입력입니다.',
     maxLength: '닉네임은 최대 20자 이하입니다.',
-    pattern: '닉네임은 한글, 영문, 공백만 가능합니다.',
+    pattern: '닉네임은 한글, 영문, 숫자, 공백만 가능합니다.',
   },
 } as const;
 

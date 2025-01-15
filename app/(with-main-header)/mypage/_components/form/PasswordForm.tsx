@@ -4,7 +4,11 @@ import { AxiosError } from 'axios';
 import { useMutation } from '@tanstack/react-query';
 import { patchPassword } from '@/services/user';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { PASSWORD, PASSWORD_CONFIRMATION } from '@/constants/form';
+import {
+  PASSWORD,
+  PASSWORD_EDIT,
+  PASSWORD_CONFIRMATION,
+} from '@/constants/form';
 import FormField from '@/app/(with-auth-header)/_components/FormField';
 import Button from '@/components/Button';
 
@@ -59,7 +63,7 @@ const PasswordForm = ({ closeModal }: PasswordFormProps) => {
       <FormField
         name="currentPassword"
         label="현재 비밀번호"
-        placeholder="현재 비밀번호를 입력해 주세요."
+        placeholder={PASSWORD_EDIT.message.currentPlaceholder}
         register={register('currentPassword', {
           required: { value: true, message: PASSWORD.message.required },
           minLength: {
@@ -73,7 +77,7 @@ const PasswordForm = ({ closeModal }: PasswordFormProps) => {
       <FormField
         name="newPassword"
         label="새 비밀번호"
-        placeholder="새로운 비밀번호를 입력해 주세요."
+        placeholder={PASSWORD_EDIT.message.newPlaceholder}
         register={register('newPassword', {
           required: { value: true, message: PASSWORD.message.required },
           minLength: {
@@ -90,8 +94,7 @@ const PasswordForm = ({ closeModal }: PasswordFormProps) => {
           },
           validate: {
             value: (value) =>
-              value !== watch('currentPassword') ||
-              '기존 비밀번호와 다른 값을 입력해 주세요.',
+              value !== watch('currentPassword') || PASSWORD_EDIT.message.equal,
           },
         })}
         error={errors.newPassword}
@@ -100,7 +103,7 @@ const PasswordForm = ({ closeModal }: PasswordFormProps) => {
       <FormField
         name="passwordConfirmation"
         label="새 비밀번호 확인"
-        placeholder="새로운 비밀번호를 한 번 더 입력해 주세요."
+        placeholder={PASSWORD_EDIT.message.confirmationPlaceholder}
         register={register('passwordConfirmation', {
           required: {
             value: true,

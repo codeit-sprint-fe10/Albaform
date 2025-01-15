@@ -11,7 +11,6 @@ export const NON_AUTH_APIS = [
   { method: 'get', regExp: /^\/posts$/ },
   { method: 'get', regExp: /^\/posts\/[0-9]+$/ },
   { method: 'get', regExp: /^\/forms$/ },
-  { method: 'get', regExp: /^\/forms\/[0-9]+$/ },
   { method: 'post', regExp: /^\/resume\/upload$/ },
   { method: 'post', regExp: /^\/forms\/[0-9]+\/applications$/ },
   { method: 'post', regExp: /^\/forms\/[0-9]+\/my-application\/verify$/ },
