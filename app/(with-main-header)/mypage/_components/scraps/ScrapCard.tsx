@@ -64,7 +64,7 @@ const ScrapCard = ({
               imageUrls[0] ? 'object-cover' : 'object-none'
             }`}
           />
-          {!isPublic && <Private />}
+          {!isPublic && <Private id={id} />}
 
           <div className="flex justify-between items-center mb-4 lg:mb-6">
             <div className="flex items-center gap-2">

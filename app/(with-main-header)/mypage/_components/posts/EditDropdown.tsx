@@ -50,7 +50,7 @@ const EditDropdown = ({ onAction }: EditDropdownProps) => {
         className="bg-white rounded-md flex items-center justify-between gap-3 cursor-pointer"
         onClick={handleDropdownToggle}
       >
-        <KebabIcon className="w-6 h-6 lg:w-9 lg:h-9" />
+        <KebabIcon className="w-6 h-6" />
       </button>
 
       {isDropdownOpen && (
