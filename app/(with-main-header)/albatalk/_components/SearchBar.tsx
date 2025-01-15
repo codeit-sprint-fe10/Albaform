@@ -14,6 +14,7 @@ interface SearchBarProps {
   setSortOrder: React.Dispatch<React.SetStateAction<SortOrder>>;
   setCursorHistory: React.Dispatch<React.SetStateAction<number[]>>;
 }
+
 const SearchBar = ({
   searchTerm,
   sortOrder,
@@ -22,16 +23,18 @@ const SearchBar = ({
   setCursorHistory,
 }: SearchBarProps) => {
   const [inputValue, setInputValue] = useState(searchTerm);
-  const debouncedValue = useDebounce(inputValue, 1000);
+  const debouncedValue = useDebounce(inputValue, 200);
 
-  const handleSearchInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
 
   useEffect(() => {
-    setSearchTerm(debouncedValue);
-    setCursorHistory([0]);
-  }, [debouncedValue, setSearchTerm, setCursorHistory]);
+    if (debouncedValue !== searchTerm) {
+      setSearchTerm(debouncedValue);
+      setCursorHistory([0]);
+    }
+  }, [debouncedValue, searchTerm, setSearchTerm, setCursorHistory]);
 
   return (
     <div className="flex justify-center md:border-b-2">
@@ -43,8 +46,8 @@ const SearchBar = ({
           <input
             type="text"
             placeholder="검색어를 입력하세요"
-            value={searchTerm}
-            onChange={handleSearchInputChange}
+            value={inputValue}
+            onChange={handleInputChange}
             className="w-full pl-2 bg-background-200 focus:outline-none"
           />
         </div>
