@@ -13,6 +13,14 @@ interface DeviceInfo {
 
 const useDetectDevice = () => {
   const detectDeviceFromUA = () => {
+    if (typeof window === 'undefined') {
+      return {
+        isMobile: false,
+        isTablet: false,
+        isDeskTop: true,
+      };
+    }
+
     const { device } = UAParser(navigator.userAgent);
     return {
       isMobile: device.is('mobile'),
