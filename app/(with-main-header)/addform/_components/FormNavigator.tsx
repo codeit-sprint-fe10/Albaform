@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
@@ -13,6 +13,8 @@ import { PostAlbaBody } from '@/types/alba';
 import { postAlba, patchAlba, getAlbaDetail } from '@/services/alba';
 import { STEP_1_FIELDS, STEP_2_FIELDS, STEP_3_FIELDS } from '@/constants/form';
 import { filterToPostAlbaBody } from '@/utils/filter';
+import DraftLoadModal from './DraftLoadModal';
+import useModal from '@/hooks/useModal';
 
 const FormNavigator = ({ formId }: { formId?: number }) => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -22,6 +24,7 @@ const FormNavigator = ({ formId }: { formId?: number }) => {
     tab2: false,
     tab3: false,
   });
+  const [isContinueWriting, setIsContinueWriting] = useState(false);
   const methods = useForm<PostAlbaBody>({
     defaultValues: {
       imageUrls: [],
@@ -33,6 +36,7 @@ const FormNavigator = ({ formId }: { formId?: number }) => {
   const { getData, saveData, clearData } = useTemporarySave<PostAlbaBody>();
   const formRef = useRef<{ submit: () => void | null }>(null);
   const router = useRouter();
+  const { dialogRef, openModal, closeModal } = useModal();
   const defaultValues = methods.getValues();
   const fieldGroups: Record<string, string[]> = useMemo(
     () => ({
@@ -76,45 +80,72 @@ const FormNavigator = ({ formId }: { formId?: number }) => {
     mutation.mutate({ formId, body: data });
   };
 
+  const handleContinueWriting = () => {
+    setIsContinueWriting(true);
+    closeModal();
+  };
+
+  const initializeFormState = useCallback(
+    (storedData: Partial<PostAlbaBody>) => {
+      methods.reset(storedData);
+
+      const newTabStatuses: Record<string, boolean> = {};
+      Object.entries(fieldGroups).forEach(([tab, fields]) => {
+        newTabStatuses[tab] = fields.some((field) => {
+          const storedValue = storedData[field as keyof typeof storedData];
+          const defaultValue =
+            defaultValues[field as keyof typeof defaultValues];
+
+          if (Array.isArray(storedValue)) {
+            return storedValue.length !== 0 && storedValue !== defaultValue;
+          }
+
+          return (
+            storedValue !== null &&
+            storedValue !== '' &&
+            storedValue !== defaultValue
+          );
+        });
+      });
+
+      setFormKey((prev) => prev + 1);
+      setTabStatuses(newTabStatuses);
+    },
+    [defaultValues, fieldGroups],
+  );
+
+  useEffect(() => {
+    if (!formId) {
+      const storeData = getData();
+      if (storeData) {
+        openModal();
+      }
+    }
+  }, [formId, getData, openModal]);
+
+  useEffect(() => {
+    if (isContinueWriting) {
+      const storedData = getData();
+      if (storedData) {
+        initializeFormState(storedData);
+      }
+    }
+  }, [isContinueWriting, getData, initializeFormState]);
+
   useEffect(() => {
     const loadData = async () => {
-      let storedData;
       if (formId) {
         const response = await getAlbaDetail(formId);
-        storedData = filterToPostAlbaBody(response);
-      } else {
-        storedData = getData();
-      }
+        const storedData = filterToPostAlbaBody(response);
 
-      if (storedData) {
-        methods.reset(storedData);
-
-        const newTabStatuses: Record<string, boolean> = {};
-        Object.entries(fieldGroups).forEach(([tab, fields]) => {
-          newTabStatuses[tab] = fields.some((field) => {
-            const storedValue = storedData[field as keyof typeof storedData];
-            const defaultValue =
-              defaultValues[field as keyof typeof defaultValues];
-
-            if (Array.isArray(storedValue)) {
-              return storedValue.length !== 0 && storedValue !== defaultValue;
-            }
-
-            return (
-              storedValue !== null &&
-              storedValue !== '' &&
-              storedValue !== defaultValue
-            );
-          });
-        });
-
-        setFormKey((prev) => prev + 1);
-        setTabStatuses(newTabStatuses);
+        if (storedData) {
+          initializeFormState(storedData);
+        }
       }
     };
 
     loadData();
-  }, [formId]);
+  }, [formId, initializeFormState]);
 
   useEffect(() => {
     const subscription = methods.watch((values) => {
@@ -185,6 +216,11 @@ const FormNavigator = ({ formId }: { formId?: number }) => {
           ref={formRef}
         />
       </div>
+      <DraftLoadModal
+        dialogRef={dialogRef}
+        closeModal={closeModal}
+        onClick={handleContinueWriting}
+      />
     </FormProvider>
   );
 };

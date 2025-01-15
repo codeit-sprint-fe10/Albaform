@@ -1,13 +1,12 @@
 'use client';
 
-import { MouseEvent } from 'react';
 import Modal from '@/components/Modal';
 import type { UseModalProps } from '@/types/useModal';
 import Button from '@/components/Button';
 import DeleteAlbaModalIcon from '@/public/icons/delete-alba.svg';
 
 interface DeleteModalProps extends UseModalProps {
-  onDelete: (e: MouseEvent) => void;
+  onDelete: VoidFunction;
 }
 
 const DeleteModal = ({ dialogRef, closeModal, onDelete }: DeleteModalProps) => {
@@ -28,10 +27,7 @@ const DeleteModal = ({ dialogRef, closeModal, onDelete }: DeleteModalProps) => {
         <div>
           <Button onClick={onDelete} content="삭제하기" />
           <Button
-            onClick={(e) => {
-              e.preventDefault();
-              closeModal();
-            }}
+            onClick={closeModal}
             content="다음에 할게요"
             design="outlined"
             className="border-none"
