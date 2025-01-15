@@ -15,7 +15,7 @@ const OwnerActions = ({ formId }: OwnerActionsProps) => {
   const { dialogRef, openModal, closeModal } = useModal();
 
   const handleOnEdit = () => {
-    push(`/edit/${formId}`); //TODO url 확정시 수정
+    push(`/alba/${formId}/edit`);
   };
 
   const handleOnDelete = () => {
