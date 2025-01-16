@@ -3,7 +3,8 @@
 import { useEffect } from 'react';
 import { ChangeEvent, useState } from 'react';
 import Image from 'next/image';
-import { postImage } from '@/services/image';
+import usePostImage from '@/hooks/usePostImage';
+import Loader from '@/components/Loader';
 import UploadIcon from '@/public/icons/upload.svg';
 
 interface FileInputProps {
@@ -11,17 +12,19 @@ interface FileInputProps {
   imageUrls: string[];
 }
 
+const allowedTypes = ['image/png', 'image/jpeg'];
+const name = 'imageUrls';
+
 const FileInput = ({ setValue, imageUrls }: FileInputProps) => {
   const [previews, setPreviews] = useState<string[]>(imageUrls);
-  const allowedTypes = ['image/png', 'image/jpeg'];
-  const name = 'imageUrls';
+  const { mutateAsync, isPending } = usePostImage();
 
   const handleChange = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
 
     if (file) {
       if (!allowedTypes.includes(file.type)) return;
-      const newImage = await postImage(file);
+      const newImage = await mutateAsync(file);
       const newImages = [...previews, newImage];
       setPreviews(newImages);
       setValue(name, newImages);
@@ -50,10 +53,14 @@ const FileInput = ({ setValue, imageUrls }: FileInputProps) => {
       <div className="flex gap-4 flex-wrap">
         <label htmlFor={name}>
           <div className="inline-flex justify-center items-center bg-background-200 rounded-lg cursor-pointer p-7 lg:p-10">
-            <UploadIcon
-              aria-label="이미지 업로드"
-              className="w-6 lg:w-9 h-6 lg:h-9"
-            />
+            {isPending ? (
+              <Loader sizeClass="w-6 lg:w-9 h-6 lg:h-9" />
+            ) : (
+              <UploadIcon
+                aria-label="이미지 업로드"
+                className="w-6 lg:w-9 h-6 lg:h-9"
+              />
+            )}
           </div>
         </label>
         {previews.map((preview) => {
@@ -89,6 +96,7 @@ const FileInput = ({ setValue, imageUrls }: FileInputProps) => {
         name={name}
         accept="image/png, image/jpeg"
         onChange={handleChange}
+        disabled={isPending}
       />
     </div>
   );
