@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { SortOrder } from '@/types/albatalk';
+import DownIcon from '@/public/icons/chevron-down.svg';
 import { SORT_OPTIONS } from '@/constants/dropdown';
 
 interface SortDropdownProps {
@@ -30,11 +31,12 @@ const SortDropdown = ({ sortOrder, setSortOrder }: SortDropdownProps) => {
         <span className="text-xs lg:text-lg font-semibold">
           {SORT_OPTIONS.find((option) => option.key === sortOrder)?.label}
         </span>
-        <div
-          className={`w-2 h-2 border-t-2 border-r-2 border-gray-500 transform transition-transform ${
-            isDropdownOpen ? 'rotate-[135deg]' : '-rotate-45'
-          }`}
-        ></div>
+        <DownIcon
+          width={16}
+          height={16}
+          alt="드롭다운"
+          className={`lg:w-6 lg:h-6 text-gray-200 transition-transform duration-300 ${isDropdownOpen ? 'rotate-180' : 'rotate-0'}`}
+        />
       </button>
 
       {isDropdownOpen && (
