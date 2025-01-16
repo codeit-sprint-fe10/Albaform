@@ -42,28 +42,27 @@ const AlbaListSection = ({ filter }: AlbaListSectionProps) => {
   const albas = data?.pages.flatMap((page) => page.data);
 
   return (
-    <>
-      <ul
-        className={
-          'flex flex-wrap justify-center gap-x-6 gap-y-8 md:gap-y-12 lg:gap-y-16 ' +
-          'mt-[180px] md:mt-[214px] lg:mt-[286px] pt-2 md:pt-4 lg:pt-14 pb-16 md:pb-24 lg:pb-32 '
-        }
-      >
-        {isLoading ? (
-          <AlbaCardSkeletons />
-        ) : albas?.length === 0 ? (
-          <AlbaListEmpty />
-        ) : (
-          albas?.map((alba) => (
-            <li key={alba.id} className="w-[min(100%,360px)] lg:w-[469px]">
-              <AlbaCard alba={alba} />
-            </li>
-          ))
-        )}
-        {isFetchingNextPage && <AlbaCardSkeletons />}
-      </ul>
+    <ul
+      className={
+        'grid grid-cols-[repeat(auto-fit,min(100%,360px))] lg:grid-cols-[repeat(auto-fit,469px)] ' +
+        'justify-center gap-x-6 gap-y-8 md:gap-y-12 lg:gap-y-16 lg:px-[72px] ' +
+        'mt-[180px] md:mt-[214px] lg:mt-[286px] pt-2 md:pt-4 lg:pt-14 pb-16 md:pb-24 lg:pb-32 '
+      }
+    >
+      {isLoading ? (
+        <AlbaCardSkeletons />
+      ) : albas?.length === 0 ? (
+        <AlbaListEmpty />
+      ) : (
+        albas?.map((alba) => (
+          <li key={alba.id} className="w-[min(100%,360px)] lg:w-[469px]">
+            <AlbaCard alba={alba} />
+          </li>
+        ))
+      )}
+      {isFetchingNextPage && <AlbaCardSkeletons />}
       <div ref={ref}></div>
-    </>
+    </ul>
   );
 };
 

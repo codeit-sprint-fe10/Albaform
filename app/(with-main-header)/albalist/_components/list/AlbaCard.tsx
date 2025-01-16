@@ -45,8 +45,8 @@ const AlbaCard = ({ alba }: AlbaCardProps) => {
     <Link
       href={`/alba/${alba.id}`}
       className={
-        'group flex flex-col gap-3 lg:gap-6 ' +
-        'rounded-xl lg:rounded-2xl hover:shadow-lg transition duration-200'
+        'group flex flex-col gap-3 lg:gap-6 rounded-xl lg:rounded-2xl ' +
+        'hover:-translate-y-2 hover:shadow-lg transition duration-200'
       }
     >
       {alba.imageUrls[0] ? (
