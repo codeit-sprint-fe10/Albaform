@@ -1,10 +1,12 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
+import { useQueryClient } from '@tanstack/react-query';
 import { useForm, SubmitHandler, FormProvider } from 'react-hook-form';
 import { usePostApplication } from '../_hooks/useTanstackQuery';
 import { useTemporarySave } from '@/hooks/useTemporarySave';
+import useModal from '@/hooks/useModal';
 import {
   NAME,
   PHONE_NUMBER,
@@ -15,6 +17,7 @@ import {
 } from '@/constants/form';
 import Button from '@/components/Button';
 import FormField from '@/app/(with-auth-header)/_components/FormField';
+import ApplyLoadModal from './ApplyLoadModal';
 
 const defaultValues = {
   name: '',
@@ -29,6 +32,9 @@ const defaultValues = {
 type ApplyFormFields = typeof defaultValues;
 
 const ApplyForm = () => {
+  const { dialogRef, openModal, closeModal } = useModal();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const queryClient = useQueryClient();
   const formId = Number(useParams()['formId']);
   const { replace } = useRouter();
   const { getData, saveData, clearData } = useTemporarySave<ApplyFormFields>();
@@ -53,6 +59,7 @@ const ApplyForm = () => {
       },
       {
         onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ['forms'] });
           clearData();
           window.alert('알바폼에 지원했습니다!');
           replace(`/myapply/${formId}`);
@@ -71,10 +78,18 @@ const ApplyForm = () => {
     window.alert('지원서를 임시 저장했습니다.');
   };
 
-  useEffect(() => {
+  const handleModalClick = () => {
     const data = getData();
     if (data) methods.reset(data, { keepDefaultValues: true });
-  }, [getData, methods]);
+    closeModal();
+  };
+
+  useEffect(() => {
+    if (!isModalOpen && !methods.formState.isDirty && getData()) {
+      setIsModalOpen(true);
+      openModal();
+    }
+  }, [isModalOpen, methods, getData, openModal]);
 
   return (
     <FormProvider {...methods}>
@@ -213,6 +228,11 @@ const ApplyForm = () => {
           />
         </div>
       </form>
+      <ApplyLoadModal
+        dialogRef={dialogRef}
+        closeModal={closeModal}
+        onClick={handleModalClick}
+      />
     </FormProvider>
   );
 };

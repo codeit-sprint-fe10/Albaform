@@ -1,18 +1,10 @@
 'use client';
 
-import { useTemporarySave } from '@/hooks/useTemporarySave';
 import { useRouter } from 'next/navigation';
 import ApplyForm from './_components/ApplyForm';
 
 const ApplyPage = () => {
-  const { clearData } = useTemporarySave();
   const { back } = useRouter();
-
-  const handleButtonClick = () => {
-    window.alert('지원서 작성을 취소했습니다.');
-    clearData();
-    back();
-  };
 
   return (
     <section className="w-[min(100%,360px)] lg:w-[640px] mx-auto">
@@ -22,7 +14,7 @@ const ApplyPage = () => {
         </h1>
         <button
           type="button"
-          onClick={handleButtonClick}
+          onClick={() => back()}
           className={
             'w-20 lg:w-32 h-10 lg:h-14 rounded-lg bg-gray-100 ' +
             'text-lg lg:text-xl font-semibold text-gray-50'

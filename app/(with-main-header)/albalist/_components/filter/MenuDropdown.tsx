@@ -11,8 +11,10 @@ import {
 } from '@/constants/dropdown';
 import Dropdown, { Option } from './Dropdown';
 import DeleteAlbaModal from '../DeleteAlbaModal';
+import { useQueryClient } from '@tanstack/react-query';
 
 const MenuDropdown = ({ albaId }: { albaId: number }) => {
+  const queryClient = useQueryClient();
   const { isGuest, isOwner } = useUserStore((state) => state);
   const { dialogRef, openModal, closeModal } = useModal();
   const { push } = useRouter();
@@ -25,6 +27,7 @@ const MenuDropdown = ({ albaId }: { albaId: number }) => {
       case 'scrap':
         try {
           await postAlbaScrap(albaId);
+          queryClient.invalidateQueries({ queryKey: ['forms'] });
           alert(`알바폼을 스크랩하였습니다.`);
         } catch {
           alert('이미 스크랩한 알바폼입니다.');
