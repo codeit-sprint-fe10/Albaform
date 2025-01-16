@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { AxiosError } from 'axios';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { User } from '@/types/user';
@@ -13,7 +12,6 @@ import Button from '@/components/Button';
 type SignInFormData = Pick<User, 'email' | 'password'>;
 
 const SignInFormSection = () => {
-  const { replace } = useRouter();
   const { signIn } = useAuth();
   const [isFetching, setIsFetching] = useState(false);
   const {
@@ -31,7 +29,7 @@ const SignInFormSection = () => {
       await signIn(data);
 
       window.alert('로그인되었습니다!\n즐거운 알바폼 되세요.');
-      replace('/');
+      document.location.reload();
     } catch (e) {
       const error = e as AxiosError<{ message: string }>;
       const message = error.response?.data.message;

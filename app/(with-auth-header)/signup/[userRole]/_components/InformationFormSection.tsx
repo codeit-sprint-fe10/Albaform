@@ -1,6 +1,5 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
 import { useForm, SubmitHandler, FormProvider } from 'react-hook-form';
 import { patchMe } from '@/services/user';
@@ -27,7 +26,6 @@ interface InformationFormSectionProps {
 const InformationFormSection = ({ userRole }: InformationFormSectionProps) => {
   const { isPending, mutateAsync } = useMutation({ mutationFn: patchMe });
   const setUser = useUserStore((state) => state.setUser);
-  const { replace } = useRouter();
   const methods = useForm<InformationFormData>({ mode: 'onTouched' });
 
   const InformationSubmit: SubmitHandler<InformationFormData> = async (
@@ -40,7 +38,7 @@ const InformationFormSection = ({ userRole }: InformationFormSectionProps) => {
       const updatedData = await mutateAsync(data);
       setUser(updatedData);
       window.alert('추가 정보를 등록했습니다!\n즐거운 알바폼 되세요.');
-      replace('/');
+      document.location.reload();
     } catch {
       window.alert('오류가 발생했습니다.\n확인 후 다시 시도해 주세요.');
     }

@@ -32,7 +32,7 @@ const PasswordForm = ({ closeModal }: PasswordFormProps) => {
     handleSubmit,
     formState: { isValid, errors },
     setError,
-    watch,
+    clearErrors,
   } = useForm<PasswordFormData>({ mode: 'onTouched' });
 
   const signUpSubmit: SubmitHandler<PasswordFormData> = async (data, event) => {
@@ -70,6 +70,19 @@ const PasswordForm = ({ closeModal }: PasswordFormProps) => {
             value: PASSWORD.format.minLength,
             message: PASSWORD.message.minLength,
           },
+          validate: {
+            checkNewPassword: (value, values) => {
+              const newPassword = values.newPassword;
+              if (newPassword) {
+                if (newPassword === value)
+                  setError('newPassword', {
+                    message: PASSWORD_EDIT.message.equal,
+                  });
+                else clearErrors('newPassword');
+              }
+              return true;
+            },
+          },
         })}
         error={errors.currentPassword}
         design="outlined"
@@ -93,8 +106,20 @@ const PasswordForm = ({ closeModal }: PasswordFormProps) => {
             message: PASSWORD.message.pattern,
           },
           validate: {
-            value: (value) =>
-              value !== watch('currentPassword') || PASSWORD_EDIT.message.equal,
+            checkPasswordConfirm: (value, values) => {
+              const passwordConfirmation = values.passwordConfirmation;
+              if (passwordConfirmation) {
+                if (passwordConfirmation !== value)
+                  setError('passwordConfirmation', {
+                    message: PASSWORD_CONFIRMATION.message.notEqual,
+                  });
+                else clearErrors('passwordConfirmation');
+              }
+              return true;
+            },
+
+            isNotEqual: (value, values) =>
+              value !== values.currentPassword || PASSWORD_EDIT.message.equal,
           },
         })}
         error={errors.newPassword}
@@ -110,8 +135,8 @@ const PasswordForm = ({ closeModal }: PasswordFormProps) => {
             message: PASSWORD_CONFIRMATION.message.required,
           },
           validate: {
-            value: (value) =>
-              value === watch('newPassword') ||
+            isEqual: (value, values) =>
+              value === values.newPassword ||
               PASSWORD_CONFIRMATION.message.notEqual,
           },
         })}

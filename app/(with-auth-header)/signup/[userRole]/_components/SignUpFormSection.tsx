@@ -29,9 +29,8 @@ const SignUpFormSection = ({ userRole, onSubmit }: SignUpFormSectionProps) => {
     handleSubmit,
     formState: { isValid, errors },
     setError,
-    watch,
+    clearErrors,
   } = useForm<SignUpFormData>({ mode: 'onTouched' });
-
   const signUpSubmit: SubmitHandler<SignUpFormData> = async (data, event) => {
     setIsFetching(true);
     event?.preventDefault();
@@ -104,6 +103,19 @@ const SignUpFormSection = ({ userRole, onSubmit }: SignUpFormSectionProps) => {
               value: PASSWORD.format.regExp,
               message: PASSWORD.message.pattern,
             },
+            validate: {
+              checkPasswordConfirm: (value, values) => {
+                const confirm = values.passwordConfirmation;
+                if (confirm) {
+                  if (confirm !== value)
+                    setError('passwordConfirmation', {
+                      message: PASSWORD_CONFIRMATION.message.notEqual,
+                    });
+                  else clearErrors('passwordConfirmation');
+                }
+                return true;
+              },
+            },
           })}
           error={errors.password}
           design="outlined"
@@ -118,8 +130,8 @@ const SignUpFormSection = ({ userRole, onSubmit }: SignUpFormSectionProps) => {
               message: PASSWORD_CONFIRMATION.message.required,
             },
             validate: {
-              value: (value) =>
-                value === watch('password') ||
+              isEqual: (value, values) =>
+                value === values.password ||
                 PASSWORD_CONFIRMATION.message.notEqual,
             },
           })}
