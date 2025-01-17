@@ -37,7 +37,7 @@ const CommentItem = ({ comment, userId, onAction }: CommentItemProps) => {
           </div>
           {userId === comment.writer.id && <EditDropdown onAction={onAction} />}
         </div>
-        <div className="text-black-400 font-regular text-md md:text-lg lg:text-xl">
+        <div className="text-black-400 whitespace-pre-line font-regular text-md md:text-lg lg:text-xl">
           {comment.content}
         </div>
       </div>

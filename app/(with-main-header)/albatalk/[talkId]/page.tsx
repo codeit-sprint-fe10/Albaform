@@ -30,7 +30,7 @@ const AlbatalkDetail = () => {
 
   const handleAction = async (action: EditDropdownAction) => {
     if (action === 'edit') {
-      router.push(`/edittalk/${talkId}`);
+      router.push(`/albatalk/${talkId}/edit`);
     } else if (action === 'delete') {
       deleteMutation();
     }
@@ -44,7 +44,7 @@ const AlbatalkDetail = () => {
   };
 
   return (
-    <div className="w-full flex flex-col max-w-container">
+    <div className="w-full flex flex-col max-w-container lg:px-[72px]">
       {isLoading && (
         <div className="flex h-screen items-center justify-center ">
           <Loader />
@@ -104,20 +104,20 @@ const AlbatalkDetail = () => {
               </div>
             </div>
 
-            <div className="flex flex-col gap-6 md:flex-row md:gap-5">
+            <div className="flex flex-col gap-6 md:gap-10">
               {post.imageUrl && (
-                <div className="flex justify-center items-center">
-                  <div className="relative flex w-64 h-40 md:w-80 md:h-80">
+                <div className="flex justify-start items-center">
+                  <div className="relative flex w-64 h-40 lg:w-100 lg:h-70">
                     <Image
                       src={post.imageUrl}
                       alt="post image"
                       fill
-                      className="rounded-lg"
+                      className="rounded-lg object-contain"
                     />
                   </div>
                 </div>
               )}
-              <div className="text-md font-regular text-gray-500 md:text-lg lg:text-xl ">
+              <div className="text-md font-regular whitespace-pre-line text-gray-500 md:text-lg lg:text-xl ">
                 {post.content}
               </div>
             </div>

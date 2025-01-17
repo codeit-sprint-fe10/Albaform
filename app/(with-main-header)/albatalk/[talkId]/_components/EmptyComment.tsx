@@ -2,7 +2,7 @@ import NoCommentIcon from '@/public/icons/no-comment.svg';
 
 const EmptyComment = () => {
   return (
-    <div className="mt-20 flex flex-col gap-8 justify-center items-center">
+    <div className="mt-16 flex flex-col gap-8 justify-center items-center mb-20">
       <div className="w-[80px] h-[80px] flex items-center justify-center lg:w-[120px] lg:h-[120px]">
         <NoCommentIcon />
       </div>

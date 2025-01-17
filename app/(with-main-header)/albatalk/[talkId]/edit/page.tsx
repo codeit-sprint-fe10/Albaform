@@ -47,7 +47,7 @@ const Edit = () => {
   };
 
   return (
-    <div className="flex flex-col gap-9 mt-4 md:mt-6 lg:my-[40px]">
+    <div className="flex max-w-container flex-col gap-9 mt-4 md:mt-6 lg:my-[40px] lg:px-[72px]">
       <div className="flex flex-col gap-4">
         <div className="py-4 md:py-6 lg:py-10 border-b border-gray-400">
           <h1 className="text-black-400 text-2lg md:text-xl lg:text-2xl font-semibold">
@@ -95,7 +95,7 @@ const Edit = () => {
             />
             <Button
               type="submit"
-              content="등록 하기"
+              content="수정 하기"
               sizeClass={
                 'w-full md:w-[101px] lg:w-[180px] h-[58px] md:h-[46px] lg:h-[58px] ' +
                 'text-lg md:text-md lg:text-xl'
