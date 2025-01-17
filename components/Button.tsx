@@ -1,12 +1,12 @@
 import Image from 'next/image';
-import { MouseEventHandler } from 'react';
+import { MouseEventHandler, ReactNode } from 'react';
 
 interface ButtonProps {
   type?: 'button' | 'submit';
   onClick?: MouseEventHandler<HTMLButtonElement>;
   iconUrl?: string;
   iconAlt?: string;
-  content?: string;
+  content?: string | ReactNode;
   design?: 'solid' | 'outlined';
   disabled?: boolean;
   sizeClass?: string;

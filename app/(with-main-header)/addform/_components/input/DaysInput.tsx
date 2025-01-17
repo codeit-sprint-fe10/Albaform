@@ -19,7 +19,7 @@ const DaysInput = ({ register }: { register: UseFormRegisterReturn }) => {
             />
             <label
               htmlFor={day}
-              className="block font-regular lg:font-semibold text-lg lg:text-xl text-gray-500 peer-checked:text-gray-50 bg-background-200 peer-checked:bg-orange-300 rounded-xl lg:rounded-2xl p-3 lg:p-4 cursor-pointer"
+              className="block font-regular lg:font-semibold text-lg lg:text-xl text-gray-500 peer-checked:text-gray-50 bg-background-200 peer-checked:bg-orange-300 rounded-xl lg:rounded-2xl p-3 lg:p-4 cursor-pointer hover:bg-orange-50"
             >
               {day}
             </label>

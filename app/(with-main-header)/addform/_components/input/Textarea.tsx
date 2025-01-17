@@ -11,7 +11,7 @@ interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
 
 const Textarea = ({ name, className, register, ...props }: TextareaProps) => {
   return (
-    <div className="bg-background-200 rounded-lg p-3.5 lg:py-[18px]  focus-within:ring-2 focus-within:ring-orange-300">
+    <div className="bg-background-200 rounded-lg p-3.5 lg:py-[18px] focus-within:ring-2 focus-within:ring-orange-300">
       <textarea
         id={name}
         className={`block w-full font-regular text-lg lg:text-xl bg-[inherit] text-black-400 placeholder:text-gray-400 resize-none custom-scrollbar custom-style focus:outline-none ${className}`}

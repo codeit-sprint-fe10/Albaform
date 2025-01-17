@@ -23,7 +23,7 @@ const Input = ({
       <input
         type={type}
         id={name}
-        className={`w-full font-regular text-lg lg:text-xl bg-background-200 text-black-400 placeholder:text-gray-400 rounded-lg ${className}`}
+        className={`w-full font-regular text-lg lg:text-xl bg-background-200 text-black-400 placeholder:text-gray-400 rounded-lg ${className} outline-none focus:ring-2 focus:ring-orange-300`}
         {...props}
         {...register}
       />
