@@ -15,7 +15,7 @@ const ScrapCardSkeletons = () =>
   Array(PAGE_LIMIT)
     .fill(0)
     .map((_, idx) => (
-      <div key={idx} className="w-full lg:w-[384px]">
+      <div key={idx} className="w-full">
         <ScrapCardSkeleton />
       </div>
     ));
@@ -26,7 +26,7 @@ const MyScrapList = () => {
     useGetMyScraps({ pageLimit: PAGE_LIMIT, ...scrapParams });
 
   return (
-    <div>
+    <div className="max-w-container">
       <Filters />
       {isLoading ? (
         <div className="w-full flex flex-col items-center gap-4 lg:grid lg:grid-cols-3 lg:gap-6 lg:gap-y-12">

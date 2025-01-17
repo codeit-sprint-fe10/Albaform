@@ -11,7 +11,7 @@ const CommentCardSkeletons = () =>
   Array(PAGE_LIMIT)
     .fill(0)
     .map((_, idx) => (
-      <div key={idx} className="w-full lg:w-[384px]">
+      <div key={idx} className="w-full">
         <CommentCardSkeleton />
       </div>
     ));
@@ -30,7 +30,7 @@ const MyCommentList = () => {
   });
 
   return (
-    <div className="flex w-full flex-col max-w-container-md mt-8">
+    <div className="flex w-full flex-col max-w-container mt-8">
       {isLoading ? (
         <div className="w-full flex flex-col gap-4 lg:grid lg:grid-cols-3 lg:gap-6 lg:gap-y-12">
           <CommentCardSkeletons />

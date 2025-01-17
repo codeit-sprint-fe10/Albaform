@@ -15,14 +15,11 @@ const Albatalk = () => {
   const [sortOrder, setSortOrder] = useState<SortOrder>('mostRecent');
   const [pageLimit, setPageLimit] = useState(6);
 
-  const AlbatalkCardSkeletons = () =>
-    Array(pageLimit)
-      .fill(0)
-      .map((_, idx) => (
-        <div key={idx} className="w-full lg:w-[384px]">
-          <AlbatalkCardSkeleton />
-        </div>
-      ));
+  const renderSkeletons = () => {
+    return Array.from({ length: pageLimit }).map((_, idx) => (
+      <AlbatalkCardSkeleton key={idx} />
+    ));
+  };
 
   useEffect(() => {
     const updatePageLimit = () => {
@@ -35,6 +32,7 @@ const Albatalk = () => {
         setPageLimit(6);
       }
     };
+
     updatePageLimit();
     window.addEventListener('resize', updatePageLimit);
 
@@ -56,33 +54,36 @@ const Albatalk = () => {
   });
 
   return (
-    <div className="w-full flex flex-col">
-      <SearchBar
-        searchTerm={searchTerm}
-        sortOrder={sortOrder}
-        cursorHistory={cursorHistory}
-        setSearchTerm={setSearchTerm}
-        setSortOrder={setSortOrder}
-        setCursorHistory={setCursorHistory}
-      />
-      <div className="w-full flex flex-col items-center justify-center mt-4 lg:mt-10">
-        <div className="flex w-full max-w-container-md">
+    <div className="w-full flex justify-center lg:max-w-container lg:px-[72px]">
+      <div className="w-full flex flex-col items-center justify-center mt-4">
+        <div className="w-full flex flex-col gap-10">
+          <SearchBar
+            searchTerm={searchTerm}
+            sortOrder={sortOrder}
+            cursorHistory={cursorHistory}
+            setSearchTerm={setSearchTerm}
+            setSortOrder={setSortOrder}
+            setCursorHistory={setCursorHistory}
+          />
+
           <div className="w-full flex flex-col gap-4 lg:grid lg:grid-cols-3 lg:gap-6 lg:gap-y-12">
-            {isLoading ? (
-              <AlbatalkCardSkeletons />
-            ) : (
-              data?.data.map((post) => <AlbatalkCard key={post.id} {...post} />)
-            )}
+            {isLoading
+              ? renderSkeletons()
+              : data?.data.map((post) => (
+                  <AlbatalkCard key={post.id} {...post} />
+                ))}
           </div>
         </div>
+
         <Pagination
           isFirstPage={isFirstPage}
           hasNextPage={hasNextPage}
           handleLoadPrev={handleLoadPrev}
           handleLoadMore={handleLoadMore}
         />
+
+        <WriteButton />
       </div>
-      <WriteButton />
     </div>
   );
 };

@@ -50,8 +50,8 @@ const Mypage = () => {
   };
 
   return (
-    <div className="w-full flex flex-col items-center">
-      <div className="w-full max-w-container-md flex flex-col gap-6 items-center justify-center mt-4 lg:mt-10">
+    <div className="w-full flex flex-col items-center max-w-container lg:px-[72px]">
+      <div className="w-full flex flex-col gap-6 items-center justify-center mt-4 lg:mt-10">
         <div className="w-full flex justify-between items-center">
           <h1 className="text-black-500 text-xl lg:text-3xl text-left font-semibold">
             마이페이지

@@ -44,7 +44,7 @@ const AlbatalkDetail = () => {
   };
 
   return (
-    <div className="w-full flex flex-col">
+    <div className="w-full flex flex-col max-w-container">
       {isLoading && (
         <div className="flex h-screen items-center justify-center ">
           <Loader />

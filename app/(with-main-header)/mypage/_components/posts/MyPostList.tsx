@@ -14,7 +14,7 @@ const AlbaCardSkeletons = () =>
   Array(PAGE_LIMIT)
     .fill(0)
     .map((_, idx) => (
-      <div key={idx} className="w-full lg:w-[384px]">
+      <div key={idx} className="w-full">
         <AlbatalkCardSkeleton />
       </div>
     ));
@@ -34,7 +34,7 @@ const MyPostList = () => {
   });
 
   return (
-    <div className="flex w-full max-w-container-md justify-center">
+    <div className="flex w-full max-w-container justify-center">
       <div className="w-full flex flex-col gap-4">
         <div className="w-full flex justify-end">
           <SortDropdown sortOrder={sortOrder} setSortOrder={setSortOrder} />
