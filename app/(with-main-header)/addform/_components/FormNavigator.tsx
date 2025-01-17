@@ -182,7 +182,7 @@ const FormNavigator = ({ formId, albaDetail }: FormNavigatorProps) => {
           </h2>
           <button
             type="button"
-            className="bg-gray-100 rounded-lg font-semibold text-md lg:text-xl text-gray-50 py-2 px-3.5 lg:py-3 lg:px-6 hover:bg-gray-200"
+            className="bg-gray-100 rounded-lg font-semibold text-md lg:text-xl text-gray-50 py-2 px-3.5 lg:py-3 lg:px-6 hover:bg-gray-200 transition duration-300"
             onClick={() => router.back()}
           >
             작성취소

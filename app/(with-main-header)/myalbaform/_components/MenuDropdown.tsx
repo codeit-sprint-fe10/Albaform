@@ -2,9 +2,8 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
-import useModal from '@/hooks/useModal';
 import { MENU_OWNER_OPTIONS } from '@/constants/dropdown';
+import KebabIcon from '@/public/icons/kebab.svg';
 
 interface Option {
   key: string;
@@ -59,14 +58,13 @@ const MenuDropdown = ({
       <button
         type="button"
         className="block"
+        aria-label="카드 메뉴"
         onClick={() => setIsDropdownVisible((prev) => !prev)}
       >
-        <Image
-          src="/icons/kebab.svg"
+        <KebabIcon
           width={24}
           height={24}
-          alt="카드 메뉴"
-          className="lg:w-9 lg:h-9"
+          className="lg:w-9 lg:h-9 hover:contrast-0 transition duration-300"
         />
       </button>
       {isDropdownVisible && (
