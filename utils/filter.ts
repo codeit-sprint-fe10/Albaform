@@ -2,7 +2,7 @@ import { PostAlbaBody, PostAlbaResponse } from '@/types/alba';
 
 export const filterToPostAlbaBody = (
   response: PostAlbaResponse,
-): Partial<PostAlbaBody> => {
+): PostAlbaBody => {
   const allowedKeys: (keyof PostAlbaBody)[] = [
     'title',
     'description',
@@ -32,5 +32,5 @@ export const filterToPostAlbaBody = (
     return acc;
   }, {} as Partial<PostAlbaBody>);
 
-  return filteredData;
+  return filteredData as PostAlbaBody;
 };

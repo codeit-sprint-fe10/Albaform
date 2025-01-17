@@ -10,13 +10,17 @@ import StepContent from './StepContent';
 import Button from '@/components/Button';
 import { useTemporarySave } from '@/hooks/useTemporarySave';
 import { PostAlbaBody } from '@/types/alba';
-import { postAlba, patchAlba, getAlbaDetail } from '@/services/alba';
+import { postAlba, patchAlba } from '@/services/alba';
 import { STEP_1_FIELDS, STEP_2_FIELDS, STEP_3_FIELDS } from '@/constants/form';
-import { filterToPostAlbaBody } from '@/utils/filter';
 import DraftLoadModal from './DraftLoadModal';
 import useModal from '@/hooks/useModal';
 
-const FormNavigator = ({ formId }: { formId?: number }) => {
+interface FormNavigatorProps {
+  formId?: number;
+  albaDetail?: PostAlbaBody;
+}
+
+const FormNavigator = ({ formId, albaDetail }: FormNavigatorProps) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [formKey, setFormKey] = useState(1);
   const [tabStatuses, setTabStatuses] = useState<Record<string, boolean>>({
@@ -115,12 +119,6 @@ const FormNavigator = ({ formId }: { formId?: number }) => {
   );
 
   useEffect(() => {
-    if (!formId && getData()) {
-      openModal();
-    }
-  }, [formId]);
-
-  useEffect(() => {
     if (isContinueWriting) {
       const storedData = getData();
       if (storedData) {
@@ -131,18 +129,19 @@ const FormNavigator = ({ formId }: { formId?: number }) => {
 
   useEffect(() => {
     const loadData = async () => {
-      if (formId) {
-        const response = await getAlbaDetail(formId);
-        const storedData = filterToPostAlbaBody(response);
+      if (formId && albaDetail) {
+        initializeFormState(albaDetail);
+        return;
+      }
 
-        if (storedData) {
-          initializeFormState(storedData);
-        }
+      if (getData()) {
+        openModal();
+        return;
       }
     };
 
     loadData();
-  }, [formId, initializeFormState]);
+  }, [formId, albaDetail, getData, initializeFormState]);
 
   useEffect(() => {
     const subscription = methods.watch((values) => {
