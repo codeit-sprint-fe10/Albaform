@@ -8,7 +8,6 @@ import { format } from '@/utils/date';
 import { applicationStatus, ApplicationCardType } from '@/types/application';
 
 const AppliedCard = ({
-  id,
   resumeId,
   resumeName,
   status,
@@ -34,7 +33,7 @@ const AppliedCard = ({
 
   return (
     <Link
-      href={`alba/${id}`}
+      href={`alba/${form.id}`}
       className="flex flex-col gap-5 lg:gap-6 w-[375px] lg:w-[477px] border border-line-100 rounded-lg p-[23px] lg:py-[29px] hover:-translate-y-2.5 transition duration-200"
     >
       <div className="flex justify-between items-center text-xs lg:text-lg">

@@ -28,7 +28,7 @@ const SearchBar = ({ isOwner }: { isOwner: boolean }) => {
   };
 
   return (
-    <div className="fixed top-[50px] md:top-[68px] lg:top-[92px] left-0 w-full border-b border-line-100 bg-gray-50 z-50">
+    <div className="fixed top-[50px] md:top-[68px] lg:top-[92px] left-0 w-full border-b border-line-100 bg-gray-50 z-40">
       <div className="lg:max-w-container lg:m-auto py-2 md:py-4 lg:py-6 px-6 md:px-[72px]">
         <div className="relative">
           <SearchIcon

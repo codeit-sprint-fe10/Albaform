@@ -8,7 +8,7 @@ import {
 
 const SearchFilters = ({ isOwner }: { isOwner: boolean }) => {
   return (
-    <div className="pt-[70px] md:pt-[86px] lg:pt-28 mb-[9px] md:mb-3.5 lg:mb-14 px-6 md:px-[72px]">
+    <div className="pt-[70px] md:pt-[86px] lg:pt-28 mb-[9px] md:mb-3.5 lg:mb-14 lg:px-[72px]">
       <div className="flex justify-between items-center py-3.5 lg:py-6">
         {isOwner ? (
           <>

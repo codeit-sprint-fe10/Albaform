@@ -33,7 +33,7 @@ const Dropdown = ({ name, options }: DropdownProps) => {
   const buttonStyle =
     name === 'orderBy'
       ? 'gap-0.5 lg:gap-1 font-semibold text-2sm lg:text-lg text-black-300'
-      : `justify-between w-[88px] lg:w-[126px] border rounded-[4px] font-regular text-xs lg:text-2lg py-1.5 pr-2.5 pl-3 lg:py-2 lg:pr-3 lg:pl-4 ${selectedOption.label === options[0].label ? 'border-gray-100 bg-gray-50 text-black-100' : 'border-orange-300 bg-orange-50 text-orange-300'}  whitespace-nowrap`;
+      : `justify-between w-[88px] lg:w-[126px] border rounded-[4px] font-regular text-xs lg:text-2lg py-[5px] pr-[9px] pl-[11px] lg:py-[7px] lg:pr-[11px] lg:pl-[15px] ${selectedOption.label === options[0].label ? 'border-gray-100 bg-gray-50 text-black-100' : 'border-orange-300 bg-orange-50 text-orange-300'}  whitespace-nowrap`;
 
   const imageStyle =
     name === 'orderBy'
