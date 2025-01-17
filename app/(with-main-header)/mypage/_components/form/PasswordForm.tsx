@@ -33,6 +33,7 @@ const PasswordForm = ({ closeModal }: PasswordFormProps) => {
     formState: { isValid, errors },
     setError,
     clearErrors,
+    reset,
   } = useForm<PasswordFormData>({ mode: 'onTouched' });
 
   const signUpSubmit: SubmitHandler<PasswordFormData> = async (data, event) => {
@@ -43,7 +44,7 @@ const PasswordForm = ({ closeModal }: PasswordFormProps) => {
         currentPassword: data.currentPassword,
         newPassword: data.newPassword,
       });
-
+      reset();
       window.alert('비밀번호가 변경되었습니다!');
       closeModal();
     } catch (e) {
@@ -144,7 +145,14 @@ const PasswordForm = ({ closeModal }: PasswordFormProps) => {
         design="outlined"
       />
       <div className="flex gap-3 mt-6 lg:mt-8">
-        <Button onClick={() => closeModal()} content="취소" design="outlined" />
+        <Button
+          onClick={() => {
+            reset();
+            closeModal();
+          }}
+          content="취소"
+          design="outlined"
+        />
         <Button
           type="submit"
           content="변경하기"

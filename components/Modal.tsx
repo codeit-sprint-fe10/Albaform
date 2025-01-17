@@ -45,12 +45,12 @@ const Modal = ({
       className={
         `w-full max-w-[100%] mt-auto mb-0 md:w-fit md:max-w-[auto] md:min-w-[350px] md:mb-auto lg:min-w-[450px] ` +
         `rounded-t-xl md:rounded-xl bg-white shadow-3xl open:animate-slideIn open:backdrop:animate-fadeIn ` +
-        `backdrop:bg-black-500 backdrop:bg-opacity-50 ${blurDim ? 'backdrop:backdrop-blur-sm' : ''} custom-scrollbar`
+        `backdrop:bg-black-500 backdrop:bg-opacity-50 ${blurDim ? 'backdrop:backdrop-blur-sm' : ''}`
       }
       onClick={handleDialogClick}
     >
       <div
-        className="p-6 lg:px-10 lg:py-8"
+        className="max-h-[90vh] p-6 lg:px-10 lg:py-8 overflow-auto custom-scrollbar"
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();

@@ -64,6 +64,7 @@ const ProfileForm = ({ closeModal, user }: ProfileFormProps) => {
     try {
       const updatedData = await mutateAsync(data);
       setUser(updatedData);
+      methods.reset();
       window.alert('프로필이 수정되었습니다!');
       closeModal();
       document.location.reload();
@@ -199,7 +200,10 @@ const ProfileForm = ({ closeModal, user }: ProfileFormProps) => {
         )}
         <div className="flex gap-3 mt-6 lg:mt-8">
           <Button
-            onClick={() => closeModal()}
+            onClick={() => {
+              methods.reset();
+              closeModal();
+            }}
             content="취소"
             design="outlined"
           />

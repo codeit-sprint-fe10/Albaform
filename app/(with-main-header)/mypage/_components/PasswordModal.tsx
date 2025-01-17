@@ -9,6 +9,7 @@ const PasswordModal = ({ dialogRef, closeModal }: UseModalProps) => {
       onClose={closeModal}
       title="비밀번호 변경"
       hasCloseButton={false}
+      allowDimClose={false}
     >
       <PasswordForm closeModal={closeModal} />
     </Modal>

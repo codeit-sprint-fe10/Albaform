@@ -15,6 +15,7 @@ const ProfileModal = ({ dialogRef, closeModal }: UseModalProps) => {
       onClose={closeModal}
       title="프로필 수정"
       hasCloseButton={false}
+      allowDimClose={false}
     >
       <ProfileForm closeModal={closeModal} user={user} />
     </Modal>
