@@ -55,8 +55,8 @@ const Albatalk = () => {
 
   return (
     <div className="w-full flex justify-center lg:max-w-container lg:px-[72px]">
-      <div className="w-full flex flex-col items-center justify-center mt-4">
-        <div className="w-full flex flex-col gap-10">
+      <div className="w-full flex flex-col items-center justify-between mt-4 min-h-[606px] relative">
+        <div className="w-full flex flex-col gap-10 mb-16">
           <SearchBar
             searchTerm={searchTerm}
             sortOrder={sortOrder}
@@ -65,8 +65,7 @@ const Albatalk = () => {
             setSortOrder={setSortOrder}
             setCursorHistory={setCursorHistory}
           />
-
-          <div className="w-full flex flex-col gap-4 lg:grid lg:grid-cols-3 lg:gap-6 lg:gap-y-12">
+          <div className="w-full flex flex-col gap-4 lg:grid lg:grid-cols-3 lg:gap-6 lg:gap-y-12 lg:h-[606px]">
             {isLoading
               ? renderSkeletons()
               : data?.data.map((post) => (
@@ -74,15 +73,15 @@ const Albatalk = () => {
                 ))}
           </div>
         </div>
-
-        <Pagination
-          isFirstPage={isFirstPage}
-          hasNextPage={hasNextPage}
-          handleLoadPrev={handleLoadPrev}
-          handleLoadMore={handleLoadMore}
-        />
-
         <WriteButton />
+        <div className="w-full absolute bottom-0 flex justify-center">
+          <Pagination
+            isFirstPage={isFirstPage}
+            hasNextPage={hasNextPage}
+            handleLoadPrev={handleLoadPrev}
+            handleLoadMore={handleLoadMore}
+          />
+        </div>
       </div>
     </div>
   );
