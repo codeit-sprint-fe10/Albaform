@@ -24,17 +24,8 @@ const usePostAlba = () => {
     },
     onSuccess: (data) => {
       router.replace(`/alba/${data.id}`);
-
-      queryClient.invalidateQueries({
-        predicate: (query) => {
-          if (
-            Array.isArray(query.queryKey) &&
-            typeof query.queryKey[0] === 'string'
-          ) {
-            return keysToInvalidate.includes(query.queryKey[0]);
-          }
-          return false;
-        },
+      keysToInvalidate.forEach((key) => {
+        queryClient.invalidateQueries({ queryKey: [key] });
       });
     },
     onError: (error) => {
