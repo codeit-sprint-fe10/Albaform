@@ -1,4 +1,5 @@
 import axios, { AxiosError } from 'axios';
+import { notFound } from 'next/navigation';
 import { postRefresh } from './auth';
 import { printError } from '@/utils/console';
 import { BE_BASE_URL, NON_AUTH_APIS } from '@/constants/api';
@@ -35,6 +36,10 @@ instance.interceptors.response.use(
   (response) => response,
   async (error) => {
     printError(error);
+
+    if (error.status === 404 || error.status === 403) {
+      notFound();
+    }
 
     if (error.response.status === 401)
       if (error.response?.data.message === 'Access token has expired') {

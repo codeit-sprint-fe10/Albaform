@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import MainHeader from '@/components/MainHeader';
 
-export default function NotFound() {
+const NotFound = () => {
   const router = useRouter();
 
   return (
@@ -51,4 +51,6 @@ export default function NotFound() {
       </div>
     </>
   );
-}
+};
+
+export default NotFound;

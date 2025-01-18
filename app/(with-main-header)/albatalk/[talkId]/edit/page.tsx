@@ -2,6 +2,7 @@
 import { useParams } from 'next/navigation';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
+import { useUserStore } from '@/store/user';
 import Textarea from './_components/Textarea';
 import Input from './_components/Input';
 import FileInput from './_components/FileInput';
@@ -16,6 +17,7 @@ const Edit = () => {
   const { talkId: talkIdStr } = useParams();
   const talkId = Number(talkIdStr);
   const { data: post } = useGetPostDetail(talkId);
+  const user = useUserStore((state) => state.user);
   const router = useRouter();
   const {
     register,
@@ -45,6 +47,14 @@ const Edit = () => {
   const handleCancel = () => {
     router.push(`/albatalk/${talkId}`);
   };
+
+  useEffect(() => {
+    if (post && user) {
+      if (post?.writer.id !== user?.id) {
+        router.replace('/404');
+      }
+    }
+  }, [post, user]);
 
   return (
     <div className="flex max-w-container flex-col gap-9 mt-4 md:mt-6 lg:my-[40px] lg:px-[72px]">

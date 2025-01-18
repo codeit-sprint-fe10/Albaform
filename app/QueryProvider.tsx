@@ -6,6 +6,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 
 const makeQueryClient = () => {
   return new QueryClient({
@@ -26,7 +27,20 @@ const getQueryClient = () => {
 };
 
 const QueryProvider = ({ children }: { children: ReactNode }) => {
+  const router = useRouter();
   const queryClient = getQueryClient();
+  queryClient.getQueryCache().subscribe((event) => {
+    if (event.query) {
+      const query = event.query;
+      if (query.state.status === 'error') {
+        const error = query.state.error;
+
+        if (error.message.includes('404') || error.message.includes('403')) {
+          router.replace('/404');
+        }
+      }
+    }
+  });
   return (
     <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
   );
