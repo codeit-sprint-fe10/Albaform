@@ -23,13 +23,13 @@ const AlbaFormIdPage = async ({
 
   return (
     <div>
-      <div className="-mx-6 md:-mx-[72px] xl:mx-0 flex justify-center">
-        {albaDetail.imageUrls?.length && (
+      {albaDetail.imageUrls?.length > 0 && (
+        <div className="-mx-6 md:-mx-[72px] xl:mx-0 flex justify-center">
           <div className="w-full">
             <Carousel imageUrls={albaDetail.imageUrls} />
           </div>
-        )}
-      </div>
+        </div>
+      )}
       <div className="relative mt-8 md:mt-[80px]">
         <div className="flex flex-col lg:flex-row justify-between lg:gap-36">
           <div className="lg:basis-1/2">

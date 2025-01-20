@@ -15,13 +15,13 @@ const MyApplyPage = async ({
 
   return (
     <div>
-      <div className="-mx-6 md:-mx-[72px] xl:mx-0 flex justify-center">
-        {albaDetail.imageUrls?.length && (
+      {albaDetail.imageUrls?.length > 0 && (
+        <div className="-mx-6 md:-mx-[72px] xl:mx-0 flex justify-center">
           <div className="w-full hidden lg:block">
             <Carousel imageUrls={albaDetail.imageUrls} />
           </div>
-        )}
-      </div>
+        </div>
+      )}
       <div className="relative mt-8 md:mt-[80px]">
         <div className="lg:hidden font-semibold text-black-500 text-xl ">
           <h2>{albaDetail.title}</h2>
