@@ -5,6 +5,7 @@ import { ChangeEvent } from 'react';
 import Image from 'next/image';
 import { postImage } from '@/services/image';
 import UploadIcon from '@/public/icons/upload.svg';
+import { toast } from 'react-toastify';
 
 interface FileInputProps {
   setValue: (name: 'imageUrl', value: string | null) => void;
@@ -27,7 +28,7 @@ const FileInput = ({ setValue, imageUrl }: FileInputProps) => {
         setValue(name, newImage);
       } catch (error) {
         console.error('Image upload failed:', error);
-        alert('이미지 업로드에 실패했습니다.');
+        toast.error('이미지 업로드에 실패했습니다.');
       }
     }
 

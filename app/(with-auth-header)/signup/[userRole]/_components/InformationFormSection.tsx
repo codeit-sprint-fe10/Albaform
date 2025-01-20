@@ -9,6 +9,7 @@ import Button from '@/components/Button';
 import FormField from '../../../_components/FormField';
 import ProfileImageInput from '../../../_components/ProfileImageInput';
 import { useUserStore } from '@/store/user';
+import { toast } from 'react-toastify';
 
 interface InformationFormData {
   nickname: string;
@@ -37,10 +38,10 @@ const InformationFormSection = ({ userRole }: InformationFormSectionProps) => {
     try {
       const updatedData = await mutateAsync(data);
       setUser(updatedData);
-      window.alert('추가 정보를 등록했습니다!\n즐거운 알바폼 되세요.');
+      toast.success('추가 정보를 등록했습니다!\n즐거운 알바폼 되세요.');
       document.location.reload();
     } catch {
-      window.alert('오류가 발생했습니다.\n확인 후 다시 시도해 주세요.');
+      toast.error('오류가 발생했습니다.\n확인 후 다시 시도해 주세요.');
     }
   };
 

@@ -10,7 +10,6 @@ type OwnerSectionProps = { formId: number };
 const OwnerSection = ({ formId }: OwnerSectionProps) => {
   const user = useUserStore((state) => state.user);
 
-  // TODO: 추가적으로 owner 본인 알바공고 인지 확인 필요
   if (!user || user.role !== UserRole.owner) {
     return null;
   }

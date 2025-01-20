@@ -4,24 +4,20 @@ import SummarySection from '@/app/(with-main-header)/alba/[formId]/_components/S
 import DescriptionSection from '@/app/(with-main-header)/alba/[formId]/_components/DescriptionSection';
 import ApplicationStatusSection from '@/app/(with-main-header)/myapply/[formId]/_components/ApplicationStatusSection';
 import ApplicationDetail from '@/app/(with-main-header)/myapply/[formId]/_components/ApplicationDetail';
+import WithFormIdValidation from '@/components/WithFormIdValidation';
 
-const MyApplyPage = async ({
-  params,
-}: {
-  params: Promise<{ formId: number }>;
-}) => {
-  const { formId } = await params;
+const MyApplyPage = async ({ formId }: { formId: number }) => {
   const albaDetail = await getAlbaDetail(formId);
 
   return (
     <div>
-      <div className="-mx-6 md:-mx-[72px] xl:mx-0 flex justify-center">
-        {albaDetail.imageUrls?.length && (
+      {albaDetail.imageUrls?.length > 0 && (
+        <div className="-mx-6 md:-mx-[72px] xl:mx-0 flex justify-center">
           <div className="w-full hidden lg:block">
             <Carousel imageUrls={albaDetail.imageUrls} />
           </div>
-        )}
-      </div>
+        </div>
+      )}
       <div className="relative mt-8 md:mt-[80px]">
         <div className="lg:hidden font-semibold text-black-500 text-xl ">
           <h2>{albaDetail.title}</h2>
@@ -53,4 +49,4 @@ const MyApplyPage = async ({
   );
 };
 
-export default MyApplyPage;
+export default WithFormIdValidation(MyApplyPage);

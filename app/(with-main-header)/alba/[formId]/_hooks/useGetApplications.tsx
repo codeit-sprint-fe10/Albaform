@@ -1,6 +1,7 @@
 import { GetApplicationsParameters } from '@/types/application';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { getApplications } from '@/services/application';
+import { AxiosError } from 'axios';
 
 type useGetApplicationsProps = {
   formId: number;
@@ -22,6 +23,13 @@ const useGetApplications = ({
     queryFn,
     getNextPageParam: (lastPage) => lastPage.nextCursor,
     initialPageParam: 0,
+    retry: (failureCount, error: AxiosError) => {
+      if (error.response?.status === 403) {
+        return false;
+      }
+
+      return failureCount < 3;
+    },
   });
 };
 

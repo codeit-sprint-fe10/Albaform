@@ -12,6 +12,7 @@ import {
 import Dropdown, { Option } from './Dropdown';
 import DeleteAlbaModal from '../DeleteAlbaModal';
 import { useQueryClient } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
 
 const MenuDropdown = ({ albaId }: { albaId: number }) => {
   const queryClient = useQueryClient();
@@ -28,9 +29,9 @@ const MenuDropdown = ({ albaId }: { albaId: number }) => {
         try {
           await postAlbaScrap(albaId);
           queryClient.invalidateQueries({ queryKey: ['forms'] });
-          alert(`알바폼을 스크랩하였습니다.`);
+          toast.success('알바폼을 스크랩하였습니다.');
         } catch {
-          alert('이미 스크랩한 알바폼입니다.');
+          toast.error('이미 스크랩한 알바폼입니다.');
         }
         break;
       case 'modify':
@@ -38,7 +39,7 @@ const MenuDropdown = ({ albaId }: { albaId: number }) => {
           await getApplications({ formId: albaId, params: { limit: 1 } });
           push(`/alba/${albaId}/edit`);
         } catch {
-          alert('본인의 알바폼만 수정 가능합니다.');
+          toast.error('본인의 알바폼만 수정 가능합니다.');
         }
         break;
       case 'delete':
@@ -46,7 +47,7 @@ const MenuDropdown = ({ albaId }: { albaId: number }) => {
           await getApplications({ formId: albaId, params: { limit: 1 } });
           openModal();
         } catch {
-          alert('본인의 알바폼만 삭제 가능합니다.');
+          toast.error('본인의 알바폼만 삭제 가능합니다.');
         }
         break;
     }

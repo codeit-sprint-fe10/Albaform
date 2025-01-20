@@ -11,6 +11,7 @@ import {
 } from '@/constants/form';
 import FormField from '@/app/(with-auth-header)/_components/FormField';
 import Button from '@/components/Button';
+import { toast } from 'react-toastify';
 
 interface PasswordFormData {
   currentPassword: string;
@@ -45,7 +46,7 @@ const PasswordForm = ({ closeModal }: PasswordFormProps) => {
         newPassword: data.newPassword,
       });
       reset();
-      window.alert('비밀번호가 변경되었습니다!');
+      toast.success('비밀번호가 변경되었습니다!');
       closeModal();
     } catch (e) {
       const error = e as AxiosError<{ message: string }>;

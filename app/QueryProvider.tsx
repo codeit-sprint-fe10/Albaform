@@ -35,7 +35,7 @@ const QueryProvider = ({ children }: { children: ReactNode }) => {
       if (query.state.status === 'error') {
         const error = query.state.error;
 
-        if (error.message.includes('404') || error.message.includes('403')) {
+        if (error.message.includes('404')) {
           router.replace('/404');
         }
       }

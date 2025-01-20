@@ -31,8 +31,12 @@ const Applications = ({ formId }: ApplicationsProps) => {
     orderByStatus,
   };
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isError } =
     useGetApplications({ formId, searchParams });
+
+  if (isError) {
+    return null;
+  }
 
   return (
     <div className="py-14 lg:py-28 w-full">

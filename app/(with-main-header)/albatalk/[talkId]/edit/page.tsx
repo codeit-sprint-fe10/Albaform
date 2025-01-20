@@ -19,6 +19,7 @@ const Edit = () => {
   const { data: post } = useGetPostDetail(talkId);
   const user = useUserStore((state) => state.user);
   const router = useRouter();
+  if (isNaN(talkId)) router.replace('/404');
   const {
     register,
     handleSubmit,

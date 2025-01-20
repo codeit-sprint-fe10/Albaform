@@ -4,6 +4,8 @@ import useGetMyApplication from '@/app/(with-main-header)/myapply/[formId]/_hook
 import { convertMonthsToYearsAndMonths } from '@/utils/dateFormatter';
 import DownloadIcon from '@/public/icons/download.svg';
 import { getResumeFile } from '@/services/resumeFile';
+import Loader from '@/components/Loader';
+import { toast } from 'react-toastify';
 
 type ApplicationDetailProps = {
   formId: number;
@@ -13,7 +15,9 @@ const ApplicationDetail = ({ formId }: ApplicationDetailProps) => {
   const { data, isLoading, isError } = useGetMyApplication(formId);
 
   if (isLoading) {
-    return <div>로딩중</div>;
+    <div className="transform translate-y-20">
+      <Loader />
+    </div>;
   }
 
   if (isError) {
@@ -26,7 +30,7 @@ const ApplicationDetail = ({ formId }: ApplicationDetailProps) => {
         await getResumeFile(data.resumeId, data.resumeName);
       }
     } catch {
-      alert('이력서 다운로드 실패!');
+      toast.error('이력서 다운로드에 실패했습니다');
     }
   };
 

@@ -6,6 +6,7 @@ import LogoutIcon from '@/public/icons/logout.svg';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/useAuth';
 import { useUserStore } from '@/store/user';
+import { toast } from 'react-toastify';
 
 interface SlideMenuProps {
   isOpen: boolean;
@@ -15,7 +16,7 @@ interface SlideMenuProps {
 const SlideMenu = ({ isOpen, onClose }: SlideMenuProps) => {
   const user = useUserStore((state) => state.user);
 
-  const { push } = useRouter();
+  const { push, replace } = useRouter();
   const { signOut } = useAuth();
 
   const handleMyPageClick = () => {
@@ -30,8 +31,8 @@ const SlideMenu = ({ isOpen, onClose }: SlideMenuProps) => {
   const handleLogoutClick = async () => {
     await signOut();
     onClose();
-    alert('로그아웃 성공');
-    document.location.reload();
+    toast.success('로그아웃 성공');
+    replace(window.location.pathname);
   };
 
   return (

@@ -6,6 +6,7 @@ import { getResumeFile } from '@/services/resumeFile';
 import { getRecruitingStatus } from '@/utils/card';
 import { format } from '@/utils/date';
 import { applicationStatus, ApplicationCardType } from '@/types/application';
+import { toast } from 'react-toastify';
 
 const AppliedCard = ({
   resumeId,
@@ -27,7 +28,7 @@ const AppliedCard = ({
     try {
       await getResumeFile(resumeId, resumeName);
     } catch {
-      alert('이력서 다운로드 실패!');
+      toast.error('이력서 다운로드에 실패했습니다');
     }
   };
 

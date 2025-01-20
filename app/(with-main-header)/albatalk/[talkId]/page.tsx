@@ -19,6 +19,7 @@ const AlbatalkDetail = () => {
   const { talkId: talkIdStr } = useParams();
   const talkId = Number(talkIdStr);
   const router = useRouter();
+  if (isNaN(talkId)) router.replace('/404');
   const { mutate: deleteMutation } = useDeleteTalk(talkId);
   const { data: post, isLoading } = useGetPostDetail(talkId);
   const user = useUserStore((state) => state.user);

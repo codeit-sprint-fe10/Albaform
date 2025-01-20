@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Button from '@/components/Button';
 import Form from 'next/form';
 import useCreateComment from '../_hooks/useCreateComment';
+import { toast } from 'react-toastify';
 type CommentFormProps = {
   id: number;
 };
@@ -11,7 +12,7 @@ const CommentForm = ({ id }: CommentFormProps) => {
   const { mutate, isPending } = useCreateComment();
   const handleSubmit = () => {
     if (!comment.trim()) {
-      alert('댓글을 입력해주세요.');
+      toast.error('댓글을 입력해주세요.');
       return;
     }
     mutate(

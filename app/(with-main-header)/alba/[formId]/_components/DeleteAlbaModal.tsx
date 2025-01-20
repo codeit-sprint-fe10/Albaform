@@ -7,6 +7,7 @@ import Button from '@/components/Button';
 import { deleteAlba } from '@/services/alba';
 import DeleteAlbaModalIcon from '@/public/icons/delete-alba.svg';
 import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
 
 interface DeleteModalProps extends UseModalProps {
   formId: number;
@@ -20,7 +21,7 @@ const DeleteModal = ({ dialogRef, closeModal, formId }: DeleteModalProps) => {
       await deleteAlba(formId);
       replace('/albalist');
     } catch {
-      alert('삭제 실패');
+      toast.error('삭제 실패');
     }
   };
 
