@@ -4,6 +4,7 @@ import useGetMyApplication from '@/app/(with-main-header)/myapply/[formId]/_hook
 import { convertMonthsToYearsAndMonths } from '@/utils/dateFormatter';
 import DownloadIcon from '@/public/icons/download.svg';
 import { getResumeFile } from '@/services/resumeFile';
+import Loader from '@/components/Loader';
 
 type ApplicationDetailProps = {
   formId: number;
@@ -13,7 +14,9 @@ const ApplicationDetail = ({ formId }: ApplicationDetailProps) => {
   const { data, isLoading, isError } = useGetMyApplication(formId);
 
   if (isLoading) {
-    return <div>로딩중</div>;
+    <div className="transform translate-y-20">
+      <Loader />
+    </div>;
   }
 
   if (isError) {
