@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useState } from 'react';
 import { AxiosError } from 'axios';
 import { useForm, SubmitHandler } from 'react-hook-form';
@@ -163,6 +164,16 @@ const SignUpFormSection = ({ userRole, onSubmit }: SignUpFormSectionProps) => {
           disabled={!isValid || isFetching}
           className="mt-8 lg:mt-12"
         ></Button>
+        <span className="mt-4 lg:mt-6 text-center text-xs lg:text-lg text-black-100">
+          {'가입 시 '}
+          <Link
+            href="https://sprint.codeit.kr"
+            className="text-orange-300 hover:text-orange-200 font-semibold underline underline-offset-2 transition duration-200"
+          >
+            이용약관
+          </Link>
+          에 동의한 것으로 간주됩니다.
+        </span>
       </form>
     </section>
   );
