@@ -13,7 +13,7 @@ const SignInPage = async ({ params }: SignInPageProps) => {
     <>
       <SignInHeadSection userRole={userRole} />
       <SignInFormSection />
-      <SocialSection type="로그인" />
+      <SocialSection userRole={userRole} type="로그인" />
     </>
   );
 };

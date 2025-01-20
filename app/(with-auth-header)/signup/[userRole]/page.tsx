@@ -10,7 +10,7 @@ import InformationHeadSection from './_components/InformationHeadSection';
 import InformationFormSection from './_components/InformationFormSection';
 
 const SignUpPage = () => {
-  const { userRole } = useParams();
+  const userRole = useParams()['userRole'] as UserRoleLowerCase;
   const [isSignUp, setIsSignUp] = useState(true);
 
   const handleSignUpFormSubmit = () => {
@@ -19,12 +19,12 @@ const SignUpPage = () => {
 
   return isSignUp ? (
     <>
-      <SignUpHeadSection userRole={userRole as UserRoleLowerCase} />
+      <SignUpHeadSection userRole={userRole} />
       <SignUpFormSection
         userRole={userRole as UserRoleLowerCase}
         onSubmit={handleSignUpFormSubmit}
       />
-      <SocialSection type="회원가입" />
+      <SocialSection userRole={userRole} type="회원가입" />
     </>
   ) : (
     <>

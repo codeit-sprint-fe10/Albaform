@@ -1,12 +1,14 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { OAUTH_KAKAO_URL } from '@/constants/api';
+import { UserRoleLowerCase } from '@/types/user';
 
 interface SocialSectionProps {
+  userRole: UserRoleLowerCase;
   type: '로그인' | '회원가입';
 }
 
-const SocialSection = ({ type }: SocialSectionProps) => {
+const SocialSection = ({ userRole, type }: SocialSectionProps) => {
   const lineStyle =
     "before:content-[''] before:absolute before:left-0 before:top-1/2 before:w-20 lg:before:w-44 before:h-[1px] before:bg-gray-100 " +
     "after:content-[''] after:absolute after:right-0 after:top-1/2 after:w-20  lg:after:w-44 after:h-[1px] after:bg-gray-100";
@@ -31,7 +33,10 @@ const SocialSection = ({ type }: SocialSectionProps) => {
             className="lg:w-[27px] lg:h-[27px]"
           />
         </Link>
-        <Link href={OAUTH_KAKAO_URL} className={linkStyle}>
+        <Link
+          href={`${OAUTH_KAKAO_URL}&state=${userRole}`}
+          className={linkStyle}
+        >
           <Image
             src="/icons/kakao.svg"
             width={20}

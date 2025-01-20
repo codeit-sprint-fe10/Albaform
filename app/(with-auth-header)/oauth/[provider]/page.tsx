@@ -12,6 +12,7 @@ import { OAUTH_REDIRECT_URI } from '@/constants/api';
 const OauthPage = () => {
   const provider = useParams()['provider'] as string;
   const token = useSearchParams().get('code');
+  const userRole = useSearchParams().get('state');
   const setUser = useUserStore()['setUser'];
   const { replace } = useRouter();
 
@@ -36,14 +37,14 @@ const OauthPage = () => {
         .catch((error: AxiosError<{ message: string }>) => {
           if (error.response?.data.message === '등록되지 않은 사용자입니다.') {
             toast.success('추가 정보 입력 페이지로 이동합니다!');
-            replace(`/oauth/signup/applicant/${provider}?token=${token}`);
+            replace(`/oauth/signup/${userRole}/${provider}?token=${token}`);
           }
 
           toast.error('오류가 발생했습니다.\n확인 후 다시 시도해 주세요.');
           replace('/');
         });
     }
-  }, [provider, token, setUser, replace]);
+  }, [provider, userRole, token, setUser, replace]);
 };
 
 export default OauthPage;
