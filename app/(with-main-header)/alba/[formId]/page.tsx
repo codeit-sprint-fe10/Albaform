@@ -12,13 +12,9 @@ import { getAlbaDetail } from '@/services/alba';
 import RecruitmentClosedModal from '@/app/(with-main-header)/alba/[formId]/_components/RecruitmentClosedModal';
 import { isBeforeToday } from '@/utils/date';
 import OwnerSection from '@/app/(with-main-header)/alba/[formId]/_components/OwnerSection';
+import WithFormIdValidation from '@/components/WithFormIdValidation';
 
-const AlbaFormIdPage = async ({
-  params,
-}: {
-  params: Promise<{ formId: number }>;
-}) => {
-  const { formId } = await params;
+const AlbaFormIdPage = async ({ formId }: { formId: number }) => {
   const albaDetail = await getAlbaDetail(formId);
 
   return (
@@ -79,4 +75,4 @@ const AlbaFormIdPage = async ({
   );
 };
 
-export default AlbaFormIdPage;
+export default WithFormIdValidation(AlbaFormIdPage);

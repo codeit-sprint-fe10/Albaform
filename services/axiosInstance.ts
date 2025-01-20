@@ -37,7 +37,7 @@ instance.interceptors.response.use(
   async (error) => {
     printError(error);
 
-    if (error.status === 404 || error.status === 403) {
+    if (error.status === 404) {
       notFound();
     }
 
