@@ -68,6 +68,7 @@ export const postTalk = async (body: PostTalkBody) => {
 
 export const postLike = async (id: number) => {
   const response = await instance.post<PostTalkResponse>(`/posts/${id}/like`);
+  console.log(response.data);
   return response.data;
 };
 
