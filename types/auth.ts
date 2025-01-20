@@ -1,25 +1,29 @@
 import { User } from '@/types/user';
 
-export type PostSignUpBody = Pick<User, 'email' | 'password' | 'name' | 'role'>;
-
-export interface PostSignUpResponse {
+interface AuthResponse {
   accessToken: string;
   refreshToken: string;
   user: Omit<User, 'password'>;
 }
+
+export type PostSignUpBody = Pick<User, 'email' | 'password' | 'name' | 'role'>;
+export type PostSignUpResponse = AuthResponse;
 
 export type PostSignInBody = Pick<User, 'email' | 'password'>;
+export type PostSignInResponse = AuthResponse;
 
-export interface PostSignInResponse {
-  accessToken: string;
-  refreshToken: string;
-  user: Omit<User, 'password'>;
-}
+export type PostRefreshBody = { refreshToken: string };
+export type PostRefreshResponse = { accessToken: string };
 
-export interface PostRefreshBody {
-  refreshToken: string;
+export interface PostOauthSignUpBody
+  extends Omit<User, 'id' | 'email' | 'password'> {
+  redirectUri: string;
+  token: string;
 }
+export type PostOauthSignUpResponse = AuthResponse;
 
-export interface PostRefreshResponse {
-  accessToken: string;
+export interface PostOauthSignInBody {
+  redirectUri: string;
+  token: string;
 }
+export type PostOauthSignInResponse = AuthResponse;
