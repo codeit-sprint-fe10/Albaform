@@ -1,7 +1,7 @@
 import { UserRoleLowerCase } from '@/types/user';
 import SignInHeadSection from './_components/SignInHeadSection';
 import SignInFormSection from './_components/SignInFormSection';
-import SocialSignInSection from './_components/SocialSignInSection';
+import SocialSection from '../../_components/SocialSection';
 
 interface SignInPageProps {
   params: Promise<{ userRole: UserRoleLowerCase }>;
@@ -13,7 +13,7 @@ const SignInPage = async ({ params }: SignInPageProps) => {
     <>
       <SignInHeadSection userRole={userRole} />
       <SignInFormSection />
-      <SocialSignInSection />
+      <SocialSection type="로그인" />
     </>
   );
 };

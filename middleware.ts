@@ -19,12 +19,14 @@ const denyPaths = {
 const authPaths = [
   '/signup/applicant',
   '/signup/owner',
+  '/signin/applicant',
+  '/signin/owner',
+  '/oauth/google',
+  '/oauth/kakao',
   '/oauth/signup/applicant/google',
   '/oauth/signup/applicant/kakao',
   '/oauth/signup/owner/google',
   '/oauth/signup/owner/kakao',
-  '/signin/applicant',
-  '/signin/owner',
 ];
 
 const middleware = (request: NextRequest) => {
@@ -50,8 +52,8 @@ export default middleware;
 export const config = {
   matcher: [
     '/signup/:path',
-    '/oauth/signup/:path*',
     '/signin/:path',
+    '/oauth/:path*',
     '/addform',
     '/alba/:path/edit',
     '/apply/:path',
