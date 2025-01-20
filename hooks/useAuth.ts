@@ -2,7 +2,9 @@ import { useCallback } from 'react';
 import { User } from '@/types/user';
 import { useUserStore } from '@/store/user';
 import { postSignUp, postSignIn } from '@/services/auth';
-import { postCookies, deleteCookies } from '@/services/cookie';
+import { postCookies } from '@/services/cookie';
+import { FE_BASE_URL } from '@/constants/api';
+import axios from 'axios';
 
 type SignUpParameters = Pick<User, 'email' | 'password' | 'name' | 'role'>;
 type SignInParameters = Pick<User, 'email' | 'password'>;
@@ -29,7 +31,7 @@ export const useAuth = () => {
   );
 
   const signOut = useCallback(async () => {
-    await deleteCookies();
+    await axios.delete(`${FE_BASE_URL}/api/auth`);
     setUser(null);
   }, [setUser]);
 

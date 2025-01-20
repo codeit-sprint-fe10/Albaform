@@ -1,12 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { COOKIE_NAMES } from '@/constants/api';
-import {
-  getCookies,
-  postCookies,
-  patchCookies,
-  deleteCookies,
-} from '@/services/cookie';
+import { getCookies, postCookies, patchCookies } from '@/services/cookie';
 
 type JSCookieName = keyof typeof COOKIE_NAMES;
 
@@ -31,6 +26,11 @@ export const PATCH = async (request: NextRequest) => {
 };
 
 export const DELETE = async () => {
-  await deleteCookies();
+  const { cookies } = await import('next/headers');
+  const cookieStore = await cookies();
+
+  Object.values(COOKIE_NAMES).forEach((cookieName) => {
+    cookieStore.delete(cookieName);
+  });
   return NextResponse.json({ message: 'Cookies deleted' }, { status: 200 });
 };

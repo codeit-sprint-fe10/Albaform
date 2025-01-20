@@ -67,16 +67,3 @@ export const patchCookies = async (body: PatchCookieBody) => {
   }
   await axios.patch('/api/auth', body);
 };
-
-export const deleteCookies = async () => {
-  if (IS_SERVER) {
-    const { cookies } = await import('next/headers');
-    const cookieStore = await cookies();
-
-    Object.values(COOKIE_NAMES).forEach((cookieName) => {
-      cookieStore.delete(cookieName);
-    });
-    return;
-  }
-  await axios.delete('/api/auth');
-};
