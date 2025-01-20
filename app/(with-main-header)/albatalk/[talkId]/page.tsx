@@ -23,7 +23,6 @@ const AlbatalkDetail = () => {
   const { data: post, isLoading } = useGetPostDetail(talkId);
   const user = useUserStore((state) => state.user);
   const [totalItemCount, setTotalItemCount] = useState(post?.commentCount || 0);
-  console.log(post);
   const handleTotalItemCountUpdate = (count: number) => {
     setTotalItemCount(count);
   };
