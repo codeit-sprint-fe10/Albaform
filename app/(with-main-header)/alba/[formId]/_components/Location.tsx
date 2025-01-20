@@ -2,6 +2,7 @@
 
 import { Alba } from '@/types/alba';
 import GoogleMap from '@/app/(with-main-header)/alba/[formId]/_components/GoogleMap';
+import { toast } from 'react-toastify';
 
 type LocationProps = Pick<Alba, 'location'>;
 
@@ -12,7 +13,7 @@ const Location = ({ location }: LocationProps) => {
     navigator.clipboard
       .writeText(address)
       .then(() => {
-        alert('복사되었습니다!'); // TODO toast box
+        toast.success('복사되었습니다!');
       })
       .catch((err) => {
         console.error('Clipboard copy failed: ', err);
@@ -32,7 +33,7 @@ const Location = ({ location }: LocationProps) => {
         </button>
       </div>
       <div className="mt-4 lg:mt-12 w-full h-[210px]">
-        {/*<GoogleMap {...coordinates} />*/}
+        <GoogleMap {...coordinates} />
       </div>
     </section>
   );

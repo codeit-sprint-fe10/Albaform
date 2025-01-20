@@ -8,6 +8,7 @@ import { UserRole, UserRoleLowerCase } from '@/types/user';
 import { EMAIL, PASSWORD, PASSWORD_CONFIRMATION, NAME } from '@/constants/form';
 import FormField from '../../../_components/FormField';
 import Button from '@/components/Button';
+import { toast } from 'react-toastify';
 
 interface SignUpFormData {
   name: string;
@@ -48,14 +49,14 @@ const SignUpFormSection = ({ userRole, onSubmit }: SignUpFormSectionProps) => {
         password: data.password,
       });
 
-      window.alert('회원가입되었습니다!\n추가 정보를 등록합니다.');
+      toast.success('회원가입되었습니다!\n추가 정보를 등록합니다.');
       onSubmit();
     } catch (e) {
       const error = e as AxiosError<{ message: string }>;
       const message = error.response?.data.message;
 
       if (message?.includes('이메일')) setError('email', { message });
-      else window.alert('오류가 발생했습니다.\n확인 후 다시 시도해 주세요.');
+      else toast.error('오류가 발생했습니다.\n확인 후 다시 시도해 주세요.');
     }
     setIsFetching(false);
   };

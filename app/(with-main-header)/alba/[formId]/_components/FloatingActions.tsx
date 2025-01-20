@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { deleteAlbaScrap, postAlbaScrap } from '@/services/alba';
 import React, { useState } from 'react';
 import KakaoScript from '@/components/KakaoScript';
+import { toast } from 'react-toastify';
 
 type FloatingActionsProps = Pick<
   Alba,
@@ -26,10 +27,10 @@ const FloatingActions = ({
         ? await deleteAlbaScrap(id)
         : await postAlbaScrap(id);
       setIsActiveScrapped(result);
-      alert(`스크랩 ${result ? '저장' : '삭제'} 성공!`);
+      toast.success(`스크랩 ${result ? '저장' : '삭제'} 성공!`);
     } catch (error) {
       console.error(error);
-      alert('스크랩 요청 실패');
+      toast.error('스크랩 요청 실패');
     }
   };
 

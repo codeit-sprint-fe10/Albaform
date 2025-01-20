@@ -5,6 +5,7 @@ import { convertMonthsToYearsAndMonths } from '@/utils/dateFormatter';
 import DownloadIcon from '@/public/icons/download.svg';
 import { getResumeFile } from '@/services/resumeFile';
 import Loader from '@/components/Loader';
+import { toast } from 'react-toastify';
 
 type ApplicationDetailProps = {
   formId: number;
@@ -29,7 +30,7 @@ const ApplicationDetail = ({ formId }: ApplicationDetailProps) => {
         await getResumeFile(data.resumeId, data.resumeName);
       }
     } catch {
-      alert('이력서 다운로드 실패!');
+      toast.error('이력서 다운로드에 실패했습니다');
     }
   };
 

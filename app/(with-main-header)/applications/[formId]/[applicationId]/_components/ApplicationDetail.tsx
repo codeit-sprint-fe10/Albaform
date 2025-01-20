@@ -5,6 +5,7 @@ import DownloadIcon from '@/public/icons/download.svg';
 import { getResumeFile } from '@/services/resumeFile';
 import useGetApplication from '@/app/(with-main-header)/myapply/[formId]/_hooks/useGetApplication';
 import Loader from '@/components/Loader';
+import { toast } from 'react-toastify';
 
 type ApplicationDetailProps = {
   applicationId: number;
@@ -33,7 +34,7 @@ const ApplicationDetail = ({ applicationId }: ApplicationDetailProps) => {
         await getResumeFile(data.resumeId, data.resumeName);
       }
     } catch {
-      alert('이력서 다운로드 실패!');
+      toast.error('이력서 다운로드에 실패했습니다');
     }
   };
 

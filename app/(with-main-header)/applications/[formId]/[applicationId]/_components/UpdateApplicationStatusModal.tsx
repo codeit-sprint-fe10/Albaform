@@ -11,6 +11,7 @@ import RadioIcon from '@/app/(with-main-header)/applications/[formId]/[applicati
 import Button from '@/components/Button';
 import { useForm } from 'react-hook-form';
 import { patchApplicationStatus } from '@/services/application';
+import { toast } from 'react-toastify';
 
 interface UpdateApplicationStatusProps extends UseModalProps {
   applicationId: number;
@@ -41,7 +42,7 @@ const UpdateApplicationStatusModal = ({
       closeModal();
     } catch (error) {
       console.error(error);
-      alert('상태 변경 실패!');
+      toast.error('상태 변경에 실패했습니다.');
     }
   };
 

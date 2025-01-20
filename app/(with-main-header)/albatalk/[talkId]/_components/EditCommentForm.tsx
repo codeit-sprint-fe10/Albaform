@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Button from '@/components/Button';
 import Form from 'next/form';
 import usePatchComment from '../_hooks/usePatchComment';
+import { toast } from 'react-toastify';
 
 type CommentFormProps = {
   id: number;
@@ -15,7 +16,7 @@ const EditCommentForm = ({ id, content, onCancel }: CommentFormProps) => {
   const { mutate, isPending } = usePatchComment();
   const handleSubmit = () => {
     if (!comment.trim()) {
-      alert('댓글을 입력해주세요.');
+      toast.error('댓글을 입력해주세요.');
       return;
     }
     mutate(

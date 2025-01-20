@@ -6,6 +6,8 @@ import { UseModalProps } from '@/types/useModal';
 import Modal from '@/components/Modal';
 import Button from '@/components/Button';
 import DeleteAlbaModalIcon from '@/public/icons/delete-alba.svg';
+import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
 
 interface DeleteModalProps extends UseModalProps {
   formId: number;
@@ -13,14 +15,16 @@ interface DeleteModalProps extends UseModalProps {
 
 const DeleteModal = ({ dialogRef, closeModal, formId }: DeleteModalProps) => {
   const queryClient = useQueryClient();
+  const { replace } = useRouter();
 
   const handleDeleteClick = async () => {
     try {
       await deleteAlba(formId);
-      queryClient.invalidateQueries({ queryKey: ['forms'] });
-      alert('알바폼을 삭제하였습니다.');
+      await queryClient.invalidateQueries({ queryKey: ['forms'] });
+      toast.success('알바폼을 삭제하였습니다.');
     } catch {
-      alert('오류가 발생했습니다.');
+      toast.error('오류가 발생했습니다.');
+      replace(window.location.pathname);
       document.location.reload();
     }
   };

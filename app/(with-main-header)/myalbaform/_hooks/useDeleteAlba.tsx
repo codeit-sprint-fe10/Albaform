@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { deleteAlba } from '@/services/alba';
 import { GetMyCreatedAlbasParameters } from '@/types/alba';
+import { toast } from 'react-toastify';
 
 const useDeleteAlba = (searchParams: GetMyCreatedAlbasParameters) => {
   const queryClient = useQueryClient();
@@ -11,7 +12,7 @@ const useDeleteAlba = (searchParams: GetMyCreatedAlbasParameters) => {
       queryClient.invalidateQueries({ queryKey: ['myAlbas', searchParams] });
     },
     onError: () => {
-      alert('삭제 실패');
+      toast.error('삭제 실패');
     },
   });
 };

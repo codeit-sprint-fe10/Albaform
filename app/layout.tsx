@@ -5,6 +5,7 @@ import UserProvider from './UserProvider';
 import QueryProvider from './QueryProvider';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import './globals.css';
+import { ToastContainer } from 'react-toastify';
 
 const pretendard = localFont({
   src: '../public/fonts/PretendardVariable.woff2',
@@ -47,6 +48,7 @@ const RootLayout = ({ children }: Readonly<{ children: ReactNode }>) => {
     <html lang="ko">
       <body className={`${pretendard.className} antialiased`}>
         <Providers>{children}</Providers>
+        <ToastContainer />
       </body>
     </html>
   );

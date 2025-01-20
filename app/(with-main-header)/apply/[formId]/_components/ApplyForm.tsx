@@ -18,6 +18,7 @@ import {
 import Button from '@/components/Button';
 import FormField from '@/app/(with-auth-header)/_components/FormField';
 import ApplyLoadModal from './ApplyLoadModal';
+import { toast } from 'react-toastify';
 
 const defaultValues = {
   name: '',
@@ -61,13 +62,13 @@ const ApplyForm = () => {
         onSuccess: () => {
           queryClient.invalidateQueries({ queryKey: ['forms'] });
           clearData();
-          window.alert('알바폼에 지원했습니다!');
+          toast.success('알바폼에 지원했습니다!');
           replace(`/myapply/${formId}`);
         },
         onError: () => {
-          window.alert('지원 중에 오류가 발생했습니다.');
+          toast.error('지원 중에 오류가 발생했습니다.');
           saveData(methods.getValues());
-          window.location.reload();
+          replace(window.location.pathname);
         },
       },
     );
@@ -75,7 +76,7 @@ const ApplyForm = () => {
 
   const handleTempButtonClick = () => {
     saveData(methods.getValues());
-    window.alert('지원서를 임시 저장했습니다.');
+    toast.success('지원서를 임시 저장했습니다.');
   };
 
   const handleModalClick = () => {

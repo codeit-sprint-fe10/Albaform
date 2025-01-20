@@ -15,6 +15,7 @@ import FormField from '@/app/(with-auth-header)/_components/FormField';
 import Button from '@/components/Button';
 import ProfileImageInput from '@/app/(with-auth-header)/_components/ProfileImageInput';
 import { useUserStore } from '@/store/user';
+import { toast } from 'react-toastify';
 
 const profileFormField = [
   'name',
@@ -65,11 +66,11 @@ const ProfileForm = ({ closeModal, user }: ProfileFormProps) => {
       const updatedData = await mutateAsync(data);
       setUser(updatedData);
       methods.reset();
-      window.alert('프로필이 수정되었습니다!');
+      toast.success('프로필이 수정되었습니다!');
       closeModal();
       document.location.reload();
     } catch {
-      window.alert('오류가 발생했습니다.\n확인 후 다시 시도해 주세요.');
+      toast.error('오류가 발생했습니다.\n확인 후 다시 시도해 주세요.');
     }
   };
 

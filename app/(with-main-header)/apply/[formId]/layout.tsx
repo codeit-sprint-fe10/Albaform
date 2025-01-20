@@ -8,6 +8,7 @@ import {
 } from './_hooks/useTanstackQuery';
 import Loader from '@/components/Loader';
 import { isWithinInterval } from '@/utils/date';
+import { toast } from 'react-toastify';
 
 const Layout = ({ children }: PropsWithChildren) => {
   const formId = Number(useParams()['formId']);
@@ -22,7 +23,7 @@ const Layout = ({ children }: PropsWithChildren) => {
 
   useEffect(() => {
     if (error) {
-      window.alert('존재하지 않는 알바폼입니다.');
+      toast.error('존재하지 않는 알바폼입니다.');
       replace('/albalist');
     }
   }, [error, replace]);
@@ -33,7 +34,7 @@ const Layout = ({ children }: PropsWithChildren) => {
       const end = new Date(albaData.recruitmentEndDate);
 
       if (!isWithinInterval(new Date(), { start, end })) {
-        window.alert('현재 모집 기간이 아닙니다.');
+        toast.error('현재 모집 기간이 아닙니다.');
         replace('/albalist');
       }
     }
@@ -41,7 +42,7 @@ const Layout = ({ children }: PropsWithChildren) => {
 
   useEffect(() => {
     if (applicationData?.id) {
-      window.alert('이미 지원한 알바폼입니다.');
+      toast.error('이미 지원한 알바폼입니다.');
       replace('/albalist');
     }
   }, [applicationData, replace]);
