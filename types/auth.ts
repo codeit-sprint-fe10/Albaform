@@ -16,7 +16,7 @@ export type PostRefreshBody = { refreshToken: string };
 export type PostRefreshResponse = { accessToken: string };
 
 export interface PostOauthSignUpBody
-  extends Omit<User, 'id' | 'email' | 'password'> {
+  extends Partial<Omit<User, 'id' | 'email' | 'password' | 'imageUrl'>> {
   redirectUri: string;
   token: string;
 }
