@@ -34,7 +34,7 @@ const middleware = (request: NextRequest) => {
   const paths = denyPaths[userRole as 'APPLICANT' | 'OWNER' | 'GUEST'];
   const nextPath = request.nextUrl.pathname;
 
-  if (nextPath.includes('signup') || nextPath.includes('signin')) {
+  if (['signup', 'signin', 'oauth'].some((auth) => nextPath.includes(auth))) {
     if (!authPaths.includes(nextPath)) {
       return NextResponse.redirect(new URL('/', request.url));
     }
