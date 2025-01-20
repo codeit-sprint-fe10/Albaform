@@ -15,6 +15,8 @@ import card0402Image from '@/public/images/landing-card-0402.png';
 const LandingPage = () => {
   const cardStyle =
     'flex flex-col md:flex-row justify-between w-full max-w-[1140px] h-[80dvh] max-h-[344px] md:max-h-80 lg:max-h-[640px] rounded-2xl pt-6 pl-6 md:pt-9 md:pl-9 lg:pl-[70px] lg:pt-[73px]';
+  const buttonStyle =
+    'bg-blue-300 rounded-full font-bold text-lg lg:text-2xl text-gray-50 py-4 px-6 lg:py-6 lg:px-9 hover:bg-blue-200';
 
   return (
     <>
@@ -53,10 +55,7 @@ const LandingPage = () => {
               direction="bottom"
               className="mb-[43px] lg:mb-[30px]"
             >
-              <Link
-                href="/albalist"
-                className="bg-blue-300 rounded-full font-bold text-lg lg:text-2xl text-gray-50 py-4 px-6 lg:py-6 lg:px-9"
-              >
+              <Link href="/albalist" className={buttonStyle}>
                 알바폼 시작하기
               </Link>
             </AnimatedItem>
@@ -256,7 +255,7 @@ const LandingPage = () => {
               <AnimatedItem delay={200} direction="bottom">
                 <Link
                   href="/albalist"
-                  className="bg-blue-300 rounded-full font-bold text-lg lg:text-2xl text-gray-50 py-4 px-6 lg:py-6 lg:px-9 mb-[43px] lg:mb-[30px]"
+                  className={`${buttonStyle} mb-[43px] lg:mb-[30px]`}
                 >
                   알바폼 시작하기
                 </Link>

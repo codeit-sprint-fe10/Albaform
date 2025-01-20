@@ -14,7 +14,7 @@ const NotFound = () => {
           <MainHeader />
         </div>
       </div>
-      <div className="relative flex min-h-screen flex-col items-center justify-center bg-background-100 overflow-hidden">
+      <div className="relative flex min-h-dvh flex-col items-center justify-center bg-background-100 overflow-hidden">
         <div className="relative group animate-float">
           <h1 className="relative text-[7rem] md:text-[10rem] font-bold">
             404
