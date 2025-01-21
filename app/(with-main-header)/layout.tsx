@@ -1,9 +1,13 @@
 import React, { ReactNode } from 'react';
 import MainHeader from '@/components/MainHeader';
+import GoogleAnalytics from '@/components/GoogleAnalytics';
 
 const Layout = ({ children }: { children: ReactNode }) => {
   return (
     <>
+      {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS && (
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
+      )}
       <div className="fixed top-0 w-full border-b border-solid border-line-100 bg-gray-50 z-50">
         <div className="px-6 md:px-[72px] lg:max-w-container m-auto">
           <MainHeader />

@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import AuthHeader from '@/components/AuthHeader';
+import GoogleAnalytics from '@/components/GoogleAnalytics';
 
 const Layout = ({ children }: { children: ReactNode }) => {
   const mainStyle =
@@ -10,8 +11,13 @@ const Layout = ({ children }: { children: ReactNode }) => {
 
   return (
     <>
-      <AuthHeader />
-      <main className={mainStyle}>{children}</main>
+      <body>
+        {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS && (
+          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
+        )}
+        <AuthHeader />
+        <main className={mainStyle}>{children}</main>
+      </body>
     </>
   );
 };
