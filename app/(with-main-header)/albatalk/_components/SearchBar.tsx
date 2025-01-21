@@ -4,15 +4,12 @@ import { useEffect, useState, ChangeEvent } from 'react';
 import SearchIcon from '@/public/icons/search.svg';
 import SortDropdown from './SortDropdown';
 import { SortOrder } from '@/types/albatalk';
-import useDebounce from '@/hooks/useDebounce';
 
 interface SearchBarProps {
   searchTerm: string;
   sortOrder: SortOrder;
-  cursorHistory: number[];
   setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
   setSortOrder: React.Dispatch<React.SetStateAction<SortOrder>>;
-  setCursorHistory: React.Dispatch<React.SetStateAction<number[]>>;
 }
 
 const SearchBar = ({
@@ -20,21 +17,18 @@ const SearchBar = ({
   sortOrder,
   setSearchTerm,
   setSortOrder,
-  setCursorHistory,
 }: SearchBarProps) => {
   const [inputValue, setInputValue] = useState(searchTerm);
-  const debouncedValue = useDebounce(inputValue, 200);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
 
   useEffect(() => {
-    if (debouncedValue !== searchTerm) {
-      setSearchTerm(debouncedValue);
-      setCursorHistory([0]);
+    if (inputValue !== searchTerm) {
+      setSearchTerm(inputValue);
     }
-  }, [debouncedValue, searchTerm]);
+  }, [inputValue, searchTerm]);
 
   return (
     <div className="flex justify-center md:border-b-2">
