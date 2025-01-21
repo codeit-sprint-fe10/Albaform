@@ -14,11 +14,7 @@ const PAGE_LIMIT = 6;
 const ScrapCardSkeletons = () =>
   Array(PAGE_LIMIT)
     .fill(0)
-    .map((_, idx) => (
-      <div key={idx} className="w-full">
-        <ScrapCardSkeleton />
-      </div>
-    ));
+    .map((_, idx) => <ScrapCardSkeleton key={idx} />);
 
 const MyScrapList = () => {
   const scrapParams = useMyScrapsStore((state) => state.scrapParams);

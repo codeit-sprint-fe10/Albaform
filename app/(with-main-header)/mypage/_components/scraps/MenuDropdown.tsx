@@ -44,7 +44,13 @@ const MenuDropdown = ({ id }: { id: number }) => {
   }, []);
 
   return (
-    <div className="relative z-20" ref={dropdownRef}>
+    <div
+      className="relative z-20"
+      ref={dropdownRef}
+      onClick={(event) => {
+        event.preventDefault();
+      }}
+    >
       <button
         type="button"
         className="block"
@@ -59,7 +65,7 @@ const MenuDropdown = ({ id }: { id: number }) => {
         />
       </button>
       {isDropdownVisible && (
-        <ul className="absolute -left-24 lg:-left-32 w-auto border border-line-100 bg-gray-50 rounded-lg shadow-md z-10">
+        <ul className="absolute top-[calc(100%+6px)] lg:top-[calc(100%+9px)] right-0 w-auto border border-line-100 bg-gray-50 rounded-lg shadow-md z-10">
           {SCRAP_OPTIONS.map((option) => (
             <li
               key={option.key}

@@ -47,10 +47,6 @@ const ScrapCard = ({
 
   return (
     <div>
-      <div className="relative top-[238px] left-[300px] lg:top-[365px] lg:left-[345px]">
-        <MenuDropdown id={id} />
-      </div>
-
       <Wrapper>
         <div className="max-w-[327px] lg:max-w-[477px] relative">
           <Image
@@ -74,7 +70,7 @@ const ScrapCard = ({
                 {period}
               </div>
             </div>
-            {/* <MenuDropdown id={id} /> */}
+            <MenuDropdown id={id} />
           </div>
           <h3 className="h-[52px] lg:h-16 font-semibold text-2lg line-clamp-3 lg:text-xl text-black-500 mb-6 lg:mb-8">
             {title}

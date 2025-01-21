@@ -3,8 +3,8 @@ const ScrapCardSkeleton = () => {
     'after:absolute after:top-1/2 after:-translate-y-1/2 after:right-0 after:w-[1px] after:h-3.5 after:bg-line-100';
 
   return (
-    <div className="w-full lg:max-w-[477px] relative animate-pulse">
-      <div className="lg:w-[384px] lg:h-[304px] aspect-video rounded-xl lg:rounded-2xl bg-gray-200 mb-6" />
+    <div className="w-full max-w-[327px] lg:max-w-[477px] relative animate-pulse">
+      <div className="w-full max-w-[327px] lg:max-w-[477px] lg:h-[304px] aspect-video rounded-xl lg:rounded-2xl bg-gray-200 mb-6" />
       <div className="flex justify-between items-center mb-4 lg:mb-6">
         <div className="flex items-center gap-2">
           <div className="w-10 h-6 bg-gray-200 rounded-md" />
