@@ -26,7 +26,7 @@ const AlbaFormIdPage = async ({ formId }: { formId: number }) => {
           </div>
         </div>
       )}
-      <div className="relative mt-8 md:mt-[80px]">
+      <div className="relative mt-8 md:mt-[100px]">
         <div className="flex flex-col lg:flex-row justify-between lg:gap-36">
           <div className="lg:basis-1/2">
             <div>

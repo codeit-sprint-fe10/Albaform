@@ -18,7 +18,7 @@ const MyApplyPage = async ({ formId }: { formId: number }) => {
           </div>
         </div>
       )}
-      <div className="relative mt-8 md:mt-[80px]">
+      <div className="relative mt-8 md:mt-[100px]">
         <div className="lg:hidden font-semibold text-black-500 text-xl ">
           <h2>{albaDetail.title}</h2>
         </div>
