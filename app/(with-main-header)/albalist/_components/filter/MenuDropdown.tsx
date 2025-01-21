@@ -14,6 +14,8 @@ import DeleteAlbaModal from '../DeleteAlbaModal';
 import { useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 
+const keysToInvalidate = ['forms', 'scraps'];
+
 const MenuDropdown = ({ albaId }: { albaId: number }) => {
   const queryClient = useQueryClient();
   const { isGuest, isOwner } = useUserStore((state) => state);
@@ -28,7 +30,9 @@ const MenuDropdown = ({ albaId }: { albaId: number }) => {
       case 'scrap':
         try {
           await postAlbaScrap(albaId);
-          queryClient.invalidateQueries({ queryKey: ['forms'] });
+          keysToInvalidate.forEach((key) => {
+            queryClient.invalidateQueries({ queryKey: [key] });
+          });
           toast.success('알바폼을 스크랩하였습니다.');
         } catch {
           toast.error('이미 스크랩한 알바폼입니다.');

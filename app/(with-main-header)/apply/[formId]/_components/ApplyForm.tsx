@@ -31,6 +31,7 @@ const defaultValues = {
 } as const;
 
 type ApplyFormFields = typeof defaultValues;
+const keysToInvalidate = ['myAlbas', 'forms'];
 
 const ApplyForm = () => {
   const { dialogRef, openModal, closeModal } = useModal();
@@ -60,7 +61,9 @@ const ApplyForm = () => {
       },
       {
         onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: ['forms'] });
+          keysToInvalidate.forEach((key) => {
+            queryClient.invalidateQueries({ queryKey: [key] });
+          });
           clearData();
           toast.success('알바폼에 지원했습니다!');
           replace(`/myapply/${formId}`);
