@@ -8,6 +8,7 @@ import { useUserStore } from '@/store/user';
 import { postCookies } from '@/services/cookie';
 import { postOauthSignIn } from '@/services/auth';
 import { OAUTH_REDIRECT_URI } from '@/constants/api';
+import Loader from '@/components/Loader';
 
 const OauthPage = () => {
   const provider = useParams()['provider'] as string;
@@ -32,7 +33,7 @@ const OauthPage = () => {
           setUser(data.user);
 
           toast.success('로그인되었습니다!\n즐거운 알바폼 되세요.');
-          replace('/');
+          replace(document.location.pathname);
         })
         .catch((error: AxiosError<{ message: string }>) => {
           if (error.response?.data.message === '등록되지 않은 사용자입니다.') {
@@ -45,6 +46,8 @@ const OauthPage = () => {
         });
     }
   }, [provider, userRole, token, setUser, replace]);
+
+  return <Loader />;
 };
 
 export default OauthPage;

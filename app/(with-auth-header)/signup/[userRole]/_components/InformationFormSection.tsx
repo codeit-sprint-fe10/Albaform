@@ -10,6 +10,7 @@ import FormField from '../../../_components/FormField';
 import ProfileImageInput from '../../../_components/ProfileImageInput';
 import { useUserStore } from '@/store/user';
 import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
 
 interface InformationFormData {
   nickname: string;
@@ -27,6 +28,7 @@ interface InformationFormSectionProps {
 const InformationFormSection = ({ userRole }: InformationFormSectionProps) => {
   const { isPending, mutateAsync } = useMutation({ mutationFn: patchMe });
   const setUser = useUserStore((state) => state.setUser);
+  const { replace } = useRouter();
   const methods = useForm<InformationFormData>({ mode: 'onTouched' });
 
   const isSubmitDisabled =
@@ -44,7 +46,7 @@ const InformationFormSection = ({ userRole }: InformationFormSectionProps) => {
       const updatedData = await mutateAsync(data);
       setUser(updatedData);
       toast.success('추가 정보를 등록했습니다!\n즐거운 알바폼 되세요.');
-      document.location.reload();
+      replace(document.location.pathname);
     } catch {
       toast.error('오류가 발생했습니다.\n확인 후 다시 시도해 주세요.');
     }

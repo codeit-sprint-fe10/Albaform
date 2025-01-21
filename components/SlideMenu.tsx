@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/useAuth';
 import { useUserStore } from '@/store/user';
 import { toast } from 'react-toastify';
+import { useQueryClient } from '@tanstack/react-query';
 
 interface SlideMenuProps {
   isOpen: boolean;
@@ -15,6 +16,7 @@ interface SlideMenuProps {
 
 const SlideMenu = ({ isOpen, onClose }: SlideMenuProps) => {
   const user = useUserStore((state) => state.user);
+  const queryClient = useQueryClient();
 
   const { push, replace } = useRouter();
   const { signOut } = useAuth();
@@ -30,6 +32,7 @@ const SlideMenu = ({ isOpen, onClose }: SlideMenuProps) => {
 
   const handleLogoutClick = async () => {
     await signOut();
+    queryClient.invalidateQueries();
     onClose();
     toast.success('로그아웃 성공');
     replace(window.location.pathname);

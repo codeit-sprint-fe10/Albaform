@@ -33,6 +33,7 @@ const SignUpFormSection = ({ userRole, onSubmit }: SignUpFormSectionProps) => {
     setError,
     clearErrors,
   } = useForm<SignUpFormData>({ mode: 'onTouched' });
+
   const signUpSubmit: SubmitHandler<SignUpFormData> = async (data, event) => {
     setIsFetching(true);
     event?.preventDefault();

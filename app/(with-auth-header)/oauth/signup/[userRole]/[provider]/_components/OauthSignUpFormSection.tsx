@@ -9,7 +9,7 @@ import { useUserStore } from '@/store/user';
 import { postCookies } from '@/services/cookie';
 import { postOauthSignUp } from '@/services/auth';
 import { PostOauthSignUpBody } from '@/types/auth';
-import { UserRoleLowerCase, UserRoleUpperCase } from '@/types/user';
+import { UserRole, UserRoleLowerCase } from '@/types/user';
 import { OAUTH_REDIRECT_URI } from '@/constants/api';
 import {
   NICKNAME,
@@ -61,7 +61,7 @@ const OauthSignUpFormSection = ({
     try {
       const signUpdata = await mutateAsync({
         ...data,
-        role: userRole.toLocaleUpperCase() as UserRoleUpperCase,
+        role: UserRole[userRole],
         redirectUri: OAUTH_REDIRECT_URI,
         token,
       });
@@ -75,7 +75,7 @@ const OauthSignUpFormSection = ({
       setUser(signUpdata.user);
 
       toast.success('회원가입되었습니다!\n즐거운 알바폼 되세요.');
-      replace('/');
+      replace(document.location.pathname);
     } catch {
       toast.error('오류가 발생했습니다.\n확인 후 다시 시도해 주세요.');
     }
