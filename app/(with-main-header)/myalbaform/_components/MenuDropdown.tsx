@@ -57,14 +57,14 @@ const MenuDropdown = ({
     >
       <button
         type="button"
-        className="block"
+        className="block rounded-lg hover:bg-background-300 transition duration-300"
         aria-label="카드 메뉴"
         onClick={() => setIsDropdownVisible((prev) => !prev)}
       >
         <KebabIcon
           width={24}
           height={24}
-          className="lg:w-9 lg:h-9 hover:contrast-0 transition duration-300"
+          className="lg:w-9 lg:h-9 hover:contrast-0"
         />
       </button>
       {isDropdownVisible && (

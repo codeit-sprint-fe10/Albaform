@@ -49,7 +49,7 @@ const CreatedCard = ({
     <>
       <Link
         href={`alba/${id}`}
-        className="block max-w-[327px] lg:max-w-[477px] hover:-translate-y-2.5 transition duration-200"
+        className="block max-w-[327px] lg:max-w-[477px] hover:-translate-y-2.5 transition duration-200 group"
       >
         <Image
           src={imageUrls[0] || '/icons/empty-form.svg'}
@@ -70,7 +70,7 @@ const CreatedCard = ({
           </div>
           <MenuDropdown id={id} openModal={openModal} />
         </div>
-        <h3 className="h-[52px] lg:h-16 font-semibold text-2lg lg:text-xl text-black-500 mb-6 lg:mb-8 line-clamp-2">
+        <h3 className="h-[52px] lg:h-16 font-semibold text-2lg lg:text-xl text-black-500 mb-6 lg:mb-8 line-clamp-2 group-hover:underline">
           {title}
         </h3>
         <div className="flex border border-line-100 rounded-xl lg:rounded-2xl font-regular text-xs lg:text-lg text-black-200 py-2.5 lg:py-3">

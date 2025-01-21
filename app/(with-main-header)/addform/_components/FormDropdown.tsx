@@ -39,7 +39,7 @@ const FormDropdown = ({
           <li
             key={option.key}
             onClick={() => handleOptionClick(option)}
-            className={`flex justify-between items-center font-bold text-md text-black-100 py-3 px-6 ${!isSelected && !isOpen ? 'hidden' : ''} ${isSelected ? 'bg-orange-300  text-gray-50' : ''}`}
+            className={`flex justify-between items-center font-bold text-md text-black-100 py-3 px-6 ${!isSelected && !isOpen ? 'hidden' : ''} ${isSelected ? 'bg-orange-300  text-gray-50' : 'hover:bg-background-300'}`}
           >
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-2.5 py-[2px]">
