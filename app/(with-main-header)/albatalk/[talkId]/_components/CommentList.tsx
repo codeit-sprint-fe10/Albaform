@@ -37,7 +37,7 @@ const CommentList = ({ talkId, onUpdateTotalItemCount }: CommentListProps) => {
     params: { page: 1, pageSize: PAGE_LIMIT },
   });
 
-  const editFormRef = useRef<HTMLDivElement | null>(null); // EditCommentForm 참조용
+  const editFormRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     onUpdateTotalItemCount(totalItemCount);
@@ -80,8 +80,6 @@ const CommentList = ({ talkId, onUpdateTotalItemCount }: CommentListProps) => {
       </div>
       {editingCommentId ? (
         <div ref={editFormRef}>
-          {' '}
-          {/* ref를 추가하여 스크롤 위치를 참조 */}
           <EditCommentForm
             id={editingCommentId}
             content={initialComment}
