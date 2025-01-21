@@ -48,7 +48,7 @@ const RootLayout = ({ children }: Readonly<{ children: ReactNode }>) => {
     <html lang="ko">
       <body className={`${pretendard.className} antialiased`}>
         <Providers>{children}</Providers>
-        <ToastContainer />
+        <ToastContainer position="top-center" />
       </body>
     </html>
   );

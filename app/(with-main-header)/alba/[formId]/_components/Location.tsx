@@ -7,7 +7,10 @@ import { toast } from 'react-toastify';
 type LocationProps = Pick<Alba, 'location'>;
 
 const Location = ({ location }: LocationProps) => {
-  const { address, coordinates } = JSON.parse(location);
+  const {
+    address,
+    coordinates: { lat, lng },
+  } = JSON.parse(location);
 
   const handleCopy = () => {
     navigator.clipboard
@@ -33,7 +36,7 @@ const Location = ({ location }: LocationProps) => {
         </button>
       </div>
       <div className="mt-4 lg:mt-12 w-full h-[210px]">
-        <GoogleMap {...coordinates} />
+        <GoogleMap lat={Number(lat)} lng={Number(lng)} />
       </div>
     </section>
   );
