@@ -41,12 +41,14 @@ const useGetPosts = ({
     if (data?.nextCursor) {
       setCursorHistory((prev) => [...prev, data.nextCursor]);
     }
+    console.log(data);
   };
 
   const handleLoadPrev = () => {
     if (cursorHistory.length > 1) {
       setCursorHistory((prev) => prev.slice(0, -1));
     }
+    console.log(data);
   };
 
   return {

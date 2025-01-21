@@ -66,11 +66,20 @@ const Albatalk = () => {
             setCursorHistory={setCursorHistory}
           />
           <div className="w-full flex flex-col gap-4 lg:grid lg:grid-cols-3 lg:gap-6 lg:gap-y-12 lg:h-[606px]">
-            {isLoading
-              ? renderSkeletons()
-              : data?.data.map((post) => (
-                  <AlbatalkCard key={post.id} {...post} />
-                ))}
+            {isLoading ? (
+              renderSkeletons()
+            ) : data?.data.length ? (
+              data.data.map((post) => <AlbatalkCard key={post.id} {...post} />)
+            ) : (
+              <div className="lg:absolute lg:mt-10 w-full flex flex-col items-center justify-center text-gray-500 gap-4">
+                <p className="text-lg lg:text-xl font-medium">
+                  검색 결과가 없습니다.
+                </p>
+                <p className="text-sm lg:text-md">
+                  다른 키워드로 검색해보세요.
+                </p>
+              </div>
+            )}
           </div>
         </div>
         <WriteButton />
