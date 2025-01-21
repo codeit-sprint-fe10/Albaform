@@ -62,20 +62,22 @@ const MyAlbas = ({ isOwner }: { isOwner: boolean }) => {
 
   const handleDelete = (id: number) => deleteAlba(id);
 
+  if (!data?.pages?.[0]?.data?.length && !isLoading) return <EmptyAlba />;
+
   return (
     <ul
       className={`grid ${isOwner ? 'md:grid-cols-[repeat(auto-fit,min(100%,327px))]' : 'md:grid-cols-[repeat(auto-fit,min(100%,375px))]'} lg:grid-cols-[repeat(auto-fit,477px)] justify-center place-items-start content-start gap-8 md:gap-y-12 md:gap-x-6 lg:gap-y-16`}
     >
       {isLoading ? (
         <AlbaCardSkeletons isOwner={isOwner} />
-      ) : data?.pages?.[0]?.data?.length ? (
+      ) : (
         <InfiniteScroll
           hasNextPage={hasNextPage}
           isLoading={isFetchingNextPage}
           loadNextPage={fetchNextPage}
           loader={<AlbaCardSkeletons isOwner={isOwner} />}
         >
-          {data.pages.map((page) =>
+          {data?.pages.map((page) =>
             page.data.map((myAlba) => (
               <li key={myAlba.id}>
                 {isOwner ? (
@@ -90,8 +92,6 @@ const MyAlbas = ({ isOwner }: { isOwner: boolean }) => {
             )),
           )}
         </InfiniteScroll>
-      ) : (
-        <EmptyAlba />
       )}
     </ul>
   );

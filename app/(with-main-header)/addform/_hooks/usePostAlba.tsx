@@ -1,5 +1,6 @@
 import { useRouter } from 'next/navigation';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
 import { patchAlba, postAlba } from '@/services/alba';
 import { PostAlbaBody } from '@/types/alba';
 
@@ -28,8 +29,8 @@ const usePostAlba = () => {
         queryClient.invalidateQueries({ queryKey: [key] });
       });
     },
-    onError: (error) => {
-      throw error;
+    onError: () => {
+      toast.error('오류가 발생했습니다.');
     },
   });
 };

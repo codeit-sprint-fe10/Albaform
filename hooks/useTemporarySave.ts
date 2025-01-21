@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+import { toast } from 'react-toastify';
 
 export const useTemporarySave = <T>() => {
   const getData = useCallback((): T | null => {
@@ -9,6 +10,7 @@ export const useTemporarySave = <T>() => {
 
   const saveData = (currentValues: T) => {
     localStorage.setItem('tempData', JSON.stringify(currentValues));
+    toast.info('임시 저장되었습니다.');
   };
 
   const clearData = () => {

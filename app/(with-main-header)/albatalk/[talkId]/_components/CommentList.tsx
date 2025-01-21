@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import CommentForm from './CommentForm';
 import useGetComments from '../_hooks/useGetComments';
 import CommentItem from './CommentItem';
@@ -36,9 +36,21 @@ const CommentList = ({ talkId, onUpdateTotalItemCount }: CommentListProps) => {
     talkId,
     params: { page: 1, pageSize: PAGE_LIMIT },
   });
+
+  const editFormRef = useRef<HTMLDivElement | null>(null);
+
   useEffect(() => {
     onUpdateTotalItemCount(totalItemCount);
   }, [totalItemCount, onUpdateTotalItemCount]);
+
+  useEffect(() => {
+    if (editingCommentId && editFormRef.current) {
+      editFormRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+      });
+    }
+  }, [editingCommentId]);
 
   const handleAction = (
     action: EditDropdownAction,
@@ -67,11 +79,13 @@ const CommentList = ({ talkId, onUpdateTotalItemCount }: CommentListProps) => {
         <div className="w-full border stroke-gray-30"></div>
       </div>
       {editingCommentId ? (
-        <EditCommentForm
-          id={editingCommentId}
-          content={initialComment}
-          onCancel={() => setEditingCommentId(null)}
-        />
+        <div ref={editFormRef}>
+          <EditCommentForm
+            id={editingCommentId}
+            content={initialComment}
+            onCancel={() => setEditingCommentId(null)}
+          />
+        </div>
       ) : (
         <CommentForm id={talkId} />
       )}

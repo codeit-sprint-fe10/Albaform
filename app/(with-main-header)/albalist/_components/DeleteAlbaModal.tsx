@@ -13,6 +13,8 @@ interface DeleteModalProps extends UseModalProps {
   formId: number;
 }
 
+const keysToInvalidate = ['myAlbas', 'forms'];
+
 const DeleteModal = ({ dialogRef, closeModal, formId }: DeleteModalProps) => {
   const queryClient = useQueryClient();
   const { replace } = useRouter();
@@ -20,7 +22,9 @@ const DeleteModal = ({ dialogRef, closeModal, formId }: DeleteModalProps) => {
   const handleDeleteClick = async () => {
     try {
       await deleteAlba(formId);
-      await queryClient.invalidateQueries({ queryKey: ['forms'] });
+      keysToInvalidate.forEach(async (key) => {
+        await queryClient.invalidateQueries({ queryKey: [key] });
+      });
       toast.success('알바폼을 삭제하였습니다.');
     } catch {
       toast.error('오류가 발생했습니다.');

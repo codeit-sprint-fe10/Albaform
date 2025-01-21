@@ -35,7 +35,7 @@ const AppliedCard = ({
   return (
     <Link
       href={`alba/${form.id}`}
-      className="flex flex-col gap-5 lg:gap-6 w-[375px] lg:w-[477px] border border-line-100 rounded-lg p-[23px] lg:py-[29px] hover:-translate-y-2.5 transition duration-200"
+      className="flex flex-col gap-5 lg:gap-6 w-[375px] lg:w-[477px] border border-line-100 rounded-lg p-[23px] lg:py-[29px] hover:-translate-y-2.5 transition duration-200 group"
     >
       <div className="flex justify-between items-center text-xs lg:text-lg">
         <div className="flex items-center gap-4 text-gray-400">
@@ -44,7 +44,7 @@ const AppliedCard = ({
         </div>
         <button
           type="button"
-          className="text-black-400 underline"
+          className="text-black-400 underline hover:scale-105"
           onClick={handleDownloadClick}
         >
           이력서 보기
@@ -62,7 +62,7 @@ const AppliedCard = ({
           </div>
           <div className="text-xs lg:text-lg">{form.owner.storeName}</div>
         </div>
-        <h3 className="font-medium text-md lg:text-xl text-black-400 mt-2 lg:mt-4 lg:mb-2 truncate">
+        <h3 className="font-medium text-md lg:text-xl text-black-400 mt-2 lg:mt-4 lg:mb-2 truncate group-hover:underline">
           {form.title}
         </h3>
         <p className="lg:h-[52px] font-medium text-sm lg:text-2lg text-gray-400 line-clamp-2">

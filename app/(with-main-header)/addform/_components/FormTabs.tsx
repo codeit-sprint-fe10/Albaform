@@ -28,7 +28,7 @@ const FormTabs = ({
             key={option.key}
             type="button"
             onClick={() => setCurrentStep(option.key)}
-            className={`flex justify-between items-center w-full font-bold text-xl text-black-100 py-5 px-8 ${isSelected ? 'bg-orange-300 rounded-2xl text-gray-50' : ''} `}
+            className={`flex justify-between items-center w-full font-bold text-xl text-black-100 py-5 px-8 ${isSelected ? 'bg-orange-300 rounded-2xl text-gray-50' : 'hover:bg-background-300 hover:rounded-2xl'} `}
           >
             <div className="flex items-center gap-6 py-[3px]">
               <div

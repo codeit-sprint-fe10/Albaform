@@ -1,8 +1,7 @@
-import { useState } from 'react';
-import { useQuery, keepPreviousData } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { getPosts } from '@/services/albatalk';
-import { GetPostsResponse } from '@/types/albatalk';
 import { SortOrder } from '@/types/albatalk';
+import useDebounce from '@/hooks/useDebounce';
 
 interface UseGetPostsParams {
   pageLimit: number;
@@ -15,49 +14,23 @@ const useGetPosts = ({
   searchTerm,
   sortOrder,
 }: UseGetPostsParams) => {
-  const [cursorHistory, setCursorHistory] = useState([0]);
+  const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
-  const currentCursor = cursorHistory.at(-1) ?? 0;
+  const queryFn = ({ pageParam }: { pageParam: number }) => {
+    return getPosts({
+      cursor: pageParam || 0,
+      limit: pageLimit,
+      orderBy: sortOrder,
+      keyword: debouncedSearchTerm,
+    });
+  };
 
-  const { data, isLoading, error } = useQuery<GetPostsResponse>({
-    queryKey: ['posts', { pageLimit, searchTerm, sortOrder, currentCursor }],
-    queryFn: () =>
-      getPosts({
-        cursor: currentCursor,
-        limit: pageLimit,
-        keyword: searchTerm,
-        orderBy: sortOrder,
-      }),
-    placeholderData: keepPreviousData,
-    enabled: !!cursorHistory.length,
-    staleTime: 20 * 1000,
-    gcTime: 3 * 60 * 1000,
+  return useInfiniteQuery({
+    queryKey: ['posts', sortOrder, pageLimit, debouncedSearchTerm],
+    queryFn,
+    getNextPageParam: (lastPage) => lastPage.nextCursor,
+    initialPageParam: 0,
   });
-
-  const isFirstPage = cursorHistory.length === 1;
-  const hasNextPage = data?.nextCursor !== null;
-
-  const handleLoadMore = () => {
-    if (data?.nextCursor) {
-      setCursorHistory((prev) => [...prev, data.nextCursor]);
-    }
-  };
-
-  const handleLoadPrev = () => {
-    if (cursorHistory.length > 1) {
-      setCursorHistory((prev) => prev.slice(0, -1));
-    }
-  };
-
-  return {
-    data,
-    isLoading,
-    error,
-    isFirstPage,
-    hasNextPage,
-    handleLoadPrev,
-    handleLoadMore,
-  };
 };
 
 export default useGetPosts;

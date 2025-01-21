@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { postImage } from '@/services/image';
+import { toast } from 'react-toastify';
 
 const usePostImage = () => {
   const queryClient = useQueryClient();
@@ -12,8 +13,8 @@ const usePostImage = () => {
       queryClient.invalidateQueries({ queryKey: ['image'] });
       return data;
     },
-    onError: (error) => {
-      throw error;
+    onError: () => {
+      toast.error('오류가 발생했습니다.');
     },
   });
 };
