@@ -40,7 +40,7 @@ const Carousel = ({ imageUrls }: CarouselProps) => {
         fill
         className="object-cover xl:rounded-lg"
       />
-      <div className="hidden lg:block absolute bottom-6 left-1/2">
+      <div className="hidden lg:block absolute bottom-6 left-1/2 transform -translate-x-1/2">
         <div className="flex justify-between items-center gap-[15px]">
           {imageUrls.map((url, index) =>
             index === currentSlide ? (
