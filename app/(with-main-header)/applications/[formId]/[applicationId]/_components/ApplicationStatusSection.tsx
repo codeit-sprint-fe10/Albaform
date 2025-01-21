@@ -43,10 +43,7 @@ const ApplicationStatusSection = ({
         <p className="flex justify-between items-center py-4 border-b border-line-100 lg:border-none">
           <button onClick={openModal} className="flex items-center gap-1">
             <span className="text-black-100">진행상태</span>
-            <EditIcon
-              className="w-6 h-6 lg:w-9 lg:h-9 text-gray-100"
-              fill="#DEDEDE"
-            />
+            <EditIcon className="w-6 h-6 lg:w-9 lg:h-9 text-gray-100" />
           </button>
           <span>{applicationStatus[currentStatus]}</span>
         </p>
