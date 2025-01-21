@@ -35,6 +35,7 @@ const MainHeader = () => {
           width={120}
           height={20}
           className="hidden md:inline lg:w-[212px] lg:h-9"
+          priority={true}
         />
       </Link>
       <nav className="flex-1 flex gap-4 md:gap-4 lg:gap-6 flex-nowrap font-medium text-gray-300 text-md md:text-lg lg:text-xl lg:mt-3">
