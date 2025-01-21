@@ -3,14 +3,13 @@
 import Applications from '@/app/(with-main-header)/alba/[formId]/_components/Applications';
 import OwnerActions from '@/app/(with-main-header)/alba/[formId]/_components/OwnerActions';
 import { useUserStore } from '@/store/user';
-import { UserRole } from '@/types/user';
 
 type OwnerSectionProps = { formId: number };
 
 const OwnerSection = ({ formId }: OwnerSectionProps) => {
-  const user = useUserStore((state) => state.user);
+  const isOwner = useUserStore((state) => state.isOwner);
 
-  if (!user || user.role !== UserRole.owner) {
+  if (!isOwner) {
     return null;
   }
 

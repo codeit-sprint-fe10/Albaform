@@ -14,6 +14,8 @@ type ApplicationActionsProps = {
 
 const ApplicationActions = ({ formId }: ApplicationActionsProps) => {
   const user = useUserStore((state) => state.user);
+  const isOwner = useUserStore((state) => state.isOwner);
+
   const { push } = useRouter();
 
   const { dialogRef, openModal, closeModal } = useModal();
@@ -25,6 +27,10 @@ const ApplicationActions = ({ formId }: ApplicationActionsProps) => {
       openModal();
     }
   };
+
+  if (isOwner) {
+    return null;
+  }
 
   return (
     <div className="font-semibold text-lg lg:text-xl flex flex-col gap-2.5 lg:gap-4">
