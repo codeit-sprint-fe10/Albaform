@@ -23,7 +23,6 @@ const AlbatalkCardSkeletons = () =>
 
 const Albatalk = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [cursorHistory, setCursorHistory] = useState([0]);
   const [sortOrder, setSortOrder] = useState<SortOrder>('mostRecent');
 
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
