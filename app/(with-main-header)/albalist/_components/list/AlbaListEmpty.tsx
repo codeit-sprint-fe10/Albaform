@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 const AlbaListEmpty = () => {
   return (
-    <div className="flex flex-col items-center gap-6 lg:gap-9 pt-32 md:pt-[178px]">
+    <div className="flex flex-col items-center gap-6 lg:gap-9 pt-[160px] md:pt-[200px] lg:pt-[240px]">
       <Image
         src="/icons/empty-form.svg"
         alt=""

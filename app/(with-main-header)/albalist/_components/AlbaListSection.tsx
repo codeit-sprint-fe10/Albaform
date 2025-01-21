@@ -41,6 +41,7 @@ const AlbaListSection = ({ filter }: AlbaListSectionProps) => {
 
   const albas = data?.pages.flatMap((page) => page.data);
 
+  if (albas?.length === 0) return <AlbaListEmpty />;
   return (
     <ul
       className={
@@ -51,8 +52,6 @@ const AlbaListSection = ({ filter }: AlbaListSectionProps) => {
     >
       {isLoading ? (
         <AlbaCardSkeletons />
-      ) : albas?.length === 0 ? (
-        <AlbaListEmpty />
       ) : (
         albas?.map((alba) => (
           <li key={alba.id} className="w-[min(100%,360px)] lg:w-[469px]">
