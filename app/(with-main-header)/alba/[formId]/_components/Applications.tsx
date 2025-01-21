@@ -10,6 +10,7 @@ import InfiniteScroll from '@/components/InfiniteScroll';
 import useToggleOrderBy from '@/app/(with-main-header)/alba/[formId]/_hooks/useToggleOrderBy';
 import Image from 'next/image';
 import Link from 'next/link';
+import ApplicationsSkeleton from '@/app/(with-main-header)/alba/[formId]/_components/skeleton/ApplicationsSkeleton';
 
 type ApplicationsProps = {
   formId: number;
@@ -31,8 +32,14 @@ const Applications = ({ formId }: ApplicationsProps) => {
     orderByStatus,
   };
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isError } =
-    useGetApplications({ formId, searchParams });
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isError,
+    isLoading,
+  } = useGetApplications({ formId, searchParams });
 
   if (isError) {
     return null;
@@ -78,7 +85,13 @@ const Applications = ({ formId }: ApplicationsProps) => {
         </div>
       </div>
       <div className="text-black-400 text-md font-regular lg:text-xl">
-        {data?.pages.length ? (
+        {isLoading ? (
+          <>
+            {[...Array(PAGE_LIMIT)].map((_, index) => (
+              <ApplicationsSkeleton key={index} />
+            ))}
+          </>
+        ) : data?.pages.length ? (
           <InfiniteScroll
             hasNextPage={hasNextPage}
             isLoading={isFetchingNextPage}
