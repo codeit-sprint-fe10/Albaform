@@ -79,7 +79,6 @@ const ApplyForm = () => {
 
   const handleTempButtonClick = () => {
     saveData(methods.getValues());
-    toast.success('지원서를 임시 저장했습니다.');
   };
 
   const handleModalClick = () => {

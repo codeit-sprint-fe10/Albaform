@@ -6,20 +6,14 @@ import {
   useGetAlbaDetail,
   useGetMyApplication,
 } from './_hooks/useTanstackQuery';
-import Loader from '@/components/Loader';
 import { isWithinInterval } from '@/utils/date';
 import { toast } from 'react-toastify';
 
 const Layout = ({ children }: PropsWithChildren) => {
   const formId = Number(useParams()['formId']);
   const { replace } = useRouter();
-  const {
-    isLoading: albaIsLoading,
-    data: albaData,
-    error,
-  } = useGetAlbaDetail(formId);
-  const { isLoading: applicationIsLoading, data: applicationData } =
-    useGetMyApplication(formId);
+  const { data: albaData, error } = useGetAlbaDetail(formId);
+  const { data: applicationData } = useGetMyApplication(formId);
 
   useEffect(() => {
     if (error) {
@@ -47,8 +41,6 @@ const Layout = ({ children }: PropsWithChildren) => {
     }
   }, [applicationData, replace]);
 
-  if (albaIsLoading || applicationIsLoading)
-    return <Loader className="mt-24 lg:mt-32" />;
   return <>{children}</>;
 };
 

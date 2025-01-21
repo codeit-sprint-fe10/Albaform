@@ -6,7 +6,6 @@ const denyPaths = {
   OWNER: ['/signup', '/oauth', '/signin', '/apply', '/myapply'],
   GUEST: [
     '/addform',
-    '/apply',
     '/applications',
     '/myalbaform',
     '/albatalk',
