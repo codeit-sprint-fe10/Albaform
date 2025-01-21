@@ -14,6 +14,7 @@ import { PostAlbaBody } from '@/types/alba';
 import { STEP_1_FIELDS, STEP_2_FIELDS, STEP_3_FIELDS } from '@/constants/form';
 import DraftLoadModal from './DraftLoadModal';
 import Loader from '@/components/Loader';
+import { toast } from 'react-toastify';
 
 interface FormNavigatorProps {
   formId?: number;
@@ -62,7 +63,9 @@ const FormNavigator = ({ formId, albaDetail }: FormNavigatorProps) => {
       await mutateAsync({ formId, data });
       clearData();
     } catch (error) {
-      throw error;
+      if (error instanceof Error) {
+        toast.error(error.message);
+      }
     }
   };
 
