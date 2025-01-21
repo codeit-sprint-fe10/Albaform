@@ -48,6 +48,11 @@ const OauthSignUpFormSection = ({
   const { replace } = useRouter();
   const methods = useForm<OauthSignUpFormData>({ mode: 'onTouched' });
 
+  const isSubmitDisabled =
+    !methods.formState.isValid ||
+    isPending ||
+    (userRole === 'owner' ? !methods.getValues('location') : false);
+
   const OauthSignUpFormSubmit: SubmitHandler<OauthSignUpFormData> = async (
     data,
     event,
@@ -198,7 +203,7 @@ const OauthSignUpFormSection = ({
           <Button
             type="submit"
             content="시작하기"
-            disabled={!methods.formState.isValid || isPending}
+            disabled={isSubmitDisabled}
             className="mt-8 lg:mt-12"
           ></Button>
           <span className="mt-4 lg:mt-6 text-center text-xs lg:text-lg text-black-100">

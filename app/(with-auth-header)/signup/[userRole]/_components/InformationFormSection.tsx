@@ -29,6 +29,11 @@ const InformationFormSection = ({ userRole }: InformationFormSectionProps) => {
   const setUser = useUserStore((state) => state.setUser);
   const methods = useForm<InformationFormData>({ mode: 'onTouched' });
 
+  const isSubmitDisabled =
+    !methods.formState.isValid ||
+    isPending ||
+    (userRole === 'owner' ? !methods.getValues('location') : false);
+
   const InformationSubmit: SubmitHandler<InformationFormData> = async (
     data,
     event,
@@ -150,7 +155,7 @@ const InformationFormSection = ({ userRole }: InformationFormSectionProps) => {
           <Button
             type="submit"
             content="시작하기"
-            disabled={!methods.formState.isValid || isPending}
+            disabled={isSubmitDisabled}
             className="mt-8 lg:mt-12"
           ></Button>
         </form>

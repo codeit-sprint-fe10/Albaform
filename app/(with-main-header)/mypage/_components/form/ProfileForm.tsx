@@ -43,7 +43,7 @@ interface ProfileFormProps {
 }
 
 const ProfileForm = ({ closeModal, user }: ProfileFormProps) => {
-  const setUser = useUserStore((state) => state.setUser);
+  const { setUser, isOwner } = useUserStore((state) => state);
   const { mutateAsync, isPending } = useMutation({ mutationFn: patchMe });
 
   const defaultValues = profileFormField.reduce((acc, name) => {
@@ -55,6 +55,11 @@ const ProfileForm = ({ closeModal, user }: ProfileFormProps) => {
     mode: 'onTouched',
     defaultValues,
   });
+
+  const isSubmitDisabled =
+    !methods.formState.isValid ||
+    isPending ||
+    (isOwner ? !methods.getValues('location') : false);
 
   const InformationSubmit: SubmitHandler<ProfileFormData> = async (
     data,
@@ -211,7 +216,7 @@ const ProfileForm = ({ closeModal, user }: ProfileFormProps) => {
           <Button
             type="submit"
             content="변경하기"
-            disabled={!methods.formState.isValid || isPending}
+            disabled={isSubmitDisabled}
           />
         </div>
       </form>

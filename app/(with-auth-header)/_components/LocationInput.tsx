@@ -13,7 +13,7 @@ interface LocationInputProps {
 }
 
 const LocationInput = ({ placeholder, className }: LocationInputProps) => {
-  const { setValue, setError, clearErrors, getValues } =
+  const { setValue, setError, clearErrors, getValues, trigger } =
     useFormContext<Record<CustomFieldName, string>>();
   const location = getValues('location');
   const [address, setAddress] = useState('');
@@ -35,9 +35,10 @@ const LocationInput = ({ placeholder, className }: LocationInputProps) => {
                 coordinates: { lat: result[0].y, lng: result[0].x },
               });
               setValue('location', locationValue);
+              clearErrors('location');
+              trigger('location');
             }
           });
-          clearErrors('location');
         } catch (error) {
           console.dir(error);
           setError('location', {

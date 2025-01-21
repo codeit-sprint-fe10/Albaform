@@ -48,6 +48,9 @@ const ApplyForm = () => {
 
   const { mutate, isPending } = usePostApplication();
 
+  const isSubmitDisabled =
+    !methods.formState.isValid || isPending || !methods.getValues('resumeId');
+
   const formSubmit: SubmitHandler<ApplyFormFields> = async (data, event) => {
     event?.preventDefault();
     mutate(
@@ -227,7 +230,7 @@ const ApplyForm = () => {
             type="submit"
             content="작성 완료"
             design="solid"
-            disabled={!methods.formState.isValid || isPending}
+            disabled={isSubmitDisabled}
           />
         </div>
       </form>
