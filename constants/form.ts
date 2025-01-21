@@ -46,27 +46,27 @@ export const PASSWORD_CONFIRMATION = {
 
 export const NAME = {
   format: {
-    regExp: /^[a-zA-Z가-힣 ]+$/,
+    regExp: /^[a-zA-Z가-힣]+$/,
     maxLength: 20,
   },
   message: {
     placeholder: '이름을 입력해 주세요.',
     required: '이름은 필수 입력입니다.',
     maxLength: '이름은 최대 20자 이하입니다.',
-    pattern: '이름은 한글, 영문, 공백만 가능합니다.',
+    pattern: '이름은 한글, 영문만 가능합니다.',
   },
 } as const;
 
 export const NICKNAME = {
   format: {
-    regExp: /^[a-zA-Z가-힣0-9 ]+$/,
+    regExp: /^[a-zA-Z가-힣0-9]+$/,
     maxLength: 20,
   },
   message: {
     placeholder: '닉네임을 입력해 주세요.',
     required: '닉네임은 필수 입력입니다.',
     maxLength: '닉네임은 최대 20자 이하입니다.',
-    pattern: '닉네임은 한글, 영문, 숫자, 공백만 가능합니다.',
+    pattern: '닉네임은 한글, 영문, 숫자만 가능합니다.',
   },
 } as const;
 

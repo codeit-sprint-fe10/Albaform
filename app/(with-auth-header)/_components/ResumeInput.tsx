@@ -81,6 +81,14 @@ const ResumeInput = ({ placeholder, className }: ResumeInputProps) => {
     }
   };
 
+  const handleInputBlur = () => {
+    if (!name)
+      setError('resumeId', {
+        type: 'custom',
+        message: RESUME.message.required,
+      });
+  };
+
   const handleRemoveClick = () => {
     resetResume();
     setError('resumeId', {
@@ -111,6 +119,7 @@ const ResumeInput = ({ placeholder, className }: ResumeInputProps) => {
         type="file"
         accept=".pdf, .doc, .docx"
         onChange={handleInputChange}
+        onBlur={handleInputBlur}
         disabled={isPending}
         className="sr-only"
       />

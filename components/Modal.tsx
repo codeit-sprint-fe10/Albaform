@@ -52,7 +52,6 @@ const Modal = ({
       <div
         className="max-h-[90vh] p-6 lg:px-10 lg:py-8 overflow-auto custom-scrollbar"
         onClick={(e) => {
-          e.preventDefault();
           e.stopPropagation();
         }}
       >

@@ -38,6 +38,8 @@ instance.interceptors.response.use(
     printError(error);
 
     if (error.status === 404) {
+      if (error.response?.data.message === '존재하지 않는 이메일입니다.')
+        return Promise.reject(error);
       notFound();
     }
 

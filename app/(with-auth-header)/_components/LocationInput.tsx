@@ -49,6 +49,14 @@ const LocationInput = ({ placeholder, className }: LocationInputProps) => {
     }).open();
   };
 
+  const handleInputBlur = () => {
+    if (!address)
+      setError('location', {
+        type: 'custom',
+        message: LOCATION.message.required,
+      });
+  };
+
   useEffect(() => {
     if (location) setAddress(JSON.parse(location).address);
   }, [location]);
@@ -75,6 +83,7 @@ const LocationInput = ({ placeholder, className }: LocationInputProps) => {
           value={address}
           placeholder={placeholder}
           onClick={handleInputClick}
+          onBlur={handleInputBlur}
           readOnly
           required
           className={`${className} cursor-pointer indent-5 lg:indent-9`}
