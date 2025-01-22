@@ -11,6 +11,7 @@ import useToggleOrderBy from '@/app/(with-main-header)/alba/[formId]/_hooks/useT
 import Image from 'next/image';
 import Link from 'next/link';
 import ApplicationsSkeleton from '@/app/(with-main-header)/alba/[formId]/_components/skeleton/ApplicationsSkeleton';
+import { convertMonthsToYearsAndMonths } from '@/utils/dateFormatter';
 
 type ApplicationsProps = {
   formId: number;
@@ -110,7 +111,11 @@ const Applications = ({ formId }: ApplicationsProps) => {
                     </Link>
                   </div>
                   <div>{application.phoneNumber}</div>
-                  <div>{application.experienceMonths}</div>
+                  <div>
+                    {convertMonthsToYearsAndMonths(
+                      application.experienceMonths,
+                    )}
+                  </div>
                   <div>{applicationStatus[application.status]}</div>
                 </div>
               )),
