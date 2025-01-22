@@ -1,6 +1,6 @@
 'use client';
 
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useForm, SubmitHandler, FormProvider } from 'react-hook-form';
 import { patchMe } from '@/services/user';
 import {
@@ -45,6 +45,7 @@ interface ProfileFormProps {
 const ProfileForm = ({ closeModal, user }: ProfileFormProps) => {
   const { setUser, isOwner } = useUserStore((state) => state);
   const { mutateAsync, isPending } = useMutation({ mutationFn: patchMe });
+  const queryClient = useQueryClient();
 
   const defaultValues = profileFormField.reduce((acc, name) => {
     const value = user[name as keyof ProfileFormData];
@@ -70,10 +71,15 @@ const ProfileForm = ({ closeModal, user }: ProfileFormProps) => {
     try {
       const updatedData = await mutateAsync(data);
       setUser(updatedData);
-      methods.reset();
+      methods.reset(
+        profileFormField.reduce((acc, name) => {
+          const value = updatedData[name as keyof ProfileFormData];
+          return { ...acc, ...(value && { [name]: value }) };
+        }, {} as ProfileFormData),
+      );
+      queryClient.invalidateQueries();
       toast.success('프로필이 수정되었습니다!');
       closeModal();
-      document.location.reload();
     } catch {
       toast.error('오류가 발생했습니다.\n확인 후 다시 시도해 주세요.');
     }
