@@ -25,7 +25,7 @@ const Button = ({
   className = '',
 }: ButtonProps) => {
   let buttonStyle =
-    'flex flex-row items-center justify-center gap-1 rounded-lg ' +
+    'flex flex-row items-center justify-center gap-1 ' +
     (sizeClass || 'w-full h-[58px] lg:h-[72px] rounded-lg text-lg lg:text-xl') +
     ' font-semibold transition duration-200 ';
 
