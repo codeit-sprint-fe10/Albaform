@@ -11,13 +11,8 @@ const Layout = ({ children }: { children: ReactNode }) => {
 
   return (
     <>
-      <body>
-        {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS && (
-          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
-        )}
-        <AuthHeader />
-        <main className={mainStyle}>{children}</main>
-      </body>
+      <AuthHeader />
+      <main className={mainStyle}>{children}</main>
     </>
   );
 };

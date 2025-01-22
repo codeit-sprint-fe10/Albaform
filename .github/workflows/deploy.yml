@@ -27,6 +27,7 @@ jobs:
             echo "NEXT_PUBLIC_KAKAO_API_KEY=${{ secrets.NEXT_PUBLIC_KAKAO_API_KEY }}" >> .env
             echo "NEXT_PUBLIC_KAKAO_REST_API_KEY=${{ secrets.NEXT_PUBLIC_KAKAO_REST_API_KEY }}" >> .env
             echo "NEXT_PUBLIC_KAKAO_SHARE_API=${{ secrets.NEXT_PUBLIC_KAKAO_SHARE_API }}" >> .env
+             echo "NEXT_PUBLIC_GOOGLE_ANALYTICS=${{ secrets.NEXT_PUBLIC_GOOGLE_ANALYTICS }}" >> .env
             npm run build
             pm2 restart all
 

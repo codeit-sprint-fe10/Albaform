@@ -6,6 +6,7 @@ import QueryProvider from './QueryProvider';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import './globals.css';
 import { ToastContainer } from 'react-toastify';
+import GoogleAnalytics from '@/components/GoogleAnalytics';
 
 const pretendard = localFont({
   src: '../public/fonts/PretendardVariable.woff2',
@@ -47,6 +48,9 @@ const RootLayout = ({ children }: Readonly<{ children: ReactNode }>) => {
   return (
     <html lang="ko">
       <body className={`${pretendard.className} antialiased`}>
+        {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS && (
+          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
+        )}
         <Providers>{children}</Providers>
         <ToastContainer position="top-center" />
       </body>
