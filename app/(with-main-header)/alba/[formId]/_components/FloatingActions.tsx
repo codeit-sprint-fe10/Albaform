@@ -6,6 +6,7 @@ import { deleteAlbaScrap, postAlbaScrap } from '@/services/alba';
 import React, { useState } from 'react';
 import KakaoScript from '@/components/KakaoScript';
 import { toast } from 'react-toastify';
+import { useUserStore } from '@/store/user';
 
 type FloatingActionsProps = Pick<
   Alba,
@@ -20,6 +21,7 @@ const FloatingActions = ({
   description,
 }: FloatingActionsProps) => {
   const [isActiveScrapped, setIsActiveScrapped] = useState(isScrapped);
+  const user = useUserStore((state) => state.user);
 
   const handleScrapClick = async () => {
     try {
@@ -54,15 +56,21 @@ const FloatingActions = ({
 
   return (
     <aside className="fixed bottom-10 right-4 flex flex-col z-10">
-      <button type="button" onClick={handleScrapClick} aria-label="스크랩하기">
-        <Image
-          src={`/icons/bookmark-circle-${isActiveScrapped ? 'active' : 'inactive'}.svg`}
-          alt=""
-          width={54}
-          height={54}
-          className="lg:w-16 lg:h-16"
-        />
-      </button>
+      {user && (
+        <button
+          type="button"
+          onClick={handleScrapClick}
+          aria-label="스크랩하기"
+        >
+          <Image
+            src={`/icons/bookmark-circle-${isActiveScrapped ? 'active' : 'inactive'}.svg`}
+            alt=""
+            width={54}
+            height={54}
+            className="lg:w-16 lg:h-16"
+          />
+        </button>
+      )}
       <button type="button" aria-label="공유하기" onClick={handleShare}>
         <Image
           src={`/icons/share-circle.svg`}
